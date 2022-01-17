@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Solkatt的小窝</title>
+  <title>命令注入漏洞 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="漏洞分析漏洞产生原因：在web程序中，有些功能需求web前端传递参数到后台服务器上执行（特别是一些网络设备的web管理界面，如路由器，交换机等），但由于开发人员没有对输入进行严格的过滤，导致了攻击者可以构造一些额外的“带有非法目的”（比如建立用户账户，越权等）命令，欺骗后台服务器执行。 漏洞危害：如果Web应用使用的是root权限，则该漏洞可以导致攻击者在服务器上执行任意命令。 DVWAlow级别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令注入漏洞">
+<meta property="og:url" content="http://example.com/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="漏洞分析漏洞产生原因：在web程序中，有些功能需求web前端传递参数到后台服务器上执行（特别是一些网络设备的web管理界面，如路由器，交换机等），但由于开发人员没有对输入进行严格的过滤，导致了攻击者可以构造一些额外的“带有非法目的”（比如建立用户账户，越权等）命令，欺骗后台服务器执行。 漏洞危害：如果Web应用使用的是root权限，则该漏洞可以导致攻击者在服务器上执行任意命令。 DVWAlow级别">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-12T01:42:57.000Z">
+<meta property="article:modified_time" content="2021-07-12T01:48:25.720Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
   
@@ -150,305 +154,153 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-命令注入漏洞" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      命令注入漏洞
+    </h1>
+  
+
+        
+        <a href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-07-12T01:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="漏洞产生原因："><a href="#漏洞产生原因：" class="headerlink" title="漏洞产生原因："></a>漏洞产生原因：</h2><p>在web程序中，有些功能需求web前端传递参数到后台服务器上执行（特别是一些网络设备的web管理界面，如路由器，交换机等），但由于开发人员没有对输入进行严格的过滤，导致了攻击者可以构造一些额外的“带有非法目的”（比如建立用户账户，越权等）命令，欺骗后台服务器执行。</p>
+<h2 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h2><p>如果Web应用使用的是root权限，则该漏洞可以导致攻击者在服务器上执行任意命令。</p>
+<h2 id="DVWAlow级别的命令漏洞注入中"><a href="#DVWAlow级别的命令漏洞注入中" class="headerlink" title="DVWAlow级别的命令漏洞注入中"></a>DVWAlow级别的命令漏洞注入中</h2><p>shell_exec()函数可以从PHP中去执行操作系统命令，如果不对用户输入的命令进行过滤，那么理论上就可以执行任意的系统命令，也就是相当于直接获得了系统级的shell。</p>
+<p>命令执行语句：</p>
+<p>127.0.0.1 |net user</p>
+<p>127.0.0.1 |net user test 123/add</p>
+<p>windows系统中允许同时执行多条命令的符号</p>
+<p>“|”：前面命令输出结果作为后面命令的输入内容。</p>
+<p>“&amp;”：前面命令执行后接着执行后面的命令。</p>
+<p>“||”：前面命令执行失败的时候才执行后面命令。 （逻辑或）</p>
+<p>”&amp;&amp;“：前面命令执行成功了才执行后面的命令。   （逻辑与）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/17/hello-world/" class="archive-article-date">
-  	<time datetime="2022-01-16T17:06:15.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-          
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" alt="微信分享二维码">
+    </div>
+</div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/07/12/xss/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          XSS
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SQL注入</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">一次靶场经历WP</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/" class="archive-article-date">
-  	<time datetime="2021-11-26T04:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/">一次靶场经历（2）wp</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-11-25T13:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">Gopher协议在ssrf漏洞中的应用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2021-10-11T00:46:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">CtfShow36D练手赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -472,8 +324,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Solkatt的小窝</title>
+  <title>XSS | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="什么是XSS跨站点脚本攻击攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行） 前端代码:HTML+CSS+JS XSS属于针对客户端的攻击，受害者最终是用户。 网站管理人员也属于用户之一，攻击者可以通过XSS假冒管理员身份">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS">
+<meta property="og:url" content="http://example.com/2021/07/12/xss/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="什么是XSS跨站点脚本攻击攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行） 前端代码:HTML+CSS+JS XSS属于针对客户端的攻击，受害者最终是用户。 网站管理人员也属于用户之一，攻击者可以通过XSS假冒管理员身份">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-12T03:37:34.000Z">
+<meta property="article:modified_time" content="2021-12-26T08:58:19.348Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
   
@@ -150,305 +154,221 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-xss" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      XSS
+    </h1>
+  
+
+        
+        <a href="/2021/07/12/xss/" class="archive-article-date">
+  	<time datetime="2021-07-12T03:37:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是XSS跨站点脚本攻击"><a href="#什么是XSS跨站点脚本攻击" class="headerlink" title="什么是XSS跨站点脚本攻击"></a>什么是XSS跨站点脚本攻击</h1><p>攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行）</p>
+<p>前端代码:HTML+CSS+JS</p>
+<p>XSS属于针对客户端的攻击，受害者最终是用户。</p>
+<p>网站管理人员也属于用户之一，攻击者可以通过XSS假冒管理员身份对网站实施攻击。</p>
+<p>如果我们想要进入管理员后台</p>
+<ol>
+<li>通过后台地址，输入正确的账号。</li>
+<li>通过cookie（获得了管理员用户的权限）不用管理员账号密码进入后台。(这就是利用了XSS)</li>
+</ol>
+<h1 id="XSS攻击的危害"><a href="#XSS攻击的危害" class="headerlink" title="XSS攻击的危害"></a>XSS攻击的危害</h1><ol>
+<li><p>盗取用户cookie</p>
+</li>
+<li><p>修改网页内容</p>
+</li>
+<li><p>网站挂马</p>
+</li>
+<li><p>利用网站重定向</p>
+</li>
+<li><p>XSS蠕虫</p>
+</li>
+</ol>
+<h1 id="怎么检测是否存在XSS"><a href="#怎么检测是否存在XSS" class="headerlink" title="怎么检测是否存在XSS"></a>怎么检测是否存在XSS</h1><p>一般是让浏览器弹窗的经典语句<code>&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+<h1 id="xss触发原理"><a href="#xss触发原理" class="headerlink" title="xss触发原理"></a>xss触发原理</h1><p>原理：</p>
+<ol>
+<li>请求网站</li>
+<li>网站返回前端代码</li>
+<li>浏览器根据前端代码执行解析</li>
+<li>渲染出好看的前端代码</li>
+</ol>
+<p>用户输入的传参会被当作前端代码执行(被浏览器执行)，什么情况你西的东西会被当作JS执行？</p>
+<ol>
+<li>标签触发:<code>&lt;script&gt;alert(1)&lt;/script&gt;</code>，弹窗是用来证明XSS是否存在的关键。</li>
+<li>通过伪协议触发：<code>&lt;a href=javascript:alert(1)&gt;test&lt;/a&gt;</code>伪协议不同于因特网上所真实存在的协议，如<code>http://,https://.ftp://</code>,伪协议需要点击触发。伪协议只有关联应用能够用 比如php:// tencent://(关联QQ)  javascript:伪协议实际上声明了url的主体是任意的javascript代码。</li>
+<li>事件触发：例如:<code>&lt;img src=&#39;#&#39; onerror=alert(1) /&gt;</code>在加载文档或图像时发生错误。该句的意思就是在加载文档或图像时发生错误执行alert(1)  常用的事件触发还有<code>onload(加载成功时触发)</code>,<code>oninput（输入框输入时触发）</code></li>
+</ol>
+<h1 id="XSS攻击分类"><a href="#XSS攻击分类" class="headerlink" title="XSS攻击分类"></a>XSS攻击分类</h1><h2 id="反射型XSS特点"><a href="#反射型XSS特点" class="headerlink" title="反射型XSS特点"></a>反射型XSS特点</h2><p>反射性XSS也被称为非持久性XSS，这种攻击方式无法将恶意代码保存到网站中，而只对当前URL链接生效，因此它需要用户自行去触发。</p>
+<p>反射性XSS通常出现在网站的搜索栏、用户登入口等地方。</p>
+<h2 id="存储型XSS特点"><a href="#存储型XSS特点" class="headerlink" title="存储型XSS特点"></a>存储型XSS特点</h2><p>存储型XSS攻击是直接将XSS语句插入到网站的正常页面中（通常都是留言板），用户只要访问了这些页面，就会自动执行其中的XSS语句。（你的传参会进入数据库）</p>
+<h2 id="DOM型XSS特点"><a href="#DOM型XSS特点" class="headerlink" title="DOM型XSS特点"></a>DOM型XSS特点</h2><p>DOM型属于反射型的XSS的一种，DOM—XSS是通过URL传入参数去控制触发的，反射性XSS实际上是包括了DOM-XSS，但关键点是通过URL控制了页面的输出，（DOM—XSS也类似，只是因为输出地点不同而导致了结果不一样）</p>
+<p>在网站页面中有许多页面的元素，当页面到达浏览器时浏览器会为页面创建一个顶级的Document object文档对象，接着生成各个子文档对象，每个页面元素对应一个文档对象，每个文档对象包含属性、方法和事件。可以通过JS脚本对文档对象进行编辑从而修改页面的元素。也就是说，客户端的脚本程序可以通过DOM来动态修改页面内容，从客户端获取DOM中的数据并在本地执行。基于这个特性，就可以利用JS脚本来实现XSS漏洞的利用。</p>
+<h1 id="窃取Cookie："><a href="#窃取Cookie：" class="headerlink" title="窃取Cookie："></a>窃取Cookie：</h1><p>窃取Cookie的XSS代码很复杂。我们一般是去XSS平台生成插入。</p>
+<p>KeepSession:Cookie是有时效性的。</p>
+<h1 id="XSS的过滤方法"><a href="#XSS的过滤方法" class="headerlink" title="XSS的过滤方法"></a>XSS的过滤方法</h1><p>进行转义实体编码输出，加标签，正则匹配替换</p>
+<h1 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h1><ol>
+<li><p>存储型XSS可能存在于任何可以插入数据库的地方。比如:用户注册的页面，留言板，上传文件的文件名，（管理员可见的）报错信息。</p>
+</li>
+<li><p>除此之外还可能存在日志等不与数据库交互的地方。</p>
+</li>
+<li><p>见框就插是一种方法，但是不是唯一方法。</p>
+</li>
+<li><p>用户的输入一般控制得很严格，系统的获取一般控制得不严格。（系统得获取包括有收到邮件，获得xx信息）</p>
+</li>
+</ol>
+<h1 id="Dom-Based-XSS"><a href="#Dom-Based-XSS" class="headerlink" title="Dom Based XSS"></a>Dom Based XSS</h1><p>DOM-based XSS漏洞是基于文档对象模型（Document Object Model，DOM）的一种漏洞。DOM是一个与平台、编程语言无关的接口，它允许程序或脚本动态地访问和更新文档内容、结构和样式，处理后的结果能够成为显示页面的一部分。Dom 中有许多对象，其中一些是用户可以操作的，如url，loacation，referter等。客户端的脚本程序可以通过DOM动态地检查和修改页面内容，它不依赖于提交数据到服务器端，而从客户端获得dom中的数据在本地执行，如果DOM中的数据没有经过严格确认，就会产生DOM-based xss漏洞。</p>
+<p>DOM就是一个树状的模型，你可以编写js代码根据dom一层一层的节点，去遍历/获取/修改对应的节点，对象，值。（通过JS去对网页进行修改，变化执行）</p>
+<p>每个载入浏览器的html对象，都能被当作document对象。Documemt对象使我们可以从脚本中对HTML页面中的所有元素进行访问。</p>
+<h1 id="Document访问方法"><a href="#Document访问方法" class="headerlink" title="Document访问方法"></a>Document访问方法</h1><ol>
+<li>body:提供对<code>&lt;body&gt;</code>元素的直接访问，对于定义了框架集的文档，该属性引用最外层的<code>&lt;frameset&gt;</code>。</li>
+<li>cookie：设置或返回了与当前文档有关的所有cookie</li>
+<li>domain：返回当前文档的域名</li>
+<li>Lastmodified：返回文档被最后修改的日期和时间。</li>
+<li>referrer：返回载入当前文档的文档url</li>
+<li>title：返回当前文档的标题</li>
+<li>URL：返回当前文档的URL。</li>
+</ol>
+<p><strong>在后端不处理的情况下，因为JS触发的XSS就是Dom型XSS。</strong></p>
+<h1 id="Document对象方法："><a href="#Document对象方法：" class="headerlink" title="Document对象方法："></a>Document对象方法：</h1><p>Document.write() 输出内容</p>
+<p>innerHTML()改变内容</p>
+<p>eval()内容执行</p>
+<ol>
+<li>close()：关闭用document.open()方法打开的输出流，并显示选定的数据。</li>
+<li>getElementByid()：返回对拥有指定id的第一个对象的引用。</li>
+<li>getElemeentsByname():返回带有指定对象名称的对象集合。</li>
+<li>getElementsByTagName()：返回带有指定标签名的对象集合。</li>
+<li>open():打开一个流，以收集来自人恶化document.write()或document.writeln()方法的输出。</li>
+<li>write():向文档写html表达式或者JS代码</li>
+<li>writeln():等同于write()方法，不同的是在每个表达式之后写一个换行符。</li>
+</ol>
+<p>tips：document.write() 可以接受native编码值。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/17/hello-world/" class="archive-article-date">
-  	<time datetime="2022-01-16T17:06:15.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-          
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/07/12/xss/" alt="微信分享二维码">
+    </div>
+</div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          一句话木马
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">命令注入漏洞</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">一次靶场经历WP</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/" class="archive-article-date">
-  	<time datetime="2021-11-26T04:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/">一次靶场经历（2）wp</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-11-25T13:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">Gopher协议在ssrf漏洞中的应用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2021-10-11T00:46:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">CtfShow36D练手赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -472,8 +392,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

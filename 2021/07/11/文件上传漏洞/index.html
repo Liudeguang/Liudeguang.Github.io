@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives | Solkatt的小窝</title>
+  <title>文件上传与解析漏洞 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="http://example.com/archives/index.html">
+  <meta name="description" content="漏洞概述很多web站点都有文件上传的接口(比如注册时上传头像等)由于没有对上传的文件类型进行严格限制，导致攻击者可以上传一些恶意文件（比如Webshell）。 文件上传的本质是为了让上传的文件可以任意代码执行，达到对目标的控制。（Getshell） 检测手段1.客户端检测2.服务器检测3.黑白名单检测客户端检测常见手段：一般是在网页上写一段js脚本，用js检测，检测上传文件的后缀名，有白名单也有黑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传与解析漏洞">
+<meta property="og:url" content="http://example.com/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="漏洞概述很多web站点都有文件上传的接口(比如注册时上传头像等)由于没有对上传的文件类型进行严格限制，导致攻击者可以上传一些恶意文件（比如Webshell）。 文件上传的本质是为了让上传的文件可以任意代码执行，达到对目标的控制。（Getshell） 检测手段1.客户端检测2.服务器检测3.黑白名单检测客户端检测常见手段：一般是在网页上写一段js脚本，用js检测，检测上传文件的后缀名，有白名单也有黑">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-11T07:39:30.000Z">
+<meta property="article:modified_time" content="2021-12-18T15:00:10.651Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
   
@@ -150,305 +154,239 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-文件上传漏洞" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      文件上传与解析漏洞
+    </h1>
+  
+
+        
+        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-07-11T07:39:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h1><p>很多web站点都有文件上传的接口(比如注册时上传头像等)由于没有对上传的文件类型进行严格限制，导致攻击者可以上传一些恶意文件（比如Webshell）。</p>
+<p>文件上传的本质是为了让上传的文件可以任意代码执行，达到对目标的控制。（Getshell）</p>
+<h1 id="检测手段"><a href="#检测手段" class="headerlink" title="检测手段"></a>检测手段</h1><h3 id="1-客户端检测"><a href="#1-客户端检测" class="headerlink" title="1.客户端检测"></a>1.客户端检测</h3><h3 id="2-服务器检测"><a href="#2-服务器检测" class="headerlink" title="2.服务器检测"></a>2.服务器检测</h3><h3 id="3-黑白名单检测"><a href="#3-黑白名单检测" class="headerlink" title="3.黑白名单检测"></a>3.黑白名单检测</h3><h2 id="客户端检测"><a href="#客户端检测" class="headerlink" title="客户端检测"></a>客户端检测</h2><p>常见手段：一般是在网页上写一段js脚本，用js检测，检测上传文件的后缀名，有白名单也有黑名单。</p>
+<h3 id="怎么判断是前端检测？"><a href="#怎么判断是前端检测？" class="headerlink" title="怎么判断是前端检测？"></a>怎么判断是前端检测？</h3><p>可以抓一个包来看，看一看点击上传之后，bp能否抓的到包，如果抓不到，并且弹出了不允许上传的提示，说明是进行了前端的检测。</p>
+<p>前端验证的绕过只需要抓包传正常文件就可以进行绕过。</p>
+<h2 id="黑白名单机制"><a href="#黑白名单机制" class="headerlink" title="黑白名单机制"></a>黑白名单机制</h2><ol>
+<li>黑名单：不允许上传什么</li>
+<li>白名单：只允许上传什么</li>
+<li>白名单比黑名单更安全</li>
+</ol>
+<h2 id="服务端检测"><a href="#服务端检测" class="headerlink" title="服务端检测"></a>服务端检测</h2><h3 id="几个常见的手段"><a href="#几个常见的手段" class="headerlink" title="几个常见的手段:"></a>几个常见的手段:</h3><ol>
+<li>检查Content-Type(上传的是什么类型就会是什么类型)</li>
+<li>检查后缀（检查后缀是主流）</li>
+<li>检查文件头(绕过检查文件头的主要方法是藏东西在里面)</li>
+</ol>
+<h1 id="图片马的制作"><a href="#图片马的制作" class="headerlink" title="图片马的制作"></a>图片马的制作</h1><h3 id="windows命令："><a href="#windows命令：" class="headerlink" title="windows命令："></a>windows命令：</h3><p>copy qs.jpg/b+mua.asp asp_mua.jpg</p>
+<p>qs.jpg 是图片的名字</p>
+<p>mua.asp 是木马的名字</p>
+<p>asp_mua.jpg 是图片马的名字</p>
+<h3 id="图片马的利用是有条件的："><a href="#图片马的利用是有条件的：" class="headerlink" title="图片马的利用是有条件的："></a>图片马的利用是有条件的：</h3><p>图片马的执行一定要被中间件解析。</p>
+<p>php3,.php4,.php5,.phtml 都是会被解析为php的</p>
+<h3 id="什么是中间件？"><a href="#什么是中间件？" class="headerlink" title="什么是中间件？"></a>什么是中间件？</h3><p>中间件：提供网站服务的，并且能够解析asp、php、jsp等后缀的文件。</p>
+<p>Nginx、apacha、iis等都是中间件。</p>
+<p>iis6.0漏洞:能够将cer、cdx、asa后缀的文件，统一当成asp进行解析。</p>
+<h1 id="htaccess文件"><a href="#htaccess文件" class="headerlink" title=".htaccess文件"></a>.htaccess文件</h1><p>.htaccess文件是apache服务器下的一个配置文件，其主要负责相关目录下的网页配置，即：在一个特定的文档目录中放置一个包含一个或多个指令的文件来对网页进行配置。</p>
+<p>不过需要注意的是，.htaccess文件的作用域为其所在目录与其所有的子目录，不过若是子目录也存在.htaccess文件，则会覆盖父目录的.htaccess效果。</p>
+<p>一个htaccess实例文件如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;ifModule mime_module&gt;</span><br><span class="line"></span><br><span class="line">AddHandler php5-script .jpg</span><br><span class="line">&lt;!-- 将.jpg文件按照php代码进行解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">AddType application/x-httpd-php .jpg</span><br><span class="line">&lt;!-- 将.jpg文件按照php代码进行解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">Sethandler application/x-httpd-php</span><br><span class="line">&lt;!-- 将该目录及子目录下的文件均按照php文件解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/ifModule&gt;</span><br><span class="line">&lt;!-- 该种匹配方式并不推荐，极易造成误伤 --&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;FilesMatch &quot;muma.jpg&quot;&gt;</span><br><span class="line"></span><br><span class="line">Sethandler application/x-httpd-php</span><br><span class="line">&lt;!-- 将匹配到的 muma.jpg 文件按照php解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">Addhandler php5-script .jpg</span><br><span class="line">&lt;!-- 将匹配到的 muma.jpg 文件按照php解析执行 --&gt;</span><br><span class="line"></span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line">&lt;!-- 该种匹配方式较为精准，不会造成大批的误伤情况 --&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>Sethandler：</p>
+<p>将该目录以及子目录的所有文件均解析为php文件类型。</p>
+<p>Addhandler：</p>
+<p>使用php5-script 处理器来解析所匹配到的文件。</p>
+<p>addtype指令</p>
+<p>将特定扩展名文件映射为php文件类型</p>
+<p>.htaccess上传漏洞形成条件:</p>
+<ol>
+<li>apache服务器</li>
+<li>能够上传.htaccess文件，一般为黑名单限制</li>
+<li>AllowOverRide all，默认配置为none</li>
+<li>LoadModule rewrite_module modules/mod_rewrite.so #模块为开启状态</li>
+<li>上传目录具有可执行权限。</li>
+</ol>
+<h1 id="windows系统中一些文件上传漏洞的特性"><a href="#windows系统中一些文件上传漏洞的特性" class="headerlink" title="windows系统中一些文件上传漏洞的特性"></a>windows系统中一些文件上传漏洞的特性</h1><h2 id="DATA"><a href="#DATA" class="headerlink" title="::$DATA"></a>::$DATA</h2><p>在windows的时候如果文件名+”::$DATA”会把::$DATA之后的数据当成文件流处理，不会检测后缀名，且保持::$DATA之前的文件名，它的目的就是不检查后缀名。</p>
+<p>例如：<code>phpinfo.php::$DATA</code> windows会自动去掉末尾的::$DATA变成<code>phpinfo.php</code></p>
+<h2 id="文件后缀加空格或者加点"><a href="#文件后缀加空格或者加点" class="headerlink" title="文件后缀加空格或者加点"></a>文件后缀加空格或者加点</h2><p>windows系统中在创建后缀加空格或者加点的文件都会自动取消。</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>提权属于后渗透的部分，需要授权。</p>
+<p>web容器（web中间件）权限</p>
+<p>原因：我们上传的木马是被中间件解析的，所以中间件是什么权限，我们就是什么权限。</p>
+<p>遇到连命令都无法执行的情况，我们可以上传一个cmd.exe（windwos系统）</p>
+<p>针对windows+iis6.0的提权：</p>
+<p>可以上传一个iis6.exe的提权软件。</p>
+<p>关于用户的命令：</p>
+<p>net user qiesi abc123 /add：添加用户 账户名：</p>
+<p>net user qiesi /delete :删除用户</p>
+<p>初次生成的账号是一个普通账号，普通账号没有远程登录服务器的权限。</p>
+<p>将用户添加进管理员组：</p>
+<p>net localgroup administrators qiesi /add:加入到管理员组</p>
+<h1 id="00截断"><a href="#00截断" class="headerlink" title="00截断"></a>00截断</h1><h2 id="php文件上传流程"><a href="#php文件上传流程" class="headerlink" title="php文件上传流程:"></a>php文件上传流程:</h2><ol>
+<li>上传到临时文件目录</li>
+<li>拼接要移动到的目录</li>
+<li>移动过去重命名（注意这个重命名过程，是我们注入得关键）</li>
+</ol>
+<h2 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h2><p>假如我们要移动1.php到目录<code>/upload/</code>，服务器白名单不允许上传php，只准允许jpg等格式。我们可以更改我们的上传路径为<code>/upload/1.php%00/....</code>我们的文件名在移动过去重命名的阶段时，因为编译器读到了%00，会认为程序终止，最终构造到<code>/upload/1.php</code>就停止了所以就可以上传造成文件上传漏洞。</p>
+<p>%00是URL编码后的东西。（URL编码其实是就是为了表示16进制。）</p>
+<p>Get传参会有URL解码，post传参正常不会有URL解码。</p>
+<p>所有在post传参得时候，我们可以通过修改post数据包中得二进制来做00截断修改。</p>
+<h1 id="gif图片攻击二次渲染"><a href="#gif图片攻击二次渲染" class="headerlink" title="gif图片攻击二次渲染"></a>gif图片攻击二次渲染</h1><p>二次渲染是指服务器会对上传的图片作出一些十六进制的改动。</p>
+<p>面对二次渲染我们是通过gif图片（gif在经过二次渲染的时候，不会有太大的改变。），往里面加一句话木马来进行。</p>
+<h1 id="条件竞争绕过"><a href="#条件竞争绕过" class="headerlink" title="条件竞争绕过"></a>条件竞争绕过</h1><p>条件竞争是为了对付服务器先上传文件，然后检测，删除的情况。</p>
+<h2 id="什么是条件竞争"><a href="#什么是条件竞争" class="headerlink" title="什么是条件竞争"></a>什么是条件竞争</h2><p>条件竞争发生在多个线程同时访问同一个共享代码、变量、文件等没有进行锁操作或者同步操作的场景中。</p>
+<p>一般而言我们是上传了文件，上传了但是最后却因为函数过滤或者其他原因被删除了，那么我们可以使用条件竞争，我们实际上是和unlink，是和删除文件的函数进行竞争。</p>
+<p>假如我不断的上传发包，然后我同时也不断的访问那个我们上传上去的文件的地址，我们就开始和服务器的函数比手速了，函数执行都是要时间的，如果我这边上传上去，且没有删除，那个时间可能很短，然后被我访问到了，岂不是就可以执行PHP了<del>我就比服务器手速快了</del></p>
+<p>你可以上传一个php然后访问后，由这个php去写一个马</p>
+<?php $a = '<?php @eval($_REQUEST[\'a\'])?><p>‘;file_put_contents(‘1.php’,$a)?&gt;</p>
+<h1 id="文件解析漏洞"><a href="#文件解析漏洞" class="headerlink" title="文件解析漏洞"></a>文件解析漏洞</h1><p><strong>解析漏洞正如其名，一般大家常说的是，文件在某种格式下，会被执行为该脚本语言的文件。</strong></p>
+<p>ISS他是个中间件/容器可以搭建各种语言。容器的作用是检测扩展名，然后交给了可执行文件处理。</p>
+<h2 id="IIS6-0畸形解析漏洞（只影响IIS6-0这个版本）"><a href="#IIS6-0畸形解析漏洞（只影响IIS6-0这个版本）" class="headerlink" title="IIS6.0畸形解析漏洞（只影响IIS6.0这个版本）"></a>IIS6.0畸形解析漏洞（只影响IIS6.0这个版本）</h2><ol>
+<li><p>asa cdx cer 都会被当作asp解析。【默认设置】</p>
+</li>
+<li><p>ISS6.0在处理含有特殊符号的文件路径时会出现逻辑错误，从而造成文件解析漏洞。这一漏洞有两种完全不同的利用方式:</p>
+<p>test.asp;.jpg 它当作asp进行解析。</p>
+<p>test.asp/123.jpg 他当做asp进行解析。</p>
+</li>
+<li><p>文件夹名字如果是x.asp那么这个文件夹下任意文件都当作asp执行。</p>
+</li>
+</ol>
+<h2 id="CGI解析漏洞"><a href="#CGI解析漏洞" class="headerlink" title="CGI解析漏洞"></a>CGI解析漏洞</h2><p>适用范围：PHP</p>
+<p>中间件任意：Iis7.5，Nginx，lighttpd等web容器中也经常会出现这样的解析漏洞。</p>
+<p>在默认Fast-CGI开启状况下,上传一个名字为1.jpg，访问时候1.jpg/.php会以php来解析。</p>
+<p>IIS和Nginx在这一点上是一样的，一看到URL中文件后缀是.php，便无论该文件是否存在，都直接交给php处理，而php又默认开启“cgi.fix_pathinfo”，会对文件路径进行“修理”，何谓“修理”？举个例子，当php遇到文件路径“/aaa.xxx/bbb.yyy/ccc.zzz”时，若“/aaa.xxx/bbb.yyy/ccc.zzz”不存在，则会去掉最后的“/ccc.zzz”，然后判断“/aaa.xxx/bbb.yyy”是否存在，若存在，则把“/aaa.xxx/bbb.yyy”当做文件“/aaa.xxx/bbb.yyy/ccc.zzz”，若“/aaa.xxx/bbb.yyy”仍不存在，则继续去掉“/bbb.yyy”，以此类推。</p>
+<p>若有文件test.jpg，访问时在其后加/.php，便可以让IIS把“test.jpg/.php”交给php，php“修理”文件路径“test.jpg/.php”得到“test.jpg”。</p>
+<h2 id="nginx-lt-8-03空字节代码执行漏洞"><a href="#nginx-lt-8-03空字节代码执行漏洞" class="headerlink" title="nginx&lt;8.03空字节代码执行漏洞"></a>nginx&lt;8.03空字节代码执行漏洞</h2><p>Xxx.jpg%00.php该文件会被当做脚本文件php执行。这个漏洞是CGI漏洞的一个关联。</p>
+<h2 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h2><p>Apache是从右到左开始判断解析，如果为不可识别解析，就在往左边读。</p>
+<p>例如v01cano.php.zzz，后缀名zzz是apache做不能识别的文件后缀名，则继续向左读取，直到读取到了php,apache能够识别，则该文件就被解析成为了php类型的文件。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/17/hello-world/" class="archive-article-date">
-  	<time datetime="2022-01-16T17:06:15.405Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-          
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" alt="微信分享二维码">
+    </div>
+</div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          SQL注入
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">文件包含漏洞</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">一次靶场经历WP</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/" class="archive-article-date">
-  	<time datetime="2021-11-26T04:50:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/26/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86%EF%BC%882%EF%BC%89wp/">一次靶场经历（2）wp</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2021-11-25T13:24:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/25/Gopher%E5%8D%8F%E8%AE%AE%E5%9C%A8ssrf%E6%BC%8F%E6%B4%9E%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">Gopher协议在ssrf漏洞中的应用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2021-10-11T00:46:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">CtfShow36D练手赛</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -472,8 +410,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
