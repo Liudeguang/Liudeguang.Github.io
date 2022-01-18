@@ -5,18 +5,18 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://example.com">
+  <link rel="dns-prefetch" href="https://example.com">
   <title>session and cookie | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="cookie 和 sessioncookieCookie意为甜饼，是一种身份认证证明，由于http是一种无状态的协议，服务器单从网络连接上无从知道客户身份，于是服务器就给客户端们颁发了一个通行证，每人一个，无论谁访问都必须携带通行证，这样就能确定客户的身份。这就是cookie的原理 cookie是一小段文本信息，当客户端请求服务器时，如果服务器需要记录用户状态，就通过response对客户端颁发c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="session and cookie">
-<meta property="og:url" content="http://example.com/2021/09/09/session-and-cookie/index.html">
+<meta property="og:url" content="https://example.com/2021/09/09/session-and-cookie/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
 <meta property="og:description" content="cookie 和 sessioncookieCookie意为甜饼，是一种身份认证证明，由于http是一种无状态的协议，服务器单从网络连接上无从知道客户身份，于是服务器就给客户端们颁发了一个通行证，每人一个，无论谁访问都必须携带通行证，这样就能确定客户的身份。这就是cookie的原理 cookie是一小段文本信息，当客户端请求服务器时，如果服务器需要记录用户状态，就通过response对客户端颁发c">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-09-09T02:12:25.000Z">
-<meta property="article:modified_time" content="2022-01-17T05:51:42.857Z">
+<meta property="article:modified_time" content="2022-01-18T09:58:50.033Z">
 <meta property="article:author" content="Solkatt">
 <meta property="article:tag" content="web安全的杂杂恋">
 <meta name="twitter:card" content="summary">
@@ -80,13 +80,9 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Liudeguang" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
-					<a class="qq" target="_blank" href="/595597469" title="qq"><i class="icon-qq"></i></a>
+					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=595597469&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 		        
 					<a class="mail" target="_blank" href="mailto:595597469@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
@@ -123,13 +119,9 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Liudeguang" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
-						<a class="qq" target="_blank" href="/595597469" title="qq"><i class="icon-qq"></i></a>
+						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=595597469&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 			        
 						<a class="mail" target="_blank" href="mailto:595597469@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
@@ -179,6 +171,8 @@
 <p>cookie是一小段文本信息，当客户端请求服务器时，如果服务器需要记录用户状态，就通过response对客户端颁发cookie，客户端就会把cookie保存起来。借此以后请求的时候，就会带着cookie一起请求，来辨认用户状态，服务器还可以根据需要修改cookie的内容。</p>
 <p>cookie用来管理服务器和客户之间的状态。</p>
 <h2 id="session"><a href="#session" class="headerlink" title="session"></a>session</h2><p>session是另一种记录客户状态的机制，不同的是cookie保存在客户端浏览器，但是session保存在服务器上，客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上，这就是session。之后客户端浏览器再次访问时就只需要从session中查找该客户状态就可以了。</p>
+<span id="more"></span>
+
 <h2 id="session会在cookie中出现和传输，属于cookie的一部分。"><a href="#session会在cookie中出现和传输，属于cookie的一部分。" class="headerlink" title="session会在cookie中出现和传输，属于cookie的一部分。"></a>session会在cookie中出现和传输，属于cookie的一部分。</h2><p>当web服务器开启会话机制时，用户登陆成功后，会将会话保存在服务器中。</p>
 <p><strong>如果说Cookie机制是通过检查客户身上的“通行证”来确定客户身份的话，那么Session机制就是通过检查服务器上的“客户明细表”来确认客户身份。Session相当于程序在服务器上建立的一份客户档案，客户来访的时候只需要查询客户档案表就可以了。</strong></p>
 <h2 id="cookie和session的不同"><a href="#cookie和session的不同" class="headerlink" title="cookie和session的不同"></a>cookie和session的不同</h2><ol>
@@ -269,7 +263,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/09/09/session-and-cookie/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2021/09/09/session-and-cookie/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -492,7 +486,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">一个菜鸡的成长之路&lt;br&gt;&lt;br&gt;平荒尽处是春山&lt;br&gt;Life is a fucking movie.</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;br&gt;&lt;br&gt;平荒尽处是春山&lt;br&gt;Life is a fucking movie.</div>
   	  	
     	</section>
     

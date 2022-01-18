@@ -5,13 +5,13 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://example.com">
+  <link rel="dns-prefetch" href="https://example.com">
   <title>php代码审计练习 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="php代码审计练习challenge1 函数解析：bin2hex()：函数把 ASCII 字符的字符串转换为十六进制值。字符串可通过使用 pack() 函数再转换回去。 hex2bin() ：函数把十六进制值的字符串转换为 ASCII 字符。 strrev() ：函数反转字符串。 要想得到flag需要把字符串反解码，于是我们可以通过 12345678910&lt;?php$str &#x3D; &quot;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php代码审计练习">
-<meta property="og:url" content="http://example.com/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:url" content="https://example.com/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
 <meta property="og:description" content="php代码审计练习challenge1 函数解析：bin2hex()：函数把 ASCII 字符的字符串转换为十六进制值。字符串可通过使用 pack() 函数再转换回去。 hex2bin() ：函数把十六进制值的字符串转换为 ASCII 字符。 strrev() ：函数反转字符串。 要想得到flag需要把字符串反解码，于是我们可以通过 12345678910&lt;?php$str &#x3D; &quot;">
 <meta property="og:locale" content="zh_CN">
@@ -79,7 +79,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211216110914512.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211216113843740.png">
 <meta property="article:published_time" content="2021-12-14T08:14:16.000Z">
-<meta property="article:modified_time" content="2022-01-17T05:51:36.111Z">
+<meta property="article:modified_time" content="2022-01-18T09:58:43.312Z">
 <meta property="article:author" content="Solkatt">
 <meta property="article:tag" content="web安全的杂杂恋">
 <meta name="twitter:card" content="summary">
@@ -144,13 +144,9 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Liudeguang" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
-					<a class="qq" target="_blank" href="/595597469" title="qq"><i class="icon-qq"></i></a>
+					<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=595597469&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 		        
 					<a class="mail" target="_blank" href="mailto:595597469@qq.com" title="mail"><i class="icon-mail"></i></a>
 		        
@@ -187,13 +183,9 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Liudeguang" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
-						<a class="qq" target="_blank" href="/595597469" title="qq"><i class="icon-qq"></i></a>
+						<a class="qq" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=595597469&site=qq&menu=yes" title="qq"><i class="icon-qq"></i></a>
 			        
 						<a class="mail" target="_blank" href="mailto:595597469@qq.com" title="mail"><i class="icon-mail"></i></a>
 			        
@@ -253,6 +245,8 @@
 
 <p>就可以只需要等待6秒，绕过判断。</p>
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105154500255.png" alt="image-20211105154500255"></p>
+<span id="more"></span>
+
 <h1 id="challenge3"><a href="#challenge3" class="headerlink" title="challenge3"></a>challenge3</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105155025686.png" alt="image-20211105155025686"></p>
 <p>打开环境发现work harder！访问源代码发现提示challenge3.txt</p>
 <p>于是访问</p>
@@ -903,7 +897,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -1126,7 +1120,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">一个菜鸡的成长之路&lt;br&gt;&lt;br&gt;平荒尽处是春山&lt;br&gt;Life is a fucking movie.</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">&lt;br&gt;&lt;br&gt;平荒尽处是春山&lt;br&gt;Life is a fucking movie.</div>
   	  	
     	</section>
     
