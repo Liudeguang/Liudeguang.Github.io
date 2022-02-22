@@ -144,6 +144,102 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-xss" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/12/xss/">XSS</a>
+    </h1>
+  
+
+        
+        <a href="/2021/07/12/xss/" class="archive-article-date">
+  	<time datetime="2021-07-12T03:37:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是XSS跨站点脚本攻击"><a href="#什么是XSS跨站点脚本攻击" class="headerlink" title="什么是XSS跨站点脚本攻击"></a>什么是XSS跨站点脚本攻击</h1><p>攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行）</p>
+<p>前端代码:HTML+CSS+JS</p>
+<p>XSS属于针对客户端的攻击，受害者最终是用户。</p>
+<p>网站管理人员也属于用户之一，攻击者可以通过XSS假冒管理员身份对网站实施攻击。</p>
+<p>如果我们想要进入管理员后台</p>
+<ol>
+<li>通过后台地址，输入正确的账号。</li>
+<li>通过cookie（获得了管理员用户的权限）不用管理员账号密码进入后台。(这就是利用了XSS)</li>
+</ol>
+<h1 id="XSS攻击的危害"><a href="#XSS攻击的危害" class="headerlink" title="XSS攻击的危害"></a>XSS攻击的危害</h1><ol>
+<li><p>盗取用户cookie</p>
+</li>
+<li><p>修改网页内容</p>
+</li>
+<li><p>网站挂马</p>
+</li>
+<li><p>利用网站重定向</p>
+</li>
+<li><p>XSS蠕虫</p>
+</li>
+</ol>
+        
+          <a class="article-more-a" href="/2021/07/12/xss/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/07/12/xss/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-命令注入漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
