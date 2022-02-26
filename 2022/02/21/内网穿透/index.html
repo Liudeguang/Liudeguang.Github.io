@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172710014.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172853565.png">
 <meta property="article:published_time" content="2022-02-21T08:12:49.000Z">
-<meta property="article:modified_time" content="2022-02-22T09:35:14.424Z">
+<meta property="article:modified_time" content="2022-02-26T10:40:45.055Z">
 <meta property="article:author" content="Solkatt">
 <meta property="article:tag" content="web安全的杂杂恋">
 <meta name="twitter:card" content="summary">
@@ -198,6 +198,8 @@
         <h1 id="内网穿透的概念"><a href="#内网穿透的概念" class="headerlink" title="内网穿透的概念"></a>内网穿透的概念</h1><p>内网穿透，也叫NAT穿透，进行NAT穿透是为了使具有某一个特定源ip地址和源端口号的数据包不被NAT设备屏蔽而正确路由到内网主机</p>
 <h1 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h1><h2 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h2><p>代理就是中介，A和B之间有一个中间C，C就是中介。</p>
 <p>刚开始的时候，代理多数是帮助内网client访问外网server用的，后来出现了反向代理，“反向”这个词在这儿的意思是指方向相反，即代理将来自外网客户端的请求转发到内网服务器，从外到内。</p>
+<span id="more"></span>
+
 <h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>正向代理类似一个跳板机，代理访问外部资源。（比如国内访问谷歌）</p>
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221142927845.png" alt="image-20220221142927845"></p>
 <p>我们在获得外网服务器的一定权限后发现这台服务器可以直接或者间接的访问内网，此时渗透测试进入后渗透阶段，一般情况下，内网中的其他机器是不允许来自外网机器的访问的。这时候，我们可以将这台外网服务器设置成为代理，使得我们自己的攻击机可以直接访问与操作内网中其他机器。</p>
@@ -458,6 +460,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Liunx提权总结
+        
+      </div>
+    </a>
   
   
     <a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">

