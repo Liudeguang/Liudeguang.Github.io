@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>域林渗透 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/index.html">
+  <meta name="description" content="域林渗透基础知识什么是windows域一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼">
+<meta property="og:type" content="article">
+<meta property="og:title" content="域林渗透">
+<meta property="og:url" content="https://example.com/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="域林渗透基础知识什么是windows域一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220306174110458.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307002518372.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220308221559442.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220308222331597.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309093604583.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094050505.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094216323.png">
+<meta property="article:published_time" content="2022-03-06T09:10:26.000Z">
+<meta property="article:modified_time" content="2022-03-09T01:52:22.992Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220306174110458.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,322 +154,245 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-域林渗透" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/17/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-03-17T10:39:49.669Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-17</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" class="archive-article-date">
-  	<time datetime="2022-03-09T13:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/">浅谈UAC及绕过</a>
+    <h1 class="article-title" itemprop="name">
+      域林渗透
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
+        
+        <a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
   	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="域林渗透基础知识"><a href="#域林渗透基础知识" class="headerlink" title="域林渗透基础知识"></a>域林渗透基础知识</h1><h2 id="什么是windows域"><a href="#什么是windows域" class="headerlink" title="什么是windows域"></a>什么是windows域</h2><p>一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼，为了解决这个问题，我们也可以像管理图书⼀ 样设⽴⼀个管理员，由它来统⼀管理计算机。那么这套体系可以称为⼀个域，域控制器就充当了管理员的⻆⾊，任何加⼊域的计算机都需要服从管理员的管理。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="活动目录"><a href="#活动目录" class="headerlink" title="活动目录"></a>活动目录</h3><p>活动目录是一种目录结构。目录就跟电话簿一样，在需要联系某人的时候就可以在里面检索。windows中的活动目录建立了一种资源和地址的对应关系，类比于电话簿中联系人与其对应的电话号码。</p>
+<h3 id="根域"><a href="#根域" class="headerlink" title="根域"></a>根域</h3><p>把域的结构想象成一颗树。一颗树的生长是从根开始的。因此，网络中创建的第一个域就是根域，一个域林中只能有一个根域，根域对其他域具备最高管理权限。</p>
+<h3 id="域树"><a href="#域树" class="headerlink" title="域树"></a>域树</h3><p>域树由多个域组成，这些域形成一个连续的名字空间（相同的dns后缀）。树中的域通过信任关系连接，林包含了一个或多个域。域树中的域层次越深级别越低，一个”.”代表一个层次。比如<code>tree1.tree.com</code>就比<code>tree.com</code>低，并且是<code>tree.com</code>的子域（反之为父域）</p>
+<h3 id="域林"><a href="#域林" class="headerlink" title="域林"></a>域林</h3><p>创建根域时默认建立一个域林，同时也是整个林的根域，其域名也是林的名称。域树必须建立在域林下，一个域林可以有很多棵域树。已经存在的域不能加入到一个树中，也不能将一个已经存在的域树加入到一个域林中。</p>
+<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>DNS就是域名系统，它可以建立一种ip和名称的关系，DNS服务是windows域能够工作的关键。没有dns，域中的计算机就没办法在逻辑上找到域的管理机（就是域控），尽管它们可能在物理上是相连的。（定位域内DNS服务器或时间服务器，可定位到域控主机）</p>
+<h3 id="域控制器"><a href="#域控制器" class="headerlink" title="域控制器"></a>域控制器</h3><p>域控制器是运行windows操作系统并承载<code>Active Diretory</code>的计算机。</p>
+<h3 id="只读域控制器"><a href="#只读域控制器" class="headerlink" title="只读域控制器"></a>只读域控制器</h3><p>只读域控制器RODC是主机完整域的附加域控制器，存储<code>Active Diretory</code>数据库分区的只读副本和<code>SYSVOL</code>文件夹内容的只读副本。</p>
+<p>（主要用来存储和域相关的数据，包括组策略设置、脚本等。如果域内部署多台域控制器，所有域控制器之间通过FRS或DFS-R服务相互复制，最终所有域控制器之间完成同步。）</p>
+<h2 id="信任关系"><a href="#信任关系" class="headerlink" title="信任关系"></a>信任关系</h2><ol>
+<li>信任类型</li>
+<li>信任方向</li>
+<li>信任传递性</li>
+</ol>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220306174110458.png" alt="image-20220306174110458"></p>
+<h3 id="什么是信任？为什么要在域之间建立信任关系？"><a href="#什么是信任？为什么要在域之间建立信任关系？" class="headerlink" title="什么是信任？为什么要在域之间建立信任关系？"></a>什么是信任？为什么要在域之间建立信任关系？</h3><p>域是安全边界，若无信任关系，域用户账户只能在本域内使用。</p>
+<p>信任关系在两个域之间架起了一座桥梁，使得域用户账户可以跨域使用。</p>
+<p>确切的来说就是信任关系使一个域的DC可以验证其他域的用户，这种身份验证需要信任路径。例如:A域与B域没有信任关系，A域上的员工使用自己在A域的账户，不能访问B域上的资源。</p>
+<p>总之，两个域之间只有建立适当的信任关系后才可以实现互相访问，这就像两个国家之间要进行友好往来需要建立外交关系一样。</p>
+<h3 id="信任的方向"><a href="#信任的方向" class="headerlink" title="信任的方向"></a>信任的方向</h3><p>信任是有方向的，信任的方向决定了资源访问的方向。</p>
+<p>例如，如果a域信任b域，那么b域中的用户就可以访问a域中的资源。在windows server 2003 中默认建立的信任关系都是双向的，手工建立的则可以根据访问需要建立单项或双向的信任关系。</p>
+<p>单向信任：单向信任是在两个域之间创建的单向身份验证路径。</p>
+<p>双向信任：双向信任是在两个域之间创建的双向身份验证路径。林中的所有域信任都是双向、可传递的信任。</p>
+<p>所有信任关系中只能有两个域：信任域和受信任域。</p>
+<p>有一个信任关系(单向信任)：A域信任B域，其中A域是信任域，B域是受信任域，这个信任关系指明B域是受A域信任的域，即B域的用户账户可以访问A域的资源(在拥有相应权限的前提下)。从这里我们可以看出，信任关系具有方向性，这个信任关系是单向信任，B域的用户可以访问A域的资源，但A域的用户还不能访问B域的资源。</p>
+<p>还有一种信任关系(双向信任):A域和B域之间的双向信任(A域信任B域，且B域信任A域)，在这种信任关系下，A域和B域的用户账户都能访问对方域的资源，因为这两个域都得到了对方域的信任。</p>
+<h3 id="信任的传递性"><a href="#信任的传递性" class="headerlink" title="信任的传递性"></a>信任的传递性</h3><p>信任根据它的传递性可以分为可传递的和不可传递的。</p>
+<p>如果A域和B域之间的信任是可传递的，B域和C域之间的信任也是可传递的，那么A域和C域之间就自动创建了信任关系。</p>
+<p>如果A域和B域之间的信任是不可传递的，或者B域和C域之间的信任是不可传递的，那么A域和C域之间不会自动创建了信任关系。</p>
+<p>从本质上讲，”信任”所做的就是链接两个域之间的认证系统，并允许认证流量通过一个引用系统在这两个域之间传输。如果用户请求访问当前所在域之外的资源的服务主体名称(SPN)，则其域控制器将返回一个特殊的引用票证，该票证指向外部域的密钥分发中心(KDC)</p>
+<p>用户的票证授予票证(TGT)包含在该TGT-REP（票证授予服务回复)转介票证中，并且该票证用域先前交换的域间信任密钥加密或签名，而不是第一个域的krbtgt账户。这个票证通常被称为”域间票证授予票证或TGT”。然后，外部域通过使用先前协商的域间信任密钥来解密它,然后验证或解密包含在转介票证中的TGT，并且完成正常Kerberos处理过程的其余部分。</p>
+<p><a target="_blank" rel="noopener" href="https://adsecurity.org/?p=1588%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%AF%B9%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%E8%BF%9B%E8%A1%8C%E4%BA%86%E8%AF%A6%E7%BB%86%E7%9A%84%E6%8F%8F%E8%BF%B0%EF%BC%8C%E4%BB%96%E5%B0%86%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%E6%8F%8F%E8%BF%B0%E4%B8%BA:&quot;%E4%B8%80%E6%97%A6%E4%B8%A4%E4%B8%AA%E5%9F%9F%E4%B9%8B%E9%97%B4%E5%AD%98%E5%9C%A8%E4%BF%A1%E4%BB%BB%E5%85%B3%E7%B3%BB%EF%BC%8C%E5%88%99%E6%AF%8F%E4%B8%AA%E5%9F%9F%E7%9A%84%E7%A5%A8%E8%AF%81%E6%8E%88%E4%BA%88%E6%9C%8D%E5%8A%A1(TGS)%E4%BC%9A%E8%A2%AB%E6%B3%A8%E5%86%8C%E4%B8%BA%E5%85%B6%E4%BB%96%E5%9F%9F%E7%9A%84kerberos%E6%9C%8D%E5%8A%A1(KDC)%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%BB%E4%BD%93%E3%80%82%E8%BF%99%E4%BD%BF%E5%BE%97%E6%AF%8F%E4%B8%AA%E5%9F%9F%E4%B8%AD%E7%9A%84%E7%A5%A8%E8%AF%81%E6%8E%88%E4%BA%88%E6%9C%8D%E5%8A%A1%E4%BC%9A%E5%B0%86%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%9F%9F%E4%B8%AD%E7%9A%84%E7%A5%A8%E8%AF%81%E6%8E%88%E4%BA%88%E6%9C%8D%E5%8A%A1%E7%9C%8B%E4%BD%9C%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%9F%9F%E4%B8%AD%E7%9A%84%E8%B5%84%E6%BA%90%EF%BC%8C%E5%90%8C%E6%97%B6%E6%8F%90%E4%BE%9B%E8%B7%A8%E5%9F%9F%E6%9C%8D%E5%8A%A1%E8%AE%BF%E9%97%AE%E7%9A%84%E6%9C%8D%E5%8A%A1%E3%80%82%E2%80%9C">https://adsecurity.org/?p=1588这篇文章对这个过程进行了详细的描述，他将这个过程描述为:&quot;一旦两个域之间存在信任关系，则每个域的票证授予服务(TGS)会被注册为其他域的kerberos服务(KDC)的安全主体。这使得每个域中的票证授予服务会将另一个域中的票证授予服务看作另一个域中的资源，同时提供跨域服务访问的服务。“</a></p>
+<p>因此，基本上，当外部域使用协商的信任密钥解密转介票证时，它看到用户的TGT会说”ok,另一个域已经认证了这个用户，并且说这个用户是谁(注意这里是用户自己说它们是谁)或者是这些用户是哪个用户组的，所以我会相信这个信息是准确的，因为我相信转介的域。”</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307002518372.png" alt="image-20220307002518372"></p>
+<p>建立信任的目的是允许来自一个域的用户访问资源(比如服务器上的本地管理员组)，以组的形式嵌套，或者用作另一个域的安全主体。林内信任的一个例外是：林中创建的任何域与林中的每个其他域都保持着隐式的双向可传递信任关系。</p>
+<h3 id="信任类型"><a href="#信任类型" class="headerlink" title="信任类型"></a>信任类型</h3><table>
+<thead>
+<tr>
+<th>信任类型</th>
+<th>传递性</th>
+<th>方向</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>外部</td>
+<td>不可传递</td>
+<td>单向或双向</td>
+<td>使用外部信任可提供对位于Windows NT4.0域上的资源或林信任未连接的单独林中域上资源的访问权限。</td>
+</tr>
+<tr>
+<td>领域</td>
+<td>可传递或不可传递</td>
+<td>单向或双向</td>
+<td>使用领域信任可在非Windows Kerberos领域和Active Directory域之间形成信任关系。</td>
+</tr>
+<tr>
+<td>林</td>
+<td>可传递</td>
+<td>单向或双向</td>
+<td>使用林信任共享林间的资源。如果林信任是双向信任，在任一林中发出的身份验证请求都可以到达另一个林</td>
+</tr>
+<tr>
+<td>快捷方式</td>
+<td>可传递</td>
+<td>单向或双向</td>
+<td>使用快捷方式信任改善在一个Active Directory林中两个域之间的用户登录时间。</td>
+</tr>
+</tbody></table>
+<p>父子信任关系：父子信任关系也就是指同一个林的一部分，子域保留了与父域的隐式双向传递信任。也是遇到的最常见的信任类型。</p>
+<p>交叉链接信任关系：交叉链接信任关系又叫做子域之间的”快捷方式信任”，目的是提升转介时间。通常情况下，复杂的林中的引用必须过滤到林根，然后再回到目标域，因此对于地理上分散的那种场景，交叉链接关系可以减少认证的时间。</p>
+<p>外部信任关系：在不同域之间创建的隐式非传递性信任关系。“外部信任提供了对尚未加入林信任的林之外的域中资源的访问能力”外部信任强制执行SID过滤。</p>
+<p>树根信任关系：林根域和你添加的新树根之间的隐式双向可传递信任关系。</p>
+<p>林信任关系：一个林根域和另一个林根域之间的传递信任关系。林信任也强制SID过滤。</p>
+<p>MIT信任关系：与非Windows RFC4120兼容的Kerberos域的信任。</p>
+<h2 id="如何枚举信任？"><a href="#如何枚举信任？" class="headerlink" title="如何枚举信任？"></a>如何枚举信任？</h2><p>枚举信任有三种主要方法：Win32 API调用，各种.NET方法和LDAP。每个方式返回一组不同的信息，每个方式又有不同的执行方法。</p>
+<h3 id="NET方法"><a href="#NET方法" class="headerlink" title=".NET方法"></a>.NET方法</h3><p>.NET方法为我们提供了一些封装的很好的方法，可以枚举出一大堆的域和林信任信息。</p>
+<p><code>[System.DirectoryServices.ActiveDirectory.Domain]</code> 命名空间具有 <code>GetCurrentDomain()</code>⽅法，这个⽅法返回了 ⼀个静态⽅法 <code>System.DirectoryServices.ActiveDirectory.Domain</code>类实例。这个类实现了 <code>GetAllTrustRelationships()</code>⽅法，这个⽅法可以很好地“ 检索该域的所有信任关系。”这种⽅法的优点是利⽤⾮常的 简单 ——信息以易于阅读和理解的⽅式进⾏输出。缺点是它不包含其他枚举⽅法产⽣的⼀些附加信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRela</span><br><span class="line">tionships()</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>因为此.NET方法默认情况下不会返回林信任，而LDAP枚举则会返回很多额外的信息。所以在使用Powerview时为了执行这个方法，需要运行<code>GET-DomainTrust-NET</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220308221559442.png" alt="image-20220308221559442"></p>
+<p>林信任在功能上与域信任不同。所以如果你想枚举任何当前的森林-&gt;林信任，你需要调用<code>[System.DirectoryServices.ActiveDirectory.Forest]</code>这个命名空间。⽣成的林对象也有⾃⼰的 <code>GetAllTrustRelationships()</code>⽅法，它将返回任何当前林的信任关系：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">([System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()).GetAllTrustRela</span><br><span class="line">tionships()</span><br></pre></td></tr></table></figure>
 
+<p>这是作为powerview的<code>Get-ForestTrust</code>方法的默认枚举实现。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220308222331597.png" alt="image-20220308222331597"></p>
+<h3 id="Win32API"><a href="#Win32API" class="headerlink" title="Win32API"></a>Win32API</h3><p>通过使用返回<code>DS_DOMAIN_TRUSTS</code>结构的<code>DsEnumerateDomianTrusts()</code>这个Win32 API调用来枚举信任。虽然输出的信息比.NET方法稍微复杂一点，但它会返回了目标域的SID和GUID，以及一些有用的标志和属性。标志和属性可以从以下链接中了解：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa?redirectedfrom=MSDN">DsEnumerateDomainTrustsA function (dsgetdc.h) - Win32 apps | Microsoft Docs</a></p>
+<p>使用<code>Get-DomainTrust-API</code>调用此方法：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309093604583.png" alt="image-20220309093604583"></p>
+<h3 id="LDAP"><a href="#LDAP" class="headerlink" title="LDAP"></a>LDAP</h3><p>域信任在AD中存储为具有TrustedDomain的objectClass的”受信任的域对象”。这意味着你可以使用任何LDAP查询方法来查找有关使用LDAP过滤器存在的任何域信任的信息。</p>
+<p>这里是dsquey的执行方式（仅适用于Windows服务器）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery * -filter &quot;(objectClass=trustedDomain)&quot; -attr *</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094050505.png" alt="image-20220309094050505"></p>
+<p>LDAP枚举方式用作<code>Get-DomainTrust</code>的默认枚举实现方法：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094216323.png" alt="image-20220309094216323"></p>
+<ul>
+<li>DOWNLEVEL:没有运行AD的可信windows域。在powerview中，对于那些不熟悉专业术语的用户来说，会以<code>WINDOWS_NON_ACTIVE_DIRECTORY</code>形式作为输出。</li>
+<li>UPLEVEL：运行AD的可信任域。在powerview中，对于那些不熟悉专业术语的用户，这将作为<code>WINDOWS_ACTIVE_DIRECTORY</code>作为输出</li>
+<li>MIT：运行非Windows，兼容RFC4120的Kerberos发行版的受信任域。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          浅谈UAC及绕过
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">域渗透--pth与委派攻击</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-02-27T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">Kerberos协议</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -481,8 +416,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

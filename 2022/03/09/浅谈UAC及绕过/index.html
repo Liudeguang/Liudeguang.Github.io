@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>浅谈UAC及绕过 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/index.html">
+  <meta name="description" content="UAC工作原理UAC是微软Microsoft Windows vista以后版本引入的一种安全机制。其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，以达到帮助阻止恶意程序(有时也称为”恶意软件”)损坏系统的效果。 通过UAC，应用程序和任务可始终在非管理员账户的安全上下文中运行，除非管理员特别授予管理员级别的系统访问权限。UAC可以阻止未经授权的应用程序自动进行安装，并阻止无意中更改系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈UAC及绕过">
+<meta property="og:url" content="https://example.com/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="UAC工作原理UAC是微软Microsoft Windows vista以后版本引入的一种安全机制。其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，以达到帮助阻止恶意程序(有时也称为”恶意软件”)损坏系统的效果。 通过UAC，应用程序和任务可始终在非管理员账户的安全上下文中运行，除非管理员特别授予管理员级别的系统访问权限。UAC可以阻止未经授权的应用程序自动进行安装，并阻止无意中更改系">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309212400330.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309213508939.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309223647747.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309230525506.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309231005886.png">
+<meta property="article:published_time" content="2022-03-09T13:19:53.000Z">
+<meta property="article:modified_time" content="2022-03-09T15:19:12.685Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309212400330.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,322 +152,229 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-浅谈UAC及绕过" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      浅谈UAC及绕过
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/17/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-03-17T10:39:49.669Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-17</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" class="archive-article-date">
+        
+        <a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" class="archive-article-date">
   	<time datetime="2022-03-09T13:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-09</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/">浅谈UAC及绕过</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UAC工作原理"><a href="#UAC工作原理" class="headerlink" title="UAC工作原理"></a>UAC工作原理</h1><p>UAC是微软<code>Microsoft Windows vista</code>以后版本引入的一种安全机制。其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，以达到帮助阻止恶意程序(有时也称为”恶意软件”)损坏系统的效果。</p>
+<p>通过UAC，应用程序和任务可始终在非管理员账户的安全上下文中运行，除非管理员特别授予管理员级别的系统访问权限。UAC可以阻止未经授权的应用程序自动进行安装，并阻止无意中更改系统设置。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309212400330.png" alt="image-20220309212400330"></p>
+<p>在开启了UAC后，如果用户是标准用户，windows会给用户分配一个标准<code>Access Token</code>,如果用户以管理员权限登录，会生成两份访问令牌，一份是完整的管理员访问令牌(Full Access Token),一份是标准用户令牌。当我们需要其他特权的时候，会弹出窗口，询问你是否要允许以下程序对此计算机更改？如果你有完整的访问令牌（即，你以管理员的身份登录，或者你属于管理员组），则可以选择是，然后继续进行。但是，如果已为了分配了标准的用户访问令牌，则会提示你输入具有特权的管理员的凭据。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309213508939.png" alt="image-20220309213508939"></p>
+<p>UAC需要授权的过程有以下：</p>
+<ol>
+<li>配置windows update</li>
+<li>增加或者删除用户账户</li>
+<li>改变用户的账户类型</li>
+<li>改变UAC设置</li>
+<li>安装ActiveX</li>
+<li>安装或移除程序</li>
+<li>设置家长控制</li>
+<li>将文件移动或者复制到Program Files或windows目录</li>
+<li>查看其他用户文件夹</li>
+</ol>
+<h2 id="rundll32-exe"><a href="#rundll32-exe" class="headerlink" title="rundll32.exe"></a>rundll32.exe</h2><p>rundll32.exe是windows系统中的一个程序，顾名思义，就是用来执行32位的DLL文件(DLL内部的具体函数)。</p>
+<p>系统各种还有一个Rundll.exe文件，他的意思是“执行16位的DLL文件”</p>
+<p>rundll32.exe的具体作用是以命令行的方式调用动态链接程序库中的规定形式的导出函数。导出函数必须是如下形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void` `CALLBACK BypassUAC(``HWND` `hWnd, ``HINSTANCE` `hInstance, ``LPSTR`</span><br><span class="line">`lpszCmdLine, ``int` `iCmdShow);</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>rundll32.exe在命令行下的使用方法为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rundll32.exe DLLname,Functionname [Arguments]</span><br></pre></td></tr></table></figure>
 
+<p><code>DLLname</code>位需要执行的DLL文件名</p>
+<p><code>Functionname</code>为需要执行的DLL文件的规定形式导出函数</p>
+<p><code>[Arguments]</code>为引出函数的具体参数</p>
+<h2 id="UACME项目"><a href="#UACME项目" class="headerlink" title="UACME项目"></a>UACME项目</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/hfiref0x/UACME</span><br></pre></td></tr></table></figure>
+
+<p>利用方式主要可以分为两大类：</p>
+<ol>
+<li>各类UAC白名单程序的DLL劫持(DLL hijack)</li>
+<li>各类提升权限的COM接口利用（Elevated COM interface）</li>
+</ol>
+<p>项目的主程序为Akagi，其中主要包含了所有的method,进行了本地编译后可以使用<code>akagi32_41</code>，或者<code>akagi64_41</code>启动程序。运行后可以直接得到管理员权限的cmd窗口。</p>
+<h1 id="DLL劫持"><a href="#DLL劫持" class="headerlink" title="DLL劫持"></a>DLL劫持</h1><h2 id="何为劫持"><a href="#何为劫持" class="headerlink" title="何为劫持"></a>何为劫持</h2><p>在正常事物发生之前进行一个旁路操作</p>
+<h2 id="DLL是什么"><a href="#DLL是什么" class="headerlink" title="DLL是什么"></a>DLL是什么</h2><p>DLL(Dynamic Link Library)文件为动态链接库文件，又称”应用程序拓展”，是软件文件类型。在<code>windows</code>中，许多应用程序并不是一个完整的可执行文件，它们被分割成一些相对独立的动态链接库，即DLL文件，放置于系统中。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309223647747.png" alt="image-20220309223647747"></p>
+<h2 id="DLL的加载过程"><a href="#DLL的加载过程" class="headerlink" title="DLL的加载过程"></a>DLL的加载过程</h2><ol>
+<li>程序所在目录</li>
+<li>程序加载目录(SetCurrentDirecctory)</li>
+<li>系统目录即SYSTEM32目录</li>
+<li>16位系统目录即SYSTEM目录</li>
+<li>windows目录</li>
+<li>PATH环境变量中列出的目录</li>
+</ol>
+<p>应用程序-DLL文件-DLL寻找顺序(找到对应DLL文件前放置一个恶意DLL文件(恶意文件+本身DLL文件内容))-加载DLL文件-运行</p>
+<p>PS：<code>WIndows</code>操作系统通过DLL路径搜索目标顺序和<code>Know DLLS注册表项</code>的机制来确定应用程序所要调用的DLL的路径之后，应用程序就将DLL载入了自己的内存空间，执行相应的函数功能。</p>
+<p><code>Know DLLS</code>注册表项指定的DLL是已经被操作系统加载过后的DLL，不会被应用程序搜索并加载。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\KnownDLLs</span><br></pre></td></tr></table></figure>
+
+<p>查找进程工具</p>
+<p>Process Monitor是Windows的⾼级监视⼯具，可显示实时⽂件系统，注册表和进程/线程活动。它结合了两个传统 Sysinternals实⽤程序Filemon和Regmon的功能，并添加了⼤量增强功能，包括丰富和⾮破坏性过滤，全⾯的事件 属性，如会话ID和⽤户名，可靠的流程信息，带有集成符号⽀持的完整线程堆栈对于每个操作，同时记录到⽂件等 等。其独特的强⼤功能将使Process Monitor成为系统故障排除和恶意软件搜索⼯具包的核⼼实⽤程序</p>
+<h2 id="DLL劫持原理"><a href="#DLL劫持原理" class="headerlink" title="DLL劫持原理"></a>DLL劫持原理</h2><p>DLL寻找目录</p>
+<ol>
+<li>程序所在目录</li>
+<li>程序加载目录(SetCurrentDirecctory)</li>
+<li>系统目录即SYSTEM32目录</li>
+<li>16位系统目录即SYSTEM目录</li>
+<li>windows目录</li>
+<li>PATH环境变量中列出的目录</li>
+</ol>
+<p>如果在应用程序寻找成功之前，将我们自己创造的DLL文件放入寻找的目录中，那么应用程序就会加载我们自己的DLL（恶意DLL+本身DLL）</p>
+<h1 id="COM组件"><a href="#COM组件" class="headerlink" title="COM组件"></a>COM组件</h1><h2 id="什么是COM"><a href="#什么是COM" class="headerlink" title="什么是COM"></a>什么是COM</h2><p>COM是<code>Component Object Model</code>（组件，对象模型）的缩写。COM是微软公司为了计算机工业的软件生产更加符合人类的行为方式开发的一种新的软件开发技术。在<code>COM</code>构架下，人们可以开发出各种各样的功能专一的组件，然后将它们按照需要组合起来，构成复杂的应用系统。</p>
+<h2 id="应用程序与COM注册表的关系"><a href="#应用程序与COM注册表的关系" class="headerlink" title="应用程序与COM注册表的关系"></a>应用程序与COM注册表的关系</h2><p>首先需要介绍一下注册表，注册表可以理解为一个树状结构的数据库，它具有一些特殊的数据类型用来存储一些数据满足应用程序的需要。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309230525506.png" alt="image-20220309230525506"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_CLASSES_ROOT=HKEY_LOCAL_MACHINE+HKEY_CURRENT_USER</span><br></pre></td></tr></table></figure>
+
+<p>这儿还需要介绍一下CLSID(ClassIdentifier),中文翻译为”全局唯一标识符”。CLSID是指Windows系统对于不同的应用程序，文件类型，OLE对象，特殊文件夹以及各种系统组件分配的一个唯一表示它的ID代码，用于对其身份的标识和与其他对象进行区分。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309231005886.png" alt="image-20220309231005886"></p>
+<p>这里有一个很装逼的打开我的电脑的方式，win+R键入<code>::&#123;20D04FE0-3AEA-1069-A2D8-08002B30309D&#125;</code>即可打开”我的电脑”。</p>
+<h4 id="COM组件加载过程"><a href="#COM组件加载过程" class="headerlink" title="COM组件加载过程"></a>COM组件加载过程</h4><ol>
+<li><p>HKCU\Software\Classes\CLSID</p>
+</li>
+<li><p>HKCU\CLSID</p>
+</li>
+<li><p>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ShellCompatibility\Objects</p>
+</li>
+</ol>
+<h1 id="ByPass-UAC的几种方式"><a href="#ByPass-UAC的几种方式" class="headerlink" title="ByPass UAC的几种方式"></a>ByPass UAC的几种方式</h1><ol>
+<li>白名单提权机制-autoElevate</li>
+<li>DLL劫持</li>
+<li>Windows自身漏洞提权</li>
+<li>远程注入</li>
+<li>COM接口技术</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/03/17/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">域林渗透</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-02-27T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">Kerberos协议</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -481,8 +398,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
