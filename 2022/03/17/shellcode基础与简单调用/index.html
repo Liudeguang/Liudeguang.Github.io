@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163136336.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163113322.png">
 <meta property="article:published_time" content="2022-03-17T10:39:49.669Z">
-<meta property="article:modified_time" content="2022-03-18T09:07:07.188Z">
+<meta property="article:modified_time" content="2022-03-21T09:02:32.540Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317185948447.png">
@@ -166,6 +166,8 @@
         <p>title: shellcode基础与简单调用<br>date: 2022-03-17 18:39:49<br>tags:</p>
 <h1 id="shellcode基础"><a href="#shellcode基础" class="headerlink" title="shellcode基础"></a>shellcode基础</h1><h2 id="什么是shellcode"><a href="#什么是shellcode" class="headerlink" title="什么是shellcode"></a>什么是shellcode</h2><p>shellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell进程，然后同攻击者进行通信，接受攻击者的指令，然后返回结果。那么如何建立一个shell进程呢？在Unix中使用execve命令可以建立，而在windows下需要调用内核API来建立。</p>
 <h2 id="shellcode的方向"><a href="#shellcode的方向" class="headerlink" title="shellcode的方向"></a>shellcode的方向</h2><p>shellcode一般分为正向和反向。在msf中，我们经常会发现一个payload有reverse的前缀（表示为反向）它们的原理如下:</p>
+<span id="more"></span>
+
 <h3 id="正向"><a href="#正向" class="headerlink" title="正向"></a>正向</h3><p>正向的payload原理是在目标机器上打开一个端口启动服务，攻击机主动连接打开的端口获得shell。</p>
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317185948447.png" alt="image-20220317185948447"></p>
 <p>但是这种模式存在缺点，如果网络不存在外部进入的连接，那么shell就无法建立。并且管理员也有可能会发现可疑的shell进程。</p>
@@ -223,47 +225,6 @@
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163136336.png" alt="image-20220318163136336"></p>
 <p>虽然立刻很开心的被火绒杀掉了…</p>
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163113322.png" alt="image-20220318163113322"></p>
-<h1 id="shellcode简单的隐藏"><a href="#shellcode简单的隐藏" class="headerlink" title="shellcode简单的隐藏"></a>shellcode简单的隐藏</h1><p>免杀的主要技术有以下几点：</p>
-<ol>
-<li>修改特征码</li>
-</ol>
-<p>免杀的最基本思想就是破坏特征，这个特征可能是特征码，有可能是行为特征，只要破坏了病毒与木马所固有的特征，并保证其原有功能没有改变，一次免杀就能完成了。特征码：能识别一个程序是一个病毒的一段不大于64字节的特征串。</p>
-<ol start="2">
-<li>花指令免杀</li>
-</ol>
-<p>花指令其实就是一段毫无意义的指令，也可以称为垃圾指令。花指令是否存在对程序的执行结果没有影响，所以它存在的唯一目的就是阻止反汇编程序，或对反汇编设置障碍。因为大多数反病毒软件都是靠特征码来判断文件是否存在病毒，为了提高精度，特征码都是在一定偏移量限制之内的，否则就会对反病毒软件产生影响。我们加花指令就是为了让杀毒软件检测特征码的偏移量位移一段位置。</p>
-<ol start="3">
-<li>加壳免杀</li>
-</ol>
-<p>加壳免杀也被称为软件加密（或者软件压缩），只是加密(或压缩)的方式与目的不一样。壳就是软件增加的保护，并不会破坏里面的结构，当运行这个加壳的程序时，系统首先会运行程序里的壳，然后由壳将加密的程序逐步还原到内存中，最后运行程序。但是现在杀软也会识别壳的特征，只要识别了就会认为这是一个恶意软件。</p>
-<ol start="4">
-<li>内存免杀</li>
-</ol>
-<p>CPU不可能是为某一款加壳软件而特别设计的，因此某个软件被加壳后的可执行代码CPU是读不懂的。这就要求在执行外壳代码时，要先将原软件解密，并放到内存里，然后再通知CPU执行。因为杀毒软件的内存扫描原理与硬盘上的文件扫描原理都是一样的，都是通过特征码比对的，只不过为了制造迷惑性，大多数反病毒公司的内存扫描与文件扫描采用的不是同一套特征码，这就导致了一个病毒木马同时拥有两套特征码，必须要将它们全部破坏掉才能躲过反病毒软件的查杀。</p>
-<ol start="5">
-<li>二次编译</li>
-</ol>
-<p>msf提供了多种格式payload和encoder，生成的shellcode也为二次加工提供了很大遍历。虽然有很多二次加工的编码都已经被杀软收录了，但是其中<code>shikata_ga_nai</code>编码器，它能让每次生成的攻击载荷文件不一样，编码和解码也不一样。目前很难实现单一encoder编码绕过杀软，但是对shellcode进行进一步修改编译成了msf免杀的主流。互联网上有许多借助各种语言来对shellcode进行二次编码从而达到免杀效果。</p>
-<ol start="6">
-<li>分离免杀</li>
-</ol>
-<p>采用分离法，就是把shellcode和加载器分离。网上各种加载器代码很多，各种语言实现也有很多。分离免杀基本可以满足免杀要求。</p>
-<ol start="7">
-<li>资源修改</li>
-</ol>
-<p>有些杀软会设置扫描白名单。</p>
-<ul>
-<li>加资源</li>
-</ul>
-<p>使用ResHacker对文件进行资源操作，找来多个正常的软件，将它们的资源加入到自己软件，如图片，版本信息，对话框等。</p>
-<ul>
-<li>替换资源</li>
-</ul>
-<p>使用ResHacker替换无用的资源</p>
-<ul>
-<li>加签名</li>
-</ul>
-<p>使用签名伪造工具，将正常软件的签名信息加入到自己的软件中。</p>
 
       
 
@@ -335,6 +296,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          shellcode的基础免杀
+        
+      </div>
+    </a>
   
   
     <a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" id="article-nav-older" class="article-nav-link-wrap">

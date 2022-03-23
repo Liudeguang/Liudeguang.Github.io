@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://example.com">
   <title>Kerberos协议 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Kerberos认证Kerberos是诞生于上个世纪90年代的计算机认证协议，被广泛应用于各大操作系统和Hadoop生态系统中。了解Kerberos认证的流程将有助于结局Hadoop集群中的安全配置过程中的问题。 Kerberos解决什么问题？简单的说，Kerberos提供了一种单点登录（SSO）的方法。考虑这样一个场景，在一个网络中有不同的服务器，比如，打印服务器、邮件服务器和文件服务器。这些服">
+  <meta name="description" content="Kerberos认证Kerberos是诞生于上个世纪90年代的计算机认证协议，被广泛应用于各大操作系统和Hadoop生态系统中。了解Kerberos认证的流程将有助于结局Hadoop集群中的安全配置过程中的问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kerberos协议">
 <meta property="og:url" content="https://example.com/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
-<meta property="og:description" content="Kerberos认证Kerberos是诞生于上个世纪90年代的计算机认证协议，被广泛应用于各大操作系统和Hadoop生态系统中。了解Kerberos认证的流程将有助于结局Hadoop集群中的安全配置过程中的问题。 Kerberos解决什么问题？简单的说，Kerberos提供了一种单点登录（SSO）的方法。考虑这样一个场景，在一个网络中有不同的服务器，比如，打印服务器、邮件服务器和文件服务器。这些服">
+<meta property="og:description" content="Kerberos认证Kerberos是诞生于上个世纪90年代的计算机认证协议，被广泛应用于各大操作系统和Hadoop生态系统中。了解Kerberos认证的流程将有助于结局Hadoop集群中的安全配置过程中的问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220227220326166.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220227222857611.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220227231134708.png">
 <meta property="article:published_time" content="2022-02-27T13:53:21.000Z">
-<meta property="article:modified_time" content="2022-03-06T09:00:50.260Z">
+<meta property="article:modified_time" content="2022-03-21T09:01:36.577Z">
 <meta property="article:author" content="Solkatt">
 <meta property="article:tag" content="web安全的杂杂恋">
 <meta name="twitter:card" content="summary">
@@ -172,6 +172,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Kerberos认证"><a href="#Kerberos认证" class="headerlink" title="Kerberos认证"></a>Kerberos认证</h1><p>Kerberos是诞生于上个世纪90年代的计算机认证协议，被广泛应用于各大操作系统和Hadoop生态系统中。了解Kerberos认证的流程将有助于结局Hadoop集群中的安全配置过程中的问题。</p>
+<span id="more"></span>
+
 <h2 id="Kerberos解决什么问题？"><a href="#Kerberos解决什么问题？" class="headerlink" title="Kerberos解决什么问题？"></a>Kerberos解决什么问题？</h2><p>简单的说，Kerberos提供了一种单点登录（SSO）的方法。考虑这样一个场景，在一个网络中有不同的服务器，比如，打印服务器、邮件服务器和文件服务器。这些服务器都有认证的需求。很自然的，不可能让每个服务器自己实现一套认证系统，而是提供了一个中心认证服务器（AS-Authentication Server）供这些服务器使用。这样任何客户端就只需维护一个密码就能登录所有服务器。</p>
 <p>因此，在Kerberos系统中至少有三个角色：认证服务器（AS）,客户端(Client)和普通服务器（Server）。客户端和服务器将在AS的帮助下完成相互认证。</p>
 <p>在Kerberos系统中，客户端和服务器都有一个唯一的名字，叫做Principal。同时，客户端和服务器都有自己的密码，并且它们的密码只有自己和认证服务器AS知道。</p>

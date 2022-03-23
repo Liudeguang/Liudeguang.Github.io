@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309114120209.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309114846622.png">
 <meta property="article:published_time" content="2022-03-06T07:20:16.000Z">
-<meta property="article:modified_time" content="2022-03-09T03:53:59.011Z">
+<meta property="article:modified_time" content="2022-03-21T09:01:14.125Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307223102512.png">
@@ -198,6 +198,8 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.域内任何一台主机的本地管理员权限。</span><br><span class="line">2.域管理员的NTLM-hash</span><br></pre></td></tr></table></figure>
 
 <p>在域环境中，当我们获得了域管理员组内用户的NTLM哈希值，我们可以使用域内的一台主机用<code>mimikatz</code>对域内的任何一台机器(包括域控)进行哈希传递攻击。执行完命令后，会弹出CMD窗口，在弹出的CMD窗口我们可以访问域内任何一台机器。</p>
+<span id="more"></span>
+
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">测试环境：</span><br><span class="line">域控：winserver2012</span><br><span class="line">域内服务器：work-server</span><br></pre></td></tr></table></figure>
 
 <p>1.在work-sever上先进行信息搜集，可以知道域管理员有哪些。</p>

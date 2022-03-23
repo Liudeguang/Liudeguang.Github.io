@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309230525506.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309231005886.png">
 <meta property="article:published_time" content="2022-03-09T13:19:53.000Z">
-<meta property="article:modified_time" content="2022-03-09T15:19:12.685Z">
+<meta property="article:modified_time" content="2022-03-21T09:00:33.880Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309212400330.png">
@@ -174,6 +174,8 @@
       
         <h1 id="UAC工作原理"><a href="#UAC工作原理" class="headerlink" title="UAC工作原理"></a>UAC工作原理</h1><p>UAC是微软<code>Microsoft Windows vista</code>以后版本引入的一种安全机制。其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，以达到帮助阻止恶意程序(有时也称为”恶意软件”)损坏系统的效果。</p>
 <p>通过UAC，应用程序和任务可始终在非管理员账户的安全上下文中运行，除非管理员特别授予管理员级别的系统访问权限。UAC可以阻止未经授权的应用程序自动进行安装，并阻止无意中更改系统设置。</p>
+<span id="more"></span>
+
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309212400330.png" alt="image-20220309212400330"></p>
 <p>在开启了UAC后，如果用户是标准用户，windows会给用户分配一个标准<code>Access Token</code>,如果用户以管理员权限登录，会生成两份访问令牌，一份是完整的管理员访问令牌(Full Access Token),一份是标准用户令牌。当我们需要其他特权的时候，会弹出窗口，询问你是否要允许以下程序对此计算机更改？如果你有完整的访问令牌（即，你以管理员的身份登录，或者你属于管理员组），则可以选择是，然后继续进行。但是，如果已为了分配了标准的用户访问令牌，则会提示你输入具有特权的管理员的凭据。</p>
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309213508939.png" alt="image-20220309213508939"></p>

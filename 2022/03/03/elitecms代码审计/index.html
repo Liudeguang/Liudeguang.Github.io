@@ -8,12 +8,12 @@
   <link rel="dns-prefetch" href="https://example.com">
   <title>elitecms代码审计 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="序言在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。 主目录 该cms目录一目了然，并且非常简单。 重装漏洞该cms的index.php文件里，只对是否已经安装cms做了简单的判断  所以即使在安装后，也可以重新访问安装目录再次安装">
+  <meta name="description" content="序言在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="elitecms代码审计">
 <meta property="og:url" content="https://example.com/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
-<meta property="og:description" content="序言在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。 主目录 该cms目录一目了然，并且非常简单。 重装漏洞该cms的index.php文件里，只对是否已经安装cms做了简单的判断  所以即使在安装后，也可以重新访问安装目录再次安装">
+<meta property="og:description" content="序言在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191255330.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191710939.png">
@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304014543533.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304014557876.png">
 <meta property="article:published_time" content="2022-03-03T11:09:51.000Z">
-<meta property="article:modified_time" content="2022-03-03T17:48:21.439Z">
+<meta property="article:modified_time" content="2022-03-21T09:01:31.400Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191255330.png">
@@ -194,6 +194,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。</p>
+<span id="more"></span>
+
 <h1 id="主目录"><a href="#主目录" class="headerlink" title="主目录"></a>主目录</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191255330.png" alt="image-20220303191255330"></p>
 <p>该cms目录一目了然，并且非常简单。</p>
 <h1 id="重装漏洞"><a href="#重装漏洞" class="headerlink" title="重装漏洞"></a>重装漏洞</h1><p>该cms的index.php文件里，只对是否已经安装cms做了简单的判断</p>

