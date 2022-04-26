@@ -6,16 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>shellcode加密免杀 | Solkatt的小窝</title>
+  <title>恶意代码与反病毒介绍 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="shellcode加密免杀">
-<meta property="og:url" content="https://example.com/2022/03/28/shellcode%E5%8A%A0%E5%AF%86%E5%85%8D%E6%9D%80/index.html">
+  <meta name="description" content="恶意代码与反病毒的基本概念恶意代码的基本概念及危害只要是运行用户预期之外的目的的代码都算恶意代码 以目的划分类型 木马(控制、信息获取) 病毒(破坏) 其他(捆绑、广告等其他经济利益)  蠕虫蠕虫其实并不算某一种恶意代码，它算是一种手段，只要能够用来传播的手段，都可以称为蠕虫。 恶意代码的基本逻辑通过代码中的内容，去修改计算机的环境从而达到攻击者的目的。 如何分析代码？从恶意代码的目的开始分析，去">
+<meta property="og:type" content="article">
+<meta property="og:title" content="恶意代码与反病毒介绍">
+<meta property="og:url" content="https://example.com/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="恶意代码与反病毒的基本概念恶意代码的基本概念及危害只要是运行用户预期之外的目的的代码都算恶意代码 以目的划分类型 木马(控制、信息获取) 病毒(破坏) 其他(捆绑、广告等其他经济利益)  蠕虫蠕虫其实并不算某一种恶意代码，它算是一种手段，只要能够用来传播的手段，都可以称为蠕虫。 恶意代码的基本逻辑通过代码中的内容，去修改计算机的环境从而达到攻击者的目的。 如何分析代码？从恶意代码的目的开始分析，去">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-28T08:58:43.000Z">
-<meta property="article:modified_time" content="2022-03-28T08:58:59.700Z">
+<meta property="article:published_time" content="2022-04-24T15:13:43.000Z">
+<meta property="article:modified_time" content="2022-04-25T07:59:21.428Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="萌新免杀的故事">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
@@ -144,27 +147,67 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-shellcode加密免杀" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-恶意代码与反病毒介绍" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      shellcode加密免杀
+      恶意代码与反病毒介绍
     </h1>
   
 
         
-        <a href="/2022/03/28/shellcode%E5%8A%A0%E5%AF%86%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-03-28T08:58:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-28</time>
+        <a href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
+  	<time datetime="2022-04-24T15:13:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="恶意代码与反病毒的基本概念"><a href="#恶意代码与反病毒的基本概念" class="headerlink" title="恶意代码与反病毒的基本概念"></a>恶意代码与反病毒的基本概念</h1><h2 id="恶意代码的基本概念及危害"><a href="#恶意代码的基本概念及危害" class="headerlink" title="恶意代码的基本概念及危害"></a>恶意代码的基本概念及危害</h2><p>只要是运行用户预期之外的目的的代码都算恶意代码</p>
+<h2 id="以目的划分类型"><a href="#以目的划分类型" class="headerlink" title="以目的划分类型"></a>以目的划分类型</h2><ol>
+<li>木马(控制、信息获取)</li>
+<li>病毒(破坏)</li>
+<li>其他(捆绑、广告等其他经济利益)</li>
+</ol>
+<h2 id="蠕虫"><a href="#蠕虫" class="headerlink" title="蠕虫"></a>蠕虫</h2><p>蠕虫其实并不算某一种恶意代码，它算是一种手段，只要能够用来传播的手段，都可以称为蠕虫。</p>
+<h2 id="恶意代码的基本逻辑"><a href="#恶意代码的基本逻辑" class="headerlink" title="恶意代码的基本逻辑"></a>恶意代码的基本逻辑</h2><p>通过代码中的内容，去修改计算机的环境从而达到攻击者的目的。</p>
+<p>如何分析代码？从恶意代码的目的开始分析，去找修改的计算机的环境(注册表，开机启动项)，在去寻找可能的内容(API函数)。</p>
+<p>比如说达到开机启动的目的，那么我们寻找的环境就可以是注册表、服务、计划任务。去寻找的恶意内容就可能是API函数，命令行等。</p>
+<h2 id="恶意代码的要素："><a href="#恶意代码的要素：" class="headerlink" title="恶意代码的要素："></a>恶意代码的要素：</h2><ol>
+<li>代码本身</li>
+<li>运行环境</li>
+<li>目的</li>
+</ol>
+<h2 id="恶意代码的危害："><a href="#恶意代码的危害：" class="headerlink" title="恶意代码的危害："></a>恶意代码的危害：</h2><p>计算机的控制权限：</p>
+<p>交互的接口———-行为的产生————影响</p>
+<p>信息的获取：</p>
+<p>文件权限的设置————-文件内容的阅读环境</p>
+<p>破坏：</p>
+<ol>
+<li>利用漏洞——-破坏计算机当前内存环境</li>
+<li>文件加密——-硬盘数据的不可读</li>
+<li>硬件————-配置的修改超出硬件的可承受范围或者硬件不可用</li>
+</ol>
+<h1 id="反病毒的发展与影响"><a href="#反病毒的发展与影响" class="headerlink" title="反病毒的发展与影响"></a>反病毒的发展与影响</h1><h2 id="反病毒的概念："><a href="#反病毒的概念：" class="headerlink" title="反病毒的概念："></a>反病毒的概念：</h2><p>规定可能是用户预期之外的行为，然后以此为依据通过行为观察或者代码观察的方式做及时处理</p>
+<h2 id="发展："><a href="#发展：" class="headerlink" title="发展："></a>发展：</h2><h3 id="1-从专杀到通杀"><a href="#1-从专杀到通杀" class="headerlink" title="1. 从专杀到通杀"></a>1. 从专杀到通杀</h3><p>由于早期的恶意代码数量少，种类少，并且由于当时的编码环境大部分都是汇编写的，所以变化程度不大。所以早期的反病毒工具大部分都是专杀，也就是设计之初就是完全针对某一类恶意代码实现的。</p>
+<p>随着编程工具的日益发展，编程语言的不断普及，恶意代码的数量和种类都大幅度增加，而且在与专杀工具的对抗中发现到变化越多越不容易被杀，由此各种混淆、加壳、加花等代码变化的方式出现。反病毒工具也意识到专杀已经不现实了，所以推出了通杀的方式。</p>
+<h3 id="2-从硬盘到内存"><a href="#2-从硬盘到内存" class="headerlink" title="2.从硬盘到内存"></a>2.从硬盘到内存</h3><p>随着操作系统功能不断完善，针对于内存的使用越来越方便，对于各种api函数的管理也越来越简单，所以早期的反病毒工具仅仅是识别目标的二进制代码一直到现在的可以识别内存这个变化让反病毒工具有了更高的准确度。</p>
+<h3 id="3-从代码到行为"><a href="#3-从代码到行为" class="headerlink" title="3.从代码到行为"></a>3.从代码到行为</h3><p>代码—–分析行为</p>
+<p>行为触发———判断代码</p>
+<p>早期的反病毒工具基本都只是做到对于目标的代码识别，对于内存的识别也仅仅停留在代码层面。但是 随着代码的变化越来越多，反病毒工具开发人员发现如果只是从代码的角度出发已经不够识别足够多的 恶意代码了，所以逐渐地出现了以行为判断为依据的反病毒工具。</p>
+<p>行为的识别也有一段发展的过程。最开始的反病毒工具通常是比较行为触发前的内容和行为触发后的内 容之间作比较来识别的，但是这种方式是后知后觉，并且代码效率并不高，所以慢慢地发展出了挂钩函 数的方式，也就是统计哪些函数可能会触发哪些行为，哪些行为可能是用户预期之外的，然后对这些函 数在调用的过程中去做监控。</p>
+<h3 id="4-从本地云私有到云端共享"><a href="#4-从本地云私有到云端共享" class="headerlink" title="4.从本地云私有到云端共享"></a>4.从本地云私有到云端共享</h3><p>再以病毒库匹配机制的反病毒工具中，由于早期的云技术还没有普及，所以早期的反病毒工具的病毒库都是以本地方式保存在计算机中，但是这样就不能保护到自己的知识产权，并且会让整个工具变得非常臃肿。随着云技术的发展，越来越多的反病毒工具将自己的病毒库保存在自己的公开或者私有的云端，这样既将病毒库的公开权力掌握在自己手上，也能够大大简化反病毒工具本身的结构从而提高工作效率。</p>
+<p>当然随着反病毒技术的发展，一些组织或者机构愿意公开自己的一些规则并且规定了一些格式，方便相关从业人员更好地学习。</p>
+<h3 id="5-从正则匹配到机器学习"><a href="#5-从正则匹配到机器学习" class="headerlink" title="5.从正则匹配到机器学习"></a>5.从正则匹配到机器学习</h3><p>人们发现传统的正则匹配的方式也不太能够完全覆盖所有的恶意代码的情况，并且恶意代码的编程风格和运行逻辑也越来越多样。随着机器学习的不断发展与应用，越来越多的反病毒工具也开始使用基于机器学习的方法去识别恶意代码。</p>
+<h2 id="影响："><a href="#影响：" class="headerlink" title="影响："></a>影响：</h2><h3 id="1-对于反病毒工具本身的影响："><a href="#1-对于反病毒工具本身的影响：" class="headerlink" title="1.对于反病毒工具本身的影响："></a>1.对于反病毒工具本身的影响：</h3><h4 id="自定义的行为："><a href="#自定义的行为：" class="headerlink" title="自定义的行为："></a>自定义的行为：</h4><p>随着用户对计算机的正常应用要求越来越多样化，为了保证反病毒工具在这样的工作环境中能正常使用，反病毒工具也推出了很多可自定义的规则选项以及白名单机制。</p>
+<h4 id="立体化及宏观层面的应用："><a href="#立体化及宏观层面的应用：" class="headerlink" title="立体化及宏观层面的应用："></a>立体化及宏观层面的应用：</h4><p>将反病毒作为其中一种功能添加到一些综合性的安全产品中实现立体化也就是多种权限控制结合，多网段多机器的综合使用也是现在的常用功能。</p>
+<h3 id="2-对于操作系统的影响"><a href="#2-对于操作系统的影响" class="headerlink" title="2.对于操作系统的影响"></a>2.对于操作系统的影响</h3><h4 id="更多的状态监控支持："><a href="#更多的状态监控支持：" class="headerlink" title="更多的状态监控支持："></a>更多的状态监控支持：</h4><p>更多的监控，<code>amsl</code>的应用，内存的读写权限优化等功能的完善也为反病毒工作提供了更多的便利。</p>
+<h4 id="其他的保护手段："><a href="#其他的保护手段：" class="headerlink" title="其他的保护手段："></a>其他的保护手段：</h4><p>漏洞的修复，<code>tpm</code>,文件卷影等事件后处理手段也不断发展，为减少恶意代码损失起到了很大作用。</p>
+
       
 
       
@@ -172,6 +215,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -222,7 +276,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/03/28/shellcode%E5%8A%A0%E5%AF%86%E5%85%8D%E6%9D%80/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -236,18 +290,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          常见中间件漏洞
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Liunx提权靶场一游</div>
+    <a href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">常见中间件漏洞</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -399,6 +444,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">web安全的杂杂念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">萌新免杀的故事</a>
               </li>
             
             <div class="clearfix"></div>
