@@ -144,6 +144,147 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-使用windowsapi调用注册表操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/">使用windowsapi调用注册表操作</a>
+    </h1>
+  
+
+        
+        <a href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="archive-article-date">
+  	<time datetime="2022-04-26T16:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近为了学习免杀，需要先从<code>C++</code>开始打基础。对于我这个从来没学过C语言的菜鸡，真的是异常的艰险和挑战。这里往下对遇到的坑做下记录。</p>
+<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>用C++的主要目的就是为了会调用<code>windowsapi</code>函数，但是<code>windowsapi</code>函数不仅复杂，而且我在网上也没看到什么好的教学。基本上就相当于只有个人看文章了，这里我特地用了以下几个帮助我学习:</p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/488845">1.windowsAPI</a>数据类型</p>
+<p>2.MSDN</p>
+<p>3.对应的需要调用的函数的前人示例。</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="一些提前知识"><a href="#一些提前知识" class="headerlink" title="一些提前知识"></a>一些提前知识</h2><p><code>windowsapi</code>中使用了很多windows自定义的数据类型。自定义的数据类型有以下规则：</p>
+<p>1、基本数据类型大写：比如char为CHAR、short为SHORT、int为INT等。<br>2、指针类型的命令方式一般是在其指向的数据类型前面加“LP”或者“P”,比如<br>指向DWORD的指针类型为“LPDWORD”和“PDWORD”。<br>3、各种句柄类型的命名方式一般都是在对象名前加“H”,比如位图(BITMAP)对应<br>的句柄类型为“HBITMAP”。<br>4、无符号类型一般是以“U”开头,比如“INT”是符号类型,“UINT”是无符号类型。</p>
+<p><code>windowsapi</code>函数中，一个函数有很多钟后缀，它们代表不同的意思。</p>
+<ul>
+<li>A表示使用ANSI编码作为标准输入与输出流的文本编码</li>
+<li>W表示使用Unicode作为编码</li>
+<li>Ex表示拓展, 标注了Ex的winapi函数会比没有标Ex的函数多一些参数什么的, 可以说拓展了一些功能</li>
+<li>ExA 与 ExW 就是 A,W与Ex的结合了</li>
+</ul>
+<p>注册表的组成结构</p>
+<p>注册表的结构是一个树状结构，一个键（<code>key</code>，或称“项”）就是一个节点，子键（<code>subkey</code>)就是这个节点的子节点，子健也是键。键的一条属性被称为一个<code>value</code>（值项），<code>value</code>由名称、类型、数据类型和数据组成。一个键可以有多个值，每个值的名称不同，如果值名称是空，则该值为该键的默认值。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428220504573.png" alt="image-20220428220504573"></p>
+<h2 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>首先我想要做到像注册表中写入一个value值得案例。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;Windows.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">	HKEY openkey = NULL;</span><br><span class="line">	//打开或者创建一个注册表key</span><br><span class="line">	DWORD dwDisposition = REG_OPENED_EXISTING_KEY;</span><br><span class="line">	LONG nRet = RegCreateKeyEx(HKEY_CURRENT_USER, &quot;Software\\wegame&quot;,0,NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS ,NULL,&amp;openkey,&amp;dwDisposition);</span><br><span class="line"></span><br><span class="line">	if (nRet!=ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;创建失败&quot; &lt;&lt; endl;</span><br><span class="line">		return EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line">	char ou[] = &quot;hello my value&quot;;</span><br><span class="line">	//像打开的注册表key句柄写入一个hello为键，hello my value为值的item</span><br><span class="line">	//REG_SZ标识写入的类型</span><br><span class="line">	int reult = RegSetValueEx(openkey,&quot;hello&quot;,0, REG_SZ,(const BYTE*)ou, sizeof(ou));</span><br><span class="line"></span><br><span class="line">	if (reult!=ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;写入失败&quot; &lt;&lt; endl;</span><br><span class="line">		return EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;写入成功&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>贴上原版代码。</p>
+<p>这里开始对<code>windowsapi</code>函数做出分析：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">RegCreateKeyEx(hKey,lpSubKey,Reserved,LpClass,dwOptions,samDesired,lpsecurityAttributes,phkResult,lpdwDisposition) //在指定的项下创建一个新项。如指定的项已经存在，那么函数会打开现有的项。</span><br><span class="line">//hkey：HKEY类型 注册表键得句柄</span><br><span class="line">lpSubKey: LPCSTR类型 字符串常量</span><br><span class="line">Reserved： DWORD类型 在该函数中，此函数为保留值，必须为0</span><br><span class="line">lpCLASS: LPSTR类型 字符指针，也就是字符串变量。但是在该函数中，此参数可能会被忽略，此参数可以设置为NULL。</span><br><span class="line">dwOptions：DWORD类型，32无符号整形数据。可以是以下值之一。</span><br><span class="line">REG_OPTION_BACKUP_RESTORE   REG_OPTION_CREATE_LINK    REG_OPTION_NON_VOLATILE  REG_OPTION_VOLATILE ，这里我们选择REG_OPTION_NON_VOLATILE，大致的含义差不多就是保持稳定。</span><br><span class="line">samDesired： 这个也是一个规定的函数，默认选择KEY_ALL_ACCESS，大致意思是指拥有所有访问权限。</span><br><span class="line">lpsecurityAttributes： const LPSECURITY_ATTRIBUTES。指向Security_attributes结构的指针，默认可以设置为NULL。</span><br><span class="line">phkResult： PHKEY  指向变量的指针，相当于就是把我们打开的对象(打开的东西)交给一个变量，所以我们在前面声明了一个Hkey类型的变量，准备用来接受它。</span><br><span class="line">lpdwDisposition：LPDWORD 这里可以有两个选项，分别是REG_CREATED_NEW_KEY REG_OPENED_EXISTING_KEY ，NULL 我们选择REG_OPENED_EXISTING_KEY，大致的意思是打开一个已经存在的键。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RegSetValueEx(hkey,lpValueName,Reserved,dwType,*lpData,cbData)</span><br><span class="line">// hkey：HKEY类型 注册表键得句柄</span><br><span class="line">lpValueName: LPCSTR 字符串常量，要设置的值的名称。如果键中尚不存在具有此名称的值，则该函数会将其添加到键中。</span><br><span class="line">Reserved: DWORD类型。 此函数中，必须为0</span><br><span class="line">dwType: DWORD类型，参数所指向的数据类型，我们这里选择REG_SZ，表示为字符串。</span><br><span class="line">*LPData：const BYTE类型，意思是要存储的数据，但是这里要用指针表示。</span><br><span class="line">cbData：DWORD类型，所指向的信息大小，这里表示我们要写入多大，直接用sizeof（）函数来获取大小。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">该两个函数都会返回一个叫做LSTATUS类型的ERRIOR_SUCCESS.表示函数调用成功，没有错误。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428215824787.png" alt="image-20220428215824787"></p>
+<p>运行后显示写入成功，并且在注册表下，也成功看到。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428215851278.png" alt="image-20220428215851278"></p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>接下来我们进行注册表删除子健。首先在删除之前先创建一个叫做123的子健</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;Windows.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">	HKEY openkey = NULL;</span><br><span class="line">	//打开或者创建一个注册表key</span><br><span class="line">	DWORD dwDisposition = REG_OPENED_EXISTING_KEY;</span><br><span class="line">	LONG nRet = RegCreateKeyEx(HKEY_CURRENT_USER, &quot;Software\\123&quot;,0,NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS ,NULL,&amp;openkey,&amp;dwDisposition);</span><br><span class="line"></span><br><span class="line">	if (nRet!=ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;创建失败&quot; &lt;&lt; endl;</span><br><span class="line">		return EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">//我们前面说过,RegCreateKeyex函数当打开一个不存在的项（键）时，会默认创建一个。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428221000489.png" alt="image-20220428221000489"></p>
+<p>接下来进行删除操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;Windows.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">	HKEY openkey = NULL;</span><br><span class="line">	//打开或者创建一个注册表key</span><br><span class="line">	DWORD dwDisposition = REG_OPENED_EXISTING_KEY;</span><br><span class="line">	LONG nRet = RegDeleteKey(HKEY_CURRENT_USER, &quot;Software\\123&quot;);</span><br><span class="line">	if (nRet != ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;删除失败&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;删除成功&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RegDeleteKey(hkey,lpSubkey)</span><br><span class="line">//hkey和Lpsubkey都是老树人类型了，就不做过多介绍。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428221411374.png" alt="image-20220428221411374"></p>
+<p>已经删除成功了。</p>
+<p>接下来进行删除键下面的一个VALUE的操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;Windows.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">	HKEY openkey = NULL;</span><br><span class="line">	//打开或者创建一个注册表key</span><br><span class="line">	LONG nRet = RegCreateKey(HKEY_CURRENT_USER, &quot;Software\\wegame&quot;, &amp;openkey);</span><br><span class="line">	if (nRet!=ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;打开失败&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	LONG lRet = RegDeleteValue(HKEY_CURRENT_USER, &quot;Software\\wegame&quot;);</span><br><span class="line">	if (nRet != ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;删除失败&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;删除成功&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">要想删除一个VALUE，我们就要先打开一个键（因为键下面才有VALUE）。所以使用了RegCreateKey函数，RegCreateKey函数是RegCreateKeyEX函数的简单版，这里从它的参数数量少了好多就可以看出来了。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428222140555.png" alt="image-20220428222140555"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428222153389.png" alt="image-20220428222153389"></p>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>接下来进行遍历子键和VALUE操作。</p>
+<p>遍历子键</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;Windows.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	HKEY openkey = NULL;</span><br><span class="line"></span><br><span class="line">	LONG nRet = RegCreateKey(HKEY_CURRENT_USER, &quot;Software\\Tencent&quot;, &amp;openkey);</span><br><span class="line"></span><br><span class="line">	if (nRet != ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;创建失败&quot; &lt;&lt; endl;</span><br><span class="line">		return EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	DWORD dwIndex = 0, NameSize = 0, NameCnt = 0, MaxNameLen = 0, Type = 0;</span><br><span class="line">	DWORD KeySize = 0, KeyCnt = 0, KeyMaxLen = 0, DateSize = 0, MaxDateLen = 0;</span><br><span class="line"></span><br><span class="line">	if (RegQueryInfoKey(openkey,</span><br><span class="line">		NULL,</span><br><span class="line">		NULL,</span><br><span class="line">		NULL,</span><br><span class="line">		&amp;KeyCnt, //这个键下面的子键数量</span><br><span class="line">		&amp;KeyMaxLen, //子键名字中最长的名字长度 </span><br><span class="line">		NULL,</span><br><span class="line">		&amp;NameCnt,//这个键的value的数量</span><br><span class="line">		&amp;MaxNameLen,//这个键的所有value中最长的名字长度</span><br><span class="line">		&amp;MaxDateLen, //所有的value对应的存储数值最大的长度</span><br><span class="line">		NULL,</span><br><span class="line">		NULL) != ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;RegQueryInfoKey 失败&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	char* keyName = new char[KeyMaxLen + 1];</span><br><span class="line">	for (size_t i = 0; i &lt; KeyCnt; i++)</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		DWORD dwKeyNameLen = KeyMaxLen + 1;</span><br><span class="line">		int result = RegEnumKeyEx(openkey, i, keyName, &amp;dwKeyNameLen, 0, NULL, NULL, NULL);;</span><br><span class="line">		if (result != ERROR_SUCCESS)</span><br><span class="line">		&#123;</span><br><span class="line">			cout &lt;&lt; &quot;RegEnumKeyEx 失败&quot; &lt;&lt; endl;</span><br><span class="line">			getchar();</span><br><span class="line">			return EXIT_FAILURE;</span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; i &lt;&lt; &quot;\t&quot; &lt;&lt; keyName &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	delete[]keyName;</span><br><span class="line"></span><br><span class="line">	RegCloseKey(openkey);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">RegQueryInfoKey(hkey,lpClass,lpcchClass,lpReserved,lpSubkeys,lpcbMaxSubkeylen,lpcbMaxClasslen,lpcValues,lpcbMaxValueNamelen,lpcbMaxValuelen,lpcbSecurityDescriptor,lpftLastWriteTime)</span><br><span class="line">检索有关指定注册表项的信息。</span><br><span class="line">hkey:HKEY类型:打开的注册表项的句柄。</span><br><span class="line">lpClass: LPSTR字符指针，也就是字符串变量。指向接受键的用户定义类的缓冲区的指针。此参数可以为NULL。</span><br><span class="line">lpcchClass：LPDWORD 指向DWORD类型数据的指针。 如果lpclass为null，那么lpcchclass也可以为null，所以设置为null。</span><br><span class="line">lpReserved：LPDWORD 此参数为保留参数，必须为null</span><br><span class="line">lpcSubKeys：LPDWORD 指向一个变量的指针，该变量接受指定键所包含的子项数。</span><br><span class="line">lpcbMaxSubKeyLen：LPDWORD 指向一个变量的指针，该指针接受子项类的最长字符串的大小。</span><br><span class="line">lpcbMaxClassLen：LPDWORD 指向一个变量的指针。该变量接受指定子项类的最长字符串的大小，此参数可以为NULL。</span><br><span class="line">lpcValues：LPDWORD 指向一个变量指针。该变量接受与键关联的值输。</span><br><span class="line">lpcbMaxValueNameLen：LPDWORD 指向一个变量的指针。该变量接受键的最长值名称的大小。</span><br><span class="line">lpcbMaxValueLen：LPDWORD 指向一个变量的指针。该变量接受键的最长的数据组件（值）大小。</span><br><span class="line">lpcbSecurityDescriptor:LPDWORD 指向一个变量的指针，该变量接受密钥的安全描述符的大小，此参数可以为null</span><br><span class="line">lpftLastWriteTime:PFILETIME 指向一个变量的指针，指向一个接受上次写入时间的FILETIME结构的指针。此参数可以为null。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RegEnumKeyEx（hkey,dwIndex,lpName,lpcchname,lpReserved,lpClass,lpcchClass,lpftLastWriteTime）</span><br><span class="line">枚举指定的打开注册表项的子项。该函数在每次调用一个子项时检索有关该子项的信息。</span><br><span class="line">hkey:HKEY类型:打开的注册表项的句柄。</span><br><span class="line">dwIndex: DWORD, 要检索的子项的索引。RegEnumKeyEx 函数的第一次调用，此参数应为零，然后对于后续调用递增。</span><br><span class="line">lpName: LPSTR, 指向接受子项名称的缓冲区的指针。该函数仅将子项的名称(而不是完整键层次结构)复制到缓冲区</span><br><span class="line">lpcchname: LPDWORD,指向变量的指针，该变量指定由lpname参数指定的缓冲区大小。如果函数成功，则lpcname所指向的变量将包含缓冲区中存储的字符数。</span><br><span class="line">lpReserved: LPDWORD,保留参数，设置为NULL</span><br><span class="line">lpClass: LPSTR,指向缓冲区的指针，该缓冲区接受枚举子项的用户定义类。此参数可以为NULL。</span><br><span class="line">lpcchClass: LPDWORD,指向变量的指针，该变量指定由lpclass参数指定的缓冲区大小。如果函数成功，lpcchclass将包含存储在缓冲区中的字节数。当lpclass为null时，lpcchclass才能为空。</span><br><span class="line">lpftlastWriteTime:PFILETIME 指向FILETIME结构的指针，该结构接受上次写入枚举子项的时间。此参数可以为NULL</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428232342831.png" alt="image-20220428232342831"></p>
+<p>遍历VALUE</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;Windows.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	HKEY openkey = NULL;</span><br><span class="line"></span><br><span class="line">	LONG nRet = RegCreateKey(HKEY_CURRENT_USER, &quot;Software\\Tencent&quot;, &amp;openkey);</span><br><span class="line"></span><br><span class="line">	if (nRet != ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;创建失败&quot; &lt;&lt; endl;</span><br><span class="line">		return EXIT_FAILURE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	DWORD dwIndex = 0, NameSize = 0, NameCnt = 0, MaxNameLen = 0, Type = 0;</span><br><span class="line">	DWORD KeySize = 0, KeyCnt = 0, KeyMaxLen = 0, DateSize = 0, MaxDateLen = 0;</span><br><span class="line"></span><br><span class="line">	if (RegQueryInfoKey(openkey,</span><br><span class="line">		NULL,</span><br><span class="line">		NULL,</span><br><span class="line">		NULL,</span><br><span class="line">		&amp;KeyCnt, //这个键下面的子键数量</span><br><span class="line">		&amp;KeyMaxLen, //子键名字中最长的名字长度 </span><br><span class="line">		NULL,</span><br><span class="line">		&amp;NameCnt,//这个键的value的数量</span><br><span class="line">		&amp;MaxNameLen,//这个键的所有value中最长的名字长度</span><br><span class="line">		&amp;MaxDateLen, //所有的value对应的存储数值最大的长度</span><br><span class="line">		NULL,</span><br><span class="line">		NULL) != ERROR_SUCCESS)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;RegQueryInfoKey 失败&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	char* keyName = new char[MaxNameLen + 1];</span><br><span class="line">	char* valueName = new char[MaxDateLen + 1];</span><br><span class="line"></span><br><span class="line">	for (size_t i = 0; i &lt; NameCnt; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		DWORD dwKeyNameLen = MaxNameLen + 1;</span><br><span class="line">		DWORD dwKeyNameLen2 = MaxDateLen + 1;</span><br><span class="line"></span><br><span class="line">		nRet = RegEnumValue(openkey, i, keyName, &amp;dwKeyNameLen, 0, NULL, (LPBYTE)valueName, &amp;dwKeyNameLen2);;</span><br><span class="line">		if (nRet != ERROR_SUCCESS)</span><br><span class="line">		&#123;</span><br><span class="line">			cout &lt;&lt; &quot;RegEnumKeyEx 失败&quot; &lt;&lt; endl;</span><br><span class="line">			return EXIT_FAILURE;</span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; i &lt;&lt; &quot;\t&quot; &lt;&lt; keyName &lt;&lt; &quot;\t &quot; &lt;&lt; valueName &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	delete[]keyName;</span><br><span class="line">	delete[]valueName;</span><br><span class="line"></span><br><span class="line">	RegCloseKey(openkey);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这此的差别就是我们定义了<code>dwKeyNameLen</code>和<code>dwKeyNameLen2</code>两个参数用来作为<code>lpclass</code>和<code>lpcclass</code>形参放进函数里。这样就能获取到value。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428232809255.png" alt="image-20220428232809255"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220428232819997.png" alt="image-20220428232819997"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-恶意代码与反病毒介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -895,92 +1036,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-内网渗透工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="内网渗透工具"><a href="#内网渗透工具" class="headerlink" title="内网渗透工具"></a>内网渗透工具</h1><h2 id="Setspn"><a href="#Setspn" class="headerlink" title="Setspn"></a>Setspn</h2><h3 id="SPN"><a href="#SPN" class="headerlink" title="SPN"></a><em><strong><a href="http://iphone.myzaker.com/zaker/link.php?pk=5c6f60cf77ac6443f6177afa&b=aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvd2luZG93cy9kZXNrdG9wL0FEL3NlcnZpY2UtcHJpbmNpcGFsLW5hbWVz&bcode=99fe68c6&target=_new">SPN</a></strong></em></h3><p>Service Principal Names</p>
-<p>SPN是服务器上所运行服务的唯一标识，每个使用Kerberos的服务都需要一个SPN。</p>
-<p>SPN分为两种，一种注册在AD上机器账户(Computers)下，另一种注册在域用户账户下(Users)下。</p>
-<p>当一个服务的权限为Local System或 Network Serivce，则SPN注册在机器账户(Computers)下。当一个服务的权限为一个域用户，则SPN注册在域用户账户(User)下。</p>
-<h3 id="SPN的格式"><a href="#SPN的格式" class="headerlink" title="SPN的格式"></a>SPN的格式</h3><p><code>serviceclass/host:port/servicename</code></p>
-<p>说明:</p>
-<ol>
-<li>serviceclass可以理解为<strong>服务类</strong>的名称，常见的有www,ldap,SMTP,DNS,HOST等。</li>
-<li>host有两种形式，FQDN（全域名）和NetBIOS（简域名）名，例如server01.test.com和server01。</li>
-<li>如果服务运行在默认端口上，则端口号(Port)可以省略。</li>
-</ol>
-        
-          <a class="article-more-a" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">展开全文 >></a>
         </p>
       
 
