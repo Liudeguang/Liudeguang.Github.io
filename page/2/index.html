@@ -395,20 +395,6 @@
 <p>该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来获取高权限，对只读内存映射进行访问。竞争条件，指的是任务执行顺序异常，这样可能会导致应用崩溃，或者是令攻击者有机可乘，进一步执行其他代码。利用这一漏洞，攻击者可在其目标系统提升权限，甚至可能获得root权限。</p>
 <p>Liunx内核&gt;=2.6.22</p>
 <p>触发代码:<a target="_blank" rel="noopener" href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c">https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c</a></p>
-<p>代码分析：</p>
-<p>main函数将用户输入的只读文件mmap映射，flag参数是map_private其只读。map_private属性会对此内存写入时，创建一个cow的副本，然后创建2个线程<code>madviseThread</code>和<code>procselfmenThread</code>，其中<code>procselfmenThread</code>通过<code>/proc/self/mem</code>文件尝试向被映射的内存不断写入数据，<code>madviseThread</code>则不断调用取消映射，两个线程不断操作。竞争条件触发只读文件写入权限，流畅在内核代码中。</p>
-<p>触发方式:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#echo this is not a test &gt; foo</span><br><span class="line">#chmod 0404 foo</span><br><span class="line">$ ls -lah foo</span><br><span class="line">-r-----r-- 1 root root 19 Oct 20 15:23 foo</span><br><span class="line">$ cat foo</span><br><span class="line">this is not a test</span><br><span class="line">$ gcc -pthread dirtyc0w.c -o dirtyc0w</span><br><span class="line">$ ./dirtyc0w foo m00000000000000000</span><br><span class="line">mmap 56123000</span><br><span class="line">madvise 0</span><br><span class="line">procselfmem 1800000000</span><br><span class="line">$ cat foo</span><br><span class="line">m00000000000000000</span><br></pre></td></tr></table></figure>
-
-<p>exp1:<a target="_blank" rel="noopener" href="https://github.com/FireFart/dirtycow">https://github.com/FireFart/dirtycow</a></p>
-<p>exp2:<a target="_blank" rel="noopener" href="https://github.com/gbonacini/CVE-2016-5195">https://github.com/gbonacini/CVE-2016-5195</a></p>
-<p>将exp1上传到目标机器，使用gcc-pthread dirty.c -o dirty -lcrypt命令对dirty.c进行编译，生成一个dirty的可执行文件。</p>
-<p>将exp2上传到目标机器，解压，进入解压目录。</p>
-<p>执行make后生成可执行文件dcow，执行./dcow -s如果成功的话，就可以返回一个root权限的shell</p>
-<h4 id="测试环境："><a href="#测试环境：" class="headerlink" title="测试环境："></a>测试环境：</h4><p>这里直接使用网上靶场复现：</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093022033.png" alt="image-20220224093022033"></p>
-<p>如果可以写入写入foo文件，表示该机器存在脏牛提权漏洞。</p>
-<p>在目标机器上上传<code>liunx-exloit-suggester.sh</code>帮助检测该liunx机器有哪些内核提权漏洞。</p>
         
           <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/#more">more >></a>
         

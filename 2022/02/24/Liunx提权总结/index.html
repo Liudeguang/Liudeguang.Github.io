@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226174052385.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220226183137728.png">
 <meta property="article:published_time" content="2022-02-24T01:00:25.000Z">
-<meta property="article:modified_time" content="2022-03-24T14:38:26.266Z">
+<meta property="article:modified_time" content="2022-04-28T15:45:13.744Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093022033.png">
@@ -177,6 +177,8 @@
 <p>该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来获取高权限，对只读内存映射进行访问。竞争条件，指的是任务执行顺序异常，这样可能会导致应用崩溃，或者是令攻击者有机可乘，进一步执行其他代码。利用这一漏洞，攻击者可在其目标系统提升权限，甚至可能获得root权限。</p>
 <p>Liunx内核&gt;=2.6.22</p>
 <p>触发代码:<a target="_blank" rel="noopener" href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c">https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c</a></p>
+<span id="more"></span>
+
 <p>代码分析：</p>
 <p>main函数将用户输入的只读文件mmap映射，flag参数是map_private其只读。map_private属性会对此内存写入时，创建一个cow的副本，然后创建2个线程<code>madviseThread</code>和<code>procselfmenThread</code>，其中<code>procselfmenThread</code>通过<code>/proc/self/mem</code>文件尝试向被映射的内存不断写入数据，<code>madviseThread</code>则不断调用取消映射，两个线程不断操作。竞争条件触发只读文件写入权限，流畅在内核代码中。</p>
 <p>触发方式:</p>
@@ -191,8 +193,6 @@
 <p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220224093022033.png" alt="image-20220224093022033"></p>
 <p>如果可以写入写入foo文件，表示该机器存在脏牛提权漏洞。</p>
 <p>在目标机器上上传<code>liunx-exloit-suggester.sh</code>帮助检测该liunx机器有哪些内核提权漏洞。</p>
-<span id="more"></span>
-
 <h3 id="利用kali进行内核提权"><a href="#利用kali进行内核提权" class="headerlink" title="利用kali进行内核提权"></a>利用kali进行内核提权</h3><p>查看系统发行版本</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/issue</span><br><span class="line">cat /etc/*-release</span><br></pre></td></tr></table></figure>
 
