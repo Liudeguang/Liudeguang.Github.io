@@ -6,14 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Solkatt的小窝</title>
+  <title>shellcode的基础免杀 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: shellcode基础与简单调用date: 2022-03-17 18:39:49tags: shellcode基础什么是shellcodeshellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接">
+  <meta name="description" content="shellcode基础什么是shellcodeshellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/2022/03/17/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/index.html">
+<meta property="og:title" content="shellcode的基础免杀">
+<meta property="og:url" content="https://example.com/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
-<meta property="og:description" content="title: shellcode基础与简单调用date: 2022-03-17 18:39:49tags: shellcode基础什么是shellcodeshellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接">
+<meta property="og:description" content="shellcode基础什么是shellcodeshellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317185948447.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317190224968.png">
@@ -26,9 +26,10 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318162307604.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163136336.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220318163113322.png">
-<meta property="article:published_time" content="2022-03-17T10:39:49.669Z">
-<meta property="article:modified_time" content="2022-03-21T09:02:32.540Z">
+<meta property="article:published_time" content="2022-03-21T08:20:28.000Z">
+<meta property="article:modified_time" content="2022-05-01T04:06:24.987Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="萌新免杀的故事">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220317185948447.png">
   
@@ -161,10 +162,24 @@
             <article id="post-shellcode基础与简单调用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      shellcode的基础免杀
+    </h1>
+  
+
+        
+        <a href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title: shellcode基础与简单调用<br>date: 2022-03-17 18:39:49<br>tags:</p>
-<h1 id="shellcode基础"><a href="#shellcode基础" class="headerlink" title="shellcode基础"></a>shellcode基础</h1><h2 id="什么是shellcode"><a href="#什么是shellcode" class="headerlink" title="什么是shellcode"></a>什么是shellcode</h2><p>shellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell进程，然后同攻击者进行通信，接受攻击者的指令，然后返回结果。那么如何建立一个shell进程呢？在Unix中使用execve命令可以建立，而在windows下需要调用内核API来建立。</p>
+        <h1 id="shellcode基础"><a href="#shellcode基础" class="headerlink" title="shellcode基础"></a>shellcode基础</h1><h2 id="什么是shellcode"><a href="#什么是shellcode" class="headerlink" title="什么是shellcode"></a>什么是shellcode</h2><p>shellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell进程，然后同攻击者进行通信，接受攻击者的指令，然后返回结果。那么如何建立一个shell进程呢？在Unix中使用execve命令可以建立，而在windows下需要调用内核API来建立。</p>
 <h2 id="shellcode的方向"><a href="#shellcode的方向" class="headerlink" title="shellcode的方向"></a>shellcode的方向</h2><p>shellcode一般分为正向和反向。在msf中，我们经常会发现一个payload有reverse的前缀（表示为反向）它们的原理如下:</p>
 <span id="more"></span>
 
@@ -233,6 +248,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -283,7 +309,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/03/17/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -297,18 +323,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          shellcode的基础免杀
+          Liunx提权靶场一游
         
       </div>
     </a>
   
   
-    <a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">浅谈UAC及绕过</div>
+    <a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shellcode的基础免杀</div>
       <i class="icon-circle-right"></i>
     </a>
   

