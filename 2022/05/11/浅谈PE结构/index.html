@@ -6,15 +6,49 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>浅谈PE结构 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/page/2/index.html">
+  <meta name="description" content="什么是PE结构PE结构是Windows操作系统下标准的可执行文件的头格式 当你用二进制的编辑器(如010editor)打开一个exe文件，就会发现这里面有PE结构，其中包括但不限于DOS头，NT头,可选NT头，节头。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈PE结构">
+<meta property="og:url" content="https://example.com/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="什么是PE结构PE结构是Windows操作系统下标准的可执行文件的头格式 当你用二进制的编辑器(如010editor)打开一个exe文件，就会发现这里面有PE结构，其中包括但不限于DOS头，NT头,可选NT头，节头。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511145738618.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511145034365.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511151157260.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511151248546.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511153424021.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154206980.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154554751.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154736517.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154929219.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511155038055.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511155517389.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511155707323.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511160058417.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511160120364.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511160545745.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511162709559.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511163358811.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516110128663.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516110347854.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512170943578.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512171157492.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512171657847.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512173241967.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512173855366.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512172955294.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516104713034.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516111621678.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516125442258.png">
+<meta property="article:published_time" content="2022-05-11T06:41:38.000Z">
+<meta property="article:modified_time" content="2022-05-16T04:54:59.401Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="萌新免杀的故事">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511145738618.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,361 +176,298 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-浅谈PE结构" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈PE结构
+    </h1>
+  
+
+        
+        <a href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2022-05-11T06:41:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是PE结构"><a href="#什么是PE结构" class="headerlink" title="什么是PE结构"></a>什么是PE结构</h1><p>PE结构是Windows操作系统下标准的可执行文件的头格式</p>
+<p>当你用二进制的编辑器(如010editor)打开一个exe文件，就会发现这里面有PE结构，其中包括但不限于<code>DOS头</code>，<code>NT头</code>,<code>可选NT头</code>，<code>节头</code>。</p>
+<span id="more"></span>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511145738618.png" alt="image-20220511145738618"></p>
+<h1 id="什么是PE结构的文件"><a href="#什么是PE结构的文件" class="headerlink" title="什么是PE结构的文件"></a>什么是PE结构的文件</h1><p>PE结构的文件，就是指这个文件他可能是<code>exe</code>格式,<code>dll</code>格式，<code>sys</code>格式的文件，可以在windows系统下双击运行的文件。</p>
+<h1 id="基础数据类型"><a href="#基础数据类型" class="headerlink" title="基础数据类型"></a>基础数据类型</h1><p>WORD类型 占4个位置，2字节</p>
+<p>DWORD类型 占8个位置，4个字节</p>
+<p>BYTE类型 占2个位置，1个字节</p>
+<p>PE头结构的信息是在<code>&lt;windows.h&gt;</code>里面，所以可以在vs里面看待相关信息。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511145034365.png" alt="image-20220511145034365"></p>
+<h1 id="DOS头"><a href="#DOS头" class="headerlink" title="DOS头"></a>DOS头</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">VS里面原始备注的DOS头格式：</span><br><span class="line">typedef struct _IMAGE_DOS_HEADER &#123;      // DOS .EXE header</span><br><span class="line">    WORD   e_magic;                     // Magic number</span><br><span class="line">    WORD   e_cblp;                      // Bytes on last page of file</span><br><span class="line">    WORD   e_cp;                        // Pages in file</span><br><span class="line">    WORD   e_crlc;                      // Relocations</span><br><span class="line">    WORD   e_cparhdr;                   // Size of header in paragraphs</span><br><span class="line">    WORD   e_minalloc;                  // Minimum extra paragraphs needed</span><br><span class="line">    WORD   e_maxalloc;                  // Maximum extra paragraphs needed</span><br><span class="line">    WORD   e_ss;                        // Initial (relative) SS value</span><br><span class="line">    WORD   e_sp;                        // Initial SP value</span><br><span class="line">    WORD   e_csum;                      // Checksum</span><br><span class="line">    WORD   e_ip;                        // Initial IP value</span><br><span class="line">    WORD   e_cs;                        // Initial (relative) CS value</span><br><span class="line">    WORD   e_lfarlc;                    // File address of relocation table</span><br><span class="line">    WORD   e_ovno;                      // Overlay number</span><br><span class="line">    WORD   e_res[4];                    // Reserved words</span><br><span class="line">    WORD   e_oemid;                     // OEM identifier (for e_oeminfo)</span><br><span class="line">    WORD   e_oeminfo;                   // OEM information; e_oemid specific</span><br><span class="line">    WORD   e_res2[10];                  // Reserved words</span><br><span class="line">    LONG   e_lfanew;                    // File address of new exe header</span><br><span class="line">  &#125; IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;</span><br></pre></td></tr></table></figure>
+
+<p>为了表示每个可执行文件都会具有PE结构，我这里写了一个很简单无意义的程序。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511151157260.png" alt="image-20220511151157260"></p>
+<p>生成为EXE格式后，使用010editor打开，可以发现仍然具有PE结构。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511151248546.png" alt="image-20220511151248546"></p>
+<p>我们开始分析两个重要的DOS头字段意义：</p>
+<h2 id="e-magic"><a href="#e-magic" class="headerlink" title="e_magic"></a>e_magic</h2><p>Magic number 标志位（MZ 4d5a 只占2字节）</p>
+<p>DOS头最明显的标志(e_magic字段)就是它会以它的创世人名字缩写(MZ,二进制表示为4D5A)放在最前面,表示是DOS头。</p>
+<h2 id="e-lfanew"><a href="#e-lfanew" class="headerlink" title="e_lfanew"></a>e_lfanew</h2><p>File address of new exe header 偏移位置（一般接下来就是文件签名），我们可以理解为标注DOS头结束的位置。接下来就是其他东西了。</p>
+<p>这个文件里是<code>40 00 00 00</code>,表示在这个位置，就是其他东西了</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511153424021.png" alt="image-20220511153424021"></p>
+<h1 id="NT头"><a href="#NT头" class="headerlink" title="NT头"></a>NT头</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_NT_HEADERS &#123;</span><br><span class="line">    DWORD Signature;</span><br><span class="line">    IMAGE_FILE_HEADER FileHeader;</span><br><span class="line">    IMAGE_OPTIONAL_HEADER32 OptionalHeader;</span><br><span class="line">&#125; IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h2><p>Signature就是NT头的标志，它的标志是PE..（50 45 00 00）</p>
+<h2 id="FileHeader"><a href="#FileHeader" class="headerlink" title="FileHeader"></a>FileHeader</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_FILE_HEADER &#123;</span><br><span class="line">    WORD    Machine;</span><br><span class="line">    WORD    NumberOfSections;</span><br><span class="line">    DWORD   TimeDateStamp;</span><br><span class="line">    DWORD   PointerToSymbolTable;</span><br><span class="line">    DWORD   NumberOfSymbols;</span><br><span class="line">    WORD    SizeOfOptionalHeader;</span><br><span class="line">    WORD    Characteristics;</span><br><span class="line">&#125; IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Machine"><a href="#Machine" class="headerlink" title="Machine"></a>Machine</h3><p>Machine就是指CPU的架构，程序可以在什么cpu上运行。有以下类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#define IMAGE_FILE_MACHINE_UNKNOWN 0</span><br><span class="line">#define IMAGE_FILE_MACHINE_TARGET_HOST 0x0001 // Useful for indicating we</span><br><span class="line">want to interact with the host and not a WoW guest.</span><br><span class="line">#define IMAGE_FILE_MACHINE_I386 0x014c // Intel 386.</span><br><span class="line">#define IMAGE_FILE_MACHINE_R3000 0x0162 // MIPS little-endian,</span><br><span class="line">0x160 big-endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_R4000 0x0166 // MIPS little-endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_R10000 0x0168 // MIPS little-endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_WCEMIPSV2 0x0169 // MIPS little-endian WCE</span><br><span class="line">v2</span><br><span class="line">#define IMAGE_FILE_MACHINE_ALPHA 0x0184 // Alpha_AXP</span><br><span class="line">#define IMAGE_FILE_MACHINE_SH3 0x01a2 // SH3 little-endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_SH3DSP 0x01a3</span><br><span class="line">#define IMAGE_FILE_MACHINE_SH3E 0x01a4 // SH3E little-endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_SH4 0x01a6 // SH4 little-endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_SH5 0x01a8 // SH5</span><br><span class="line">#define IMAGE_FILE_MACHINE_ARM 0x01c0 // ARM Little-Endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_THUMB 0x01c2 // ARM Thumb/Thumb-2</span><br><span class="line">Little-Endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_ARMNT 0x01c4 // ARM Thumb-2 LittleEndian</span><br><span class="line">#define IMAGE_FILE_MACHINE_AM33 0x01d3</span><br><span class="line">#define IMAGE_FILE_MACHINE_POWERPC 0x01F0 // IBM PowerPC LittleEndian</span><br><span class="line">#define IMAGE_FILE_MACHINE_POWERPCFP 0x01f1</span><br><span class="line">#define IMAGE_FILE_MACHINE_IA64 0x0200 // Intel 64</span><br><span class="line">#define IMAGE_FILE_MACHINE_MIPS16 0x0266 // MIPS</span><br><span class="line">#define IMAGE_FILE_MACHINE_ALPHA64 0x0284 // ALPHA64</span><br><span class="line">#define IMAGE_FILE_MACHINE_MIPSFPU 0x0366 // MIPS</span><br><span class="line">#define IMAGE_FILE_MACHINE_MIPSFPU16 0x0466 // MIPS</span><br><span class="line">#define IMAGE_FILE_MACHINE_AXP64 IMAGE_FILE_MACHINE_ALPHA64</span><br><span class="line">#define IMAGE_FILE_MACHINE_TRICORE 0x0520 // Infineon</span><br><span class="line">#define IMAGE_FILE_MACHINE_CEF 0x0CEF</span><br><span class="line">#define IMAGE_FILE_MACHINE_EBC 0x0EBC // EFI Byte Code</span><br><span class="line">#define IMAGE_FILE_MACHINE_AMD64 0x8664 // AMD64 (K8)</span><br><span class="line">#define IMAGE_FILE_MACHINE_M32R 0x9041 // M32R little-endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_ARM64 0xAA64 // ARM64 Little-Endian</span><br><span class="line">#define IMAGE_FILE_MACHINE_CEE 0xC0EE</span><br></pre></td></tr></table></figure>
+
+<p>可以看到在我们文件里，写的是</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154206980.png" alt="image-20220511154206980"></p>
+<p>(64 86)其实应该读为 86 64，这个是小端序的读法。可以看到我们是AMD64(K8)</p>
+<h3 id="NumberofSections"><a href="#NumberofSections" class="headerlink" title="NumberofSections"></a>NumberofSections</h3><p>NumberofSections是节数，最大支持96。节数是一个EXE文件分成多少个部分。可以看到我们写的是<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154554751.png" alt="image-20220511154554751"></p>
+<p>所以说明有6个区节。我们打开<code>ExeinfoPe</code>可以看到该文件确实有6个字节。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154736517.png" alt="image-20220511154736517"></p>
+<h4 id="常见的节列举："><a href="#常见的节列举：" class="headerlink" title="常见的节列举："></a>常见的节列举：</h4><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511154929219.png" alt="image-20220511154929219"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511155038055.png" alt="image-20220511155038055"></p>
+<h3 id="TimeDataStamp"><a href="#TimeDataStamp" class="headerlink" title="TimeDataStamp"></a>TimeDataStamp</h3><p>TimeDataStamp 时间戳（UTC 时间） 以格林威治时间来作为起始，来换算的秒数。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511155517389.png" alt="image-20220511155517389"></p>
+<h3 id="PointerToSymbolTbale和NumberOfSymbols"><a href="#PointerToSymbolTbale和NumberOfSymbols" class="headerlink" title="PointerToSymbolTbale和NumberOfSymbols"></a>PointerToSymbolTbale和NumberOfSymbols</h3><p>这两个已经被废弃了，所以都默认为0000 </p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511155707323.png" alt="image-20220511155707323"></p>
+<h3 id="SizeOfoptionalHeader"><a href="#SizeOfoptionalHeader" class="headerlink" title="SizeOfoptionalHeader"></a>SizeOfoptionalHeader</h3><p>可选头大小，它的主要任务是为了判断该文件运行的环境(对于32位文件来说，它是224，对于64位来说，他是240）</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511160058417.png" alt="image-20220511160058417"></p>
+<p>用计算器换算下就是</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511160120364.png" alt="image-20220511160120364"></p>
+<p>可见我们是64位文件</p>
+<h3 id="Characteristics"><a href="#Characteristics" class="headerlink" title="Characteristics"></a>Characteristics</h3><p>Characteristics是文件特征。他是为了区分你是exe文件，还是dll文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#define IMAGE_FILE_RELOCS_STRIPPED 0x0001 // Relocation info stripped</span><br><span class="line">from file.</span><br><span class="line">#define IMAGE_FILE_EXECUTABLE_IMAGE 0x0002 // File is executable</span><br><span class="line">(i.e. no unresolved external references).</span><br><span class="line">#define IMAGE_FILE_LINE_NUMS_STRIPPED 0x0004 // Line nunbers stripped</span><br><span class="line">from file.</span><br><span class="line">#define IMAGE_FILE_LOCAL_SYMS_STRIPPED 0x0008 // Local symbols stripped</span><br><span class="line">from file.</span><br><span class="line">#define IMAGE_FILE_AGGRESIVE_WS_TRIM 0x0010 // Aggressively trim</span><br><span class="line">working set</span><br><span class="line">#define IMAGE_FILE_LARGE_ADDRESS_AWARE 0x0020 // App can handle &gt;2gb</span><br><span class="line">addresses</span><br><span class="line">#define IMAGE_FILE_BYTES_REVERSED_LO 0x0080 // Bytes of machine word</span><br><span class="line">are reversed.</span><br><span class="line">#define IMAGE_FILE_32BIT_MACHINE 0x0100 // 32 bit word machine.</span><br><span class="line">#define IMAGE_FILE_DEBUG_STRIPPED 0x0200 // Debugging info stripped</span><br><span class="line">from file in .DBG file</span><br><span class="line">#define IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP 0x0400 // If Image is on removable</span><br><span class="line">media, copy and run from the swap file.</span><br><span class="line">#define IMAGE_FILE_NET_RUN_FROM_SWAP 0x0800 // If Image is on Net, copy</span><br><span class="line">and run from the swap file.</span><br><span class="line">#define IMAGE_FILE_SYSTEM 0x1000 // System File.</span><br><span class="line">#define IMAGE_FILE_DLL 0x2000 // File is a DLL.</span><br><span class="line">#define IMAGE_FILE_UP_SYSTEM_ONLY 0x4000 // File should only be run</span><br><span class="line">on a UP machine</span><br><span class="line">#define IMAGE_FILE_BYTES_REVERSED_HI 0x8000 // Bytes of machine word</span><br><span class="line">are reversed.</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511160545745.png" alt="image-20220511160545745"></p>
+<p>我们是（00 22)</p>
+<p>可以知道是20+2组合而成的</p>
+<p>也就是说在这里是可执行文件，并且可引用的地址范围大于2gb(64位程序特有)。</p>
+<h1 id="可选NT头"><a href="#可选NT头" class="headerlink" title="可选NT头"></a>可选NT头</h1><p>上面的是强制NT头，下面的可选NT头是可写可不写的。（虽然这些并不是你想写都写，是编译器帮你写的。可选的意思是如果写了就有详细的数字，没有就是0000）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_OPTIONAL_HEADER &#123;</span><br><span class="line">    //</span><br><span class="line">    // Standard fields.</span><br><span class="line">    //</span><br><span class="line"></span><br><span class="line">    WORD    Magic;</span><br><span class="line">    BYTE    MajorLinkerVersion;</span><br><span class="line">    BYTE    MinorLinkerVersion;</span><br><span class="line">    DWORD   SizeOfCode;</span><br><span class="line">    DWORD   SizeOfInitializedData;</span><br><span class="line">    DWORD   SizeOfUninitializedData;</span><br><span class="line">    DWORD   AddressOfEntryPoint;</span><br><span class="line">    DWORD   BaseOfCode;</span><br><span class="line">    DWORD   BaseOfData;</span><br><span class="line"></span><br><span class="line">    //</span><br><span class="line">    // NT additional fields.</span><br><span class="line">    //</span><br><span class="line"></span><br><span class="line">    DWORD   ImageBase;</span><br><span class="line">    DWORD   SectionAlignment;</span><br><span class="line">    DWORD   FileAlignment;</span><br><span class="line">    WORD    MajorOperatingSystemVersion;</span><br><span class="line">    WORD    MinorOperatingSystemVersion;</span><br><span class="line">    WORD    MajorImageVersion;</span><br><span class="line">    WORD    MinorImageVersion;</span><br><span class="line">    WORD    MajorSubsystemVersion;</span><br><span class="line">    WORD    MinorSubsystemVersion;</span><br><span class="line">    DWORD   Win32VersionValue;</span><br><span class="line">    DWORD   SizeOfImage;</span><br><span class="line">    DWORD   SizeOfHeaders;</span><br><span class="line">    DWORD   CheckSum;</span><br><span class="line">    WORD    Subsystem;</span><br><span class="line">    WORD    DllCharacteristics;</span><br><span class="line">    DWORD   SizeOfStackReserve;</span><br><span class="line">    DWORD   SizeOfStackCommit;</span><br><span class="line">    DWORD   SizeOfHeapReserve;</span><br><span class="line">    DWORD   SizeOfHeapCommit;</span><br><span class="line">    DWORD   LoaderFlags;</span><br><span class="line">    DWORD   NumberOfRvaAndSizes;</span><br><span class="line">    IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];</span><br><span class="line">&#125; IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Magic"><a href="#Magic" class="headerlink" title="Magic:"></a>Magic:</h2><p>Magic文件类型标识</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0x10B表明这是一个32位镜像文件。</span><br><span class="line">0x107表明这是一个ROM镜像。</span><br><span class="line">0x20B表明这是一个64位镜像文件。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511162709559.png" alt="image-20220511162709559"></p>
+<p>可以看到我们这里是020b再次确定了我们文件是64位。</p>
+<h2 id="MajorLinkerVersion"><a href="#MajorLinkerVersion" class="headerlink" title="MajorLinkerVersion"></a>MajorLinkerVersion</h2><p>链接器主版本号</p>
+<h2 id="MinorLinkerVersion"><a href="#MinorLinkerVersion" class="headerlink" title="MinorLinkerVersion"></a>MinorLinkerVersion</h2><p>链接器副版本号</p>
+<h2 id="SizeofCode"><a href="#SizeofCode" class="headerlink" title="SizeofCode"></a>SizeofCode</h2><p>SizeofCode表示text的总大小</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220511163358811.png" alt="image-20220511163358811"></p>
+<h2 id="SizeofIntializedData"><a href="#SizeofIntializedData" class="headerlink" title="SizeofIntializedData"></a>SizeofIntializedData</h2><p>表示data总大小（变量）</p>
+<p><code>00 1e 00 00</code></p>
+<h2 id="SizeofUnintializedData"><a href="#SizeofUnintializedData" class="headerlink" title="SizeofUnintializedData"></a>SizeofUnintializedData</h2><p>表示BSS总大小</p>
+<p><code>00 00 00 00</code></p>
+<p>bss:bss段通常是指用来存放程序中未初始化的或者初始化为0的全局变量和静态变量的一块内存区域。特点是可读写的，在程序执行之前BSS段会自动清0.</p>
+<p>下面三个是以偏移量（表示的不是绝对数值，而是使用加法）表示：</p>
+<h2 id="AddressofEntryPoint"><a href="#AddressofEntryPoint" class="headerlink" title="AddressofEntryPoint"></a>AddressofEntryPoint</h2><p>程序的虚拟入口地址 （58 12 00 00）</p>
+<h3 id="virtual-address："><a href="#virtual-address：" class="headerlink" title="virtual address："></a>virtual address：</h3><p>加载进去的第一个二进制地址</p>
+<h3 id="reverse-virtual-address"><a href="#reverse-virtual-address" class="headerlink" title="reverse virtual address"></a>reverse virtual address</h3><p>加载进去的第一个二进制的地址-.text的地址</p>
+<h2 id="BaseOfCode"><a href="#BaseOfCode" class="headerlink" title="BaseOfCode"></a>BaseOfCode</h2><p>程序的text段第一行地址是：</p>
+<p>代码基址 （00 10 00 00）</p>
+<h2 id="BaseOfData"><a href="#BaseOfData" class="headerlink" title="BaseOfData"></a>BaseOfData</h2><p>数据基址（00 02 00 00）</p>
+<h2 id="ImageBase"><a href="#ImageBase" class="headerlink" title="ImageBase"></a>ImageBase</h2><p>镜像基址，当加载进内存时镜像的第1个字节的首选地址。它必须是64k的倍数，DLL默认是10000000H. Windows CE的EXE默认是 00010000H。 Windows 系列的EXE默认是 00400000H。</p>
+<p>(ps:ImageBase+BaseOfcode=程序的开始代码地址)。</p>
+<p>这几个要做重点说明：</p>
+<p>AddressofEntryPoint是指程序运行时，进去的第一个地址。这里我们可以使用od来看。</p>
+<p>当用od调试程序的时候会发现程序一进去就会在1258这个地址</p>
+<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516110128663.png" alt="image-20220516110128663" style="zoom:80%;" />
+
+<p>ImageBase是一个固定值。在windows系列的exe默认是 00400000H。</p>
+<p>只需要记得imagebase+baseofcode=程序开始时的地址。程序开始时的地址不是指入口地址。而是指在od中程序的第一行地址。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516110347854.png" alt="image-20220516110347854"></p>
+<h2 id="SectionAligment-不重要"><a href="#SectionAligment-不重要" class="headerlink" title="SectionAligment(不重要)"></a>SectionAligment(不重要)</h2><p>当加载进内存时节的对齐值(以字节计) （内存）</p>
+<h2 id="FileAlignment-不重要"><a href="#FileAlignment-不重要" class="headerlink" title="FileAlignment(不重要)"></a>FileAlignment(不重要)</h2><p>用来对齐镜像文件的节中的原始数据的对齐因子(以字节计）（内存）</p>
+<h2 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">WORD MajorOperatingSystemVersion;</span><br><span class="line">WORD MinorOperatingSystemVersion;</span><br><span class="line">WORD MajorImageVersion;</span><br><span class="line">WORD MinorImageVersion;</span><br><span class="line">WORD MajorSubsystemVersion;</span><br><span class="line">WORD MinorSubsystemVersion;</span><br></pre></td></tr></table></figure>
+
+<p>以上字段全是版本号</p>
+<h2 id="Win32VersionValue"><a href="#Win32VersionValue" class="headerlink" title="Win32VersionValue"></a>Win32VersionValue</h2><p>表示win32版本(必须为0)</p>
+<h2 id="SizeofImage"><a href="#SizeofImage" class="headerlink" title="SizeofImage"></a>SizeofImage</h2><p>总大小</p>
+<h2 id="SizeofHeaders"><a href="#SizeofHeaders" class="headerlink" title="SizeofHeaders"></a>SizeofHeaders</h2><p>头的总大小</p>
+<h2 id="CheckSum"><a href="#CheckSum" class="headerlink" title="CheckSum"></a>CheckSum</h2><p>校验和(内容长度和内容本身做某种运算)</p>
+<h2 id="子系统"><a href="#子系统" class="headerlink" title="子系统"></a>子系统</h2><p>子系统表</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512170943578.png" alt="image-20220512170943578"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512171157492.png" alt="image-20220512171157492"></p>
+<p>表示是一个windows命令行启动的程序</p>
+<h2 id="Dllcharacteristics"><a href="#Dllcharacteristics" class="headerlink" title="Dllcharacteristics"></a>Dllcharacteristics</h2><p>dll特征</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040 // DLL can move. aslr随</span><br><span class="line">机地址关掉</span><br><span class="line">#define IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY 0x0080 // Code Integrity</span><br><span class="line">Image</span><br><span class="line">#define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100 // Image is NX</span><br><span class="line">compatible</span><br><span class="line">#define IMAGE_DLLCHARACTERISTICS_NO_ISOLATION 0x0200 // Image understands</span><br><span class="line">isolation and doesn&#x27;t want it</span><br><span class="line">#define IMAGE_DLLCHARACTERISTICS_NO_SEH 0x0400 // Image does not use</span><br><span class="line">SEH. No SE handler may reside in this image</span><br><span class="line">//seh的保护机制</span><br><span class="line">#define IMAGE_DLLCHARACTERISTICS_NO_BIND 0x0800 // Do not bind this</span><br><span class="line">image.</span><br><span class="line">// 0x1000 // Reserved.</span><br><span class="line">#define IMAGE_DLLCHARACTERISTICS_WDM_DRIVER 0x2000 // Driver uses WDM</span><br><span class="line">model</span><br><span class="line">//大部分的dll都有这个</span><br><span class="line">// 0x4000 // Reserved.</span><br><span class="line">#define IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000</span><br></pre></td></tr></table></figure>
+
+<p>这里的第一个DLL特征比较重要，<code>aslr</code>是windows7以后的一个windows系统保护机制，他会在程序启动后随机分配内存地址。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512171657847.png" alt="image-20220512171657847"></p>
+<p>我们这里是8160(8000+100+40+20)表示可以关掉它。</p>
+<h2 id="SizeOfStackReserve"><a href="#SizeOfStackReserve" class="headerlink" title="SizeOfStackReserve"></a>SizeOfStackReserve</h2><p>栈保留大小(我想要多少个栈)</p>
+<h2 id="SizeofStackCommit"><a href="#SizeofStackCommit" class="headerlink" title="SizeofStackCommit"></a>SizeofStackCommit</h2><p>栈申请大小(我实际拿到了好多个栈)</p>
+<h2 id="SizeofHeapReserve"><a href="#SizeofHeapReserve" class="headerlink" title="SizeofHeapReserve"></a>SizeofHeapReserve</h2><p>堆保留大小</p>
+<h2 id="SizeofHeapCommit"><a href="#SizeofHeapCommit" class="headerlink" title="SizeofHeapCommit"></a>SizeofHeapCommit</h2><p>堆申请大小</p>
+<h2 id="LoaderFlag"><a href="#LoaderFlag" class="headerlink" title="LoaderFlag"></a>LoaderFlag</h2><p>标志位必须为0</p>
+<h2 id="NumberOFRvaAndSizes"><a href="#NumberOFRvaAndSizes" class="headerlink" title="NumberOFRvaAndSizes"></a>NumberOFRvaAndSizes</h2><p>数据目录</p>
+<h1 id="节头"><a href="#节头" class="headerlink" title="节头"></a>节头</h1><p>一个EXE文件会被分成很多个部分，其中常见的有<code>.text</code>,<code>.rdata</code>,<code>.data</code>,<code>.rsrc</code>,<code>.reloc</code>部分</p>
+<p>它们分别有以下作用：</p>
+<p><code>.text</code>：也被称为代码段，实际运行功能代码的段落</p>
+<p><code>.rdata</code>,<code>.data</code>:存放变量的位置</p>
+<p><code>.rsrc</code>：存放静态资源(软件图标，软件背景音乐，软件图片等资源)</p>
+<p><code>.reloc</code>:重定位字段，表示函数定位的一些东西</p>
+<p>在每一个部分中都会有分别的对应的PE结构，因为我们也叫他称为节头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _IMAGE_SECTION_HEADER &#123;</span><br><span class="line">BYTE Name[IMAGE_SIZEOF_SHORT_NAME];</span><br><span class="line">union &#123;</span><br><span class="line">DWORD PhysicalAddress;</span><br><span class="line">DWORD VirtualSize;</span><br><span class="line">&#125; Misc;</span><br><span class="line">DWORD VirtualAddress;</span><br><span class="line">DWORD SizeOfRawData;</span><br><span class="line">DWORD PointerToRawData;</span><br><span class="line">DWORD PointerToRelocations;</span><br><span class="line">DWORD PointerToLinenumbers;</span><br><span class="line">WORD NumberOfRelocations;</span><br><span class="line">WORD NumberOfLinenumbers;</span><br><span class="line">DWORD Characteristics;</span><br><span class="line">&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;</span><br><span class="line"></span><br><span class="line">（大括号中表示两个选一个来写）</span><br></pre></td></tr></table></figure>
+
+<h2 id="name"><a href="#name" class="headerlink" title="name"></a>name</h2><p>本节的名字</p>
+<h2 id="二选一："><a href="#二选一：" class="headerlink" title="二选一："></a>二选一：</h2><h3 id="PhysialAddress"><a href="#PhysialAddress" class="headerlink" title="PhysialAddress"></a>PhysialAddress</h3><p>本节的物理地址</p>
+<h3 id="VirtualSize"><a href="#VirtualSize" class="headerlink" title="VirtualSize"></a>VirtualSize</h3><p>本节的实际大小</p>
+<h2 id="VirtualAddress"><a href="#VirtualAddress" class="headerlink" title="VirtualAddress"></a>VirtualAddress</h2><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512173241967.png" alt="image-20220512173241967"></p>
+<p>本节的RVA</p>
+<h2 id="SizeOfRawData"><a href="#SizeOfRawData" class="headerlink" title="SizeOfRawData"></a>SizeOfRawData</h2><p>本节在磁盘中的大小(00 0E 00 00)</p>
+<h2 id="PointerToRawData"><a href="#PointerToRawData" class="headerlink" title="PointerToRawData"></a>PointerToRawData</h2><p>本节在磁盘中的偏移(00 04 00 00)</p>
+<h2 id="PointerToRelocations"><a href="#PointerToRelocations" class="headerlink" title="PointerToRelocations"></a>PointerToRelocations</h2><p>在exe文件中无意义(00 00 00 00)</p>
+<h2 id="PointerToLinenumbers"><a href="#PointerToLinenumbers" class="headerlink" title="PointerToLinenumbers"></a>PointerToLinenumbers</h2><p>行号表的位置（调试用，不过基本没用）(00 00 00 00)</p>
+<h2 id="NumberOFrelocations"><a href="#NumberOFrelocations" class="headerlink" title="NumberOFrelocations"></a>NumberOFrelocations</h2><p>重定位数量 (00 00)</p>
+<h2 id="NumberOFLinenumbers"><a href="#NumberOFLinenumbers" class="headerlink" title="NumberOFLinenumbers"></a>NumberOFLinenumbers</h2><p>行号表数量(00 00)</p>
+<h2 id="Characteristics-1"><a href="#Characteristics-1" class="headerlink" title="Characteristics"></a>Characteristics</h2><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512173855366.png" alt="image-20220512173855366"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220512172955294.png" alt="image-20220512172955294"></p>
+<p>我们是60000020(40000000+20000000+20)</p>
+<p>表示文件可读可执行。</p>
+<h1 id="另一种方法观察PE头"><a href="#另一种方法观察PE头" class="headerlink" title="另一种方法观察PE头"></a>另一种方法观察PE头</h1><p>除了使用010editor来看，我们也可以使用python自动化看pe头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import pefile</span><br><span class="line">pe = pefile.PE(&#x27;PE结构与基础调试.exe&#x27;)</span><br><span class="line">print(pe)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516104713034.png" alt="image-20220516104713034"></p>
+<p>这是一个总览，我们还可以分别看想要的属性。比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i =pe.FILE_HEADER.NumberOfSections</span><br><span class="line">print(&quot;这个文件总共有&quot;+str(i)+&quot;节&quot;)</span><br><span class="line">可以直接显示出十进制的5.免去了我们换算的步骤</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516111621678.png" alt="image-20220516111621678"></p>
+<p>这里给出自己写的脚本用来做参考：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import pefile</span><br><span class="line">pe = pefile.PE(&#x27;PE结构与基础调试.exe&#x27;)</span><br><span class="line">if pe.DOS_HEADER.e_magic==23117:</span><br><span class="line">    print(&quot;这是一个pe结构的文件&quot;)</span><br><span class="line">else:</span><br><span class="line">    print(&quot;这不是一个PE文件格式&quot;)</span><br><span class="line">if pe.FILE_HEADER.Machine == 332:</span><br><span class="line">    print(&quot;这是运行在i386的&quot;)</span><br><span class="line">else:</span><br><span class="line">    print(&quot;这不是运行在i386的文件&quot;)</span><br><span class="line">i =pe.FILE_HEADER.NumberOfSections</span><br><span class="line">print(&quot;这个文件总共有&quot;+str(i)+&quot;节&quot;)</span><br><span class="line">print(&quot;编译的时间为&quot;+pe.dump_dict()[&#x27;FILE_HEADER&#x27;][&#x27;TimeDateStamp&#x27;][&#x27;Value&#x27;])</span><br><span class="line">if pe.FILE_HEADER.Characteristics==258:</span><br><span class="line">    print(&quot;这是一个32位可执行文件&quot;)</span><br><span class="line">if pe.OPTIONAL_HEADER.Magic == 267:</span><br><span class="line">    print(&quot;这是一个32位镜像文件&quot;)</span><br><span class="line">print(&quot;程序的入口点是：&quot;+str(hex(pe.OPTIONAL_HEADER.AddressOfEntryPoint)))</span><br><span class="line">print(&quot;程序的text段第一行地址是：&quot;+str(hex(pe.OPTIONAL_HEADER.BaseOfCode)))</span><br><span class="line">print(&quot;程序的镜像基址是:&quot;+str(hex(pe.OPTIONAL_HEADER.ImageBase)))</span><br><span class="line">print(pe.dump_dict())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220516125442258.png" alt="image-20220516125442258"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-02-27T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ShellCode上线分析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">Kerberos协议</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2022-02-19T15:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">域内信息搜集</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="archive-article-date">
-  	<time datetime="2022-02-17T02:00:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">Liunx权限维持</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/15/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="archive-article-date">
-  	<time datetime="2022-02-15T02:10:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/15/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">Windows权限维持</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2022/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2022/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2022/page/3/">3</a><a class="extend next" rel="next" href="/archives/2022/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -520,8 +491,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
