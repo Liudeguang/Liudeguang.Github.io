@@ -144,6 +144,74 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Liunx提权总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
+    </h1>
+  
+
+        
+        <a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Liunx提权总结"><a href="#Liunx提权总结" class="headerlink" title="Liunx提权总结"></a>Liunx提权总结</h1><h2 id="Liunx内核提权"><a href="#Liunx内核提权" class="headerlink" title="Liunx内核提权"></a>Liunx内核提权</h2><h3 id="Cve-2016-5195"><a href="#Cve-2016-5195" class="headerlink" title="Cve-2016-5195"></a>Cve-2016-5195</h3><p>脏牛漏洞，又叫Dirty COW，存在Liunx内核中已经有长达9年的时间，在2007年发布的liunx内核版本中就已经存在此漏洞。Linux kernel团队在2016年10月18日已经对此进行了修复。</p>
+<p>该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来获取高权限，对只读内存映射进行访问。竞争条件，指的是任务执行顺序异常，这样可能会导致应用崩溃，或者是令攻击者有机可乘，进一步执行其他代码。利用这一漏洞，攻击者可在其目标系统提升权限，甚至可能获得root权限。</p>
+<p>Liunx内核&gt;=2.6.22</p>
+<p>触发代码:<a target="_blank" rel="noopener" href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c">https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c</a></p>
+        
+          <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1090,83 +1158,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-json格式解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="json文件格式"><a href="#json文件格式" class="headerlink" title="json文件格式"></a>json文件格式</h1><h2 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h2><p>（JavaScript Object Notation）json是一种轻量级的数据交换格式。现在是理想的数据交换语言。</p>
-<h3 id="JSON构建于两种结构："><a href="#JSON构建于两种结构：" class="headerlink" title="JSON构建于两种结构："></a>JSON构建于两种结构：</h3><h4 id="1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"><a href="#1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）" class="headerlink" title="1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"></a>1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）</h4><h4 id="2-值得有序列表。（大部分被理解为数组）"><a href="#2-值得有序列表。（大部分被理解为数组）" class="headerlink" title="2. 值得有序列表。（大部分被理解为数组）"></a>2. 值得有序列表。（大部分被理解为数组）</h4>
-        
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">展开全文 >></a>
         </p>
       
 
