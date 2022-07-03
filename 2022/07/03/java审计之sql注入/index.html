@@ -6,15 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Tag: java代码审计 | Solkatt的小窝</title>
+  <title>java审计之sql注入 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/tags/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
+  <meta name="description" content="java sql注入漏洞审计执行对象执行对象是sql的执行者。 目前常用的执行对象接口有三种： Statement、PreparedStatement和CallableStatement。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java审计之sql注入">
+<meta property="og:url" content="https://example.com/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="java sql注入漏洞审计执行对象执行对象是sql的执行者。 目前常用的执行对象接口有三种： Statement、PreparedStatement和CallableStatement。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703111557120.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703111805596.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703112153364.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703113708294.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703114937451.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703115155999.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703115440942.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703120847149.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703130827062.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703134048067.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703171541383.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703171749340.png">
+<meta property="article:published_time" content="2022-07-03T03:09:32.000Z">
+<meta property="article:modified_time" content="2022-07-03T09:36:25.427Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703111557120.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,36 +160,132 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-java审计之sql注入" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      java审计之sql注入
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+
+        
+        <a href="/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
   	<time datetime="2022-07-03T03:09:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-03</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/">java审计之sql注入</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java-sql注入漏洞审计"><a href="#java-sql注入漏洞审计" class="headerlink" title="java sql注入漏洞审计"></a>java sql注入漏洞审计</h1><h2 id="执行对象"><a href="#执行对象" class="headerlink" title="执行对象"></a>执行对象</h2><p>执行对象是sql的执行者。</p>
+<p>目前常用的执行对象接口有三种： <code>Statement</code>、<code>PreparedStatement</code>和<code>CallableStatement</code>。</p>
+<span id="more"></span>
 
-        <div class="article-info info-on-right">
-          
+
+
+<h3 id="Statement"><a href="#Statement" class="headerlink" title="Statement"></a>Statement</h3><p>Statement主要用于执行静态sql语句，即内容不变的sql语句。它每一次执行都需要对传入的sql语句进行编译，效率较低。</p>
+<p>例如:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">String name = <span class="string">&quot;tom&quot;</span>;</span><br><span class="line">        String sqlString = <span class="string">&quot;select * from student_table where student_name = &#x27;&quot;</span> + name + <span class="string">&quot;&#x27;&quot;</span>;</span><br><span class="line">        System.out.println(sqlString);</span><br><span class="line">        Connection conn = Conn.open();</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">            Statement stmt = conn.createStatement();</span><br><span class="line">            rs = stmt.executeQuery(sqlString);</span><br><span class="line">            <span class="keyword">while</span> (rs.next())&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;student_id：&quot;</span> + rs.getInt(<span class="string">&quot;student_id&quot;</span>) + <span class="string">&quot;\t&quot;</span></span><br><span class="line">                        + <span class="string">&quot;student_name：&quot;</span> + rs.getString(<span class="string">&quot;student_name&quot;</span>) + <span class="string">&quot;\t&quot;</span></span><br><span class="line">                        + <span class="string">&quot;student_age：&quot;</span> + rs.getString(<span class="string">&quot;student_age&quot;</span>) + <span class="string">&quot;\t&quot;</span></span><br><span class="line">                        + <span class="string">&quot;student_tele：&quot;</span> + rs.getString(<span class="string">&quot;student_tele&quot;</span>) + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            Conn.close(conn);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703111557120.png" alt="image-20220703111557120"></p>
+<p>假如说name为可控的话，当我传入<code>&#39; or 1=1 #</code>则sql语句就会变为</p>
+<p><code>select * from student_table where student_name =&#39;&#39; or 1=1 #</code>,可以看到程序输出表中所有数据。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703111805596.png" alt="image-20220703111805596"></p>
+<h3 id="PreparedStatement"><a href="#PreparedStatement" class="headerlink" title="PreparedStatement"></a>PreparedStatement</h3><p>PreparedStatement是预编译参数化查询执行SQL语句的方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">String sql = <span class="string">&quot;select * from student_table where student_name = ?&quot;</span>;</span><br><span class="line">      Connection conn = Conn.open();</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          ResultSet rs = <span class="keyword">null</span>;</span><br><span class="line">          PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);</span><br><span class="line">          pstmt.setString(<span class="number">1</span>, <span class="string">&quot;&#x27; or 1=1#&quot;</span>);</span><br><span class="line">          rs = pstmt.executeQuery();</span><br><span class="line">          System.out.println(pstmt);</span><br><span class="line">          <span class="keyword">while</span> (rs.next()) &#123;</span><br><span class="line">              System.out.println(<span class="string">&quot;student_id：&quot;</span> + rs.getInt(<span class="string">&quot;student_id&quot;</span>) + <span class="string">&quot;\t&quot;</span></span><br><span class="line">                      + <span class="string">&quot;student_name：&quot;</span> + rs.getString(<span class="string">&quot;student_name&quot;</span>) + <span class="string">&quot;\t&quot;</span></span><br><span class="line">                      + <span class="string">&quot;student_age：&quot;</span> + rs.getString(<span class="string">&quot;student_age&quot;</span>) + <span class="string">&quot;\t&quot;</span></span><br><span class="line">                      + <span class="string">&quot;student_tele：&quot;</span> + rs.getString(<span class="string">&quot;student_tele&quot;</span>) + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">          Conn.close(conn);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>看到使用PreparedStatement之后，特殊符号被转义，无法按照设想的sql语句执行</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703112153364.png" alt="image-20220703112153364"></p>
+<h3 id="CallableStatement"><a href="#CallableStatement" class="headerlink" title="CallableStatement"></a>CallableStatement</h3><p>CallableStatement接口提供了执行存储过程的方法。</p>
+<p>该方法用的不是很多，不做过多介绍。</p>
+<h2 id="Mybatis框架"><a href="#Mybatis框架" class="headerlink" title="Mybatis框架"></a>Mybatis框架</h2><p>MyBatis 是⼀款优秀的持久层框架，它⽀持定制化 SQL、存储过程以及⾼级映射。MyBatis 避免 了⼏乎 所有的 JDBC 代码和⼿动设置参数以及获取结果集。MyBatis 可以使⽤简单的 XML 或注 解来配置和映 射原⽣类型、接⼝和 Java 的 POJO（Plain Old Java Objects，普通⽼式 Java 对 象）为数据库中的记 录。 </p>
+<h3 id="基于xml实现mybatis基本使用"><a href="#基于xml实现mybatis基本使用" class="headerlink" title="基于xml实现mybatis基本使用"></a>基于xml实现mybatis基本使用</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703113708294.png" alt="image-20220703113708294"></p>
+<p>实体类Student各个参数与数据库中目标表的列名一一对应，包括参数名，参数类型。</p>
+<p>Dao接口文件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mybatis.dao;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.mybatis.pojo.Student;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Param;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">selectStudent</span><span class="params">(<span class="meta">@Param(&quot;name&quot;)</span>String name)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>MapperXmlSQL语句映射文件:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;  //映射文件DTD约束头</span><br><span class="line">&lt;mapper namespace=&quot;com.mybatis.dao.StudentDao&quot;&gt; //命名空间，与下面语句的id一起组成查询的标识</span><br><span class="line">&lt;select id=&quot;selectStudent&quot; resultType=&quot;com.mybatis.pojo.Student&quot;&gt; //查询操作，可选的还有insert、update、delete </span><br><span class="line">        select * from student_table where student_name = #&#123;name&#125;  //sql语句</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>MyBatis.xml配置文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;!--  &lt;properties resource=&quot;config.properties&quot;/&gt;--&gt;</span><br><span class="line">  &lt;environments default=&quot;development&quot;&gt;</span><br><span class="line">    &lt;environment id=&quot;development&quot;&gt;</span><br><span class="line">      &lt;transactionManager type=&quot;JDBC&quot; /&gt;   //食物管理器</span><br><span class="line">      &lt;dataSource type=&quot;POOLED&quot;&gt;     //数据源,POOLED表示的是使用数据库的连接池方式。</span><br><span class="line">        &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://127.0.0.1:3307/Demo?useSSL=false&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;username&quot; value=&quot;root&quot; /&gt;</span><br><span class="line">        &lt;property name=&quot;password&quot; value=&quot;root&quot; /&gt;</span><br><span class="line">      &lt;/dataSource&gt;</span><br><span class="line">    &lt;/environment&gt;</span><br><span class="line">  &lt;/environments&gt;</span><br><span class="line">  &lt;mappers&gt;</span><br><span class="line">    &lt;mapper resource=&quot;mybatis/StudentMapper.xml&quot;/&gt;   </span><br><span class="line">  &lt;/mappers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<p>测试类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mybatis;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.mybatis.dao.StudentDao;</span><br><span class="line"><span class="keyword">import</span> com.mybatis.pojo.Student;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.io.Resources;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSession;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactoryBuilder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从 XML 中构建 SqlSessionFactory，从中获得 SqlSession 的实例，通过 SqlSession 实例来直接执行已映射的 SQL 语句</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">xmlTest</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//1. 读取配置文件</span></span><br><span class="line">        String resource = <span class="string">&quot;mybatis/mybatis-config.xml&quot;</span>;</span><br><span class="line">        InputStream inputStream = Resources.getResourceAsStream(resource);</span><br><span class="line">        <span class="comment">//2. 创建SqlSessionFactory工厂</span></span><br><span class="line">        SqlSessionFactory sqlSessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(inputStream);</span><br><span class="line">        <span class="comment">//3. 使用SqlSessionFactory工厂生产SqlSession对象</span></span><br><span class="line">        SqlSession session = sqlSessionFactory.openSession();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//4. 使用SqlSession创建Dao接口的代理对象</span></span><br><span class="line">            StudentDao studentMapper = session.getMapper(StudentDao.class);</span><br><span class="line">            <span class="comment">//5. 使用代理对象执行方法</span></span><br><span class="line"><span class="comment">//            List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span></span><br><span class="line"><span class="comment">//            list.add(&quot;1&quot;);</span></span><br><span class="line"><span class="comment">//            list.add(&quot;2&quot;);</span></span><br><span class="line"><span class="comment">//            List&lt;Student&gt; student = studentMapper.selectStudent(list);</span></span><br><span class="line">            List&lt;Student&gt; student = studentMapper.selectStudent(<span class="string">&quot;tom&quot;</span>);</span><br><span class="line"><span class="comment">//            List&lt;Student&gt; student = studentMapper.selectStudent(&quot;%&#x27; or 1=1#&quot;);</span></span><br><span class="line">            <span class="keyword">for</span> (Student s: student) &#123;</span><br><span class="line">                System.out.println(s);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            session.close();</span><br><span class="line">            inputStream.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        xmlTest();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mybatis中存在的注入问题"><a href="#Mybatis中存在的注入问题" class="headerlink" title="Mybatis中存在的注入问题"></a>Mybatis中存在的注入问题</h3><h4 id="动态sql"><a href="#动态sql" class="headerlink" title="动态sql"></a>动态sql</h4><p>动态sql是mybatis的主要特性之一，在mapper中定义的参数传到xml中之后，在查询之前mybatis会对其进行动态解析。mybatis框架中，接受用户参数有两种方式：</p>
+<ol>
+<li>${param}方式</li>
+<li>#{param}方式</li>
+</ol>
+<p>#{}会自动传入值加上单引号，而${}不会。</p>
+<p>例如刚才的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;  //映射文件DTD约束头</span><br><span class="line">&lt;mapper namespace=&quot;com.mybatis.dao.StudentDao&quot;&gt; //命名空间，与下面语句的id一起组成查询的标识</span><br><span class="line">&lt;select id=&quot;selectStudent&quot; resultType=&quot;com.mybatis.pojo.Student&quot;&gt; //查询操作，可选的还有insert、update、delete </span><br><span class="line">        select * from student_table where student_name = #&#123;name&#125;  //sql语句</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>传入的name为tom</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703114937451.png" alt="image-20220703114937451"></p>
+<p>那么实际提交的sql语句就为：<code>select * from student_table where student_name = &#39;tom&#39;</code></p>
+<p>但是假如说把#改成$，就会发生报错。</p>
+<p>因为执行的sql语句为：<code>select * from student_table where student_name = tom</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703115155999.png" alt="image-20220703115155999"></p>
+<h4 id="不安全的"><a href="#不安全的" class="headerlink" title="不安全的${}"></a>不安全的${}</h4><p>修改mapper文件，我们拼接引号：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.mybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">&lt;select id=&quot;selectStudent&quot; resultType=&quot;com.mybatis.pojo.Student&quot;&gt;</span><br><span class="line">        select * from student_table where student_name = &#x27;$&#123;name&#125;&#x27;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>此时如果提交 <code>&#39; or 1=1 #</code></p>
+<p>则sql语句就成为了<code>select * from student_table where student_name = &#39;&#39; or 1=1 #</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703115440942.png" alt="image-20220703115440942"></p>
+<p>而假如说使用的是#{}的话</p>
+<p>则sql语句会处理为<code>select * from student_table where student_name = ?</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703120847149.png" alt="image-20220703120847149"></p>
+<h2 id="java中常见的注入场景"><a href="#java中常见的注入场景" class="headerlink" title="java中常见的注入场景"></a>java中常见的注入场景</h2><h3 id="like模糊匹配"><a href="#like模糊匹配" class="headerlink" title="like模糊匹配"></a>like模糊匹配</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;mybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">&lt;select id=&quot;selectStudent&quot; resultType=&quot;mybatis.pojo.Student&quot;&gt;</span><br><span class="line">select * from student_table where student_name like &#x27;%#&#123;name&#125;%&#x27;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>mybatis会处理为：<code>select * from student_table where student_name like &#39;%?%&#39;</code></p>
+<p>因为引号内的？会被当做值处理，所以这里会报错找不到占位符。</p>
+<p>所以有些开发不得不使用$去代替#符号，用来完成他们想完成的功能。</p>
+<p>比如这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;mybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">&lt;select id=&quot;selectStudent&quot; resultType=&quot;mybatis.pojo.Student&quot;&gt;</span><br><span class="line">select * from student_table where student_name like &#x27;%$&#123;name&#125;%&#x27;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是这样就可能造成sql注入。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703130827062.png" alt="image-20220703130827062"></p>
+<h3 id="In语句"><a href="#In语句" class="headerlink" title="In语句"></a>In语句</h3><p>同样对dao文件进行修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentDao</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">selectStudent</span><span class="params">(<span class="meta">@Param(&quot;id&quot;)</span>String name)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Mapper文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper</span><br><span class="line">        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span><br><span class="line">        &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line">&lt;mapper namespace=&quot;com.mybatis.dao.StudentDao&quot;&gt;</span><br><span class="line">&lt;select id=&quot;selectStudent&quot; resultType=&quot;com.mybatis.pojo.Student&quot;&gt;</span><br><span class="line">        select * from student_table where student_name in &#x27;%#&#123;name&#125;%&#x27;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>提交的id=“1,2”，实际提交的sql语句为：<code>select * from student_table where student_id in (&#39;1,2&#39;)</code></p>
+<p>但是这样只能查出一个结果来。</p>
+<p>修改mapper文件接受用户输入为$。此时实际提交的SQL语句为:<code>select * from student_table where student_id in (1,2)</code></p>
+<p>提交的id为<code>1) or 1=1 #</code></p>
+<p>此时就可能造成sql注入。 <code>select * from student_table where student_id in (1) or 1=1 #</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703134048067.png" alt="image-20220703134048067"></p>
+<h3 id="order-by和group-by语句"><a href="#order-by和group-by语句" class="headerlink" title="order by和group by语句"></a>order by和group by语句</h3><p>凡是字符串但又不能加引号的位置都不能预编译参数化，这种场景不仅order by还有group by</p>
+<p>比如执行sql语句:<code>select * from student_table order by student_age</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703171541383.png" alt="image-20220703171541383"></p>
+<p>根据student_age默认按照升序排列。</p>
+<p>如果执行sql语句：<code>select * from student_table order by &#39;student_age&#39;</code>。数据库表则会原样输出，没有任何排序，因为order by 后跟一个字符串，为常量列排序。而常量列所有值都相等，所以也就不会有任何排序。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220703171749340.png" alt="image-20220703171749340"></p>
+<p>同样的，这个体现在程序里面也只能使用$号来接受变量。</p>
+<p>但是$号，也会随之带来注入的问题，比如提交sql语句为：<code>if(1=1,student_age,student_tele)</code>。则实际提交的sql语句为:<code>select * from student_table orer by if(1=1,student_age,student_tele)</code></p>
+<p>同理 group by也与 order by 一样。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>容易产生sql注入漏洞的场景有</p>
+<ol>
+<li>模糊查询</li>
+<li>in查询</li>
+<li>order by ，group by 查询</li>
+</ol>
+<p>因为在项目中，直接使用#等预编译处理会报错，所以程序员在开发中不得已使用了拼接，成为了注入的高发点。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,57 +297,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/06/22/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bxss%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-06-22T08:42:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/22/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bxss%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java审计之xss漏洞审计</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/06/22/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bxss%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/">java审计之xss漏洞审计</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -256,9 +419,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

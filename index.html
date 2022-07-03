@@ -144,6 +144,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java审计之sql注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/">java审计之sql注入</a>
+    </h1>
+  
+
+        
+        <a href="/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2022-07-03T03:09:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="java-sql注入漏洞审计"><a href="#java-sql注入漏洞审计" class="headerlink" title="java sql注入漏洞审计"></a>java sql注入漏洞审计</h1><h2 id="执行对象"><a href="#执行对象" class="headerlink" title="执行对象"></a>执行对象</h2><p>执行对象是sql的执行者。</p>
+<p>目前常用的执行对象接口有三种： <code>Statement</code>、<code>PreparedStatement</code>和<code>CallableStatement</code>。</p>
+        
+          <a class="article-more-a" href="/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/07/03/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java审计之xss漏洞审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -165,41 +242,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="XSS漏洞原理"><a href="#XSS漏洞原理" class="headerlink" title="XSS漏洞原理"></a>XSS漏洞原理</h1><p>攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行）。</p>
-<h1 id="常见获取前端参数方式"><a href="#常见获取前端参数方式" class="headerlink" title="常见获取前端参数方式"></a>常见获取前端参数方式</h1><p>1.使用<code>Servlet</code>技术</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletCheckLogin</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span>  </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1.准备</span></span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line">        <span class="comment">// 2.获取请求里面的用户名和密码</span></span><br><span class="line">        String username = req.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        String password = req.getParameter(<span class="string">&quot;password&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>使用<code>Structs2</code>框架</li>
-</ol>
-<p>通过action类绑定参数或model获取前端的参数</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220622165226647.png" alt="image-20220622165226647"></p>
-<p>3.使用springMvc获取前端参数</p>
-<p>对象方式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/param&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestParamController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(TestParamController.class);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 请求参数名和Controller方法的参数一致</span></span><br><span class="line"><span class="comment">     * produces 设置返回参数的编码格式可以设置返回数据的类型以及编码，可以是json或者xml</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> user 用户信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/addByObject&quot;, method = RequestMethod.GET, produces = &#123;&quot;application/json;charset=UTF-8&quot;&#125;)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">addUserByObject</span><span class="params">(User user)</span></span>&#123;</span><br><span class="line">        logger.debug(<span class="string">&quot;name:&quot;</span> + user.getName() + <span class="string">&quot;,pwd:&quot;</span> + user.getPwd());</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;name:&quot;</span> + user.getName() + <span class="string">&quot;,pwd:&quot;</span> + user.getPwd();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>自定义方法参数名</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义方法参数名-当请求参数名与方法参数名不一致时</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> u_name 用户名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> u_pwd 密码</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/addByDifName&quot;, method = RequestMethod.GET, produces = &#123;&quot;application/json;charset=UTF-8&quot;&#125;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">addUserByDifName</span><span class="params">(<span class="meta">@RequestParam(&quot;name&quot;)</span> String u_name, <span class="meta">@RequestParam(&quot;pwd&quot;)</span>String u_pwd)</span></span>&#123;</span><br><span class="line">    logger.debug(<span class="string">&quot;name:&quot;</span> + u_name + <span class="string">&quot;,pwd:&quot;</span> + u_pwd);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;name:&quot;</span> + u_name + <span class="string">&quot;,pwd:&quot;</span> + u_pwd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用<code>ServletRequest</code>绑定注解获取参数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> * 通过HttpServletRequest接收</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping(value = &quot;/addByHttpServletRequest&quot;, method = RequestMethod.GET, produces = &#123;&quot;application/json;charset=UTF-8&quot;&#125;)</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">addUserByHttpServletRequest</span><span class="params">(HttpServletRequest request)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    String name = request.getParameter(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">    String pwd = request.getParameter(<span class="string">&quot;pwd&quot;</span>);</span><br><span class="line">    logger.debug(<span class="string">&quot;name:&quot;</span> + name + <span class="string">&quot;,pwd:&quot;</span> + pwd);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;name:&quot;</span> + name + <span class="string">&quot;,pwd:&quot;</span> + pwd;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="XSS漏洞审计流程"><a href="#XSS漏洞审计流程" class="headerlink" title="XSS漏洞审计流程"></a>XSS漏洞审计流程</h1><p>（1）通过熟悉代码后快速全局搜索是否存在”XSS”,”xssFilter”,以及是否含有对常见的js标签进行黑名单过滤的工具，如果没有，则大概率的爱的情况下是没有进行XSS漏洞的防御。<br>（2）如果发现了存在基于黑名单过滤特殊字符，要去评估黑名单是否完整，也就是说是否基本覆盖了常见的危险字符。否则会造成绕过的风险，一般情况下这种修复手段不建议使用（第一存在被绕过的可能行，第二就是过滤请求参数不全面（在没有全局配置过滤器Filter的情况））<br>（3）如果配置了全局式的XSS过滤器，需要确定过滤器是否正常开启，否则形同虚设。<br>（4）对于XSS漏洞，存在情况1：一般是全站式XSS，往往是因为开发时完全没有考虑到对所有的参数进行防御。情况2：拥有一定的安全经验和以前被披露过XSS漏洞，通过自己的工具仅仅解决了部分参数的XSS漏洞，这种情况也是不完整的（可能配置了全局过滤器，但是防御范围仅仅局限于某些参数，而非所有前端可控的参数）</p>
-<h1 id="案例1：market"><a href="#案例1：market" class="headerlink" title="案例1：market"></a>案例1：market</h1><p>进入项目全局搜索XSS。发现就这么单独的一行字，并没有做撒子过滤</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220622172102990.png" alt="image-20220622172102990"></p>
-<p>接下里去库存页面随意新增一个商品，输入xss代码，通过抓包看到路由指向</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220622202435168.png" alt="image-20220622202435168"></p>
-<p>再idea里使用全局搜索该路由，可以跟踪我们输入商品。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220622202442248.png" alt="image-20220622202442248"></p>
-<p>并没有做任何过滤，因此存在存储型xss漏洞。</p>
-<h1 id="案例2：汽车租赁"><a href="#案例2：汽车租赁" class="headerlink" title="案例2：汽车租赁"></a>案例2：汽车租赁</h1><p>仍然全局搜索发现没有xss过滤器的踪迹，所以应该是全面敞开了。</p>
-<p>随意的填写一个</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220622205532262.png" alt="image-20220622205532262"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220622205543889.png" alt="image-20220622205543889"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220622205953486.png" alt="image-20220622205953486"></p>
-<h1 id="一点干货"><a href="#一点干货" class="headerlink" title="一点干货"></a>一点干货</h1><p>其实这个复现的过程和结果都一目了然，主要是跟着断点熟悉了spring项目的运行结构。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">controller层接收前端输入信息并给予响应（是否前后端连接上了），然后controller层将信息参数传给service处理；</span><br><span class="line"></span><br><span class="line">service封装了一些业务并能调用dao层的api，service层也有很多接口和实现类，实现类调用方法可以操作dao层；</span><br><span class="line"></span><br><span class="line">dao层能够对单表或多表实现增删改查。</span><br><span class="line"></span><br><span class="line">dao层还要将增改查的结果返回service层</span><br><span class="line"></span><br><span class="line">service层再将结果传给controller层</span><br><span class="line"></span><br><span class="line">controller层再将信息传给前端</span><br></pre></td></tr></table></figure>
-
-
+        
+          <a class="article-more-a" href="/2022/06/22/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bxss%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/#more">more >></a>
+        
       
 
       
@@ -906,87 +951,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-常见中间件漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">常见中间件漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2022-04-11T03:38:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Weblogic"><a href="#Weblogic" class="headerlink" title="Weblogic"></a>Weblogic</h1><h2 id="CVE-2017-10271"><a href="#CVE-2017-10271" class="headerlink" title="CVE-2017-10271"></a>CVE-2017-10271</h2><h3 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h3><p>Weblogic的<code>WLS-Security</code> 组件对外提供webservice服务，其中使用了<code>XMLDecoder</code>来解析用户传入的XML数据，在解析的过程中出现反序列化漏洞，导致可以执行任意命令。</p>
-<p>涉及版本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.3.6.0，12.1.3.0.0，12.2.1.1.0</span><br></pre></td></tr></table></figure>
-
-<p>漏洞地址</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/wsl-wsat/....   //只要是wsl-wsat下的url都会有此漏洞。</span><br><span class="line">比如:</span><br><span class="line">/wls-wsat/CoordinatorPortType</span><br><span class="line">/wls-wsat/RegistrationPortTypeRPC</span><br><span class="line">/wls-wsat/ParticipantPortType</span><br><span class="line">/wls-wsat/RegistrationRequesterPortType</span><br><span class="line">/wls-wsat/CoordinatorPortType11</span><br><span class="line">/wls-wsat/RegistrationPortTypeRPC11</span><br><span class="line">/wls-wsat/ParticipantPortType11</span><br><span class="line">/wls-wsat/RegistrationRequesterPortType11</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
         </p>
       
 

@@ -144,6 +144,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-逻辑漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
+    </h1>
+  
+
+        
+        <a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="验证码绕过，密码找回漏洞"><a href="#验证码绕过，密码找回漏洞" class="headerlink" title="验证码绕过，密码找回漏洞"></a>验证码绕过，密码找回漏洞</h1><h2 id="验证码绕过常见姿势"><a href="#验证码绕过常见姿势" class="headerlink" title="验证码绕过常见姿势"></a>验证码绕过常见姿势</h2><ol>
+<li><p>前端验证验证码，并没有后端验证，直接抓包然后进行跑数据包，反正没有验证码的阻碍。</p>
+</li>
+<li><p>验证码设置了但是并没有验证，乱输入验证码也能够成功的登录。</p>
+</li>
+<li><p>验证码可以重复使用。</p>
+</li>
+<li><p>验证码空值绕过，比如我们抓一个包，发现有验证码参数，但是我们去掉验证码的参数就可以绕过验证码机制。验证码就失败了。</p>
+</li>
+<li><p>验证码干扰过低，使用脚本识别。</p>
+</li>
+<li><p>验证码在直接在html里面输出。</p>
+</li>
+<li><p>验证码可控，比如他的验证码包含在url面，是一个url传参，我们可以把url设置定，那么验证码可设置。</p>
+</li>
+<li><p>验证码有规则，比如用时间戳的后6位。</p>
+</li>
+<li><p>万能验证码，验证码无论是什么，只要输入特定数字就可以直接绕过。</p>
+</li>
+<li><p>验证码有时候会在cookie里面，分析一下是不是存在验证码的参数。</p>
+</li>
+<li><p>图片验证码，类型太少，容易识别。</p>
+</li>
+<li><p>多次登录后才出现验证码绕过:</p>
+</li>
+<li><p>基于session</p>
+</li>
+<li><p>基于ip</p>
+</li>
+<li><p>基于用户</p>
+</li>
+</ol>
+        
+          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-json格式解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -863,85 +970,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ctf中的一些序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/">ctf中的一些序列化</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2021-08-07T09:00:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CTF中的序列化和反序列化"><a href="#CTF中的序列化和反序列化" class="headerlink" title="CTF中的序列化和反序列化"></a>CTF中的序列化和反序列化</h1><h2 id="序列化和反序列化概念"><a href="#序列化和反序列化概念" class="headerlink" title="序列化和反序列化概念"></a>序列化和反序列化概念</h2><p>序列化就是将对象转换成字符串。字符串包括 属性名 属性值 属性类型和该对象对应的类名</p>
-<p>反序列化则相反将字符串重新恢复成对象</p>
-<p>对象的序列化利于对象的保存和传输，也可以让多个文件共享对象</p>
-<h2 id="序列化中常见的魔法函数"><a href="#序列化中常见的魔法函数" class="headerlink" title="序列化中常见的魔法函数"></a>序列化中常见的魔法函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">__construct() 创建对象时调用</span><br><span class="line">__destruct() 销毁对象时调用</span><br><span class="line">__toString() 当一个对象被当作一个字符串使用</span><br><span class="line">__sleep() 在对象在被序列化之前运行</span><br><span class="line">__wakeup 将在序列化之后立即被调用</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/">展开全文 >></a>
         </p>
       
 
