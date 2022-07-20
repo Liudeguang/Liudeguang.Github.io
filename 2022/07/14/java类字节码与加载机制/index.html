@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>java类字节码与加载机制 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/page/3/index.html">
+  <meta name="description" content="JVM运行机制基本概念计算机是没有办法直接运行java代码的，也没有办法直接运行java编译的字节码。在实际的运行过程中，需要将编译好的字节码交给JVM去执行。JVM会把字节码转化为实际的机器码  栈栈(stack)又称为堆栈活堆叠，栈作为一种数据结构，是一种只能在一端进行插入和删除操作的特殊线性表。它按照先进后出的原则存储数据，先进后出的原则存储数据。 JVM运行方式虚拟机常用的实现方式有两种：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java类字节码与加载机制">
+<meta property="og:url" content="https://example.com/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="JVM运行机制基本概念计算机是没有办法直接运行java代码的，也没有办法直接运行java编译的字节码。在实际的运行过程中，需要将编译好的字节码交给JVM去执行。JVM会把字节码转化为实际的机器码  栈栈(stack)又称为堆栈活堆叠，栈作为一种数据结构，是一种只能在一端进行插入和删除操作的特殊线性表。它按照先进后出的原则存储数据，先进后出的原则存储数据。 JVM运行方式虚拟机常用的实现方式有两种：">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714163835722.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714165312812.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714170128323.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714170840931.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173559109.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173149993.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173502883.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714180416289.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714190114606.png">
+<meta property="article:published_time" content="2022-07-14T08:35:00.000Z">
+<meta property="article:modified_time" content="2022-07-14T11:13:35.115Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714163835722.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,361 +157,234 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java类字节码与加载机制" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java类字节码与加载机制
+    </h1>
+  
+
+        
+        <a href="/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2022-07-14T08:35:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-14</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JVM运行机制"><a href="#JVM运行机制" class="headerlink" title="JVM运行机制"></a>JVM运行机制</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>计算机是没有办法直接运行java代码的，也没有办法直接运行java编译的字节码。在实际的运行过程中，需要将编译好的字节码交给JVM去执行。JVM会把字节码转化为实际的机器码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714163835722.png" alt="image-20220714163835722"></p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈(stack)又称为堆栈活堆叠，栈作为一种数据结构，是一种只能在一端进行插入和删除操作的特殊线性表。它按照先进后出的原则存储数据，先进后出的原则存储数据。</p>
+<h2 id="JVM运行方式"><a href="#JVM运行方式" class="headerlink" title="JVM运行方式"></a>JVM运行方式</h2><p>虚拟机常用的实现方式有两种：基于栈的和基于寄存器的。我们的JVM是基于栈的。</p>
+<p>这两种虚拟机的区别在于，基于寄存器的虚拟机，执行速度会更快，但是可移植性差。</p>
+<p>基于栈的虚拟机，虽然指令比寄存器的多，但是可移植性好，实现更简单。</p>
+<h1 id="类字节码"><a href="#类字节码" class="headerlink" title="类字节码"></a>类字节码</h1><p>我们都知道，java是需要编译的。当.java命令被编译后称为.class文件。这个.class文件就是类字节码文件。</p>
+<h2 id="类字节码结构"><a href="#类字节码结构" class="headerlink" title="类字节码结构"></a>类字节码结构</h2><p>类字节码由十个部分组成</p>
+<ol>
+<li>魔数（Magic Number）</li>
+<li>版本号（Minor&amp;Major Version）</li>
+<li>常量池（Constant Pool）</li>
+<li>类访问标记(Access Flags)</li>
+<li>类索引（This Class）</li>
+<li>超类索引（Super Class）</li>
+<li>接⼝表索引（Interfaces）</li>
+<li>字段表（Fields）</li>
+<li>⽅法表（Methods）</li>
+<li>属性表（Attributes）<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714165312812.png" alt="image-20220714165312812"></li>
+</ol>
+<h2 id="魔数"><a href="#魔数" class="headerlink" title="魔数"></a>魔数</h2><p>java的魔数其实就是标识它是一个java文件的标志。当我们用010editor打开.class文件时，发现它的前四个字节是CAFEBABE(咖啡宝贝)</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714170128323.png" alt="image-20220714170128323"></p>
+<h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2><p>对于JVM字节码来说，如果操作数非常小或者很常用的数字0之类的，这些操作数是内嵌到字节码中的。如果是字符串常量和较大的整数等，class文件是把这些操作数存储在一个叫做常量池(Constant Pool)的地方，当使用这些操作数时，使用的是常量池数据中的索引位置。常量池的作用有点类似于C语言中的符号表，但是比符号表要强大得多。</p>
+<p>常量池的基本机构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	u2     constant_pool_count;  //常量池大小</span><br><span class="line">	cp_info  constant_pool[constant_pool_count-1];  //若干常量池选项</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714170840931.png" alt="image-20220714170840931"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173559109.png" alt="image-20220714173559109"></p>
+<h2 id="字段表与方法表"><a href="#字段表与方法表" class="headerlink" title="字段表与方法表"></a>字段表与方法表</h2><p>字段表：类中定义的字段会被存储到这个集合中，包括类中定义的静态和非静态字段，不包括方法内部定义的变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   u2          fields_count;</span><br><span class="line">   filed_info       fields[fileds_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法表：类中定义的方法会被存储在这里，与字段表很类似，方法表也是一个变长结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    u2         methods_count;</span><br><span class="line">    method_info    methods[methods_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性表中的Code"><a href="#属性表中的Code" class="headerlink" title="属性表中的Code"></a>属性表中的Code</h2><p>Code属性包含了所有方法的字节码，它的结构如下：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173149993.png" alt="image-20220714173149993"></p>
+<h2 id="字节码指令的基本结构"><a href="#字节码指令的基本结构" class="headerlink" title="字节码指令的基本结构"></a>字节码指令的基本结构</h2><p>java虚拟机的指令由一个字节长度的操作码和紧随其后的操作数构成。”字节码”这个名字的由来也是因为操作码的长度用一个字节表示。</p>
+<p>大部分字节码指令包含了所要操作的类型信息。比如ireturn 用于返回一个int类型的数据 return 用于返回一个double类型的数据。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173502883.png" alt="image-20220714173502883"></p>
+<p>后面的操作数一一在常量池中有对应。比如#15其实就是<code>printStream</code>中的<code>println</code>方法。而invokervirtual就是指调用实例方法。</p>
+<p>常见指令：</p>
+<ol>
+<li> ldc -&gt; 将int,float或String型常量值从常量池中推送⾄栈顶(宽索引)</li>
+<li>xload -&gt; 将指定类型的本地变量推送⾄栈顶 (x代表任意字符串)</li>
+<li> xstore -&gt; 将指定类型的栈顶值存⼊本地变量中 (x代表任意字符串)</li>
+<li>pop -&gt; 将栈顶数值弹出(数值不能是long或double类型的)</li>
+<li> dup -&gt; 复制栈顶数值并将复制值压⼊栈顶</li>
+<li> xadd -&gt; 将栈顶两指定型数值相加并将结果压⼊栈顶 (x代表任意字符串)</li>
+<li> goto -&gt; ⽆条件跳转 • xreturn -&gt; 从当前⽅法返回指定类型 (x代表任意字符串)</li>
+<li> invokevirtual -&gt; 调⽤实例⽅法</li>
+<li>invokespecial -&gt; 调⽤超类构建⽅法, 实例初始化⽅法, 私有⽅法</li>
+<li>invokestatic -&gt; 调⽤静态⽅法</li>
+<li> invokeinterface -&gt; 调⽤接⼝⽅法 • invokedynamic -&gt; 调⽤动态⽅法 </li>
+</ol>
+<h1 id="JAVA类加载"><a href="#JAVA类加载" class="headerlink" title="JAVA类加载"></a>JAVA类加载</h1><p>java文件通过编译器变成了.class文件，接下来类加载器又将这些.class文件加载到jvm中。其中类装载器的作用其实就是类的加载。</p>
+<p>类加载的具体过程可以拆分为三个步骤，分别是加载\链接以及初始化。</p>
+<p>这些工作实际都在jvm当中完成。（在java中它们被封装成native函数）</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714180416289.png" alt="image-20220714180416289"></p>
+<h2 id="类加载种类"><a href="#类加载种类" class="headerlink" title="类加载种类"></a>类加载种类</h2><p>Boostratp ClassLoader(启动类加载器)这个类加载器负责将一些核心的，被JVM识别的类加载进来，用c++实现，与JVM是一体的。</p>
+<p>Extension Classloader(扩展类加载器)这个类加载器用来加载java的扩展库 *Application Classloader（App类加载器/系统类加载器）用于加载我们自己定义编写的类。</p>
+<p>User ClassLoader(用户自己实现的类加载器)当实际需要自己掌控类加载过程时才会用到，一般没有用到。</p>
+<p>因此除了Bootstrap ClassLoader之外，其他的ClassLoader都是可以在java代码中找到的</p>
+<h2 id="类加载的方法"><a href="#类加载的方法" class="headerlink" title="类加载的方法"></a>类加载的方法</h2><ol>
+<li>loadClass(加载指定的Java类)</li>
+<li>findClass(查找指定的java类)</li>
+<li>findLoaderClass(查找JVM已经加载过的类)</li>
+<li>defineClass(定义一个Java类)</li>
+<li>resolveClass(链接指定的java类)</li>
+</ol>
+<h2 id="类加载的两种方式"><a href="#类加载的两种方式" class="headerlink" title="类加载的两种方式"></a>类加载的两种方式</h2><p>Java类加载方式分为显示和隐式，显示即我们通常使用java反射或者ClassLoader来动态加载一个类对象。而隐式指的是类名.方法名()或new类实例。显式类加载方式也可以理解为类动态加载，我们可以自定义类加载去加载任意的类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//通过反射加载类</span><br><span class="line">class.forName(&quot;com.test.test&quot;)；</span><br><span class="line"></span><br><span class="line">//主动调用ClassLoader加载类</span><br><span class="line">this.getClass().getClassloader().loadclass(&quot;com.test.test&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>通过反射去加载实际还是使⽤了的ClassLoader，这两者在本质上并⽆区别</p>
+<h2 id="什么是双亲委派机制"><a href="#什么是双亲委派机制" class="headerlink" title="什么是双亲委派机制"></a>什么是双亲委派机制</h2><p>定义：如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完成这个加载请求(它的搜索范围中没有找到所需的类时)，子加载器才会尝试自己去加载。这个机制就叫做双亲委派机制。</p>
+<p>实现：</p>
+<ol>
+<li>检查请求的类是否已经被加载过了。</li>
+<li>未加载，则请求父类加载器去加载对应路径下的类。</li>
+<li>如果加载不到，才由下面的子类依次去加载。</li>
+</ol>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714190114606.png" alt="image-20220714190114606"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-02-27T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          fastjson漏洞
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java不安全的反序列化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">Kerberos协议</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2022-02-19T15:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/19/%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">域内信息搜集</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="archive-article-date">
-  	<time datetime="2022-02-17T02:00:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/17/Liunx%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">Liunx权限维持</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/02/15/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/" class="archive-article-date">
-  	<time datetime="2022-02-15T02:10:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/02/15/Windows%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81/">Windows权限维持</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂念</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2022/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2022/">1</a><a class="page-number" href="/archives/2022/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/2022/page/4/">4</a><a class="extend next" rel="next" href="/archives/2022/page/4/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -520,8 +408,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

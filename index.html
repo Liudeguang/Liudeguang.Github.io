@@ -144,6 +144,312 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-fastjson漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/">fastjson漏洞</a>
+    </h1>
+  
+
+        
+        <a href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
+  	<time datetime="2022-07-18T03:08:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="初识fastjson"><a href="#初识fastjson" class="headerlink" title="初识fastjson"></a>初识fastjson</h1><p>Fastjson是Alibaba开发的java语言编写的高性能JSON库，用于将数据在JSON和Java Object之间互相转换，不需要添加额外的以来，能够直接跑在JDK上，Fastjson采用独创的算法，将序列化的速度提升到极致，深受用户喜爱。</p>
+        
+          <a class="article-more-a" href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-java类字节码与加载机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">java类字节码与加载机制</a>
+    </h1>
+  
+
+        
+        <a href="/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2022-07-14T08:35:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="JVM运行机制"><a href="#JVM运行机制" class="headerlink" title="JVM运行机制"></a>JVM运行机制</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>计算机是没有办法直接运行java代码的，也没有办法直接运行java编译的字节码。在实际的运行过程中，需要将编译好的字节码交给JVM去执行。JVM会把字节码转化为实际的机器码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714163835722.png" alt="image-20220714163835722"></p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈(stack)又称为堆栈活堆叠，栈作为一种数据结构，是一种只能在一端进行插入和删除操作的特殊线性表。它按照先进后出的原则存储数据，先进后出的原则存储数据。</p>
+<h2 id="JVM运行方式"><a href="#JVM运行方式" class="headerlink" title="JVM运行方式"></a>JVM运行方式</h2><p>虚拟机常用的实现方式有两种：基于栈的和基于寄存器的。我们的JVM是基于栈的。</p>
+<p>这两种虚拟机的区别在于，基于寄存器的虚拟机，执行速度会更快，但是可移植性差。</p>
+<p>基于栈的虚拟机，虽然指令比寄存器的多，但是可移植性好，实现更简单。</p>
+<h1 id="类字节码"><a href="#类字节码" class="headerlink" title="类字节码"></a>类字节码</h1><p>我们都知道，java是需要编译的。当.java命令被编译后称为.class文件。这个.class文件就是类字节码文件。</p>
+<h2 id="类字节码结构"><a href="#类字节码结构" class="headerlink" title="类字节码结构"></a>类字节码结构</h2><p>类字节码由十个部分组成</p>
+<ol>
+<li>魔数（Magic Number）</li>
+<li>版本号（Minor&amp;Major Version）</li>
+<li>常量池（Constant Pool）</li>
+<li>类访问标记(Access Flags)</li>
+<li>类索引（This Class）</li>
+<li>超类索引（Super Class）</li>
+<li>接⼝表索引（Interfaces）</li>
+<li>字段表（Fields）</li>
+<li>⽅法表（Methods）</li>
+<li>属性表（Attributes）<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714165312812.png" alt="image-20220714165312812"></li>
+</ol>
+<h2 id="魔数"><a href="#魔数" class="headerlink" title="魔数"></a>魔数</h2><p>java的魔数其实就是标识它是一个java文件的标志。当我们用010editor打开.class文件时，发现它的前四个字节是CAFEBABE(咖啡宝贝)</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714170128323.png" alt="image-20220714170128323"></p>
+<h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2><p>对于JVM字节码来说，如果操作数非常小或者很常用的数字0之类的，这些操作数是内嵌到字节码中的。如果是字符串常量和较大的整数等，class文件是把这些操作数存储在一个叫做常量池(Constant Pool)的地方，当使用这些操作数时，使用的是常量池数据中的索引位置。常量池的作用有点类似于C语言中的符号表，但是比符号表要强大得多。</p>
+<p>常量池的基本机构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	u2     constant_pool_count;  //常量池大小</span><br><span class="line">	cp_info  constant_pool[constant_pool_count-1];  //若干常量池选项</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714170840931.png" alt="image-20220714170840931"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173559109.png" alt="image-20220714173559109"></p>
+<h2 id="字段表与方法表"><a href="#字段表与方法表" class="headerlink" title="字段表与方法表"></a>字段表与方法表</h2><p>字段表：类中定义的字段会被存储到这个集合中，包括类中定义的静态和非静态字段，不包括方法内部定义的变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   u2          fields_count;</span><br><span class="line">   filed_info       fields[fileds_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法表：类中定义的方法会被存储在这里，与字段表很类似，方法表也是一个变长结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    u2         methods_count;</span><br><span class="line">    method_info    methods[methods_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性表中的Code"><a href="#属性表中的Code" class="headerlink" title="属性表中的Code"></a>属性表中的Code</h2><p>Code属性包含了所有方法的字节码，它的结构如下：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173149993.png" alt="image-20220714173149993"></p>
+<h2 id="字节码指令的基本结构"><a href="#字节码指令的基本结构" class="headerlink" title="字节码指令的基本结构"></a>字节码指令的基本结构</h2><p>java虚拟机的指令由一个字节长度的操作码和紧随其后的操作数构成。”字节码”这个名字的由来也是因为操作码的长度用一个字节表示。</p>
+<p>大部分字节码指令包含了所要操作的类型信息。比如ireturn 用于返回一个int类型的数据 return 用于返回一个double类型的数据。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714173502883.png" alt="image-20220714173502883"></p>
+<p>后面的操作数一一在常量池中有对应。比如#15其实就是<code>printStream</code>中的<code>println</code>方法。而invokervirtual就是指调用实例方法。</p>
+<p>常见指令：</p>
+<ol>
+<li> ldc -&gt; 将int,float或String型常量值从常量池中推送⾄栈顶(宽索引)</li>
+<li>xload -&gt; 将指定类型的本地变量推送⾄栈顶 (x代表任意字符串)</li>
+<li> xstore -&gt; 将指定类型的栈顶值存⼊本地变量中 (x代表任意字符串)</li>
+<li>pop -&gt; 将栈顶数值弹出(数值不能是long或double类型的)</li>
+<li> dup -&gt; 复制栈顶数值并将复制值压⼊栈顶</li>
+<li> xadd -&gt; 将栈顶两指定型数值相加并将结果压⼊栈顶 (x代表任意字符串)</li>
+<li> goto -&gt; ⽆条件跳转 • xreturn -&gt; 从当前⽅法返回指定类型 (x代表任意字符串)</li>
+<li> invokevirtual -&gt; 调⽤实例⽅法</li>
+<li>invokespecial -&gt; 调⽤超类构建⽅法, 实例初始化⽅法, 私有⽅法</li>
+<li>invokestatic -&gt; 调⽤静态⽅法</li>
+<li> invokeinterface -&gt; 调⽤接⼝⽅法 • invokedynamic -&gt; 调⽤动态⽅法 </li>
+</ol>
+<h1 id="JAVA类加载"><a href="#JAVA类加载" class="headerlink" title="JAVA类加载"></a>JAVA类加载</h1><p>java文件通过编译器变成了.class文件，接下来类加载器又将这些.class文件加载到jvm中。其中类装载器的作用其实就是类的加载。</p>
+<p>类加载的具体过程可以拆分为三个步骤，分别是加载\链接以及初始化。</p>
+<p>这些工作实际都在jvm当中完成。（在java中它们被封装成native函数）</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714180416289.png" alt="image-20220714180416289"></p>
+<h2 id="类加载种类"><a href="#类加载种类" class="headerlink" title="类加载种类"></a>类加载种类</h2><p>Boostratp ClassLoader(启动类加载器)这个类加载器负责将一些核心的，被JVM识别的类加载进来，用c++实现，与JVM是一体的。</p>
+<p>Extension Classloader(扩展类加载器)这个类加载器用来加载java的扩展库 *Application Classloader（App类加载器/系统类加载器）用于加载我们自己定义编写的类。</p>
+<p>User ClassLoader(用户自己实现的类加载器)当实际需要自己掌控类加载过程时才会用到，一般没有用到。</p>
+<p>因此除了Bootstrap ClassLoader之外，其他的ClassLoader都是可以在java代码中找到的</p>
+<h2 id="类加载的方法"><a href="#类加载的方法" class="headerlink" title="类加载的方法"></a>类加载的方法</h2><ol>
+<li>loadClass(加载指定的Java类)</li>
+<li>findClass(查找指定的java类)</li>
+<li>findLoaderClass(查找JVM已经加载过的类)</li>
+<li>defineClass(定义一个Java类)</li>
+<li>resolveClass(链接指定的java类)</li>
+</ol>
+<h2 id="类加载的两种方式"><a href="#类加载的两种方式" class="headerlink" title="类加载的两种方式"></a>类加载的两种方式</h2><p>Java类加载方式分为显示和隐式，显示即我们通常使用java反射或者ClassLoader来动态加载一个类对象。而隐式指的是类名.方法名()或new类实例。显式类加载方式也可以理解为类动态加载，我们可以自定义类加载去加载任意的类。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//通过反射加载类</span><br><span class="line">class.forName(&quot;com.test.test&quot;)；</span><br><span class="line"></span><br><span class="line">//主动调用ClassLoader加载类</span><br><span class="line">this.getClass().getClassloader().loadclass(&quot;com.test.test&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>通过反射去加载实际还是使⽤了的ClassLoader，这两者在本质上并⽆区别</p>
+<h2 id="什么是双亲委派机制"><a href="#什么是双亲委派机制" class="headerlink" title="什么是双亲委派机制"></a>什么是双亲委派机制</h2><p>定义：如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，只有当父加载器反馈自己无法完成这个加载请求(它的搜索范围中没有找到所需的类时)，子加载器才会尝试自己去加载。这个机制就叫做双亲委派机制。</p>
+<p>实现：</p>
+<ol>
+<li>检查请求的类是否已经被加载过了。</li>
+<li>未加载，则请求父类加载器去加载对应路径下的类。</li>
+<li>如果加载不到，才由下面的子类依次去加载。</li>
+</ol>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220714190114606.png" alt="image-20220714190114606"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-java不安全的反序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">java不安全的反序列化</a>
+    </h1>
+  
+
+        
+        <a href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2022-07-14T03:09:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是反序列化"><a href="#什么是反序列化" class="headerlink" title="什么是反序列化"></a>什么是反序列化</h1><p>序列化，是指将内存中的某个对象压缩成字节流的形式，而反序列化，则是将字节流转化成内存中的对象。Java序列化和反序列化处理是基于Java框架的Web应用中比较重要的功能。因为在网络中，无论相互间发送何种类型的数据，在网络中实际上都是以二进制序列的形式传输的。为此，发送发必须将要发送的Java对象序列化为字节流，接收方则需要将字节流再反序列化，还原得到java对象才能实现正常通信。当攻击者精心构造的字节流被反序列化为恶意对象时，就会造成一系列安全问题。反序列化漏洞就是，暴露或者间接暴露反序列化API，导致用户可以操作传入数据，攻击者可以精心构造反序列化对象并执行恶意代码。</p>
+        
+          <a class="article-more-a" href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java反射" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -736,248 +1042,9 @@
 
 
   
-    <article id="post-浅谈PE结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/">浅谈PE结构</a>
-    </h1>
-  
-
-        
-        <a href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2022-05-11T06:41:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是PE结构"><a href="#什么是PE结构" class="headerlink" title="什么是PE结构"></a>什么是PE结构</h1><p>PE结构是Windows操作系统下标准的可执行文件的头格式</p>
-<p>当你用二进制的编辑器(如010editor)打开一个exe文件，就会发现这里面有PE结构，其中包括但不限于<code>DOS头</code>，<code>NT头</code>,<code>可选NT头</code>，<code>节头</code>。</p>
-        
-          <a class="article-more-a" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ShellCode上线分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/">ShellCode上线分析</a>
-    </h1>
-  
-
-        
-        <a href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2022-05-01T04:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="杀毒软件对文件危险的判定等级"><a href="#杀毒软件对文件危险的判定等级" class="headerlink" title="杀毒软件对文件危险的判定等级"></a>杀毒软件对文件危险的判定等级</h1><p>从文件落地到磁盘上开始，杀毒软件就已经对落地文件进行了扫描与检测，这里我们需要知道杀毒软件对文件危险系数的判定等级。</p>
-<p>1.无害</p>
-<p>无害等级，没有任何问题。杀毒软件从此不会管你。</p>
-<p>2.可疑</p>
-<p>如果确定文件为可疑等级，那么杀毒软件会持续监控软件的行为特征。</p>
-<p>3.确认病毒</p>
-<p>如果确定文件为病毒，那么杀毒软件就会直接把文件刀掉。</p>
-        
-          <a class="article-more-a" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-使用windowsapi调用注册表操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/">使用windowsapi调用注册表操作</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2022-04-26T16:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近为了学习免杀，需要先从<code>C++</code>开始打基础。对于我这个从来没学过C语言的菜鸡，真的是异常的艰险和挑战。这里往下对遇到的坑做下记录。</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>用C++的主要目的就是为了会调用<code>windowsapi</code>函数，但是<code>windowsapi</code>函数不仅复杂，而且我在网上也没看到什么好的教学。基本上就相当于只有个人看文章了，这里我特地用了以下几个帮助我学习:</p>
-<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/488845">1.windowsAPI</a>数据类型</p>
-<p>2.MSDN</p>
-<p>3.对应的需要调用的函数的前人示例。</p>
-        
-          <a class="article-more-a" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
