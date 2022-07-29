@@ -172,72 +172,9 @@
 <li>熟悉系统的源码构成，按照MVC思想，了解主要的功能模板和对应的javabean</li>
 <li>在1-5基础上针对各类漏洞源码分析发现漏洞</li>
 </ol>
-<h1 id="Ofcms-1-1-2代码审计"><a href="#Ofcms-1-1-2代码审计" class="headerlink" title="Ofcms-1.1.2代码审计"></a>Ofcms-1.1.2代码审计</h1><p>首先可以看目录结构和readme的文档，可以发现并没有使用常见的ssm和ssh，而是使用了一个叫做jfinal的框架。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729102914365.png" alt="image-20220729102914365"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729102838773.png" alt="image-20220729102838773"></p>
-<p>同时也找到了对项目结构的解释</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729102838773.png"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729102901808.png" alt="image-20220729102901808"></p>
-<h2 id="通用性漏洞-SSTI模板注入"><a href="#通用性漏洞-SSTI模板注入" class="headerlink" title="通用性漏洞-SSTI模板注入"></a>通用性漏洞-SSTI模板注入</h2><p>通过阅读pom.xml可以发现，使用了freemarker开源组件freemarker开源组件</p>
-<p>freemarker<a target="_blank" rel="noopener" href="https://sp4zcmd.github.io/2021/09/01/FreeMarker%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">模板注入</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">           &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</span><br><span class="line">           &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</span><br><span class="line">           &lt;version&gt;2.3.21&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>接下来我们可以去寻找对应的模板新增页面（业务功能）。</p>
-<p>功能点是在后台的模板设置里面</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729105833250.png" alt="image-20220729105833250"></p>
-<p>在其中插入我们网上搜索到的payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;#assign value=&quot;freemarker.template.utility.Execute&quot;?new()&gt;$&#123;value(&quot;calc.exe&quot;)&#125;</span><br></pre></td></tr></table></figure>
-
-<p>回到首页弹框计算器</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729110509366.png" alt="image-20220729110509366"></p>
-<p>在当时抓包发现请求的路径为</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729111714839.png" alt="image-20220729111714839"></p>
-<p>找到源码中的路径</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src/main/java/com/ofsoft/cms/admin/controller/cms/TemplateController.java中的save方法。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String resPath = getPara(<span class="string">&quot;res_path&quot;</span>);</span><br><span class="line">        File pathFile = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">&quot;res&quot;</span>.equals(resPath))&#123;</span><br><span class="line">            pathFile = <span class="keyword">new</span> File(SystemUtile.getSiteTemplateResourcePath());</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            pathFile = <span class="keyword">new</span> File(SystemUtile.getSiteTemplatePath());</span><br><span class="line">        &#125;</span><br><span class="line">        String dirName = getPara(<span class="string">&quot;dirs&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (dirName != <span class="keyword">null</span>) &#123;</span><br><span class="line">            pathFile = <span class="keyword">new</span> File(pathFile, dirName);</span><br><span class="line">        &#125;</span><br><span class="line">        String fileName = getPara(<span class="string">&quot;file_name&quot;</span>);</span><br><span class="line">        <span class="comment">// 没有用getPara原因是，getPara因为安全问题会过滤某些html元素。</span></span><br><span class="line">        String fileContent = getRequest().getParameter(<span class="string">&quot;file_content&quot;</span>);</span><br><span class="line">        fileContent = fileContent.replace(<span class="string">&quot;&amp;lt;&quot;</span>, <span class="string">&quot;&lt;&quot;</span>).replace(<span class="string">&quot;&amp;gt;&quot;</span>, <span class="string">&quot;&gt;&quot;</span>);</span><br><span class="line">        File file = <span class="keyword">new</span> File(pathFile, fileName);</span><br><span class="line">        FileUtils.writeString(file, fileContent);</span><br><span class="line">        rendSuccessJson();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>可见这个方法并没有做任何过滤，而且貌似还助长了XSS漏洞，它主动把&amp;lt换成了&lt;。猜想肯定是为了保证业务的正常处理。</p>
-<h3 id="另一种利用方式"><a href="#另一种利用方式" class="headerlink" title="另一种利用方式"></a>另一种利用方式</h3><p>除了该模板注入，我们换个思维想，这个方法恰巧也达成了任意文件上传。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File file = new File(pathFile, fileName);</span><br><span class="line">FileUtils.writeString(file, fileContent);</span><br></pre></td></tr></table></figure>
-
-<p>因为其只是单纯的创建了文件并且写入了文件内容。所以我们重新发送此包</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729113020441.png" alt="image-20220729113020441"></p>
-<p>发现在Tomcat的web-inf包下有了新的文件</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729113057827.png" alt="image-20220729113057827"></p>
-<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><p>SQL注入需要关注的点是来自于前端的参数且用户可控且为安全处理后拼接到sql中执行。</p>
-<p>发生场景有:1.在jdbc技术中直接使用”+”来拼接。2.在mybatis中使用$符号。3.在hibernate中使用“+”</p>
-<p><strong>需要特别注意一下将从前端获取到的值作为数据sql语句执行的字段名称，而不仅仅是字段的value。</strong></p>
-<p>通过对前端界面的寻找，发现在管理界面的系统设置有个代码生成的功能。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729114523486.png" alt="image-20220729114523486"></p>
-<p>并且增加处可以直接输入sql语句</p>
-<p>抓包发现请求路径如下</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729114612983.png" alt="image-20220729114612983"></p>
-<p>通过寻找源码发现调用的是</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">src/main/java/com/ofsoft/cms/admin/controller/system/SystemGenerateController.java中的create方法</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			String sql = getPara(<span class="string">&quot;sql&quot;</span>);</span><br><span class="line">			Db.update(sql);</span><br><span class="line">			rendSuccessJson();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			rendFailedJson(ErrorCode.get(<span class="string">&quot;9999&quot;</span>), e.getMessage());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>进行跟踪溯源，我们可以知道底层调用的方法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">update</span><span class="params">(Config config, Connection conn, String sql, Object... paras)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">      PreparedStatement pst = conn.prepareStatement(sql);</span><br><span class="line">      config.dialect.fillStatement(pst, paras);</span><br><span class="line">      <span class="keyword">int</span> result = pst.executeUpdate();</span><br><span class="line">      DbKit.close(pst);</span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里就会发现，开发者犯了一个错误，prepareStatement虽然使用的是预编译对象，但是并没有按照预编译占位符的方式进行处理（这就让预编译形同虚设）。</p>
-<p>正确的形式应该如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(sql);</span><br><span class="line">pstmt.setString(<span class="number">1</span>,sno);</span><br></pre></td></tr></table></figure>
-
-<p>所以我们可以发现该sql初并没有做任何安全处理，那么我们就可以小注一下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update of_cms_link set link_name=updatexml(1,concat(0x7e,(user())),0)</span><br><span class="line">where link_id=2</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729115656689.png" alt="image-20220729115656689"></p>
-<p>报出数据库名字。</p>
-<h2 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h2><p>XSS漏洞的审计，我们一般先通审有不有一个XSS过滤器的存在，因为XSS漏洞⽆法针对所有的参数进⾏ESAPI,也就是说⼀般⽆全局过滤器多数存在XSS注⼊漏洞。</p>
-<p>进行全局搜索，发现确实有XSS过滤相关字样，但是这个东西只是单纯过滤ueditor富文本编辑器的，并没有对整个web做xss检测。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729121921765.png" alt="image-20220729121921765"></p>
-<p>一直找也找不出个所以然来，干脆就直接上，在文章管理里新建一个公司新闻，然后填入XSS代码。</p>
-<p>为了验证刚才只对这个富文本编辑器做xss处理，所以我弹出不同的值。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220729122316312.png" alt="image-20220729122316312"></p>
-<p>去首页新闻处点击新增的新闻，发现弹框只能1和4，至少证明了富文本编辑器确实有过滤效果，其余并没有做其他过滤。</p>
-
+        
+          <a class="article-more-a" href="/2022/07/29/ofcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/#more">more >></a>
+        
       
 
       
