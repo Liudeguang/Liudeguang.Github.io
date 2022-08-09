@@ -144,6 +144,139 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Raven2靶机渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">Raven2靶机渗透</a>
+    </h1>
+  
+
+        
+        <a href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/" class="archive-article-date">
+  	<time datetime="2022-02-25T02:30:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Raven2靶机渗透"><a href="#Raven2靶机渗透" class="headerlink" title="Raven2靶机渗透"></a>Raven2靶机渗透</h1><p>因为头一次涉及到liunx mysqludf的提权，所以这一次对该靶机进行一次完整的渗透测试。</p>
+        
+          <a class="article-more-a" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/25/Raven2%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Liunx提权总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">Liunx提权总结</a>
+    </h1>
+  
+
+        
+        <a href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2022-02-24T01:00:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Liunx提权总结"><a href="#Liunx提权总结" class="headerlink" title="Liunx提权总结"></a>Liunx提权总结</h1><h2 id="Liunx内核提权"><a href="#Liunx内核提权" class="headerlink" title="Liunx内核提权"></a>Liunx内核提权</h2><h3 id="Cve-2016-5195"><a href="#Cve-2016-5195" class="headerlink" title="Cve-2016-5195"></a>Cve-2016-5195</h3><p>脏牛漏洞，又叫Dirty COW，存在Liunx内核中已经有长达9年的时间，在2007年发布的liunx内核版本中就已经存在此漏洞。Linux kernel团队在2016年10月18日已经对此进行了修复。</p>
+<p>该漏洞具体为，Liunx内核的内存子系统在处理写入时复制时产生了竞争条件(race confition)。恶意用户可以利用此漏洞，来获取高权限，对只读内存映射进行访问。竞争条件，指的是任务执行顺序异常，这样可能会导致应用崩溃，或者是令攻击者有机可乘，进一步执行其他代码。利用这一漏洞，攻击者可在其目标系统提升权限，甚至可能获得root权限。</p>
+<p>Liunx内核&gt;=2.6.22</p>
+<p>触发代码:<a target="_blank" rel="noopener" href="https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c">https://github.com/dirtycow/dirtycow.github.io/blob/master/dirtyc0w.c</a></p>
+        
+          <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -983,190 +1116,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-逻辑漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">逻辑漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-12-28T03:35:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="验证码绕过，密码找回漏洞"><a href="#验证码绕过，密码找回漏洞" class="headerlink" title="验证码绕过，密码找回漏洞"></a>验证码绕过，密码找回漏洞</h1><h2 id="验证码绕过常见姿势"><a href="#验证码绕过常见姿势" class="headerlink" title="验证码绕过常见姿势"></a>验证码绕过常见姿势</h2><ol>
-<li><p>前端验证验证码，并没有后端验证，直接抓包然后进行跑数据包，反正没有验证码的阻碍。</p>
-</li>
-<li><p>验证码设置了但是并没有验证，乱输入验证码也能够成功的登录。</p>
-</li>
-<li><p>验证码可以重复使用。</p>
-</li>
-<li><p>验证码空值绕过，比如我们抓一个包，发现有验证码参数，但是我们去掉验证码的参数就可以绕过验证码机制。验证码就失败了。</p>
-</li>
-<li><p>验证码干扰过低，使用脚本识别。</p>
-</li>
-<li><p>验证码在直接在html里面输出。</p>
-</li>
-<li><p>验证码可控，比如他的验证码包含在url面，是一个url传参，我们可以把url设置定，那么验证码可设置。</p>
-</li>
-<li><p>验证码有规则，比如用时间戳的后6位。</p>
-</li>
-<li><p>万能验证码，验证码无论是什么，只要输入特定数字就可以直接绕过。</p>
-</li>
-<li><p>验证码有时候会在cookie里面，分析一下是不是存在验证码的参数。</p>
-</li>
-<li><p>图片验证码，类型太少，容易识别。</p>
-</li>
-<li><p>多次登录后才出现验证码绕过:</p>
-</li>
-<li><p>基于session</p>
-</li>
-<li><p>基于ip</p>
-</li>
-<li><p>基于用户</p>
-</li>
-</ol>
-        
-          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/28/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-json格式解析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">json格式解析</a>
-    </h1>
-  
-
-        
-        <a href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2021-12-14T08:14:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-12-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="json文件格式"><a href="#json文件格式" class="headerlink" title="json文件格式"></a>json文件格式</h1><h2 id="JSON是什么"><a href="#JSON是什么" class="headerlink" title="JSON是什么"></a>JSON是什么</h2><p>（JavaScript Object Notation）json是一种轻量级的数据交换格式。现在是理想的数据交换语言。</p>
-<h3 id="JSON构建于两种结构："><a href="#JSON构建于两种结构：" class="headerlink" title="JSON构建于两种结构："></a>JSON构建于两种结构：</h3><h4 id="1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"><a href="#1-“名称-值”对的集合（A-collection-of-name-value-pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）" class="headerlink" title="1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）"></a>1.“名称/值”对的集合（A collection of name/value pairs）。（在不同得语言有类似的不同叫法，比如python中有点像字典）</h4><h4 id="2-值得有序列表。（大部分被理解为数组）"><a href="#2-值得有序列表。（大部分被理解为数组）" class="headerlink" title="2. 值得有序列表。（大部分被理解为数组）"></a>2. 值得有序列表。（大部分被理解为数组）</h4>
-        
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/12/14/json%E6%A0%BC%E5%BC%8F%E8%A7%A3%E6%9E%90/">展开全文 >></a>
         </p>
       
 
