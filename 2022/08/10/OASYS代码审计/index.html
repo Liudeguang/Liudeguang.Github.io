@@ -6,15 +6,37 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022/8 | Solkatt的小窝</title>
+  <title>OASYS代码审计 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/08/index.html">
+  <meta name="description" content="项目技术分析根据项目readme文档可知，该项目采用了如下技术：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OASYS代码审计">
+<meta property="og:url" content="https://example.com/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="项目技术分析根据项目readme文档可知，该项目采用了如下技术：">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810114304135.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810114648190.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810115651509.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810120105739.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810120441275.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810120450066.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810121129357.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810121625293.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810121725926.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810122536505.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810122650184.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810122756510.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131149103.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131353821.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131416545.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131515077.png">
+<meta property="article:published_time" content="2022-08-10T03:22:57.000Z">
+<meta property="article:modified_time" content="2022-08-10T05:15:44.844Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810114304135.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,36 +164,79 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-OASYS代码审计" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      OASYS代码审计
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
+
+        
+        <a href="/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
   	<time datetime="2022-08-10T03:22:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-10</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">OASYS代码审计</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="项目技术分析"><a href="#项目技术分析" class="headerlink" title="项目技术分析"></a>项目技术分析</h1><p>根据项目readme文档可知，该项目采用了如下技术：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810114304135.png" alt="image-20220810114304135"></p>
+<span id="more"></span>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h2><p>直接全局搜索XSS，发现未使用XSS相关过滤器进行过滤，猜测应该是没有XSS相关防护。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810114648190.png" alt="image-20220810114648190"></p>
+<p>随后简单的看了一下Controller和Service层，发现也没有什么过滤机制，貌似直接带入了dao层进行数据库操作。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810115651509.png" alt="image-20220810115651509"></p>
+<p>调用的dao层的save方法也是jpa框架封装好的save方法。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810120105739.png" alt="image-20220810120105739"></p>
+<p>所以确定是没有XSS过滤的。</p>
+<p>直接去复现，在用户面板-写便签处存在XSS漏洞。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810120441275.png" alt="image-20220810120441275"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810120450066.png" alt="image-20220810120450066"></p>
+<h2 id="CSRF漏洞"><a href="#CSRF漏洞" class="headerlink" title="CSRF漏洞"></a>CSRF漏洞</h2><p>CSRF漏洞可能出现的场景：更改个人信息，添加修改资料，关注/取关用户，发布主题或者信息。</p>
+<p>常见的漏洞点在于见擦汗是否校验Referer，是否给cookie设置samesite属性，敏感操作是否会生成CSRFtoken，如果都不存在再查看请求参数中是否存在不可被攻击者猜测的字段，比如验证码等参数。</p>
+<p>就在刚才的写便签处来抓包，发现，包中并不存在防止CSRF的token，也没有给cookie设置samesite属性。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47450807/article/details/123248357">https://blog.csdn.net/weixin_47450807/article/details/123248357</a></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810121129357.png" alt="image-20220810121129357"></p>
+<p>所以推测存在CSRF漏洞。</p>
+<p>使用burp的自带生成csrf。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810121625293.png" alt="image-20220810121625293"></p>
+<p>点击后发现已经触发csrf漏洞。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810121725926.png" alt="image-20220810121725926"></p>
+<h2 id="越权漏洞"><a href="#越权漏洞" class="headerlink" title="越权漏洞"></a>越权漏洞</h2><p>在日程管理删除处存在越权漏洞，可以越权删除他人的日程管理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;dayremove&quot;)</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">dayremove</span><span class="params">(<span class="meta">@RequestParam(value=&quot;rcid&quot;)</span> Long rcid)</span></span>&#123;</span><br><span class="line">		ScheduleList rc = daydao.findOne(rcid);</span><br><span class="line">		</span><br><span class="line">		daydao.delete(rc);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;/daymanage&quot;</span>;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但从这行代码看，仅仅是查询了rcid参数后，进行了删除。从上面可以看出，使用了daydao.findone来操作rcid，查看daydao发现来自daymanageDao.java</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810122536505.png" alt="image-20220810122536505"></p>
+<p>但是daydao里面也没有发现findone这个方法，于是又去看jparepository，发现里面也没有findone方法，最后在jparepository的父类querybyExampleExcute看到了原来有这个方法。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810122650184.png" alt="image-20220810122650184"></p>
+<p>所以我们可以确定这个方法来自于框架，没有做什么处理。</p>
+<p>接着去看delete方法，发现delete也是一个框架方法</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810122756510.png" alt="image-20220810122756510"></p>
+<p>最后，我们回顾整个流程，也就是说查询了rcid的值，然后进⾏删除。整个流程没有任何权限的验 证，因此导致了越权的操作。</p>
+<p>当然如果使用了权限校验相关的框架，那就另当别论了。</p>
+<p>验证：首先使用管理员账户去登陆抓删除日程得包。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131149103.png" alt="image-20220810131149103"></p>
+<p>接着使用一个低权限账户去抓包删除</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131353821.png" alt="image-20220810131353821"></p>
+<p>将13改为3</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131416545.png" alt="image-20220810131416545"></p>
+<p>删除成功，证明漏洞存在。</p>
+<p>去数据库中看也发现id为3得信息没有了</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220810131515077.png" alt="image-20220810131515077"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,95 +248,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-09T05:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-09</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">若依CMS审计</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/">若依CMS审计</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-08T05:25:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">ERP代码审计</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -294,8 +370,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
