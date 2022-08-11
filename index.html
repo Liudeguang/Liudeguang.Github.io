@@ -144,6 +144,118 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-因酷教育审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/11/%E5%9B%A0%E9%85%B7%E6%95%99%E8%82%B2%E5%AE%A1%E8%AE%A1/">因酷教育审计</a>
+    </h1>
+  
+
+        
+        <a href="/2022/08/11/%E5%9B%A0%E9%85%B7%E6%95%99%E8%82%B2%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2022-08-11T05:35:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="项目结构分析"><a href="#项目结构分析" class="headerlink" title="项目结构分析"></a>项目结构分析</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811134035871.png" alt="image-20220811134035871"></p>
+<p>根据readme可以知道这个是SSM结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">**技术框架**  &lt;/br&gt;</span><br><span class="line"></span><br><span class="line">核心框架：Spring Framework&lt;/br&gt;</span><br><span class="line"></span><br><span class="line">视图框架：Spring MVC &lt;/br&gt;</span><br><span class="line"></span><br><span class="line">持久层框架：MyBatis 3&lt;/br&gt;</span><br><span class="line"></span><br><span class="line">JS框架：jQuery&lt;/br&gt;</span><br><span class="line"></span><br><span class="line">富文本：kindeditor&lt;/br&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="XSS审计"><a href="#XSS审计" class="headerlink" title="XSS审计"></a>XSS审计</h2><p>全局搜索XSS，发现没有什么过滤器。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811134409415.png" alt="image-20220811134409415"></p>
+<p>猜测大概率存在XSS漏洞。这里随便去后台加一手信息。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811135959555.png" alt="image-20220811135959555"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811140012890.png" alt="image-20220811140012890"></p>
+<p>验证了XSS漏洞的存在。同时应该还有很多写数据的功能都存在XSS漏洞。</p>
+<h2 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h2><p>因为已经知道了是用的<code>mybatis</code>。所以全局搜索<code>$</code>符号，发现在MsgSystemMapper里面有一句话。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811145910162.png" alt="image-20220811145910162"></p>
+<p>追踪溯源，发现是为了删除系统信息。</p>
+<p>从控制层AdminMsgSystemController开始，到业务层和dao层，都没有发现对参数ids进行校验。可以确定有漏洞。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811150042472.png" alt="image-20220811150042472"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811150144049.png" alt="image-20220811150144049"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811150148771.png" alt="image-20220811150148771"></p>
+<p>进入后台找到系统信息，删除系统信息列表。删除一个测试的消息内容，进行抓包。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811150409795.png" alt="image-20220811150409795"></p>
+<p>添加payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ids=2 and sleep(2)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811150737796.png" alt="image-20220811150737796"></p>
+<p>同时使用sqlmap也验证了一手</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811154611582.png" alt="image-20220811154611582"></p>
+<h2 id="越权漏洞"><a href="#越权漏洞" class="headerlink" title="越权漏洞"></a>越权漏洞</h2><p>在UserController里面可以看到updateuserInfo方法</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811160902962.png" alt="image-20220811160902962"></p>
+<p>貌似这里并没有做什么校验，而是直接带入了servicer层和dao层。</p>
+<p>在xml里面也只有简单的</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811161515660.png" alt="image-20220811161515660"></p>
+<p>但是不排除会有mybatis的额外保护机制，所以复现一下为好。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811161617228.png" alt="image-20220811161617228"></p>
+<p>将userid改为4，发包后去数据库中查看4的数据。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811161705555.png" alt="image-20220811161705555"></p>
+<p>验证成功。</p>
+<p>同时在管理员的密码修改界面，也能修改其他管理员账户的密码。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220811162200817.png" alt="image-20220811162200817"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/08/11/%E5%9B%A0%E9%85%B7%E6%95%99%E8%82%B2%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-OASYS代码审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -912,82 +1024,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/07/14/java%E7%B1%BB%E5%AD%97%E8%8A%82%E7%A0%81%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java不安全的反序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">java不安全的反序列化</a>
-    </h1>
-  
-
-        
-        <a href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2022-07-14T03:09:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是反序列化"><a href="#什么是反序列化" class="headerlink" title="什么是反序列化"></a>什么是反序列化</h1><p>序列化，是指将内存中的某个对象压缩成字节流的形式，而反序列化，则是将字节流转化成内存中的对象。Java序列化和反序列化处理是基于Java框架的Web应用中比较重要的功能。因为在网络中，无论相互间发送何种类型的数据，在网络中实际上都是以二进制序列的形式传输的。为此，发送发必须将要发送的Java对象序列化为字节流，接收方则需要将字节流再反序列化，还原得到java对象才能实现正常通信。当攻击者精心构造的字节流被反序列化为恶意对象时，就会造成一系列安全问题。反序列化漏洞就是，暴露或者间接暴露反序列化API，导致用户可以操作传入数据，攻击者可以精心构造反序列化对象并执行恶意代码。</p>
-        
-          <a class="article-more-a" href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/07/14/java%E4%B8%8D%E5%AE%89%E5%85%A8%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">展开全文 >></a>
         </p>
       
 

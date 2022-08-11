@@ -144,6 +144,92 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-内网渗透工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">内网渗透工具</a>
+    </h1>
+  
+
+        
+        <a href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/" class="archive-article-date">
+  	<time datetime="2022-02-28T08:06:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="内网渗透工具"><a href="#内网渗透工具" class="headerlink" title="内网渗透工具"></a>内网渗透工具</h1><h2 id="Setspn"><a href="#Setspn" class="headerlink" title="Setspn"></a>Setspn</h2><h3 id="SPN"><a href="#SPN" class="headerlink" title="SPN"></a><em><strong><a href="http://iphone.myzaker.com/zaker/link.php?pk=5c6f60cf77ac6443f6177afa&b=aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvd2luZG93cy9kZXNrdG9wL0FEL3NlcnZpY2UtcHJpbmNpcGFsLW5hbWVz&bcode=99fe68c6&target=_new">SPN</a></strong></em></h3><p>Service Principal Names</p>
+<p>SPN是服务器上所运行服务的唯一标识，每个使用Kerberos的服务都需要一个SPN。</p>
+<p>SPN分为两种，一种注册在AD上机器账户(Computers)下，另一种注册在域用户账户下(Users)下。</p>
+<p>当一个服务的权限为Local System或 Network Serivce，则SPN注册在机器账户(Computers)下。当一个服务的权限为一个域用户，则SPN注册在域用户账户(User)下。</p>
+<h3 id="SPN的格式"><a href="#SPN的格式" class="headerlink" title="SPN的格式"></a>SPN的格式</h3><p><code>serviceclass/host:port/servicename</code></p>
+<p>说明:</p>
+<ol>
+<li>serviceclass可以理解为<strong>服务类</strong>的名称，常见的有www,ldap,SMTP,DNS,HOST等。</li>
+<li>host有两种形式，FQDN（全域名）和NetBIOS（简域名）名，例如server01.test.com和server01。</li>
+<li>如果服务运行在默认端口上，则端口号(Port)可以省略。</li>
+</ol>
+        
+          <a class="article-more-a" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/02/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%B7%A5%E5%85%B7/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Kerberos协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1024,89 +1110,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/01/18/%E7%AE%80%E5%8D%95%E8%BF%9C%E6%8E%A7%E7%9A%84%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-初入免杀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
-    </h1>
-  
-
-        
-        <a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="杀毒软件的基本等级"><a href="#杀毒软件的基本等级" class="headerlink" title="杀毒软件的基本等级"></a>杀毒软件的基本等级</h1><p>首先要了解杀毒软件的定义等级如下：</p>
-<ol>
-<li>无害</li>
-<li>可疑</li>
-<li>确认为病毒</li>
-</ol>
-<p>我们需要把程序做到<code>无害</code>等级才能支撑我们的下一步动作</p>
-<h1 id="杀毒软件是如何进行识别病毒程序"><a href="#杀毒软件是如何进行识别病毒程序" class="headerlink" title="杀毒软件是如何进行识别病毒程序"></a>杀毒软件是如何进行识别病毒程序</h1><h2 id="静态识别："><a href="#静态识别：" class="headerlink" title="静态识别："></a>静态识别：</h2><p>杀软的大体查杀规则是基于文件hash值（整体hash或者片段hash等）、字符串特征、函数特征、api检测、敏感行为（如加、解密）行为检测等这些方面。对于静态检测主要的目的是在于绕过对文件哈希字符串导入API等特征来进行的。</p>
-        
-          <a class="article-more-a" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">展开全文 >></a>
         </p>
       
 
