@@ -144,6 +144,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CtfShow36D练手赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">CtfShow36D练手赛</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/" class="archive-article-date">
+  	<time datetime="2021-10-11T00:46:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="不知所措-jpg"><a href="#不知所措-jpg" class="headerlink" title="不知所措.jpg"></a>不知所措.jpg</h1><p>打开环境，发现一排平平无奇的字母。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011084831993.png" alt="image-20211011084831993"></p>
+<p>抓包发现仍然是同样的东西，遂及开始萌新的思考。</p>
+<p>（此处省略三分….）</p>
+<p>这排字符应该是为了给我们提示：告诉我们环境是php，需要提交参数file，而且file里还必须要含有test。看到file，就不得不让人想起文件包含漏洞，看到文件包含漏洞，就不得不让人想起php伪协议，遂构造php伪协议读取源码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=test</span><br></pre></td></tr></table></figure>
+
+<p>发现他会默认添加后缀php，于是我们加个.  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=test.</span><br></pre></td></tr></table></figure>
+
+<p>出现一小串字符进行解码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011090029985.png" alt="image-20211011090029985"></p>
+<p>…………….</p>
+<p>说明我最先认为flag是在一个叫做test的php文件下，是错误的。遂我们想要找到网站的源码，于是，想办法构造伪协议去看Index.php的源码！</p>
+<p>然后我们继续找一下，发现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?file=php://filter/read=convert.base64-encode/resource=test/../index.</span><br></pre></td></tr></table></figure>
+
+<p>可以读取到网站index.php的源码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20211011090956513.png" alt="image-20211011090956513"></p>
+<p>发现源码中除了要求有test以外，并没有对file有什么过滤。更加确定了文件包含漏洞。于是想到用data://伪协议来进行命令执行。</p>
+        
+          <a class="article-more-a" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/11/CtfShow36D%E7%BB%83%E6%89%8B%E8%B5%9B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ctfshow月饼杯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -868,83 +963,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-文件包含漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-11T02:38:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>程序开发人员通常会把可重复使用的函数写入到单个文件中，在使用某些函数时，直接调用此文件，而无需再次编写，这种调用文件的过程称为包含。相同代码重复出现在不同文件中出现代码冗余，所以出现了文件包含函数，就是让代码更为高效，需要用到的部分会去调用，且被包含的文件会被当作php代码执行（文件里面的东西是必须当作代码执行，文件包含，只要包含了，不管任何后缀，都会当作php代码执行）。</p>
-<p>有时候用于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就会导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
-        
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
         </p>
       
 

@@ -6,15 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Solkatt的小窝</title>
+  <title>jxc代码审计 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/page/7/index.html">
+  <meta name="description" content="项目结构根据项目的readme可以知道，该系统采用了SpringBoot+Shiro+Mybatis+Easyui。  代码审计XSS漏洞审计全局搜索关键字XSS，发现什么都没有搜出来，感觉应该是裸防护的，应该是全栈XSS。随便进入后台插框一次。   依次弹框出1，2，3  shiro反序列化漏洞(CVE-2019-12422 不存在)通过pom文件可以知道 12345&lt;dependency">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jxc代码审计">
+<meta property="og:url" content="https://example.com/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="项目结构根据项目的readme可以知道，该系统采用了SpringBoot+Shiro+Mybatis+Easyui。  代码审计XSS漏洞审计全局搜索关键字XSS，发现什么都没有搜出来，感觉应该是裸防护的，应该是全栈XSS。随便进入后台插框一次。   依次弹框出1，2，3  shiro反序列化漏洞(CVE-2019-12422 不存在)通过pom文件可以知道 12345&lt;dependency">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112145362.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112316204.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112728468.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112758340.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817114752349.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817120612270.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817121021350.png">
+<meta property="article:published_time" content="2022-08-17T03:20:02.000Z">
+<meta property="article:modified_time" content="2022-08-17T04:29:16.631Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112145362.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,33 +155,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-文件包含漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-jxc代码审计" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a>
+    <h1 class="article-title" itemprop="name">
+      jxc代码审计
     </h1>
   
 
         
-        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-11T02:38:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
+        <a href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2022-08-17T03:20:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>程序开发人员通常会把可重复使用的函数写入到单个文件中，在使用某些函数时，直接调用此文件，而无需再次编写，这种调用文件的过程称为包含。相同代码重复出现在不同文件中出现代码冗余，所以出现了文件包含函数，就是让代码更为高效，需要用到的部分会去调用，且被包含的文件会被当作php代码执行（文件里面的东西是必须当作代码执行，文件包含，只要包含了，不管任何后缀，都会当作php代码执行）。</p>
-<p>有时候用于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就会导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
-        
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
+        <h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><p>根据项目的readme可以知道，该系统采用了SpringBoot+Shiro+Mybatis+Easyui。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112145362.png" alt="image-20220817112145362"></p>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="XSS漏洞审计"><a href="#XSS漏洞审计" class="headerlink" title="XSS漏洞审计"></a>XSS漏洞审计</h2><p>全局搜索关键字XSS，发现什么都没有搜出来，感觉应该是裸防护的，应该是全栈XSS。随便进入后台插框一次。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112316204.png" alt="image-20220817112316204"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112728468.png" alt="image-20220817112728468"></p>
+<p>依次弹框出1，2，3</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112758340.png" alt="image-20220817112758340"></p>
+<h2 id="shiro反序列化漏洞-CVE-2019-12422-不存在"><a href="#shiro反序列化漏洞-CVE-2019-12422-不存在" class="headerlink" title="shiro反序列化漏洞(CVE-2019-12422 不存在)"></a>shiro反序列化漏洞(CVE-2019-12422 不存在)</h2><p>通过pom文件可以知道</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;shiro-core&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;1.4.0&lt;/version&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>虽然引入了shiro的包，也通过网上查证1.4.0确实有历史漏洞，但是shiro最主要的特征是是否具有<code>remerberme</code>字段，发现登录的时候并没有记住我功能，登录后也没有相关cookie。</p>
+<p>全局搜索之后也没有类似<code>cookiemanage</code>字样，所以应该是没有该漏洞。</p>
+<h2 id="SQL注入-不存在"><a href="#SQL注入-不存在" class="headerlink" title="SQL注入(不存在)"></a>SQL注入(不存在)</h2><p>因为该项目使用的是mybatis，mybatis的主要问题就是<code>$</code>和<code>#</code>的差距，但是全局搜索xml文档，发现并没有xml使用了<code>$</code>符号.</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817114752349.png" alt="image-20220817114752349"></p>
+<p>所以应该是不存在。</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>CSRF的审计关键是在于查看数据包中是否具有token等校验字段。<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817120612270.png" alt="image-20220817120612270"></p>
+<p>发现并没有校验字段，于是生成csrf试探一手，用另一个账户登录。再点击该html，发现修改成功，证明有csrf漏洞存在。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817121021350.png" alt="image-20220817121021350"></p>
+
       
 
       
@@ -181,7 +206,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
         		</li>
       		
 		</ul>
@@ -190,16 +215,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/08/16/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDarkHole/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">靶机渗透之DarkHole</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -219,91 +303,14 @@
 
 
 
-
-  
-    <article id="post-CSRF跨站点请求伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">CSRF跨站点请求伪造</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/" class="archive-article-date">
-  	<time datetime="2021-07-11T02:07:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a>什么是CSRF</h1><p>CSRF跨站请求伪造，也被称为“One Click Attack”，通常缩写为CSRF，是一种对网站的恶意利用。它与XSS不同，XSS利用站点内的新人用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。</p>
-<p>它的成因是因为网站的Cookie在浏览器中不会过期，只要不关闭浏览器或者退出登录，那以后只要是访问这个网站，就会默认你已经登录的状态。而在这个期间，攻击者发送了构造好的CSRF脚本或者包含CSRF脚本的链接，可能会执行一些用户不想做的功能。</p>
-<p>攻击特点：攻击者盗用用户的身份，以用户的名义进行某些非法操作。</p>
-<p>tips:业内对需要交互的漏洞不重视。</p>
-        
-          <a class="article-more-a" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -326,8 +333,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

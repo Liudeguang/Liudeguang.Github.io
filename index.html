@@ -144,6 +144,97 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-jxc代码审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">jxc代码审计</a>
+    </h1>
+  
+
+        
+        <a href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2022-08-17T03:20:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><p>根据项目的readme可以知道，该系统采用了SpringBoot+Shiro+Mybatis+Easyui。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112145362.png" alt="image-20220817112145362"></p>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="XSS漏洞审计"><a href="#XSS漏洞审计" class="headerlink" title="XSS漏洞审计"></a>XSS漏洞审计</h2><p>全局搜索关键字XSS，发现什么都没有搜出来，感觉应该是裸防护的，应该是全栈XSS。随便进入后台插框一次。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112316204.png" alt="image-20220817112316204"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112728468.png" alt="image-20220817112728468"></p>
+<p>依次弹框出1，2，3</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817112758340.png" alt="image-20220817112758340"></p>
+<h2 id="shiro反序列化漏洞-CVE-2019-12422-不存在"><a href="#shiro反序列化漏洞-CVE-2019-12422-不存在" class="headerlink" title="shiro反序列化漏洞(CVE-2019-12422 不存在)"></a>shiro反序列化漏洞(CVE-2019-12422 不存在)</h2><p>通过pom文件可以知道</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">		&lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;</span><br><span class="line">		&lt;artifactId&gt;shiro-core&lt;/artifactId&gt;</span><br><span class="line">		&lt;version&gt;1.4.0&lt;/version&gt;</span><br><span class="line">	&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>虽然引入了shiro的包，也通过网上查证1.4.0确实有历史漏洞，但是shiro最主要的特征是是否具有<code>remerberme</code>字段，发现登录的时候并没有记住我功能，登录后也没有相关cookie。</p>
+<p>全局搜索之后也没有类似<code>cookiemanage</code>字样，所以应该是没有该漏洞。</p>
+<h2 id="SQL注入-不存在"><a href="#SQL注入-不存在" class="headerlink" title="SQL注入(不存在)"></a>SQL注入(不存在)</h2><p>因为该项目使用的是mybatis，mybatis的主要问题就是<code>$</code>和<code>#</code>的差距，但是全局搜索xml文档，发现并没有xml使用了<code>$</code>符号.</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817114752349.png" alt="image-20220817114752349"></p>
+<p>所以应该是不存在。</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>CSRF的审计关键是在于查看数据包中是否具有token等校验字段。<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817120612270.png" alt="image-20220817120612270"></p>
+<p>发现并没有校验字段，于是生成csrf试探一手，用另一个账户登录。再点击该html，发现修改成功，证明有csrf漏洞存在。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220817121021350.png" alt="image-20220817121021350"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-靶机渗透之DarkHole" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -870,82 +961,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/07/22/log4j%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-fastjson漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/">fastjson漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2022-07-18T03:08:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="初识fastjson"><a href="#初识fastjson" class="headerlink" title="初识fastjson"></a>初识fastjson</h1><p>Fastjson是Alibaba开发的java语言编写的高性能JSON库，用于将数据在JSON和Java Object之间互相转换，不需要添加额外的以来，能够直接跑在JDK上，Fastjson采用独创的算法，将序列化的速度提升到极致，深受用户喜爱。</p>
-        
-          <a class="article-more-a" href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/07/18/fastjson%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
         </p>
       
 
