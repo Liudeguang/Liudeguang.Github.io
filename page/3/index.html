@@ -144,6 +144,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Syscall" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/06/14/Syscall/">Syscall</a>
+    </h1>
+  
+
+        
+        <a href="/2022/06/14/Syscall/" class="archive-article-date">
+  	<time datetime="2022-06-14T08:30:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="syscall"><a href="#syscall" class="headerlink" title="syscall"></a>syscall</h1><h2 id="syscall基础概念"><a href="#syscall基础概念" class="headerlink" title="syscall基础概念"></a>syscall基础概念</h2><p>Windows下有两种处理器访问模式：用户模式(User mode)和内核模式(Kernel mode)。</p>
+<p>用户模式下运行应用程序时，Windows会为该程序创建一个新进程，提供一个私有虚拟地址空间和一个私有句柄表，因为私有，一个应用程序无法修改另一个应用程序的私有虚拟地址空间的数据。</p>
+<p>内核模式下，所有运行的代码都共享一个虚拟地址空间，因此内核中驱动程序可能还会因为写入错误的地址空间导致其他驱动程序甚至系统出现错误。</p>
+<p>内核中包含了大部分操作系统的内部数据结构，所以用户模式下的应用程序在访问这些数据结构或调用内部windows例程以执行特权操作的时候，必须先从用户模式切换到内核模式，这里就涉及到了系统调用。 </p>
+<p>x86 windows使用<code>SYSENTER</code>实现系统调用</p>
+<p>x64 windows使用<code>syscall</code>实现系统调用</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/06/14/Syscall/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-浅谈PE结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -980,71 +1059,6 @@
 
 
   
-    <article id="post-域林渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="域林渗透基础知识"><a href="#域林渗透基础知识" class="headerlink" title="域林渗透基础知识"></a>域林渗透基础知识</h1><h2 id="什么是windows域"><a href="#什么是windows域" class="headerlink" title="什么是windows域"></a>什么是windows域</h2><p>一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼，为了解决这个问题，我们也可以像管理图书⼀ 样设⽴⼀个管理员，由它来统⼀管理计算机。那么这套体系可以称为⼀个域，域控制器就充当了管理员的⻆⾊，任何加⼊域的计算机都需要服从管理员的管理。</p>
-        
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
@@ -1180,6 +1194,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">靶机渗透</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">php代码审计</a>
               </li>
             
             <div class="clearfix"></div>

