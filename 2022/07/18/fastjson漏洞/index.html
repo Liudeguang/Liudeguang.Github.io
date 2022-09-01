@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220722163238090.png">
 <meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220722163354026.png">
 <meta property="article:published_time" content="2022-07-18T03:08:57.000Z">
-<meta property="article:modified_time" content="2022-07-22T08:34:10.707Z">
+<meta property="article:modified_time" content="2022-09-01T02:32:21.494Z">
 <meta property="article:author" content="Solkatt">
 <meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
@@ -234,7 +234,7 @@
 <h2 id="2-构造poc"><a href="#2-构造poc" class="headerlink" title="2.构造poc"></a>2.构造poc</h2><p>一般，Fastjson反序列化漏洞的POC写法如下，@type指定了反序列化得到的类</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;@type&quot;:&quot;xxx.xxx.xxx&quot;, &quot;xxx&quot;:&quot;xxx&quot;, ... &#125; </span><br></pre></td></tr></table></figure>
 
-<p>关键是要找出一个特殊的在目标环境中已经存在的类，满足如下体哦阿健：</p>
+<p>关键是要找出一个特殊的在目标环境中已经存在的类，满足如下条件：</p>
 <ol>
 <li>该类的构造函数,setter,getter方法中以及静态代码块中的某一个存在危险操作。</li>
 <li>危险函数可控</li>

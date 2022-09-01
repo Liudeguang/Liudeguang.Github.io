@@ -6,44 +6,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>php代码审计之baijiacms | Solkatt的小窝</title>
+  <title>java代码审计之学生管理系统 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="项目结构通过对代码的一个大致结构分析，知道了它的主要功能都是在system目录下。 system目录下有class和template文件，template代表是前端，class是后端处理文件。">
+  <meta name="description" content="项目技术分析根据readme和pom文档可以知道该项目采用了以下技术： 12345678910111213141516171819202122232425262728293031323334353637383940&lt;dependencies&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;&#x2F;g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="php代码审计之baijiacms">
-<meta property="og:url" content="https://example.com/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/index.html">
+<meta property="og:title" content="java代码审计之学生管理系统">
+<meta property="og:url" content="https://example.com/2022/09/01/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8B%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
-<meta property="og:description" content="项目结构通过对代码的一个大致结构分析，知道了它的主要功能都是在system目录下。 system目录下有class和template文件，template代表是前端，class是后端处理文件。">
+<meta property="og:description" content="项目技术分析根据readme和pom文档可以知道该项目采用了以下技术： 12345678910111213141516171819202122232425262728293031323334353637383940&lt;dependencies&gt;    &lt;dependency&gt;      &lt;groupId&gt;org.springframework.boot&lt;&#x2F;g">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155045342.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155609848.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162558347.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162527627.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818163745175.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818164529021.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165510899.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165734351.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170202137.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818172910073.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173028505.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170821451.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173403709.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818174034952.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175041589.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175308892.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175346691.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175451144.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175622737.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180617409.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180732121.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181041898.png">
-<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181955379.png">
-<meta property="article:published_time" content="2022-08-18T07:43:17.000Z">
-<meta property="article:modified_time" content="2022-08-18T10:25:09.733Z">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102052329.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102556004.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102659492.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102710506.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901112615206.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901112933330.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901115132498.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901121833089.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901122328376.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901122346556.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901122506229.png">
+<meta property="article:published_time" content="2022-09-01T02:16:18.000Z">
+<meta property="article:modified_time" content="2022-09-01T05:13:42.567Z">
 <meta property="article:author" content="Solkatt">
-<meta property="article:tag" content="php代码审计">
+<meta property="article:tag" content="java代码审计">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155045342.png">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102052329.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -171,109 +159,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-php代码审计之baijiacms" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java代码审计之学生管理系统" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      php代码审计之baijiacms
+      java代码审计之学生管理系统
     </h1>
   
 
         
-        <a href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/" class="archive-article-date">
-  	<time datetime="2022-08-18T07:43:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-18</time>
+        <a href="/2022/09/01/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8B%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
+  	<time datetime="2022-09-01T02:16:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><p>通过对代码的一个大致结构分析，知道了它的主要功能都是在system目录下。</p>
-<p>system目录下有class和template文件，template代表是前端，class是后端处理文件。</p>
+        <h1 id="项目技术分析"><a href="#项目技术分析" class="headerlink" title="项目技术分析"></a>项目技术分析</h1><p>根据readme和pom文档可以知道该项目采用了以下技术：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-freemarker<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.62<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <span id="more"></span>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155045342.png" alt="image-20220818155045342"></p>
-<p>同时也可以搞清楚路由的生成规律：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8097/index.php?mod=site&amp;act=manager&amp;do=store&amp;op=display&amp;beid=1</span><br></pre></td></tr></table></figure>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102052329.png" alt="image-20220901102052329"></p>
+<p>项目结构很清楚，不做过多阐述。</p>
+<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h2><p>仍然先从简单的XSS开始看，全局搜索XSS关键字，虽然有很多包含XSS的词语，但是感觉都不像是XSS过滤器，因此怀疑存在XSS漏洞。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102556004.png" alt="image-20220901102556004"></p>
+<p>随意的在一个业务系统下进行测试。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102659492.png" alt="image-20220901102659492"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901102710506.png" alt="image-20220901102710506"></p>
+<h2 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h2><h3 id="任意密码重置"><a href="#任意密码重置" class="headerlink" title="任意密码重置"></a>任意密码重置</h3><p>全局输入<code>resetPasswd</code>可以发现无论是<code>TeacherController</code>或者<code>StudentController</code>中描述的重置密码方式都没有做有效的权限验证。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">resetPasswrd</span><span class="params">(String id)</span> </span>&#123;</span><br><span class="line">  Teacher teacher = <span class="keyword">new</span> Teacher();</span><br><span class="line">  teacher.setId(id);</span><br><span class="line">  teacher.setPassword(MD5Util.MD5(<span class="string">&quot;123456&quot;</span>));</span><br><span class="line"><span class="keyword">if</span> (teacherService.updateTeacher(teacher) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">   <span class="keyword">return</span> StrUtil.RESULT_TRUE;</span><br><span class="line">&#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;修改失败！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818155609848.png" alt="image-20220818155609848"></p>
-<p>这里的act参数代表system文件夹下某个功能点，do代表功能点下具体的PHP文件，op则代表文件走哪个分支。</p>
-<h1 id="代码审计"><a href="#代码审计" class="headerlink" title="代码审计"></a>代码审计</h1><h2 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h2><p>在<code>store.php</code>中有这么一段话。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable">$operation</span>==<span class="string">&#x27;display&#x27;</span>)</span><br><span class="line">       &#123;</span><br><span class="line">       	           <span class="variable">$pindex</span> = max(<span class="number">1</span>, intval(<span class="variable">$_GP</span>[<span class="string">&#x27;page&#x27;</span>]));</span><br><span class="line">           <span class="variable">$psize</span> = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line">           	</span><br><span class="line">           	 <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$_GP</span>[<span class="string">&#x27;sname&#x27;</span>])) &#123;</span><br><span class="line">               <span class="variable">$selectCondition</span> .= <span class="string">&quot; AND store.sname  LIKE &#x27;%<span class="subst">&#123;$_GP[&#x27;sname&#x27;]&#125;</span>%&#x27;&quot;</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           </span><br></pre></td></tr></table></figure>
+<p>以Teacher为例子，在Controller层中没有发现对权限有相关过滤代码，只有单纯的获得id。接下来去看<code>teacherServiceimpl</code>层里面的东西，其中的<code>updateTeacher</code>也是直接去调用了<code>dao</code>层<code>updateTeacher</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateTeacher</span><span class="params">(Teacher t)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> teacherDao.updateByPrimaryKeySelective(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>该功能对应为店铺查询处。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162558347.png" alt="image-20220818162558347"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818162527627.png" alt="image-20220818162527627"></p>
-<p>追溯源头发现$_GP</p>
-<p>只是将get，post中的数据进行了一个数组合并，却没有做任何过滤。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_GP</span> = <span class="variable">$_CMS</span> =  <span class="keyword">array</span>();</span><br><span class="line"><span class="variable">$_GP</span> = array_merge(<span class="variable">$_GET</span>, <span class="variable">$_POST</span>, <span class="variable">$_GP</span>);</span><br></pre></td></tr></table></figure>
-
-<p>sql语句代入为</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;SELECT store.* FROM  table(&#x27;system_store&#x27;) store where store.`deleted`=0  and store.sname like &#x27;%123&#x27; limit 0,20&quot;</span><br></pre></td></tr></table></figure>
-
-<p>直接将我们的数据带入数据库，由此可以判断这里存在sql注入漏洞。</p>
-<p>构造payload如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sname=<span class="number">123</span>%<span class="string">&#x27; and sleep(5) #</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818163745175.png" alt="image-20220818163745175"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818164529021.png" alt="image-20220818164529021"></p>
-<p>sqlmap也验证成功。</p>
-<h2 id="任意文件删除"><a href="#任意文件删除" class="headerlink" title="任意文件删除"></a>任意文件删除</h2><p>在database.php下有一个delete分支。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">				 <span class="keyword">if</span>(<span class="variable">$operation</span>==<span class="string">&#x27;delete&#x27;</span>)</span><br><span class="line"> &#123;</span><br><span class="line"> 		<span class="variable">$d</span> = base64_decode(<span class="variable">$_GP</span>[<span class="string">&#x27;id&#x27;</span>]);</span><br><span class="line"></span><br><span class="line"> 			<span class="variable">$path</span> = WEB_ROOT . <span class="string">&#x27;/config/data_backup/&#x27;</span>;</span><br><span class="line">		<span class="keyword">if</span>(is_dir(<span class="variable">$path</span> . <span class="variable">$d</span>)) &#123;</span><br><span class="line">			rmdirs(<span class="variable">$path</span> . <span class="variable">$d</span>);</span><br><span class="line">			message(<span class="string">&#x27;备份删除成功！&#x27;</span>, create_url(<span class="string">&#x27;site&#x27;</span>, <span class="keyword">array</span>(<span class="string">&#x27;act&#x27;</span> =&gt; <span class="string">&#x27;manager&#x27;</span>,<span class="string">&#x27;do&#x27;</span> =&gt; <span class="string">&#x27;database&#x27;</span>,<span class="string">&#x27;op&#x27;</span>=&gt;<span class="string">&#x27;restore&#x27;</span>)),<span class="string">&#x27;success&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由上面的代码可以知道，$_GP[‘id’]函数接收前端的文件名参数后，仅仅只是把文件名base64解密了一下，就直接拼接到删除文件路径下了，没有做任何的过滤限制操作，造成了任意文件删除漏洞。</p>
-<p>同时看代码目录可以发现，每次备份数据库后，都会在conifg/data_backup数据库下生成一个随机文件夹。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165510899.png" alt="image-20220818165510899"></p>
-<p>但是删除代码因为要判断必须是目录，所以只能删除目录及其目录下的文件。</p>
-<p>先去代码目录下去新建一个test文件夹。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818165734351.png" alt="image-20220818165734351"></p>
-<p>构造payload如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /index.php?mod=site&amp;act=manager&amp;do=database&amp;op=delete&amp;id=Li4vdGVzdA==&amp;beid=1</span><br><span class="line">ps：Li4vLi4vdGVzdA==为../../test</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170202137.png" alt="image-20220818170202137"></p>
-<p>同时源码目录也没有test文件夹。</p>
-<h2 id="任意文件删除2"><a href="#任意文件删除2" class="headerlink" title="任意文件删除2"></a>任意文件删除2</h2><p>common.inc.php文件中，还有一个<code>file_delete</code>函数。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">file_delete</span>(<span class="params"><span class="variable">$file_relative_path</span></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$file_relative_path</span>)) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="variable">$settings</span>=globaSystemSetting();</span><br><span class="line">	<span class="keyword">if</span>(!<span class="keyword">empty</span>(<span class="variable">$settings</span>[<span class="string">&#x27;system_isnetattach&#x27;</span>]))</span><br><span class="line">		&#123;</span><br><span class="line">				<span class="keyword">if</span>(<span class="variable">$settings</span>[<span class="string">&#x27;system_isnetattach&#x27;</span>]==<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">require_once</span>(WEB_ROOT.<span class="string">&#x27;/includes/lib/lib_ftp.php&#x27;</span>);</span><br><span class="line">			<span class="variable">$ftp</span>=<span class="keyword">new</span> baijiacms_ftp();</span><br><span class="line">		<span class="keyword">if</span> (<span class="literal">true</span> === <span class="variable">$ftp</span>-&gt;connect()) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="variable">$ftp</span>-&gt;ftp_delete(<span class="variable">$settings</span>[<span class="string">&#x27;system_ftp_ftproot&#x27;</span>]. <span class="variable">$file_relative_path</span>)) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">		<span class="keyword">if</span>(<span class="variable">$settings</span>[<span class="string">&#x27;system_isnetattach&#x27;</span>]==<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">require_once</span>(WEB_ROOT.<span class="string">&#x27;/includes/lib/lib_oss.php&#x27;</span>);</span><br><span class="line">		<span class="variable">$oss</span>=<span class="keyword">new</span> baijiacms_oss();</span><br><span class="line">		<span class="variable">$oss</span>-&gt;deletefile(<span class="variable">$file_relative_path</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;<span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">		<span class="keyword">if</span> (is_file(SYSTEM_WEBROOT . <span class="string">&#x27;/attachment/&#x27;</span> . <span class="variable">$file_relative_path</span>)) &#123;</span><br><span class="line">		unlink(SYSTEM_WEBROOT . <span class="string">&#x27;/attachment/&#x27;</span> . <span class="variable">$file_relative_path</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>关键点在于只要跳过上面的if条件，进入下面的else条件，就可以进行任意文件删除。而if条件是关于一个叫做system_isnetattach的东西。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818172910073.png" alt="image-20220818172910073"></p>
-<p>找了很久都不知道这个到底是什么东西，翻译出来叫做附件，看了网上的wp才知道<code>system_isnetattach</code>是设置图片压缩比例。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173028505.png" alt="image-20220818173028505"></p>
-<p>那么接下来我们到了else环节，else环节的代码一目了然。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818170821451.png" alt="image-20220818170821451"></p>
-<p>现在我们需要找到<code>file_delete</code>函数调用的地方。可以发现是在<code>system/eshop/core/mobile/util/uploader.php</code>里面。</p>
-<p>先去源码目录创建一个新的文件<code>test.txt</code></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818173403709.png" alt="image-20220818173403709"></p>
-<p>由于利用的参数在baijiacms-master/system/eshop/core/mobile/util/uploader.php文件的upload分支下，参数名为file。所以直接构造url为：<code>http://localhost:8097/index.php?mod=mobile&amp;act=uploader&amp;op=post&amp;do=util&amp;m=eshop&amp;op=remove&amp;file=../test.txt</code></p>
-<p>删除成功。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818174034952.png" alt="image-20220818174034952"></p>
-<p>我也没搞懂怎么找到这个路由的。</p>
-<h2 id="任意命令执行"><a href="#任意命令执行" class="headerlink" title="任意命令执行"></a>任意命令执行</h2><p>在<code>http://localhost:8097/index.php?mod=site&amp;act=weixin&amp;do=setting&amp;beid=1</code>中有一个上传微信验证文件的选项。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175041589.png" alt="image-20220818175041589"></p>
-<p>使用burp可以抓包到里面的路由为</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175308892.png" alt="image-20220818175308892"></p>
-<p>根据对应路由，找到代码是</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175346691.png" alt="image-20220818175346691"></p>
-<p>同时在数据包中，发现传入的文件参数名称为：weixin_verify_file。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175451144.png" alt="image-20220818175451144"></p>
-<p>发现在setting文件中有相关描述。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818175622737.png" alt="image-20220818175622737"></p>
-<p>大致的意思是先判断文件后缀名是不是txt格式，然后用file_save函数处理文件，并且file_save函数中参数file[‘name’]就是上传的文件的名字：&amp;whoami&amp;.txt。</p>
-<p>然后再file_save函数当中，传进来了五个参数</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180617409.png" alt="image-20220818180617409"></p>
-<p>file_full_path里面有我们上传的文件名<code>&amp;whoami&amp;.txt</code>。</p>
-<p>而其中最重要的是该方法中调用了system函数，其中也会把我们的file_full_path参数带进去，我们的&amp;whoami$.txt恰巧可以通过&amp;（与）的分割，来进行命令执行。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818180732121.png" alt="image-20220818180732121"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181041898.png" alt="image-20220818181041898"></p>
-<h2 id="任意文件写入"><a href="#任意文件写入" class="headerlink" title="任意文件写入"></a>任意文件写入</h2><p>在<code>system/public/class/web/file.php</code>下面发现了以下分支。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="variable">$do</span> == <span class="string">&#x27;fetch&#x27;</span>) &#123;</span><br><span class="line">	<span class="variable">$url</span> = trim(<span class="variable">$_GPC</span>[<span class="string">&#x27;url&#x27;</span>]);</span><br><span class="line"><span class="variable">$file</span>=fetch_net_file_upload(<span class="variable">$url</span>);</span><br><span class="line">	<span class="keyword">if</span> (is_error(<span class="variable">$file</span>)) &#123;</span><br><span class="line">		<span class="variable">$result</span>[<span class="string">&#x27;message&#x27;</span>] = <span class="variable">$file</span>[<span class="string">&#x27;message&#x27;</span>];</span><br><span class="line">		<span class="keyword">die</span>(json_encode(<span class="variable">$result</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>而其中调用的函数<code>fetch_net_file_upload</code>函数，发现此函数中使用了file_get_contents函数获取文件，但是并没有进行任何过滤。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220818181955379.png" alt="image-20220818181955379"></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>太菜了，后头基本上是按照网上师傅的wp照在在做，但是任意命令执行这个漏洞确实是打开了我的视野。还有就是不知道他们是怎么做到精准找到php路由的，太菜了太菜了。</p>
+<p>所以我猜测应该是存在任意重置密码的漏洞的</p>
+<p>这个业务本来只能让管理员访问，但是我用了一下普通教师的账户，去访问该路由<code>/teacher/resetPswd</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901112615206.png" alt="image-20220901112615206"></p>
+<p>对应了源码中的”修改失败”，所以觉得八成是存在该漏洞。</p>
+<p>我以id为1560321的身份访问<code>/teacher/resetPswd?id=1560322</code>，回弹true，并且在数据库中查看修改成功。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901112933330.png" alt="image-20220901112933330"></p>
+<p>证明漏洞存在。</p>
+<p>同时如果用学生账户，也可以重置其他任意学生的账户。</p>
+<h3 id="任意用户删除"><a href="#任意用户删除" class="headerlink" title="任意用户删除"></a>任意用户删除</h3><p>同时举一反三，发现其<code>/teacher/delete</code>功能也有同样的毛病，可以直接删除同一权限下的其他账户。</p>
+<p>使用id为1560321的老师账户访问以下路由:</p>
+<p><code>/teacher/delete？id=1560322</code></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901115132498.png" alt="image-20220901115132498"></p>
+<p>可以看到已经删除成功了。</p>
+<h2 id="CSRF漏洞（比较鸡肋）"><a href="#CSRF漏洞（比较鸡肋）" class="headerlink" title="CSRF漏洞（比较鸡肋）"></a>CSRF漏洞（比较鸡肋）</h2><p>CSRF主要是看代码中是否校验<code>Referer</code>，是否给cookie设置<code>Samesite</code>属性，敏感操作是否生成<code>CSRFtoken</code>，如果都不存在的话，就看请求参数中是否存在不可被攻击者猜测的字段，比如验证码等参数。</p>
+<p>在每个账户修改密码的业务系统中，抓包可以发现：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901121833089.png" alt="image-20220901121833089"></p>
+<p>发现并没有相关做验证的字段，手工进行验证，生成<code>CSRFPOC</code>。使用管理员账户，登录系统后，点击poc。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901122328376.png" alt="image-20220901122328376"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901122346556.png" alt="image-20220901122346556"></p>
+<p>但是比较鸡肋的一点就在于，他需要输入旧密码在后端进行验证。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220901122506229.png" alt="image-20220901122506229"></p>
+<p>这里就没有什么办法，但是如果你是以老师或者学生的身份，可以先去重置它的默认密码，然后进行修改。</p>
 
       
 
@@ -287,7 +232,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">php代码审计</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
         		</li>
       		
 		</ul>
@@ -343,7 +288,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/09/01/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8B%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -357,18 +302,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/09/01/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8B%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          java代码审计之学生管理系统
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jxc代码审计</div>
+    <a href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php代码审计之baijiacms</div>
       <i class="icon-circle-right"></i>
     </a>
   
