@@ -144,6 +144,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ofcms代码审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/29/ofcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">ofcms代码审计</a>
+    </h1>
+  
+
+        
+        <a href="/2022/07/29/ofcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2022-07-29T02:09:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="漏洞审计思路"><a href="#漏洞审计思路" class="headerlink" title="漏洞审计思路"></a>漏洞审计思路</h1><h2 id="审计流程"><a href="#审计流程" class="headerlink" title="审计流程"></a>审计流程</h2><ol>
+<li>主要是看使用了什么框架，是ssm还是ssh，还是servelt等。</li>
+<li>看针对权限控制是否使用了shiro,springsecurity等统一的权限控制框架，如果未使用任务权限验证框架，而是采用了手动的人工权限验证，则容易存在业务逻辑漏洞。</li>
+<li>通过lib文件夹下，pom文件等查看使用的开源组件和版本信息，作为审计开源组件通用漏洞的突破口</li>
+<li>了解平台所使用的市场上常见的成熟的cms技术和版本，可以从供应链入手查找其他类似项目</li>
+<li>熟悉系统的源码构成，按照MVC思想，了解主要的功能模板和对应的javabean</li>
+<li>在1-5基础上针对各类漏洞源码分析发现漏洞</li>
+</ol>
+        
+          <a class="article-more-a" href="/2022/07/29/ofcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/07/29/ofcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringEL表达式注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -904,87 +987,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/06/22/java%E5%AE%A1%E8%AE%A1%E4%B9%8Bxss%E6%BC%8F%E6%B4%9E%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-通信特征的隐藏" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/06/22/%E9%80%9A%E4%BF%A1%E7%89%B9%E5%BE%81%E7%9A%84%E9%9A%90%E8%97%8F/">通信特征的隐藏</a>
-    </h1>
-  
-
-        
-        <a href="/2022/06/22/%E9%80%9A%E4%BF%A1%E7%89%B9%E5%BE%81%E7%9A%84%E9%9A%90%E8%97%8F/" class="archive-article-date">
-  	<time datetime="2022-06-22T02:26:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>流量的东西大概做的几个方向：</p>
-<ol>
-<li>IP</li>
-<li>内容</li>
-</ol>
-<p>我们的目的就是尽可能的贴近目标平时的网络环境流量，把容易看懂的变成不容易看懂的内容。</p>
-        
-          <a class="article-more-a" href="/2022/06/22/%E9%80%9A%E4%BF%A1%E7%89%B9%E5%BE%81%E7%9A%84%E9%9A%90%E8%97%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/06/22/%E9%80%9A%E4%BF%A1%E7%89%B9%E5%BE%81%E7%9A%84%E9%9A%90%E8%97%8F/">展开全文 >></a>
         </p>
       
 

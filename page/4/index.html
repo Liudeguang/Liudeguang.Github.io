@@ -144,6 +144,83 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-shellcode基础与简单调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/">shellcode的基础免杀</a>
+    </h1>
+  
+
+        
+        <a href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="shellcode基础"><a href="#shellcode基础" class="headerlink" title="shellcode基础"></a>shellcode基础</h1><h2 id="什么是shellcode"><a href="#什么是shellcode" class="headerlink" title="什么是shellcode"></a>什么是shellcode</h2><p>shellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell进程，然后同攻击者进行通信，接受攻击者的指令，然后返回结果。那么如何建立一个shell进程呢？在Unix中使用execve命令可以建立，而在windows下需要调用内核API来建立。</p>
+<h2 id="shellcode的方向"><a href="#shellcode的方向" class="headerlink" title="shellcode的方向"></a>shellcode的方向</h2><p>shellcode一般分为正向和反向。在msf中，我们经常会发现一个payload有reverse的前缀（表示为反向）它们的原理如下:</p>
+        
+          <a class="article-more-a" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-shellcode的基础免杀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -776,84 +853,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/02/24/Liunx%E6%8F%90%E6%9D%83%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">内网穿透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-02-21T08:12:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="内网穿透的概念"><a href="#内网穿透的概念" class="headerlink" title="内网穿透的概念"></a>内网穿透的概念</h1><p>内网穿透，也叫NAT穿透，进行NAT穿透是为了使具有某一个特定源ip地址和源端口号的数据包不被NAT设备屏蔽而正确路由到内网主机</p>
-<h1 id="正向代理和反向代理"><a href="#正向代理和反向代理" class="headerlink" title="正向代理和反向代理"></a>正向代理和反向代理</h1><h2 id="什么是代理"><a href="#什么是代理" class="headerlink" title="什么是代理"></a>什么是代理</h2><p>代理就是中介，A和B之间有一个中间C，C就是中介。</p>
-<p>刚开始的时候，代理多数是帮助内网client访问外网server用的，后来出现了反向代理，“反向”这个词在这儿的意思是指方向相反，即代理将来自外网客户端的请求转发到内网服务器，从外到内。</p>
-        
-          <a class="article-more-a" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/02/21/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">展开全文 >></a>
         </p>
       
 

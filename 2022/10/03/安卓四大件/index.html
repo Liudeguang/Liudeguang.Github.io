@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>安卓四大件 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/index.html">
+  <meta name="description" content="四大组件安卓四大组件分别是活动(Activity),服务(Service),广播接收者(Broadcast Receive).内容提供者(Content Provider) 其作用分别是： 活动(Activity):用于表现功能 服务(Service)：后台运行服务，不提供界面呈现 广播接收者(Broadcast Receive):用于接收广播 内容提供者(Content Provider)：支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓四大件">
+<meta property="og:url" content="https://example.com/2022/10/03/%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="四大组件安卓四大组件分别是活动(Activity),服务(Service),广播接收者(Broadcast Receive).内容提供者(Content Provider) 其作用分别是： 活动(Activity):用于表现功能 服务(Service)：后台运行服务，不提供界面呈现 广播接收者(Broadcast Receive):用于接收广播 内容提供者(Content Provider)：支持">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221003105831365.png">
+<meta property="article:published_time" content="2022-10-03T02:31:05.000Z">
+<meta property="article:modified_time" content="2022-10-04T04:14:02.927Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221003105831365.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,36 +149,97 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-安卓四大件" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      安卓四大件
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/03/%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E4%BB%B6/" class="archive-article-date">
+
+        
+        <a href="/2022/10/03/%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E4%BB%B6/" class="archive-article-date">
   	<time datetime="2022-10-03T02:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-03</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/03/%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E4%BB%B6/">安卓四大件</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="四大组件"><a href="#四大组件" class="headerlink" title="四大组件"></a>四大组件</h1><p>安卓四大组件分别是活动(Activity),服务(Service),广播接收者(Broadcast Receive).内容提供者(Content Provider)</p>
+<p>其作用分别是：</p>
+<p>活动(Activity):用于表现功能</p>
+<p>服务(Service)：后台运行服务，不提供界面呈现</p>
+<p>广播接收者(Broadcast Receive):用于接收广播</p>
+<p>内容提供者(Content Provider)：支持多个应用中存储和读取数据，相当于数据库。</p>
+<span id="more"></span>
 
-        <div class="article-info info-on-right">
-          
+<h2 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h2><h3 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221003105831365.png" alt="image-20221003105831365"></p>
+<p>一个Activity的一生有7个生命周期，分别是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">onCreate()：创建activity时调用</span><br><span class="line">onStart()：当activity界面变为用户可见时调用</span><br><span class="line">onResume():当activity界面获取到焦点时调用(界面按钮可点击，文本框可输入)</span><br><span class="line">onPause():当activity失去焦点调用（按钮不可点击，文本框不能输入）</span><br><span class="line">onStop()：当activity变为不可见时调用</span><br><span class="line">onDestory():当activity被销毁时调用</span><br><span class="line">onRestart()：当activity再次启动时调用</span><br></pre></td></tr></table></figure>
+
+<p>当开启一个activity时，Android系统首先会回调<code>on Create</code>方法,紧接着回调<code>onstart</code>方法，第三个回调<code>onResume</code>方法，当着三个方法回调完成之后，此时activity处于用户可见且可操作状态。当用户点击了返回键，这个activity就会被关闭，从关闭到销毁的过程中，Android系统首先会回调<code>onpause</code>方法，紧接着会调用activity的<code>onstop</code>方法，此时这个activity就已经被关闭了，而<code>ondestory</code>方法当内存比较紧张的时候，才会执行被执行。</p>
+<h3 id="Activity的四种启动模式"><a href="#Activity的四种启动模式" class="headerlink" title="Activity的四种启动模式"></a>Activity的四种启动模式</h3><p>Activity的启动模式是决定生成新的activity实例是否重用已存在的Activity实例，是否和其他Activity实例公用一个task。总共提供了四种启动模式：</p>
+<h4 id="standard模式"><a href="#standard模式" class="headerlink" title="standard模式"></a>standard模式</h4><p>它是活动默认的启动模式，在不进行显示制定的情况下，默认使用该模式。每次激活一个activity时，都创建activity实例，并放入任务栈。</p>
+<h4 id="singleTop模式"><a href="#singleTop模式" class="headerlink" title="singleTop模式"></a>singleTop模式</h4><p>如果某个Activity自己激活自己，即任务栈栈顶是该activity，则不需要创建，其余情况都要创建Activity。</p>
+<h4 id="singleTask模式"><a href="#singleTask模式" class="headerlink" title="singleTask模式"></a>singleTask模式</h4><p>如果要激活的activity在任务栈中，则不需要创建，只需要把这个Activity放入栈顶，并把该Activity以上的Activity实例都出栈。</p>
+<h4 id="singleInstance模式"><a href="#singleInstance模式" class="headerlink" title="singleInstance模式"></a>singleInstance模式</h4><p>只有一个实例，并且这个实例独立运行在一个task中，这个task只有这个实例，不允许有别的Activity存在。</p>
+<h3 id="Activity与Activity之间的数据传递（Intent-媒介-）"><a href="#Activity与Activity之间的数据传递（Intent-媒介-）" class="headerlink" title="Activity与Activity之间的数据传递（Intent(媒介)）"></a>Activity与Activity之间的数据传递（Intent(媒介)）</h3><h4 id="Activity的跳转方式"><a href="#Activity的跳转方式" class="headerlink" title="Activity的跳转方式"></a>Activity的跳转方式</h4><ol>
+<li>startActivity(intent)</li>
+<li>startActivityForResult(intent,code)</li>
+</ol>
+<h4 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h4><p>概念：意思是一个Intent是对一个即将进行的操作的抽象，Intent的字面意识就是”意图”，Android应用程序中的三种其他应用程序基本组件——Activity, Service和Broadcast Receiver，都是使用称为intent的消息来”激活”的。</p>
+<p>如果是两个相邻Activity之间的传值，使用intent传值</p>
+<p>使用startActivityForResult(intent,code)实现回传值</p>
+<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><h3 id="什么是Service"><a href="#什么是Service" class="headerlink" title="什么是Service"></a>什么是Service</h3><p>Android中的服务，它与Activity不同，它是不能与<strong>用户交互</strong>的，<strong>不能自己启动</strong>的，运行在后台的程序，如果我们退出应用时，Service进程并没有结束，它仍然在后台运行，那我们什么时候会用到Service呢？比如我们播放音乐的时候，有可能想边听音乐边干些其他事情，当我们退出播放音乐的应用，如果不用Service，我们就听不到歌了，所以这时候就得用到Service了，又比如当我们一个应用的数据是通过网络获取的，不同时间（一段时间）的数据是不同的这时候我们可以用Service在后台定时更新，而不用每打开应用的时候在去获取。</p>
+<h3 id="Service生命周期"><a href="#Service生命周期" class="headerlink" title="Service生命周期"></a>Service生命周期</h3><p>Service的生命周期并不像Activity那么复杂，它只继承了<code>onCreate()</code>,<code>onStart()</code>,<code>onDestroy()</code>三个方法，当我们第一次启动Service时，先后调用了onCreate(),onStart()这两个方法，当停止Service时，则执行onDestroy()方法，这里需要注意的是，如果Service已经启动了，当我们再次启动Service时，不会在执行onCreate()方法，而是直接执行onStart()方法。</p>
+<h4 id="StartSevice启动Service的生命周期"><a href="#StartSevice启动Service的生命周期" class="headerlink" title="StartSevice启动Service的生命周期"></a>StartSevice启动Service的生命周期</h4><p>执行startService时，Service会经历onCreate-&gt;onStartCommand。当执行stopService时，直接调用onDestroy方法。调用者如果没有stopService，Service会一直在后台运行，下次调用者再起来仍然可以stopService。</p>
+<h4 id="bindService启动Service的生命周期"><a href="#bindService启动Service的生命周期" class="headerlink" title="bindService启动Service的生命周期"></a>bindService启动Service的生命周期</h4><p>执行bindService时，Service会经历onCreate-&gt;onBind。这个时候调用者和Service绑定在一起。调用者调用unbindService方法或者调用者Context不存在了（如Activity被finish了），Service就会调用onUnbind-&gt;onDestroy。这里所谓的绑定在一起就是说两者共存亡了。</p>
+<h2 id="BroadcastReceiver"><a href="#BroadcastReceiver" class="headerlink" title="BroadcastReceiver"></a>BroadcastReceiver</h2><p>广播接收者，及是接受来自android内部的广播，对接受到的广播进行选择处理。想要接受什么样的广播和内部方法里面定义的广播匹配，匹配则进行该做的处理，没有匹配则无操作，比如在打游戏时收到短信时间，对此你要做什么操作，是想看短信内容还是什么都不做继续玩游戏，这就是广播的用途。</p>
+<h3 id="监听广播的步骤"><a href="#监听广播的步骤" class="headerlink" title="监听广播的步骤"></a>监听广播的步骤</h3><ol>
+<li>写一个继承BroadCastReceiver的类,重写onReceive()方法,广播接收器仅在它执行这个方法时处于活跃状态。当onReceive()返回后，它即为失活状态,注意:为了保证用户交互过程的流畅,一些费时的操作要放到线程里,如类名SMSBroadcastReceiver注册该广播接收者。</li>
+<li>注册有两种方法程序动态注册和AndroidManifest文件中进行静态注册（可理解为系统中注册）如下：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">静态注册,注册的广播，下面的priority表示接收广播的级别&quot;2147483647&quot;为最高优先级</span><br><span class="line">&lt;receiver android:name=&quot;.SMSBroadcastReceiver&quot; &gt;</span><br><span class="line">　　&lt;intent-filter android:priority = &quot;2147483647&quot; &gt;</span><br><span class="line">　　　&lt;action android:name=&quot;android.provider.Telephony.SMS_RECEIVED&quot;/&gt;</span><br><span class="line">　　&lt;/intent-filter&gt;</span><br><span class="line">&lt;/receiver &gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">动态注册，一般在Activity可交互时onResume()内注册BroadcastReceiver</span><br><span class="line">IntentFilter intentFilter=new IntentFilter(&quot;android.provider.Telephony.SMS_RECEIVED&quot;);</span><br><span class="line">registerReceiver(mBatteryInfoReceiver ,intentFilter);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Content-Provider"><a href="#Content-Provider" class="headerlink" title="Content Provider"></a>Content Provider</h2><p>内容提供器（Content Provider）主要用于在不同的应用程序之间实现数据共享的功能，它提供了一套完整的机制，允许一个程序访问另一个程序中的数据，同时还能保证被访数据的安全性。目前，使用内容提供器是 Android 实现跨程序共享数据的标准方式。不同于文件存储和 SharedPreferences 存储中的两种全局可读写操作模式，内容提供器可以选择只对哪一部分数据进行共享，从而保证我们程序中的隐私数据不会有泄漏的风险。</p>
+<h3 id="Content-Provider的两种方法"><a href="#Content-Provider的两种方法" class="headerlink" title="Content Provider的两种方法"></a>Content Provider的两种方法</h3><p>1.使用现有的内容提供器来读取和操作相应程序中的数据。<br>2.创建自己的内容提供器给我们程序的数据提供外部访问接口。</p>
+<h3 id="访问其他程序中的数据"><a href="#访问其他程序中的数据" class="headerlink" title="访问其他程序中的数据"></a>访问其他程序中的数据</h3><p>当一个应用程序通过内容提供器对其数据提供了外部访问接口，任何其他的应用程序就都可以对这部分数据进行访问。Android 系统中自带的电话簿、短信、媒体库等程序都提供了类似的访问接口。</p>
+<h4 id="1-ContentResolver"><a href="#1-ContentResolver" class="headerlink" title="1.ContentResolver"></a>1.ContentResolver</h4><p>对于每一个应用程序来说，如果想要访问内容提供器中共享的数据，就一定要借助ContentResolve 类，可以通过 Context 中的 getContentResolver()方法获取到该类的实例。</p>
+<p>ContentResolver 中提供了一系列的方法用于对数据进行 CRUD 操作，其中 insert()方法用于添加数据，update()方法用于更新数据，delete()方法用于删除数据，query()方法用于查询数据。但不同于 SQLiteDatabase，ContentResolver 中的增删改查方法都是不接收表名参数的，而是使用一个 Uri 参数代替，这个参数被称为内容 URI。</p>
+<h4 id="2-url"><a href="#2-url" class="headerlink" title="2.url"></a>2.url</h4><p>内容 URI 给内容提供器中的数据建立了唯一标识符，它主要由两部分组成，权限（authority）和路径（path） 。权限是用于对不同的应用程序做区分的，一般为了避免冲突，都会采用程序包名的方式来进行命名。路径则是用于对同一应用程序中不同的表做区分的，通常都会添加到权限的后面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">url格式</span><br><span class="line">第一部分：content://相当于http://</span><br><span class="line">第二部分：com.eyy5.app.provider相当于vip.qiyikt.com</span><br><span class="line">第三部分：table1相当于forum</span><br><span class="line">例如：content://com.eyy5.app.provider/table1</span><br><span class="line">获取Uri对象：Uri uri = Uri.parse(&quot;content://com.eyy5.app.provider/table1&quot;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="存储数据的方法"><a href="#存储数据的方法" class="headerlink" title="存储数据的方法"></a>存储数据的方法</h3><h4 id="sharedpreferences"><a href="#sharedpreferences" class="headerlink" title="sharedpreferences"></a>sharedpreferences</h4><h5 id="sharedpreferences的概念"><a href="#sharedpreferences的概念" class="headerlink" title="sharedpreferences的概念"></a>sharedpreferences的概念</h5><ol>
+<li><p>保存基于XML文件存储的key-value键值对数据，通常用来存储一些简单的配置信息。通过DDMS的File Explorer面板，展开文件浏览树,很明显SharedPreferences数据总是存储在<code>/data/data/&lt;package name&gt;/shared_prefs</code>目录下。SharedPreferences对象本身只能获取数据而不支持存储和修改,存储修改是通过SharedPreferences.edit()获取的内部接口Editor对象实现。</p>
+</li>
+<li><p>SharedPreferences本身是一个接口，程序无法直接创建SharedPreferences实例，只能通过Context提供的getSharedPreferences(String name, int mode)方法来获取SharedPreferences实例，该方法中name表示要操作的xml文件名，第二个参数具体如下：<br>Context.MODE_PRIVATE: 指定该SharedPreferences数据只能被本应用程序读、写。<br>Context.MODE_WORLD_READABLE:  指定该SharedPreferences数据能被其他应用程序读，但不能写。<br>Context.MODE_WORLD_WRITEABLE:  指定该SharedPreferences数据能被其他应用程序读，写。</p>
+</li>
+<li><p>Editor有如下主要重要方法：<br>SharedPreferences.Editor clear():清空SharedPreferences里所有数据<br>SharedPreferences.Editor putXxx(String key , xxx value): 向SharedPreferences存入指定key对应的数据，其中xxx 可以是boolean,float,int等各种基本类型据<br>SharedPreferences.Editor remove(): 删除SharedPreferences中指定key对应的数据项<br>boolean commit(): 当Editor编辑完成后，使用该方法提交修改</p>
+</li>
+<li><p>SharedPreferences是以键值对来存储应用程序的配置信息的一种方式，它只能存储基本数据类型。一个程序的配置文件仅可以在本应用程序中使用，或者说只能在同一个包内使用，不能在不同的包之间使用。实际sharedPreferences是采用了XML格式将数据存储到设备中，在DDMS 中的File Explorer中的/data/data//shares_prefs下。</p>
+</li>
+<li><p>SharedPreferences对象与SQLite数据库相比，免去了创建数据库，创建表，写SQL语句等诸多操作，相对而言更加方便，简洁。但是SharedPreferences也有其自身缺陷，比如其只能存储boolean，int，float，long和String五种简单的数据类型，比如其无法进行条件查询等。所以不论SharedPreferences的数据存储操作是如何简单，它也只能是存储方式的一种补充，而无法完全替代如SQLite数据库这样的其他数据存储方式。</p>
+</li>
+<li><p>适用范围：保存少量的数据，且这些数据的格式非常简单：字符串型、基本类型的值。比如应用程序的各种配置信息（如是否打开音效、是否使用震动效果、小游戏的玩家积分等），解锁口令密码等。</p>
+</li>
+</ol>
+<h4 id="文件存储数据"><a href="#文件存储数据" class="headerlink" title="文件存储数据"></a>文件存储数据</h4><h5 id="文件存储概念"><a href="#文件存储概念" class="headerlink" title="文件存储概念"></a>文件存储概念</h5><p>文件存储是 Android 中最基本的一种数据存储方式，它不对存储的内容进行任何的格式化处理，所有数据都是原封不动地保存到文件当中的，因而它比较适合用于存储一些简单的文本数据或二进制数据。如果你想使用文件存储的方式来保存一些较为复杂的文本数据，就需要定义一套自己的格式规范，这样方便于之后将数据从文件中重新解析出来。</p>
+<p>除此之外，Context还提供了如下几个重要的方法：<br>getDir(String name , int mode):在应用程序的数据文件夹下获取或者创建name对应的子目录<br>File getFilesDir():获取该应用程序的数据文件夹的绝对路径<br>String[] fileList():返回该应用数据文件夹的全部文件    </p>
+<h5 id="文件存储数据的实现步骤"><a href="#文件存储数据的实现步骤" class="headerlink" title="文件存储数据的实现步骤"></a>文件存储数据的实现步骤</h5><p>Context 类中提供了一个 openFileOutput ()方法，可以用于将数据存储到指定的文件中。这个方法接收两个参数，第一个参数是文件名，在文件创建的时候使用的就是这个名称，注意这里指定的文件名不可以包含路径，因为所有的文件都是默认存储到<code>/data/data/&lt;packagename&gt;/files/</code> 目 录 下 的 。 第 二 个 参 数 是 文 件 的 操 作 模 式 ， 主 要 有 两 种 模 式 可 选 ，MODE_PRIVATE 和 MODE_APPEND。其中 MODE_PRIVATE 是默认的操作模式，表示当指定同样文件名的时候，所写入的内容将会覆盖原文件中的内容，而 MODE_APPEND 则表示如果该文件已存在就往文件里面追加内容，不存在就创建新文件。其实文件的操作模式本来还有另外两种，MODE_WORLD_READABLE 和 MODE_WORLD_WRITEABLE，这两种模式表示允许其他的应用程序对我们程序中的文件进行读写操作，不过由于这两种模式过于危险，很容易引起应用的安全性漏洞，现已在 Android 4.2 版本中被废弃。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,364 +251,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/10/03/%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E4%BB%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/02/APK%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2022-10-02T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/10/02/APK%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">APK基础</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/02/APK%E5%9F%BA%E7%A1%80/">APK基础</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/09/01/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8B%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-  	<time datetime="2022-09-01T02:16:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/09/01/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8B%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">java代码审计之学生管理系统</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/" class="archive-article-date">
-  	<time datetime="2022-08-18T07:43:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/18/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E4%B9%8Bbaijiacms/">php代码审计之baijiacms</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">php代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-17T03:20:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/17/jxc%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">jxc代码审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/16/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDarkHole/" class="archive-article-date">
-  	<time datetime="2022-08-16T03:21:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/16/%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%E4%B9%8BDarkHole/">靶机渗透之DarkHole</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">靶机渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/11/%E5%9B%A0%E9%85%B7%E6%95%99%E8%82%B2%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-11T05:35:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/11/%E5%9B%A0%E9%85%B7%E6%95%99%E8%82%B2%E5%AE%A1%E8%AE%A1/">因酷教育审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-10T03:22:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">OASYS代码审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-09T05:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/">若依CMS审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-08T05:25:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">ERP代码审计</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2022/page/2/">2</a><a class="page-number" href="/archives/2022/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/5/">5</a><a class="extend next" rel="next" href="/archives/2022/page/2/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -564,8 +373,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
