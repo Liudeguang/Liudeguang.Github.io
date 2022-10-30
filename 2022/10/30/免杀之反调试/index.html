@@ -6,15 +6,36 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://example.com">
-  <title>Archives: 2022 | Solkatt的小窝</title>
+  <title>免杀之反调试 | Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/archives/2022/page/6/index.html">
+  <meta name="description" content="反调试反调试的意义反调试技术，恶意代码用它识别是否被调试，或者让调试器失效。恶意代码编写者意识到分析人员经常使用调试器来观察恶意代码的操作，因此他们使用反调试技术尽可能地延长恶意代码的分析时间。为了阻止调试器的分析，当恶意代码意识到自己被调试时，它们可能改变正常的执行路径或者修改自身程序让自己崩溃，从而增加调试时间和复杂度。很多种反调试技术可以达到反调试效果。 反调试相关函数IsDebuggerP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="免杀之反调试">
+<meta property="og:url" content="https://example.com/2022/10/30/%E5%85%8D%E6%9D%80%E4%B9%8B%E5%8F%8D%E8%B0%83%E8%AF%95/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="反调试反调试的意义反调试技术，恶意代码用它识别是否被调试，或者让调试器失效。恶意代码编写者意识到分析人员经常使用调试器来观察恶意代码的操作，因此他们使用反调试技术尽可能地延长恶意代码的分析时间。为了阻止调试器的分析，当恶意代码意识到自己被调试时，它们可能改变正常的执行路径或者修改自身程序让自己崩溃，从而增加调试时间和复杂度。很多种反调试技术可以达到反调试效果。 反调试相关函数IsDebuggerP">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030134932179.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030135722934.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030140101608.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030140215849.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030140918860.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030141919465.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030142533101.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030143131130.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030143428587.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030145508438.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030145851200.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030150208316.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030151539004.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030151941214.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030152534715.png">
+<meta property="article:published_time" content="2022-10-30T05:43:35.000Z">
+<meta property="article:modified_time" content="2022-10-30T07:34:51.084Z">
 <meta property="article:author" content="Solkatt">
+<meta property="article:tag" content="萌新免杀的故事">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030134932179.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,36 +163,101 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-免杀之反调试" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-01-16T14:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/16/%E5%88%9D%E5%85%A5%E5%85%8D%E6%9D%80/">初入免杀</a>
+    <h1 class="article-title" itemprop="name">
+      免杀之反调试
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/10/30/%E5%85%8D%E6%9D%80%E4%B9%8B%E5%8F%8D%E8%B0%83%E8%AF%95/" class="archive-article-date">
+  	<time datetime="2022-10-30T05:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="反调试"><a href="#反调试" class="headerlink" title="反调试"></a>反调试</h1><h2 id="反调试的意义"><a href="#反调试的意义" class="headerlink" title="反调试的意义"></a>反调试的意义</h2><p><strong>反调试技术</strong>，恶意代码用它识别是否被调试，或者让调试器失效。恶意代码编写者意识到分析人员经常使用调试器来观察恶意代码的操作，因此他们使用反调试技术尽可能地延长恶意代码的分析时间。为了阻止调试器的分析，当恶意代码意识到自己被调试时，它们可能改变正常的执行路径或者修改自身程序让自己崩溃，从而增加调试时间和复杂度。很多种反调试技术可以达到反调试效果。</p>
+<h2 id="反调试相关函数"><a href="#反调试相关函数" class="headerlink" title="反调试相关函数"></a>反调试相关函数</h2><h3 id="IsDebuggerPresent"><a href="#IsDebuggerPresent" class="headerlink" title="IsDebuggerPresent()"></a>IsDebuggerPresent()</h3><p>这是恶意代码中使用最高的反调试函数，是在win32API里面的应用层函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">IsDebuggerPresent</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030134932179.png" alt="image-20221030134932179"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">BOOL <span class="title">CheckDebug</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">IsDebuggerPresent</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">CheckDebug</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">		<span class="comment">//exit(0);</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">		<span class="comment">//shellcodeloader();</span></span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>正如以上描述，如果存在调试的环境，就输出A，如果不是调试的环境，就会输出B。</p>
+<p>该函数原理：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030135722934.png" alt="image-20221030135722934"></p>
+<p>我们知道OD和其他动态调试器的原理都是通过附加到另一个进程上使用windows的debug机制去进行调试，而<code>IsDebuggerpresent</code>函数本来就是该debug机制的一个函数，它负责查看这个环节中函数返回的值是否为0用来判断是否是调试环境。</p>
+<p>效果展示：如果在vs中直接使用本地windows调试器方法去运行，便会出现a。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030140101608.png" alt="image-20221030140101608"></p>
+<p>而直接在命令行中去执行</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030140215849.png" alt="image-20221030140215849"></p>
+<h3 id="CheckRemoteDebuggerPresent"><a href="#CheckRemoteDebuggerPresent" class="headerlink" title="CheckRemoteDebuggerPresent()"></a>CheckRemoteDebuggerPresent()</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CheckRemoteDebuggerPresent</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]      HANDLE hProcess,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, out] PBOOL  pbDebuggerPresent</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br><span class="line">参数</span><br><span class="line">[in] hProcess</span><br><span class="line">进程的句柄。</span><br><span class="line">[in, out] pbDebuggerPresent</span><br><span class="line">如果正在调试指定的进程，则函数设置为 TRUE 的变量的指针，否则为 FALSE 。</span><br><span class="line">    </span><br><span class="line">返回值</span><br><span class="line">如果该函数成功，则返回值为非零值。</span><br><span class="line">如果函数失败，则返回值为零。 要获得更多的错误信息，请调用 GetLastError。</span><br></pre></td></tr></table></figure>
+
+<p>该函数不仅可以检测自己是否正在被debug，还可以检测其他任意句柄是否被debug。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CheckDebug1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	BOOL ret;<span class="comment">//定义了一个布尔类型的变量</span></span><br><span class="line">	<span class="built_in">CheckRemoteDebuggerPresent</span>(<span class="built_in">GetCurrentProcess</span>(), &amp;ret);<span class="comment">//变量就有地址，这个api函数就可以找到这个地址直接在地址里面写true还是false</span></span><br><span class="line">	<span class="keyword">return</span> ret;<span class="comment">//直接返回变量的值就是刚才修改的内容</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">CheckDebug1</span>())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它会把结果传输给一个布尔变量的指针，往这个地址里面直接写true或者false，用来判断是否是调试环境。</p>
+<p>效果展示：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030140918860.png" alt="image-20221030140918860"></p>
+<h3 id="NtQueryInformationProcess"><a href="#NtQueryInformationProcess" class="headerlink" title="NtQueryInformationProcess"></a>NtQueryInformationProcess</h3><p><code>NtQueryInformationProcess</code>是ntdll.dll里面的函数，所以要想调用这个函数，是比较麻烦的，需要<code>loadlibrary</code>加<code>getprocaddress</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__kernel_entry NTSTATUS <span class="title">NtQueryInformationProcess</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]            HANDLE           ProcessHandle,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]            PROCESSINFOCLASS ProcessInformationClass,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out]           PVOID            ProcessInformation,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]            ULONG            ProcessInformationLength,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out, optional] PULONG           ReturnLength</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/win32/api/winternl/nf-winternl-ntqueryinformationprocess">https://learn.microsoft.com/zh-cn/windows/win32/api/winternl/nf-winternl-ntqueryinformationprocess</a></p>
+<p>最关键的是参数中</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030141919465.png" alt="image-20221030141919465"></p>
+<p>用来检测是否是调试器环境。（如果是非0的值，就表示有一个调试器。）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">NtQueryInformationProcessApproach</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> debugPort = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    HMODULE hModule = <span class="built_in">LoadLibrary</span>(<span class="built_in">TEXT</span>(<span class="string">&quot;Ntdll.dll &quot;</span>));</span><br><span class="line"></span><br><span class="line">    NtQueryInformationProcessPtr NtQueryInformationProcess = (NtQueryInformationProcessPtr)<span class="built_in">GetProcAddress</span>(hModule, <span class="string">&quot;NtQueryInformationProcess&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">NtQueryInformationProcess</span>(<span class="built_in">GetCurrentProcess</span>(), (PROCESSINFOCLASS)<span class="number">7</span>, &amp;debugPort, <span class="built_in"><span class="keyword">sizeof</span></span>(debugPort), <span class="literal">NULL</span>)) </span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[ERROR NtQueryInformationProcessApproach] NtQueryInformationProcess failed\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> debugPort == <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">NtQueryInformationProcessApproach</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>大致的意义就是将这个函数里面的值取出来放在定义的<code>debugPort</code>变量中。用来检测是否是调试器环境。</p>
+<p>效果展示：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030142533101.png" alt="image-20221030142533101"></p>
+<h3 id="运用调试器的异常接管来判断"><a href="#运用调试器的异常接管来判断" class="headerlink" title="运用调试器的异常接管来判断"></a>运用调试器的异常接管来判断</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030143131130.png" alt="image-20221030143131130"></p>
+<p>当没有调试器的时候，我们关闭一个不存在的进程，错误会自动交给windows操作系统，但是如果在有调试器的情况下，当系统报错时，会将报错交给调试器。同时这个就是调试器的原理，OD的普通断点就是使用int3报错的方式来下的断点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">BOOL <span class="title">CheckDebug</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DWORD ret = <span class="built_in">CloseHandle</span>((HANDLE)<span class="number">0x1234</span>);</span><br><span class="line">    <span class="comment">//SetLastError</span></span><br><span class="line">    <span class="keyword">if</span> (ret != <span class="number">0</span> || <span class="built_in">GetLastError</span>() != ERROR_INVALID_HANDLE)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CheckDebug</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030143428587.png" alt="image-20221030143428587"></p>
+<h3 id="内核级调试的反调试"><a href="#内核级调试的反调试" class="headerlink" title="内核级调试的反调试"></a>内核级调试的反调试</h3><p>不同于OD等，windbg是内核级调试器。这种内核级调试器同样有内核级的反调试手段。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;kernelmode_antidbg.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;connector.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> KUSER_SHARED_VA 0x7FFE0000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> KUSER_SHARED_SIZE 0x3B8</span></span><br><span class="line"> <span class="comment">//_KUSER_SHARED_DATA</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">is_kuser_shared_mapped</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">IsBadReadPtr</span>((BYTE*)KUSER_SHARED_VA, KUSER_SHARED_SIZE)) &#123;</span><br><span class="line">            std::cerr &lt;&lt; <span class="string">&quot;KDB: Failed to retrieve KUSER_SHARED_DATA\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// from Hidden Bee malware:</span></span><br><span class="line">    <span class="function">t_kdb_mode <span class="title">is_kernelmode_dbg_enabled</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> ULONGLONG KdDebuggerEnable_offset = <span class="number">0x2d4</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">is_kuser_shared_mapped</span>()) &#123;</span><br><span class="line">            <span class="keyword">return</span> KDB_UNKNOWN;</span><br><span class="line">        &#125;</span><br><span class="line">        BYTE* KdDebuggerEnable = (BYTE*)(KUSER_SHARED_VA + KdDebuggerEnable_offset);</span><br><span class="line">       </span><br><span class="line">        <span class="keyword">if</span> (*KdDebuggerEnable) &#123;</span><br><span class="line">            <span class="keyword">if</span> (*KdDebuggerEnable == <span class="number">3</span>) &#123;</span><br><span class="line">                std::cout &lt;&lt; <span class="string">&quot;KDB: Remote enabled!\n&quot;</span>;</span><br><span class="line">                <span class="comment">//windbg双机调试 一台虚拟机作为被调试的对象 一台机器作为调试结果查看的机器</span></span><br><span class="line">                <span class="keyword">return</span> KDB_REMOTE_ENABLED;</span><br><span class="line">            &#125;</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;KDB: Local enabled!\n&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span> KDB_LOCAL_ENABLED;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;KDB: Disabled\n&quot;</span>;</span><br><span class="line">        <span class="keyword">return</span> KDB_DISABLED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>原理：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030145508438.png" alt="image-20221030145508438"></p>
+<p>在32位下，KUSER_SHARED_VA 0x7FFE0000这段内存是一个内核层和用户层都能访问的内存段。而在偏移量2d4这个位置，也就是0x7FFE02d4这个位置，会有一个关于是否是内核级调试器的标志位，这就是问题的关键，通过这个标志位置，可以知道是否是在调试环境中。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030145851200.png" alt="image-20221030145851200"></p>
+<p>因为没有用windbg，所以可以检测出来是disabled的。</p>
+<h3 id="进程名称查看是否在调试环境"><a href="#进程名称查看是否在调试环境" class="headerlink" title="进程名称查看是否在调试环境"></a>进程名称查看是否在调试环境</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tlhelp32.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;winternl.h&gt;</span></span></span><br><span class="line"><span class="function">BOOL <span class="title">CheckDebug</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DWORD ID;</span><br><span class="line">    DWORD ret = <span class="number">0</span>;</span><br><span class="line">    PROCESSENTRY32 pe32;</span><br><span class="line">    pe32.dwSize = <span class="built_in"><span class="keyword">sizeof</span></span>(pe32);</span><br><span class="line">    HANDLE hProcessSnap = <span class="built_in">CreateToolhelp32Snapshot</span>(TH32CS_SNAPPROCESS, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (hProcessSnap == INVALID_HANDLE_VALUE)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    BOOL bMore = <span class="built_in">Process32First</span>(hProcessSnap, &amp;pe32);</span><br><span class="line">    <span class="keyword">while</span> (bMore)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_stricmp(pe32.szExeFile, <span class="string">&quot;OllyDBG.EXE&quot;</span>) == <span class="number">0</span> || _stricmp(pe32.szExeFile, <span class="string">&quot;OllyICE.exe&quot;</span>) == <span class="number">0</span> || _stricmp(pe32.szExeFile, <span class="string">&quot;x64_dbg.exe&quot;</span>) == <span class="number">0</span> || _stricmp(pe32.szExeFile, <span class="string">&quot;windbg.exe&quot;</span>) == <span class="number">0</span> || _stricmp(pe32.szExeFile, <span class="string">&quot;ImmunityDebugger.exe&quot;</span>) == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> TRUE;</span><br><span class="line">        &#125;</span><br><span class="line">        bMore = <span class="built_in">Process32Next</span>(hProcessSnap, &amp;pe32);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">CloseHandle</span>(hProcessSnap);</span><br><span class="line">    <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CheckDebug</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个很明显，就是比对一下任务管理器中有不有进程名字与这几个调试器的名字相同。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030150208316.png" alt="image-20221030150208316"></p>
+<h3 id="GetTickCount"><a href="#GetTickCount" class="headerlink" title="GetTickCount"></a>GetTickCount</h3><p>这个也是逻辑上的检测方式，执行三条指令，看程序的执行时间来看是不是调试环境。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">BOOL <span class="title">CheckDebug</span><span class="params">()</span><span class="comment">//就到这里来了</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    DWORD time1 = <span class="built_in">GetTickCount</span>();</span><br><span class="line">    __asm</span><br><span class="line">    &#123;</span><br><span class="line">        mov     ecx, <span class="number">10</span></span><br><span class="line">        mov     edx, <span class="number">6</span></span><br><span class="line">        mov     ecx, <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">    DWORD time2 = <span class="built_in">GetTickCount</span>();</span><br><span class="line">    <span class="keyword">if</span> (time2 - time1 &gt; <span class="number">0xA</span>)</span><br><span class="line">                           </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> <span class="comment">//入口点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CheckDebug</span>())<span class="comment">//肯定是这个</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030151539004.png" alt="image-20221030151539004"></p>
+<h3 id="TLS加载器"><a href="#TLS加载器" class="headerlink" title="TLS加载器"></a>TLS加载器</h3><p>TLS就是在运行主函数之前，就运行一段程序的机制。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span>  </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> NTAPI __stdcall <span class="title">TLS_CALLBACK1</span><span class="params">(PVOID DllHandle, DWORD dwReason, PVOID Reserved)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _M_IX86  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">&quot;/INCLUDE:__tls_used&quot;</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">&quot;/INCLUDE:__tls_callback&quot;</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">&quot;/INCLUDE:_tls_used&quot;</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">&quot;/INCLUDE:_tls_callback&quot;</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span>  </span></span><br><span class="line">EXTERN_C</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _M_X64  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> const_seg (<span class="meta-string">&quot;.CRT$XLB&quot;</span>)  </span></span><br><span class="line"><span class="keyword">const</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg (<span class="meta-string">&quot;.CRT$XLB&quot;</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span>  </span></span><br><span class="line"></span><br><span class="line">PIMAGE_TLS_CALLBACK _tls_callback[] = &#123; TLS_CALLBACK1,<span class="number">0</span> &#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg ()  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> const_seg ()  </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span>  </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> NTAPI __stdcall <span class="title">TLS_CALLBACK1</span><span class="params">(PVOID DllHandle, DWORD Reason, PVOID Reserved)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">IsDebuggerPresent</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">MessageBox</span>(<span class="literal">NULL</span>,<span class="string">&quot;aaaaaaaa&quot;</span>,<span class="string">&quot;bbbbbbbb&quot;</span>,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;233\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>即在程序运行main前就会报异常</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030151941214.png" alt="image-20221030151941214"></p>
+<h3 id="自动下断点"><a href="#自动下断点" class="headerlink" title="自动下断点"></a>自动下断点</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function">BOOL <span class="title">CheckDebug</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    __try</span><br><span class="line">    &#123;</span><br><span class="line">        __asm <span class="keyword">int</span> <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">    __except (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">CheckDebug</span>())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它使用汇编语言自动写一个int3断点，如果你在调试器环境，那么就会被调试器接管，如果说你用od去调试他，就会发现他会退出，如果是正常环境就不管。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20221030152534715.png" alt="image-20221030152534715"></p>
+<h2 id="补充项目"><a href="#补充项目" class="headerlink" title="补充项目"></a>补充项目</h2><p><a target="_blank" rel="noopener" href="https://github.com/MrH1TM4N86/Al-Khaser-Master">https://github.com/MrH1TM4N86/Al-Khaser-Master</a></p>
+<p>这个项目里面包含了各种各样的反调试手段和代码，可以用于借鉴。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -183,60 +269,105 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/10/30/%E5%85%8D%E6%9D%80%E4%B9%8B%E5%8F%8D%E8%B0%83%E8%AF%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/" class="archive-article-date">
-  	<time datetime="2022-01-11T14:54:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-01-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/10/19/Burpsuit%E9%9D%B6%E5%9C%BA%E7%BB%83%E4%B9%A0%E4%B9%8Bsql%E6%B3%A8%E5%85%A5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Burpsuit靶场练习之sql注入</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/01/11/ctf%E5%AF%86%E7%A0%81%E5%AD%A6/">ctf密码学</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2022/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2022/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/4/">4</a><a class="page-number" href="/archives/2022/page/5/">5</a><span class="page-number current">6</span>
-    </nav>
+  
+
   
 
 
@@ -260,8 +391,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
