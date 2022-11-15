@@ -144,6 +144,244 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Syscall" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/06/14/Syscall/">Syscall</a>
+    </h1>
+  
+
+        
+        <a href="/2022/06/14/Syscall/" class="archive-article-date">
+  	<time datetime="2022-06-14T08:30:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="syscall"><a href="#syscall" class="headerlink" title="syscall"></a>syscall</h1><h2 id="syscall基础概念"><a href="#syscall基础概念" class="headerlink" title="syscall基础概念"></a>syscall基础概念</h2><p>Windows下有两种处理器访问模式：用户模式(User mode)和内核模式(Kernel mode)。</p>
+<p>用户模式下运行应用程序时，Windows会为该程序创建一个新进程，提供一个私有虚拟地址空间和一个私有句柄表，因为私有，一个应用程序无法修改另一个应用程序的私有虚拟地址空间的数据。</p>
+<p>内核模式下，所有运行的代码都共享一个虚拟地址空间，因此内核中驱动程序可能还会因为写入错误的地址空间导致其他驱动程序甚至系统出现错误。</p>
+<p>内核中包含了大部分操作系统的内部数据结构，所以用户模式下的应用程序在访问这些数据结构或调用内部windows例程以执行特权操作的时候，必须先从用户模式切换到内核模式，这里就涉及到了系统调用。 </p>
+<p>x86 windows使用<code>SYSENTER</code>实现系统调用</p>
+<p>x64 windows使用<code>syscall</code>实现系统调用</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/06/14/Syscall/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-浅谈PE结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/">浅谈PE结构</a>
+    </h1>
+  
+
+        
+        <a href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/" class="archive-article-date">
+  	<time datetime="2022-05-11T06:41:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是PE结构"><a href="#什么是PE结构" class="headerlink" title="什么是PE结构"></a>什么是PE结构</h1><p>PE结构是Windows操作系统下标准的可执行文件的头格式</p>
+<p>当你用二进制的编辑器(如010editor)打开一个exe文件，就会发现这里面有PE结构，其中包括但不限于<code>DOS头</code>，<code>NT头</code>,<code>可选NT头</code>，<code>节头</code>。</p>
+        
+          <a class="article-more-a" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ShellCode上线分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/">ShellCode上线分析</a>
+    </h1>
+  
+
+        
+        <a href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2022-05-01T04:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="杀毒软件对文件危险的判定等级"><a href="#杀毒软件对文件危险的判定等级" class="headerlink" title="杀毒软件对文件危险的判定等级"></a>杀毒软件对文件危险的判定等级</h1><p>从文件落地到磁盘上开始，杀毒软件就已经对落地文件进行了扫描与检测，这里我们需要知道杀毒软件对文件危险系数的判定等级。</p>
+<p>1.无害</p>
+<p>无害等级，没有任何问题。杀毒软件从此不会管你。</p>
+<p>2.可疑</p>
+<p>如果确定文件为可疑等级，那么杀毒软件会持续监控软件的行为特征。</p>
+<p>3.确认病毒</p>
+<p>如果确定文件为病毒，那么杀毒软件就会直接把文件刀掉。</p>
+        
+          <a class="article-more-a" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-使用windowsapi调用注册表操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -821,219 +1059,9 @@
 
 
   
-    <article id="post-域林渗透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">域林渗透</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/" class="archive-article-date">
-  	<time datetime="2022-03-06T09:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="域林渗透基础知识"><a href="#域林渗透基础知识" class="headerlink" title="域林渗透基础知识"></a>域林渗透基础知识</h1><h2 id="什么是windows域"><a href="#什么是windows域" class="headerlink" title="什么是windows域"></a>什么是windows域</h2><p>一个通俗的例子：假设有⼀堆图书，没⼈管理，⼀个班的同学能够随意借阅这些书。由于缺乏管理，图书可能会遇到各种各样的问题，⽐如图书破损、丢失等等。为了解决这个问题，班上设⽴⼀个图书管理员，他负责分配、管理这些图书，任何想借书的⼈都需要向他申请。类⽐这个例⼦，⼀个集体拥有⼀些计算机资源，如果没有⼀个统⼀的管 理系统，每个⼈都能随意操作这些计算机，就会使运维的成本变⾼，为了解决这个问题，我们也可以像管理图书⼀ 样设⽴⼀个管理员，由它来统⼀管理计算机。那么这套体系可以称为⼀个域，域控制器就充当了管理员的⻆⾊，任何加⼊域的计算机都需要服从管理员的管理。</p>
-        
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%9E%97%E6%B8%97%E9%80%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-域渗透-pth与委派攻击" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">域渗透--pth与委派攻击</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/" class="archive-article-date">
-  	<time datetime="2022-03-06T07:20:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="PTH与PTT攻击"><a href="#PTH与PTT攻击" class="headerlink" title="PTH与PTT攻击"></a>PTH与PTT攻击</h1><h2 id="PTH攻击"><a href="#PTH攻击" class="headerlink" title="PTH攻击"></a>PTH攻击</h2><p>只能是域管理组内的用户的hash可以进行hash传递攻击。</p>
-<p>前提条件：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.域内任何一台主机的本地管理员权限。</span><br><span class="line">2.域管理员的NTLM-hash</span><br></pre></td></tr></table></figure>
-
-<p>在域环境中，当我们获得了域管理员组内用户的NTLM哈希值，我们可以使用域内的一台主机用<code>mimikatz</code>对域内的任何一台机器(包括域控)进行哈希传递攻击。执行完命令后，会弹出CMD窗口，在弹出的CMD窗口我们可以访问域内任何一台机器。</p>
-        
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/06/%E5%9F%9F%E6%B8%97%E9%80%8F-pth%E4%B8%8E%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-elitecms代码审计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">elitecms代码审计</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="archive-article-date">
-  	<time datetime="2022-03-03T11:09:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>在cnvd随意找到了一个漏洞列表里有这个cms，所以就下下来看了看，而且发现该cms貌似很老了，适合我这种菜逼，并且看了一下网上没有相关的审计（应该是太简单了）所以才审计一下（就当是我自己的处女作吧），提升自己。</p>
-        
-          <a class="article-more-a" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">php代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/03/elitecms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1174,6 +1202,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">web安全的杂杂念</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">解析Windwos系统</a>
               </li>
             
             <div class="clearfix"></div>
